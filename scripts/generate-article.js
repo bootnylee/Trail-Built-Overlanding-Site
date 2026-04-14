@@ -17,7 +17,7 @@ const https = require('https');
 
 // ── Config ──────────────────────────────────────────────────────────────────
 
-const ASSOCIATE_TAG = process.env.AMAZON_ASSOCIATE_TAG || 'YOUR-ASSOCIATE-TAG';
+const ASSOCIATE_TAG = process.env.AMAZON_ASSOCIATE_TAG || 'trailbuiltove-20';
 const GROQ_API_KEY  = process.env.GROQ_API_KEY;
 const GROQ_MODEL    = 'llama-3.3-70b-versatile';
 
