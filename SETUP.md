@@ -8,7 +8,7 @@ Complete setup takes about 20 minutes and costs $0/month.
 
 1. Go to **affiliate-program.amazon.com** and sign up
 2. Once approved, your Associate tag looks like: `yourname-20`
-3. Find/replace `YOUR-ASSOCIATE-TAG` in all HTML files with your actual tag
+3. Find/replace `trailbuiltove-20` in all HTML files with your actual tag
 
 ---
 
