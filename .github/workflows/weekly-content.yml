@@ -1,0 +1,61 @@
+name: Weekly AI Content + Deploy
+
+on:
+  # Runs every Monday at 9am UTC
+  schedule:
+    - cron: '0 9 * * 1'
+  # Also allows manual trigger from GitHub Actions tab
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: 'Article topic (optional — leave blank to auto-pick)'
+        required: false
+        default: ''
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  generate-and-deploy:
+    runs-on: ubuntu-latest
+    # Required so GITHUB_TOKEN can push commits (otherwise push returns 403).
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+
+      - name: Generate new article
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          AMAZON_ASSOCIATE_TAG: ${{ secrets.AMAZON_ASSOCIATE_TAG }}
+        run: |
+          TOPIC="${{ github.event.inputs.topic }}"
+          if [ -n "$TOPIC" ]; then
+            node scripts/generate-article.js --topic "$TOPIC"
+          else
+            node scripts/generate-article.js
+          fi
+
+      - name: Commit new article
+        run: |
+          git config user.name  "Trail Built Bot"
+          git config user.email "bot@trailbuilt.com"
+          git add articles/ index.html sitemap.xml
+          git diff --cached --quiet || git commit -m "chore: auto-publish new article $(date +%Y-%m-%d)"
+
+      - name: Push changes
+        run: git push origin main
+
+      # Netlify auto-deploys from main — nothing else needed.
+      # If you prefer to trigger manually, add a Netlify build hook here:
+      # - name: Trigger Netlify deploy
+      #   run: curl -X POST ${{ secrets.NETLIFY_BUILD_HOOK }}
