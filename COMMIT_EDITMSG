@@ -1,0 +1,13 @@
+Fix mismatched & duplicate images site-wide
+
+- Tacoma article: replace 4Runner photo with verified Toyota pickup
+  truck image (photo-1571965287392) across header bg, hero, OG/Twitter tags
+- Best Gear Right Now: fix 3 duplicate images
+  - WARN winch + winches review card → Jeep with winch photo
+  - MaxTrax recovery boards → mud recovery scene
+  - Dometic CFX3 35 fridge → camp power/solar scene
+- Shop by Category: replace all 8 emoji placeholders with real
+  Unsplash photos (recovery, camp, lighting, power, nav, tools,
+  suspension, bumpers) + add CSS for .cat-icon img display
+
+Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
