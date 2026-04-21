@@ -1,0 +1,14 @@
+Add real overlanding photos and fix all Amazon product links
+
+- Replace all emoji placeholders with verified Unsplash photos across
+  index, 10 articles, and 8 category pages
+- Homepage hero now shows real overlanding vehicle on trail
+- Each article header gets a full-bleed scene background matching topic
+  (4Runner, Bronco, Tacoma, Jeep, recovery scene, light bar, RTT, etc.)
+- All product-box-icon and product-icon emojis replaced with photos
+- Fix ~70 Amazon search links to direct /dp/ASIN product links
+- Correct wrong ASINs on homepage (Dometic CFX3 55, Goal Zero Yeti 1000X)
+- Update pricing to current market rates
+- CSS: larger product image containers, hover zoom on cards
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
