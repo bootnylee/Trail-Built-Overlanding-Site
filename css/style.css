@@ -653,7 +653,8 @@ footer {
 
 .sidebar-product { display: flex; gap: 12px; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
 .sidebar-product:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-.sidebar-product .icon { font-size: 1.5rem; flex-shrink: 0; }
+.sidebar-product .icon { font-size: 1.5rem; flex-shrink: 0; width: 48px; height: 48px; overflow: hidden; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+.sidebar-product .icon img { width: 48px; height: 48px; object-fit: cover; border-radius: 6px; display: block; flex-shrink: 0; }
 .sidebar-product h5 { font-size: 0.85rem; font-weight: 600; margin-bottom: 2px; }
 .sidebar-product h5 a { color: var(--text); }
 .sidebar-product h5 a:hover { color: var(--accent); }
