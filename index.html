@@ -16,7 +16,11 @@
   <meta name="twitter:title" content="Trail Built — Overlanding Gear Reviews &amp; Build Guides" />
   <meta name="twitter:description" content="Expert overlanding gear reviews, off-road vehicle build guides, and recovery gear recommendations." />
   <meta name="twitter:image" content="https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=1200&q=80" />
+  <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://trailbuiltoverland.com/" />
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+  <link rel="icon" type="image/png" href="images/favicon.png" sizes="32x32" />
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
   <link rel="stylesheet" href="css/style.css" />
   <script type="application/ld+json">
   {
@@ -53,13 +57,17 @@
 <header>
   <div class="container header-inner">
     <a href="index.html" class="logo">Trail<span>Built</span></a>
+    <div class="header-search">
+      <input type="search" id="site-search" placeholder="Search gear, builds..." aria-label="Search site" autocomplete="off" />
+      <div id="search-results" class="search-dropdown" aria-live="polite"></div>
+    </div>
     <nav>
       <a href="index.html" class="active">Home</a>
-      <a href="#reviews">Reviews</a>
-      <a href="#guides">Build Guides</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="build-guides.html">Build Guides</a>
       <a href="#gear">Top Gear</a>
       <a href="#categories">Categories</a>
-      <a href="#gear" class="header-cta btn">Best Picks</a>
+      <a href="categories/recovery-gear.html" class="header-cta btn">Best Picks</a>
     </nav>
     <button class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
   </div>
@@ -131,7 +139,7 @@
         <div class="section-tag">Latest</div>
         <h2>Gear Reviews &amp; Comparisons</h2>
       </div>
-      <a href="#reviews" class="see-all">All Reviews &rarr;</a>
+      <a href="reviews.html" class="see-all">All Reviews &rarr;</a>
     </div>
 
     <div class="grid-3">
@@ -295,7 +303,7 @@
         <div class="section-tag">Guides</div>
         <h2>Vehicle Build Guides</h2>
       </div>
-      <a href="#guides" class="see-all">All Guides &rarr;</a>
+      <a href="build-guides.html" class="see-all">All Guides &rarr;</a>
     </div>
 
     <div class="grid-2">
@@ -421,6 +429,26 @@
   </div>
 </section>
 
+<!-- ===== NEWSLETTER ===== -->
+<section class="newsletter-section">
+  <div class="container">
+    <div class="newsletter-inner">
+      <div class="newsletter-text">
+        <div class="section-tag">Free Resource</div>
+        <h2>Get the TrailBuilt Gear Checklist</h2>
+        <p>Our complete overlanding packing list — 87 items across recovery, camp, navigation, and safety. Free when you join 12,000+ overlanders on our weekly newsletter.</p>
+      </div>
+      <form class="newsletter-form" action="#" method="post" onsubmit="handleNewsletterSubmit(event)">
+        <div class="newsletter-fields">
+          <input type="email" name="email" placeholder="your@email.com" required aria-label="Email address" />
+          <button type="submit" class="btn btn-primary">Get the Checklist &#8594;</button>
+        </div>
+        <p class="newsletter-fine">No spam. Unsubscribe anytime. We never sell your data.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
 <!-- ===== FOOTER ===== -->
 <footer>
   <div class="container">
@@ -440,6 +468,7 @@
         <a href="articles/best-overlanding-fridges.html">Fridges &amp; Coolers</a>
         <a href="articles/best-overlanding-winches.html">Winches</a>
         <a href="categories/navigation.html">Navigation</a>
+        <a href="reviews.html">All Reviews &rarr;</a>
       </div>
       <div class="footer-col">
         <h4>Build Guides</h4>
@@ -458,6 +487,14 @@
         <a href="about.html#affiliate">Affiliate Disclosure</a>
         <a href="sitemap.xml">Sitemap</a>
       </div>
+      <div class="footer-social">
+        <h4>Follow Along</h4>
+        <div class="social-links">
+          <a href="https://www.instagram.com/trailbuiltoverland" rel="noopener" target="_blank" aria-label="Instagram">&#x1F4F7; Instagram</a>
+          <a href="https://www.youtube.com/@trailbuiltoverland" rel="noopener" target="_blank" aria-label="YouTube">&#x25B6; YouTube</a>
+          <a href="https://www.pinterest.com/trailbuiltoverland" rel="noopener" target="_blank" aria-label="Pinterest">&#x1F4CC; Pinterest</a>
+        </div>
+      </div>
     </div>
     <div class="footer-bottom">
       <p>&copy; 2026 Trail Built. All rights reserved.</p>
@@ -466,6 +503,7 @@
   </div>
 </footer>
 
+<button id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">&#8679;</button>
 <script src="js/main.js"></script>
 </body>
 </html>

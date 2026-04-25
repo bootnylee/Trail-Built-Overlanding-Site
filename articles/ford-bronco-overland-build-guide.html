@@ -67,13 +67,17 @@
 <header>
   <div class="container header-inner">
     <a href="../index.html" class="logo">Trail<span>Built</span></a>
+    <div class="header-search">
+      <input type="search" id="site-search" placeholder="Search gear, builds..." aria-label="Search site" autocomplete="off" />
+      <div id="search-results" class="search-dropdown" aria-live="polite"></div>
+    </div>
     <nav>
       <a href="../index.html">Home</a>
-      <a href="../index.html#reviews">Reviews</a>
+      <a href="../reviews.html">Reviews</a>
       <a href="../index.html#guides" class="active">Build Guides</a>
       <a href="../index.html#gear">Top Gear</a>
       <a href="../index.html#categories">Categories</a>
-      <a href="../index.html#gear" class="header-cta btn">Best Picks</a>
+      <a href="../categories/recovery-gear.html" class="header-cta btn">Best Picks</a>
     </nav>
     <button class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
   </div>
@@ -513,6 +517,13 @@
       <h3>What is the best Bronco trim for overlanding?</h3>
       <p>The <strong>Badlands with the Sasquatch package</strong> is the best value overland trim. You get the Bilstein position-sensitive dampers, the front and rear electronic locking differentials, the front sway bar disconnect, 35" factory tires, and the full GOAT modes suite. The Outer Banks and Wildtrak are mid-range trims that can be made capable with aftermarket additions, but starting with Sasquatch lockers from the factory is a meaningful advantage that's hard to replicate affordably in the aftermarket. The Everest trim adds more content but at a significant price premium that could fund several build upgrades instead.</p>
 
+    <div class="share-bar">
+        <span>Share this guide:</span>
+        <button class="share-btn share-btn-twitter" onclick="shareArticle('twitter')"></article>#x1D54F; Twitter</button>
+        <button class="share-btn share-btn-facebook" onclick="shareArticle('facebook')"></article>#x1F426; Facebook</button>
+        <button class="share-btn share-btn-pinterest" onclick="shareArticle('pinterest')"></article>#x1F4CC; Pinterest</button>
+        <button class="share-btn" data-share="copy" onclick="shareArticle('copy')"></article>#x1F517; Copy Link</button>
+      </div>
     </article>
 
     <!-- Sidebar -->
@@ -614,20 +625,20 @@
         <a href="best-overlanding-recovery-gear.html">Recovery Gear</a>
         <a href="best-off-road-light-bars.html">Light Bars</a>
         <a href="rooftop-tent-buying-guide.html">Rooftop Tents</a>
-        <a href="#">Winches</a>
+        <a href="../articles/best-overlanding-winches.html">Winches</a>
       </div>
       <div class="footer-col">
         <h4>Build Guides</h4>
         <a href="4runner-5th-gen-overland-build-guide.html">Toyota 4Runner</a>
         <a href="ford-bronco-overland-build-guide.html">Ford Bronco</a>
-        <a href="#">Jeep Wrangler</a>
-        <a href="#">Toyota Tacoma</a>
+        <a href="../articles/jeep-wrangler-overland-build-guide.html">Jeep Wrangler</a>
+        <a href="../articles/toyota-tacoma-overland-build-guide.html">Toyota Tacoma</a>
       </div>
       <div class="footer-col">
         <h4>Site</h4>
-        <a href="#">About</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Affiliate Disclosure</a>
+        <a href="../about.html">About</a>
+        <a href="../about.html#privacy">Privacy Policy</a>
+        <a href="../about.html#affiliate">Affiliate Disclosure</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -636,6 +647,7 @@
   </div>
 </footer>
 
+<button id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">&#8679;</button>
 <script src="../js/main.js"></script>
 </body>
 </html>

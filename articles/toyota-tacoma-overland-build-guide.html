@@ -67,13 +67,17 @@
 <header>
   <div class="container header-inner">
     <a href="../index.html" class="logo">Trail<span>Built</span></a>
+    <div class="header-search">
+      <input type="search" id="site-search" placeholder="Search gear, builds..." aria-label="Search site" autocomplete="off" />
+      <div id="search-results" class="search-dropdown" aria-live="polite"></div>
+    </div>
     <nav>
       <a href="../index.html">Home</a>
-      <a href="../index.html#reviews">Reviews</a>
+      <a href="../reviews.html">Reviews</a>
       <a href="../index.html#guides" class="active">Build Guides</a>
       <a href="../index.html#gear">Top Gear</a>
       <a href="../index.html#categories">Categories</a>
-      <a href="../index.html#gear" class="header-cta btn">Best Picks</a>
+      <a href="../categories/recovery-gear.html" class="header-cta btn">Best Picks</a>
     </nav>
     <button class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
   </div>
@@ -380,6 +384,13 @@
       <h3>Does the Tacoma need a locker for overlanding?</h3>
       <p>Not for moderate terrain — trail camping, forest roads, and most 4WD tracks don't require a locker. The Tacoma's traction control does a reasonable job of mimicking a locker in mild conditions. However, once you're pursuing technical terrain (rock crawling, deep mud, steep climbs), a locker makes a profound difference. The factory rear locker on TRD trims is excellent. If you don't have it from the factory and you're building for serious off-road use, an ARB rear air locker is one of the most impactful modifications you can make.</p>
 
+    <div class="share-bar">
+        <span>Share this guide:</span>
+        <button class="share-btn share-btn-twitter" onclick="shareArticle('twitter')"></article>#x1D54F; Twitter</button>
+        <button class="share-btn share-btn-facebook" onclick="shareArticle('facebook')"></article>#x1F426; Facebook</button>
+        <button class="share-btn share-btn-pinterest" onclick="shareArticle('pinterest')"></article>#x1F4CC; Pinterest</button>
+        <button class="share-btn" data-share="copy" onclick="shareArticle('copy')"></article>#x1F517; Copy Link</button>
+      </div>
     </article>
 
     <!-- Sidebar -->
@@ -460,20 +471,20 @@
         <a href="best-overlanding-recovery-gear.html">Recovery Gear</a>
         <a href="best-off-road-light-bars.html">Light Bars</a>
         <a href="rooftop-tent-buying-guide.html">Rooftop Tents</a>
-        <a href="#">Winches</a>
+        <a href="../articles/best-overlanding-winches.html">Winches</a>
       </div>
       <div class="footer-col">
         <h4>Build Guides</h4>
-        <a href="#">Toyota 4Runner</a>
-        <a href="#">Ford Bronco</a>
+        <a href="../articles/4runner-5th-gen-overland-build-guide.html">Toyota 4Runner</a>
+        <a href="../articles/ford-bronco-overland-build-guide.html">Ford Bronco</a>
         <a href="jeep-wrangler-overland-build-guide.html">Jeep Wrangler</a>
-        <a href="#">Toyota Tacoma</a>
+        <a href="../articles/toyota-tacoma-overland-build-guide.html">Toyota Tacoma</a>
       </div>
       <div class="footer-col">
         <h4>Site</h4>
-        <a href="#">About</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Affiliate Disclosure</a>
+        <a href="../about.html">About</a>
+        <a href="../about.html#privacy">Privacy Policy</a>
+        <a href="../about.html#affiliate">Affiliate Disclosure</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -482,6 +493,7 @@
   </div>
 </footer>
 
+<button id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">&#8679;</button>
 <script src="../js/main.js"></script>
 </body>
 </html>

@@ -195,7 +195,12 @@ function buildHTML({ slug, title, description, topic, bodyHTML, date, dateHuman 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(description)}" />
-  <link rel="canonical" href="https://trailbuilt.com/articles/${slug}.html" />
+  <link rel="canonical" href="https://trailbuiltoverland.com/articles/${slug}.html" />
+  <meta property="og:url" content="https://trailbuiltoverland.com/articles/${slug}.html" />
+  <meta property="og:type" content="article" />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/svg+xml" href="../images/favicon.svg" />
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
   <link rel="stylesheet" href="../css/style.css" />
   <script type="application/ld+json">
   {
@@ -205,8 +210,26 @@ function buildHTML({ slug, title, description, topic, bodyHTML, date, dateHuman 
     "description": "${escapeHtml(description)}",
     "datePublished": "${date}",
     "dateModified": "${date}",
+    "url": "https://trailbuiltoverland.com/articles/${slug}.html",
     "author": { "@type": "Person", "name": "Trail Built Staff" },
-    "publisher": { "@type": "Organization", "name": "Trail Built" }
+    "publisher": {
+      "@type": "Organization",
+      "name": "Trail Built",
+      "url": "https://trailbuiltoverland.com",
+      "logo": { "@type": "ImageObject", "url": "https://trailbuiltoverland.com/images/favicon.svg" }
+    },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://trailbuiltoverland.com/articles/${slug}.html" }
+  }
+  <\/script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://trailbuiltoverland.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Reviews", "item": "https://trailbuiltoverland.com/reviews.html" },
+      { "@type": "ListItem", "position": 3, "name": "${escapeHtml(title.replace(' — Trail Built', ''))}", "item": "https://trailbuiltoverland.com/articles/${slug}.html" }
+    ]
   }
   <\/script>
 </head>
@@ -217,11 +240,11 @@ function buildHTML({ slug, title, description, topic, bodyHTML, date, dateHuman 
     <a href="../index.html" class="logo">Trail<span>Built</span></a>
     <nav>
       <a href="../index.html">Home</a>
-      <a href="../index.html#reviews" class="active">Reviews</a>
-      <a href="../index.html#guides">Build Guides</a>
+      <a href="../reviews.html" class="active">Reviews</a>
+      <a href="../build-guides.html">Build Guides</a>
       <a href="../index.html#gear">Top Gear</a>
       <a href="../index.html#categories">Categories</a>
-      <a href="../index.html#gear" class="header-cta btn">Best Picks</a>
+      <a href="../categories/recovery-gear.html" class="header-cta btn">Best Picks</a>
     </nav>
     <button class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
   </div>
@@ -285,8 +308,8 @@ function buildHTML({ slug, title, description, topic, bodyHTML, date, dateHuman 
         <div class="affiliate-notice"><strong>Affiliate Disclosure:</strong> TrailBuilt earns commissions from qualifying Amazon purchases. This never affects our recommendations.</div>
       </div>
       <div class="footer-col"><h4>Reviews</h4><a href="best-overlanding-recovery-gear.html">Recovery Gear</a><a href="best-off-road-light-bars.html">Light Bars</a><a href="rooftop-tent-buying-guide.html">Rooftop Tents</a></div>
-      <div class="footer-col"><h4>Guides</h4><a href="#">4Runner Build</a><a href="#">Bronco Build</a><a href="#">Tacoma Build</a></div>
-      <div class="footer-col"><h4>Site</h4><a href="#">About</a><a href="#">Privacy Policy</a><a href="#">Affiliate Disclosure</a></div>
+      <div class="footer-col"><h4>Build Guides</h4><a href="../articles/4runner-5th-gen-overland-build-guide.html">Toyota 4Runner</a><a href="../articles/ford-bronco-overland-build-guide.html">Ford Bronco</a><a href="../articles/toyota-tacoma-overland-build-guide.html">Toyota Tacoma</a><a href="../articles/jeep-wrangler-overland-build-guide.html">Jeep Wrangler</a></div>
+      <div class="footer-col"><h4>Site</h4><a href="../about.html">About</a><a href="../about.html#privacy">Privacy Policy</a><a href="../about.html#affiliate">Affiliate Disclosure</a><a href="../sitemap.xml">Sitemap</a></div>
     </div>
     <div class="footer-bottom"><p>&copy; ${new Date().getFullYear()} Trail Built. All rights reserved.</p></div>
   </div>
@@ -343,7 +366,7 @@ function updateSitemap(slug, date) {
   let sitemap = fs.existsSync(sitemapPath) ? fs.readFileSync(sitemapPath, 'utf8') : '';
 
   const entry = `  <url>
-    <loc>https://trailbuilt.com/articles/${slug}.html</loc>
+    <loc>https://trailbuiltoverland.com/articles/${slug}.html</loc>
     <lastmod>${date}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

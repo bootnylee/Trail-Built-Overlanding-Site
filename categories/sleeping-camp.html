@@ -38,7 +38,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://trailbuiltoverland.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Categories", "item": "https://trailbuiltoverland.com/#categories" },
+      { "@type": "ListItem", "position": 2, "name": "Categories", "item": "https://trailbuiltoverland.com/index.html#categories" },
       { "@type": "ListItem", "position": 3, "name": "Sleeping & Camp", "item": "https://trailbuiltoverland.com/categories/sleeping-camp.html" }
     ]
   }
@@ -50,13 +50,17 @@
 <header>
   <div class="container header-inner">
     <a href="../index.html" class="logo">Trail<span>Built</span></a>
+    <div class="header-search">
+      <input type="search" id="site-search" placeholder="Search gear, builds..." aria-label="Search site" autocomplete="off" />
+      <div id="search-results" class="search-dropdown" aria-live="polite"></div>
+    </div>
     <nav>
       <a href="../index.html">Home</a>
-      <a href="../index.html#reviews">Reviews</a>
-      <a href="../index.html#guides">Build Guides</a>
+      <a href="../reviews.html">Reviews</a>
+      <a href="../build-guides.html">Build Guides</a>
       <a href="../index.html#gear">Top Gear</a>
       <a href="../index.html#categories" class="active">Categories</a>
-      <a href="../index.html#gear" class="header-cta btn">Best Picks</a>
+      <a href="../categories/recovery-gear.html" class="header-cta btn">Best Picks</a>
     </nav>
     <button class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
   </div>
@@ -237,12 +241,12 @@
       </div>
       <div class="footer-col">
         <h4>Reviews</h4>
-        <a href="#">Recovery Gear</a>
-        <a href="#">Rooftop Tents</a>
-        <a href="#">Light Bars</a>
-        <a href="#">Fridges &amp; Coolers</a>
-        <a href="#">Winches</a>
-        <a href="#">Navigation</a>
+        <a href="../categories/recovery-gear.html">Recovery Gear</a>
+        <a href="../articles/rooftop-tent-buying-guide.html">Rooftop Tents</a>
+        <a href="../articles/best-off-road-light-bars.html">Light Bars</a>
+        <a href="../articles/best-overlanding-fridges.html">Fridges &amp; Coolers</a>
+        <a href="../articles/best-overlanding-winches.html">Winches</a>
+        <a href="../categories/navigation.html">Navigation</a>
       </div>
       <div class="footer-col">
         <h4>Build Guides</h4>
@@ -250,16 +254,16 @@
         <a href="../articles/ford-bronco-overland-build-guide.html">Ford Bronco</a>
         <a href="../articles/toyota-tacoma-overland-build-guide.html">Toyota Tacoma</a>
         <a href="../articles/jeep-wrangler-overland-build-guide.html">Jeep Wrangler</a>
-        <a href="#">Land Cruiser</a>
-        <a href="#">Chevy Colorado</a>
+        <a href="../build-guides.html">More Guides</a>
+        
       </div>
       <div class="footer-col">
         <h4>Site</h4>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Affiliate Disclosure</a>
-        <a href="#">Sitemap</a>
+        <a href="../about.html">About</a>
+        <a href="../about.html#contact">Contact</a>
+        <a href="../about.html#privacy">Privacy Policy</a>
+        <a href="../about.html#affiliate">Affiliate Disclosure</a>
+        <a href="../sitemap.xml">Sitemap</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -269,6 +273,7 @@
   </div>
 </footer>
 
+<button id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">&#8679;</button>
 <script src="../js/main.js"></script>
 </body>
 </html>

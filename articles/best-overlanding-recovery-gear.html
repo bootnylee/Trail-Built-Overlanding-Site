@@ -68,13 +68,17 @@
 <header>
   <div class="container header-inner">
     <a href="../index.html" class="logo">Trail<span>Built</span></a>
+    <div class="header-search">
+      <input type="search" id="site-search" placeholder="Search gear, builds..." aria-label="Search site" autocomplete="off" />
+      <div id="search-results" class="search-dropdown" aria-live="polite"></div>
+    </div>
     <nav>
       <a href="../index.html">Home</a>
-      <a href="../index.html#reviews" class="active">Reviews</a>
-      <a href="../index.html#guides">Build Guides</a>
+      <a href="../reviews.html" class="active">Reviews</a>
+      <a href="../build-guides.html">Build Guides</a>
       <a href="../index.html#gear">Top Gear</a>
       <a href="../index.html#categories">Categories</a>
-      <a href="../index.html#gear" class="header-cta btn">Best Picks</a>
+      <a href="../categories/recovery-gear.html" class="header-cta btn">Best Picks</a>
     </nav>
     <button class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
   </div>
@@ -291,6 +295,13 @@
       <h3>Do I need a winch if I carry recovery boards?</h3>
       <p>Boards handle most common stuck scenarios (sand, soft mud, light snow). A winch is for when you're truly buried or on steep terrain where boards can't help. Solo overlanders especially should carry both.</p>
 
+    <div class="share-bar">
+        <span>Share this guide:</span>
+        <button class="share-btn share-btn-twitter" onclick="shareArticle('twitter')"></article>#x1D54F; Twitter</button>
+        <button class="share-btn share-btn-facebook" onclick="shareArticle('facebook')"></article>#x1F426; Facebook</button>
+        <button class="share-btn share-btn-pinterest" onclick="shareArticle('pinterest')"></article>#x1F4CC; Pinterest</button>
+        <button class="share-btn" data-share="copy" onclick="shareArticle('copy')"></article>#x1F517; Copy Link</button>
+      </div>
     </article>
 
     <!-- Sidebar -->
@@ -332,21 +343,21 @@
         <div class="sidebar-product">
           <div class="icon"><img src="https://images.unsplash.com/photo-1759428925891-eb797202e3b2?w=100&q=80" alt="winch recovery hardware" loading="lazy"></div>
           <div>
-            <h5><a href="#">Winch Buying Guide 2026</a></h5>
+            <h5><a href="../articles/best-overlanding-winches.html">Best Winches 2026</a></h5>
             <span>12 min read</span>
           </div>
         </div>
         <div class="sidebar-product">
           <div class="icon"><img src="https://images.unsplash.com/photo-1650866155994-3bd730b5daf9?w=100&q=80" alt="portable air compressor for overlanding" loading="lazy"></div>
           <div>
-            <h5><a href="#">Best On-Board Air Compressors</a></h5>
+            <h5><a href="../categories/tools-safety.html">Tools &amp; Safety</a></h5>
             <span>10 min read</span>
           </div>
         </div>
         <div class="sidebar-product">
           <div class="icon"><img src="https://images.unsplash.com/photo-1543365618-f4d2b8c2430d?w=100&q=80" alt="GPS navigation device for off-road" loading="lazy"></div>
           <div>
-            <h5><a href="#">4Runner Build Guide</a></h5>
+            <h5><a href="../articles/4runner-5th-gen-overland-build-guide.html">4Runner Build Guide</a></h5>
             <span>25 min read</span>
           </div>
         </div>
@@ -368,23 +379,23 @@
       </div>
       <div class="footer-col">
         <h4>Reviews</h4>
-        <a href="#">Recovery Gear</a>
+        <a href="../categories/recovery-gear.html">Recovery Gear</a>
         <a href="best-off-road-light-bars.html">Light Bars</a>
         <a href="rooftop-tent-buying-guide.html">Rooftop Tents</a>
-        <a href="#">Winches</a>
+        <a href="../articles/best-overlanding-winches.html">Winches</a>
       </div>
       <div class="footer-col">
         <h4>Build Guides</h4>
-        <a href="#">Toyota 4Runner</a>
-        <a href="#">Ford Bronco</a>
-        <a href="#">Jeep Wrangler</a>
-        <a href="#">Toyota Tacoma</a>
+        <a href="../articles/4runner-5th-gen-overland-build-guide.html">Toyota 4Runner</a>
+        <a href="../articles/ford-bronco-overland-build-guide.html">Ford Bronco</a>
+        <a href="../articles/jeep-wrangler-overland-build-guide.html">Jeep Wrangler</a>
+        <a href="../articles/toyota-tacoma-overland-build-guide.html">Toyota Tacoma</a>
       </div>
       <div class="footer-col">
         <h4>Site</h4>
-        <a href="#">About</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Affiliate Disclosure</a>
+        <a href="../about.html">About</a>
+        <a href="../about.html#privacy">Privacy Policy</a>
+        <a href="../about.html#affiliate">Affiliate Disclosure</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -393,6 +404,7 @@
   </div>
 </footer>
 
+<button id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">&#8679;</button>
 <script src="../js/main.js"></script>
 </body>
 </html>
