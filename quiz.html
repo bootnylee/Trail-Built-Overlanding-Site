@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What's Your Overlanding Style? Take the Quiz — Trail Built</title>
+  <meta name="description" content="Answer 5 quick questions and get a personalized overlanding gear list matched to your vehicle, experience level, and adventure style." />
+  <link rel="canonical" href="https://trailbuiltoverland.com/quiz.html" />
+  <meta property="og:title" content="What's Your Overlanding Style? Take the Quiz — Trail Built" />
+  <meta property="og:description" content="Get personalized gear recommendations matched to your rig and adventure style in 2 minutes." />
+  <meta property="og:url" content="https://trailbuiltoverland.com/quiz.html" />
+  <meta property="og:type" content="website" />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=1200&q=80" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Overlanding Style Quiz — Trail Built",
+    "description": "Find your overlanding style and get personalized gear recommendations.",
+    "url": "https://trailbuiltoverland.com/quiz.html",
+    "isPartOf": { "@id": "https://trailbuiltoverland.com/#website" }
+  }
+  </script>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <a href="index.html" class="logo">Trail<span>Built</span></a>
+    <div class="header-search">
+      <input type="search" id="site-search" placeholder="Search gear, builds..." aria-label="Search site" autocomplete="off" />
+      <div id="search-results" class="search-dropdown" aria-live="polite"></div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="build-guides.html">Build Guides</a>
+      <a href="index.html#gear">Top Gear</a>
+      <a href="index.html#categories">Categories</a>
+      <a href="quiz.html" class="active header-cta btn">Take the Quiz</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+  </div>
+</header>
+
+<main class="quiz-page">
+  <div class="container">
+
+    <!-- Intro (shown before quiz starts) -->
+    <div id="quiz-intro" class="quiz-card" style="text-align:center;">
+      <div style="font-size:3rem;margin-bottom:16px;">🏕️</div>
+      <div class="quiz-result-badge">2-Minute Quiz</div>
+      <h1 class="quiz-result-title" style="margin-top:12px;">What's Your Overlanding Style?</h1>
+      <p class="quiz-result-desc">Answer 5 quick questions and get a personalized gear list matched to your rig, experience level, and adventure style — plus a free weekly gear digest.</p>
+      <button id="start-quiz-btn" class="btn" style="font-size:1rem;padding:14px 36px;margin-top:8px;">Start the Quiz &rarr;</button>
+    </div>
+
+    <!-- Quiz questions (hidden initially) -->
+    <div id="quiz-questions" class="quiz-card" style="display:none;">
+      <div class="quiz-progress" id="quiz-progress" aria-label="Quiz progress"></div>
+      <div id="quiz-question-area"></div>
+      <div style="display:flex;gap:12px;margin-top:28px;">
+        <button id="quiz-back-btn" class="btn" style="background:transparent;border:1px solid var(--border);color:var(--muted);display:none;">&larr; Back</button>
+        <button id="quiz-next-btn" class="btn" style="flex:1;display:none;">Next &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Result (hidden initially) -->
+    <div id="quiz-result" style="display:none;">
+      <div class="quiz-card quiz-result-card">
+        <span id="result-icon" class="quiz-result-icon"></span>
+        <div class="quiz-result-badge" id="result-badge"></div>
+        <h2 class="quiz-result-title" id="result-title"></h2>
+        <p class="quiz-result-desc" id="result-desc"></p>
+
+        <div class="quiz-result-products" id="result-products"></div>
+
+        <!-- EmailOctopus email capture -->
+        <div class="quiz-email-capture">
+          <h3>Get Your Full Gear Guide</h3>
+          <p id="result-email-desc">We'll send your personalized gear list plus weekly overlanding tips matched to your rig.</p>
+          <div id="eo-quiz-widget"></div>
+          <p style="font-size:0.72rem;color:var(--muted);margin-top:10px;">No spam, ever. Unsubscribe any time.</p>
+        </div>
+
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px;">
+          <button id="retake-btn" class="btn" style="background:transparent;border:1px solid var(--border);color:var(--muted);">&#8635; Retake Quiz</button>
+          <a id="result-guide-link" href="build-guides.html" class="btn">View Build Guides &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="font-size:1.4rem;margin-bottom:12px;">Trail<span style="color:var(--accent)">Built</span></div>
+        <p>Honest overlanding gear reviews. We test everything ourselves.</p>
+        <div class="affiliate-notice"><strong>Affiliate Disclosure:</strong> TrailBuilt earns commissions from qualifying Amazon purchases. This never affects our recommendations.</div>
+      </div>
+      <div class="footer-col"><h4>Reviews</h4><a href="articles/best-overlanding-recovery-gear.html">Recovery Gear</a><a href="articles/best-off-road-light-bars.html">Light Bars</a><a href="articles/rooftop-tent-buying-guide.html">Rooftop Tents</a><a href="reviews.html">All Reviews</a></div>
+      <div class="footer-col"><h4>Build Guides</h4><a href="articles/4runner-5th-gen-overland-build-guide.html">Toyota 4Runner</a><a href="articles/ford-bronco-overland-build-guide.html">Ford Bronco</a><a href="articles/toyota-tacoma-overland-build-guide.html">Toyota Tacoma</a><a href="articles/jeep-wrangler-overland-build-guide.html">Jeep Wrangler</a></div>
+      <div class="footer-col"><h4>Site</h4><a href="about.html">About</a><a href="about.html#privacy">Privacy Policy</a><a href="about.html#affiliate">Affiliate Disclosure</a><a href="sitemap.xml">Sitemap</a></div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Trail Built. All rights reserved.</p></div>
+  </div>
+</footer>
+
+<button id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">&#8679;</button>
+<script src="js/main.js"></script>
+<script>
+// ── Trail Built Vehicle Quiz ──────────────────────────────────────────────────
+const QUIZ_KEY = "trailbuilt_vehicle_type";
+const EMAILOCTOPUS_FORM_ID = "REPLACE_WITH_YOUR_FORM_ID"; // TODO: replace with real EO form ID
+
+const QUESTIONS = [
+  {
+    id: "vehicle",
+    question: "What's your rig?",
+    subtitle: "This shapes everything — suspension, storage, and recovery gear.",
+    options: [
+      { value: "truck",   icon: "🛻", label: "Truck",          desc: "F-150, Tacoma, Tundra, Silverado, etc." },
+      { value: "suv",     icon: "🚙", label: "SUV / 4x4",      desc: "4Runner, Land Cruiser, Sequoia, etc." },
+      { value: "jeep",    icon: "🪖", label: "Jeep",           desc: "Wrangler, Gladiator, Bronco" },
+      { value: "van",     icon: "🚐", label: "Van / Camper",   desc: "Sprinter, Transit, Promaster, etc." },
+    ]
+  },
+  {
+    id: "experience",
+    question: "How long have you been overlanding?",
+    subtitle: "We'll calibrate gear complexity to your experience level.",
+    options: [
+      { value: "beginner",     icon: "🌱", label: "Just starting out",  desc: "First build or first season" },
+      { value: "intermediate", icon: "⛺", label: "1–3 seasons",        desc: "Have the basics, leveling up" },
+      { value: "experienced",  icon: "🏔️", label: "3–5 seasons",        desc: "Dialed setup, fine-tuning" },
+      { value: "veteran",      icon: "🧭", label: "5+ seasons",         desc: "Full expedition-ready builds" },
+    ]
+  },
+  {
+    id: "terrain",
+    question: "Where do you mostly wheel?",
+    subtitle: "Terrain determines your recovery and suspension priorities.",
+    options: [
+      { value: "forest",   icon: "🌲", label: "Forest / Dirt Roads",  desc: "Logging roads, forest service roads" },
+      { value: "desert",   icon: "🏜️", label: "Desert / Sand",        desc: "Moab, Baja, dunes, dry washes" },
+      { value: "mountain", icon: "⛰️", label: "Mountain / Rock",       desc: "High alpine, technical rock crawling" },
+      { value: "mixed",    icon: "🗺️", label: "Mixed / Everything",    desc: "No two trips are the same" },
+    ]
+  },
+  {
+    id: "priority",
+    question: "What's your biggest gear gap right now?",
+    subtitle: "We'll lead with the category you need most.",
+    options: [
+      { value: "recovery",  icon: "🪝", label: "Recovery & Safety",  desc: "Winch, traction boards, straps" },
+      { value: "sleep",     icon: "🛏️", label: "Sleep & Shelter",    desc: "RTT, tent, sleeping system" },
+      { value: "kitchen",   icon: "🍳", label: "Kitchen & Power",    desc: "Fridge, stove, solar, batteries" },
+      { value: "lighting",  icon: "💡", label: "Lighting & Nav",     desc: "Light bars, GPS, comms" },
+    ]
+  },
+  {
+    id: "budget",
+    question: "What's your gear budget per year?",
+    subtitle: "We'll tailor recommendations to your spend level.",
+    options: [
+      { value: "budget",    icon: "💰", label: "Under $500",    desc: "Best bang-for-buck picks" },
+      { value: "mid",       icon: "💳", label: "$500–$2,000",   desc: "Mid-range, proven gear" },
+      { value: "premium",   icon: "🏆", label: "$2,000–$5,000", desc: "Premium, long-lasting builds" },
+      { value: "unlimited", icon: "🚀", label: "$5,000+",       desc: "Expedition-grade, no compromises" },
+    ]
+  }
+];
+
+const RESULTS = {
+  truck: {
+    icon: "🛻", badge: "Truck Overlander",
+    title: "The Truck Builder",
+    desc: "You've got the platform every gear manufacturer designs for. Trucks give you payload, towing, and endless aftermarket support. Your build priorities are a bed rack system, a quality fridge slide, and a solid recovery kit.",
+    products: [
+      { name: "Maxtrax MKII Recovery Boards", url: "articles/best-overlanding-recovery-gear.html", tag: "Top Recovery Pick" },
+      { name: "Dometic CFX3 55 Fridge", url: "articles/best-overlanding-fridges.html", tag: "Best Fridge" },
+      { name: "Warn VR EVO 10-S Winch", url: "articles/best-overlanding-winches.html", tag: "Best Winch" },
+      { name: "Baja Designs Squadron Pro Lights", url: "articles/best-off-road-light-bars.html", tag: "Best Lighting" },
+    ],
+    guideUrl: "build-guides.html",
+    vehicleType: "truck"
+  },
+  suv: {
+    icon: "🚙", badge: "SUV Overlander",
+    title: "The 4x4 Expedition Rig",
+    desc: "SUVs are the gold standard for overlanding — enclosed cargo, high ground clearance, and proven 4WD systems. Your priorities are a rooftop tent, a dual-battery system, and a front bumper with a winch mount.",
+    products: [
+      { name: "iKamper Skycamp 3.0 RTT", url: "articles/rooftop-tent-buying-guide.html", tag: "Top RTT Pick" },
+      { name: "Renogy 200W Solar Kit", url: "articles/best-overlanding-solar-and-power.html", tag: "Best Solar" },
+      { name: "Warn Zeon 10-S Winch", url: "articles/best-overlanding-winches.html", tag: "Best Winch" },
+      { name: "ARB Intensity Solis Lights", url: "articles/best-off-road-light-bars.html", tag: "Best Lighting" },
+    ],
+    guideUrl: "articles/4runner-5th-gen-overland-build-guide.html",
+    vehicleType: "suv"
+  },
+  jeep: {
+    icon: "🪖", badge: "Jeep Overlander",
+    title: "The Rock Crawler",
+    desc: "Jeeps are built for technical terrain and serious rock crawling. Your priorities are a quality lift kit, beadlock-capable wheels, a bumper-mounted winch, and a compact recovery kit that fits your shorter wheelbase.",
+    products: [
+      { name: "Warn VR EVO 10-S Winch", url: "articles/best-overlanding-winches.html", tag: "Best Winch" },
+      { name: "Maxtrax MKII Recovery Boards", url: "articles/best-overlanding-recovery-gear.html", tag: "Top Recovery" },
+      { name: "Smittybilt Overlander RTT", url: "articles/rooftop-tent-buying-guide.html", tag: "Best RTT" },
+      { name: "KC HiLiTES Gravity LED Pro6", url: "articles/best-off-road-light-bars.html", tag: "Best Lighting" },
+    ],
+    guideUrl: "articles/jeep-wrangler-overland-build-guide.html",
+    vehicleType: "jeep"
+  },
+  van: {
+    icon: "🚐", badge: "Van Overlander",
+    title: "The Van Lifer",
+    desc: "Vans offer the most livable space for long-haul overlanding. Your priorities are a robust power system (solar + lithium), a quality fridge, a rooftop vent fan, and a reliable GPS/comms setup for remote areas.",
+    products: [
+      { name: "EcoFlow Delta Pro Power Station", url: "articles/best-overlanding-solar-and-power.html", tag: "Best Power" },
+      { name: "Dometic CFX3 45 Fridge", url: "articles/best-overlanding-fridges.html", tag: "Best Fridge" },
+      { name: "Maxtrax MKII Recovery Boards", url: "articles/best-overlanding-recovery-gear.html", tag: "Top Recovery" },
+      { name: "Baja Designs S8 Light Bar", url: "articles/best-off-road-light-bars.html", tag: "Best Lighting" },
+    ],
+    guideUrl: "build-guides.html",
+    vehicleType: "van"
+  }
+};
+
+// ── State ─────────────────────────────────────────────────────────────────────
+let currentQ = 0;
+let answers = {};
+let selectedOption = null;
+
+// ── DOM refs ──────────────────────────────────────────────────────────────────
+const introEl    = document.getElementById("quiz-intro");
+const questionsEl= document.getElementById("quiz-questions");
+const resultEl   = document.getElementById("quiz-result");
+const progressEl = document.getElementById("quiz-progress");
+const questionArea= document.getElementById("quiz-question-area");
+const nextBtn    = document.getElementById("quiz-next-btn");
+const backBtn    = document.getElementById("quiz-back-btn");
+const startBtn   = document.getElementById("start-quiz-btn");
+const retakeBtn  = document.getElementById("retake-btn");
+
+// ── Check for saved result ────────────────────────────────────────────────────
+const saved = localStorage.getItem(QUIZ_KEY);
+if (saved) {
+  try {
+    const data = JSON.parse(saved);
+    if (data.vehicleType) {
+      showResult(data.vehicleType);
+    }
+  } catch(e) { /* ignore */ }
+}
+
+// ── Event listeners ───────────────────────────────────────────────────────────
+startBtn.addEventListener("click", () => {
+  introEl.style.display = "none";
+  questionsEl.style.display = "block";
+  renderQuestion();
+});
+
+nextBtn.addEventListener("click", () => {
+  if (!selectedOption) return;
+  answers[QUESTIONS[currentQ].id] = selectedOption;
+  selectedOption = null;
+  if (currentQ < QUESTIONS.length - 1) {
+    currentQ++;
+    renderQuestion();
+  } else {
+    finishQuiz();
+  }
+});
+
+backBtn.addEventListener("click", () => {
+  if (currentQ > 0) {
+    currentQ--;
+    selectedOption = answers[QUESTIONS[currentQ].id] || null;
+    renderQuestion();
+  }
+});
+
+retakeBtn.addEventListener("click", () => {
+  localStorage.removeItem(QUIZ_KEY);
+  answers = {};
+  selectedOption = null;
+  currentQ = 0;
+  resultEl.style.display = "none";
+  introEl.style.display = "block";
+});
+
+// ── Render question ───────────────────────────────────────────────────────────
+function renderQuestion() {
+  const q = QUESTIONS[currentQ];
+
+  // Progress bar
+  progressEl.innerHTML = QUESTIONS.map((_, i) => {
+    let cls = "quiz-progress-step";
+    if (i < currentQ) cls += " done";
+    else if (i === currentQ) cls += " active";
+    return `<div class="${cls}"></div>`;
+  }).join("");
+
+  // Question HTML
+  questionArea.innerHTML = `
+    <p class="quiz-subtitle" style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--accent);margin-bottom:8px;">Question ${currentQ + 1} of ${QUESTIONS.length}</p>
+    <h2 class="quiz-question">${q.question}</h2>
+    <p class="quiz-subtitle">${q.subtitle}</p>
+    <div class="quiz-options">
+      ${q.options.map(opt => `
+        <button class="quiz-option${selectedOption === opt.value ? ' selected' : ''}" data-value="${opt.value}" type="button">
+          <span class="quiz-option-icon">${opt.icon}</span>
+          <span>
+            <div class="quiz-option-label">${opt.label}</div>
+            <div class="quiz-option-desc">${opt.desc}</div>
+          </span>
+        </button>
+      `).join("")}
+    </div>
+  `;
+
+  // Option click handlers
+  questionArea.querySelectorAll(".quiz-option").forEach(btn => {
+    btn.addEventListener("click", () => {
+      selectedOption = btn.dataset.value;
+      questionArea.querySelectorAll(".quiz-option").forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+      nextBtn.style.display = "block";
+    });
+  });
+
+  // Show/hide nav buttons
+  backBtn.style.display = currentQ > 0 ? "block" : "none";
+  nextBtn.style.display = selectedOption ? "block" : "none";
+  nextBtn.textContent = currentQ === QUESTIONS.length - 1 ? "See My Results →" : "Next →";
+}
+
+// ── Finish quiz ───────────────────────────────────────────────────────────────
+function finishQuiz() {
+  // Determine primary result from vehicle answer
+  const vehicleAnswer = answers.vehicle || "suv";
+  const result = RESULTS[vehicleAnswer] || RESULTS.suv;
+
+  // Save to localStorage
+  localStorage.setItem(QUIZ_KEY, JSON.stringify({
+    vehicleType: vehicleAnswer,
+    answers: answers,
+    completedAt: new Date().toISOString()
+  }));
+
+  questionsEl.style.display = "none";
+  showResult(vehicleAnswer);
+}
+
+// ── Show result ───────────────────────────────────────────────────────────────
+function showResult(vehicleType) {
+  const result = RESULTS[vehicleType] || RESULTS.suv;
+
+  document.getElementById("result-icon").textContent = result.icon;
+  document.getElementById("result-badge").textContent = result.badge;
+  document.getElementById("result-title").textContent = result.title;
+  document.getElementById("result-desc").textContent = result.desc;
+  document.getElementById("result-email-desc").textContent =
+    `We'll send your personalized ${result.badge.toLowerCase()} gear list plus weekly overlanding tips.`;
+  document.getElementById("result-guide-link").href = result.guideUrl;
+
+  // Product cards
+  const productsEl = document.getElementById("result-products");
+  productsEl.innerHTML = result.products.map(p => `
+    <a href="${p.url}" class="card" style="text-decoration:none;display:block;padding:16px;">
+      <div style="font-size:0.68rem;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent);margin-bottom:6px;">${p.tag}</div>
+      <div style="font-size:0.9rem;font-weight:700;color:var(--text);">${p.name}</div>
+      <div style="font-size:0.78rem;color:var(--accent);margin-top:8px;">Read review &rarr;</div>
+    </a>
+  `).join("");
+
+  // EmailOctopus widget injection (same pattern as SilkierStrands)
+  const eoContainer = document.getElementById("eo-quiz-widget");
+  if (eoContainer && EMAILOCTOPUS_FORM_ID !== "REPLACE_WITH_YOUR_FORM_ID") {
+    eoContainer.innerHTML = "";
+    const script = document.createElement("script");
+    script.src = `https://eocampaign1.com/form/${EMAILOCTOPUS_FORM_ID}.js`;
+    script.async = true;
+    script.setAttribute("data-form", EMAILOCTOPUS_FORM_ID);
+    eoContainer.appendChild(script);
+  } else if (eoContainer) {
+    // Fallback until Form ID is configured
+    eoContainer.innerHTML = `
+      <form onsubmit="handleNewsletterSubmit(event)" style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input type="email" placeholder="your@email.com" required style="flex:1;min-width:200px;background:rgba(255,255,255,0.08);border:1.5px solid rgba(240,236,228,0.25);border-radius:6px;color:#f0ece4;padding:10px 14px;font-size:0.9rem;outline:none;" />
+        <button type="submit" class="btn" style="white-space:nowrap;">Get My Gear List</button>
+      </form>
+    `;
+  }
+
+  introEl.style.display = "none";
+  questionsEl.style.display = "none";
+  resultEl.style.display = "block";
+}
+</script>
+</body>
+</html>

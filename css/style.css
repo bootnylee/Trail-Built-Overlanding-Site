@@ -1068,3 +1068,319 @@ footer {
   .back-to-top { bottom: 16px; right: 16px; }
   .filter-bar { gap: 6px; }
 }
+
+/* =========================================
+   EMAILOCTOPUS WIDGET OVERRIDES
+   Trail Built palette: dark bg (#1c1d1a) + amber (#d4751a) + off-white (#f0ece4)
+   Targets the injected widget HTML structure from eocampaign1.com
+   ========================================= */
+.emailoctopus-form {
+  --eo-form-font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif !important;
+  --eo-form-font-color: #f0ece4 !important;
+  --eo-form-placeholder: #8a8880 !important;
+  --eo-form-input-background: rgba(255,255,255,0.08) !important;
+  --eo-form-border-color: rgba(240,236,228,0.2) !important;
+  --eo-form-label-color: #f0ece4 !important;
+}
+
+.emailoctopus-form input[type="email"],
+.emailoctopus-form input.form-control {
+  background-color: rgba(255,255,255,0.08) !important;
+  border: 1.5px solid rgba(240,236,228,0.25) !important;
+  border-radius: 6px !important;
+  color: #f0ece4 !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.9rem !important;
+  padding: 0.75rem 1rem !important;
+  transition: border-color 0.2s ease !important;
+  box-shadow: none !important;
+  outline: none !important;
+  width: 100% !important;
+}
+
+.emailoctopus-form input[type="email"]:focus,
+.emailoctopus-form input.form-control:focus {
+  border-color: #d4751a !important;
+  box-shadow: 0 0 0 3px rgba(212,117,26,0.18) !important;
+}
+
+.emailoctopus-form input[type="email"]::placeholder,
+.emailoctopus-form input.form-control::placeholder {
+  color: rgba(240,236,228,0.45) !important;
+}
+
+.emailoctopus-form input[type="submit"],
+.emailoctopus-form .btn-primary {
+  background-color: #d4751a !important;
+  border: none !important;
+  border-radius: 6px !important;
+  color: #fff !important;
+  cursor: pointer !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+  padding: 0.75rem 1.5rem !important;
+  text-transform: uppercase !important;
+  transition: background-color 0.2s ease !important;
+  width: 100% !important;
+  margin-top: 0.5rem !important;
+}
+
+.emailoctopus-form input[type="submit"]:hover,
+.emailoctopus-form .btn-primary:hover {
+  background-color: #b8631a !important;
+}
+
+.emailoctopus-form input[type="submit"]:disabled,
+.emailoctopus-form .btn-primary:disabled {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+}
+
+.emailoctopus-form .emailoctopus-success-message {
+  color: #d4751a !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  padding: 0.75rem 0 !important;
+}
+
+.emailoctopus-form .emailoctopus-error-message {
+  color: #e05c5c !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.82rem !important;
+  text-align: center !important;
+  padding: 0.5rem 0 !important;
+}
+
+.emailoctopus-form .mastfoot {
+  margin-top: 0.75rem !important;
+  opacity: 0.4 !important;
+}
+
+.emailoctopus-form .mastfoot p {
+  background: transparent !important;
+  border: none !important;
+  color: rgba(240,236,228,0.5) !important;
+  font-size: 0.65rem !important;
+}
+
+.emailoctopus-form .mastfoot a {
+  color: rgba(240,236,228,0.5) !important;
+}
+
+/* Light-background inline variant (used inside article sidebar) */
+.newsletter-inline .emailoctopus-form input[type="email"],
+.newsletter-inline .emailoctopus-form input.form-control {
+  background-color: #fff !important;
+  border-color: #d4c4a8 !important;
+  color: #1c1d1a !important;
+}
+
+.newsletter-inline .emailoctopus-form input[type="email"]::placeholder,
+.newsletter-inline .emailoctopus-form input.form-control::placeholder {
+  color: #8a8880 !important;
+}
+
+/* =========================================
+   PRICE BADGE STYLES
+   All-Time Low / Price Drop / Good Deal
+   ========================================= */
+.price-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.price-badge-atl {
+  background: #d4751a;
+  color: #fff;
+}
+
+.price-badge-drop {
+  background: #2d6a4f;
+  color: #fff;
+}
+
+.price-badge-deal {
+  background: #1d4e89;
+  color: #fff;
+}
+
+/* =========================================
+   QUIZ PAGE STYLES
+   ========================================= */
+.quiz-page {
+  min-height: 70vh;
+  padding: 60px 0;
+}
+
+.quiz-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 40px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.quiz-progress {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 32px;
+}
+
+.quiz-progress-step {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+  transition: background 0.3s;
+}
+
+.quiz-progress-step.active { background: var(--accent); }
+.quiz-progress-step.done { background: var(--green); }
+
+.quiz-question {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  letter-spacing: -0.3px;
+}
+
+.quiz-subtitle {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+
+.quiz-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.quiz-option {
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.quiz-option:hover {
+  border-color: var(--accent);
+  background: rgba(212,117,26,0.06);
+}
+
+.quiz-option.selected {
+  border-color: var(--accent);
+  background: rgba(212,117,26,0.1);
+}
+
+.quiz-option-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.quiz-option-label {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 3px;
+}
+
+.quiz-option-desc {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.quiz-result-card {
+  text-align: center;
+  padding: 40px;
+}
+
+.quiz-result-badge {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+
+.quiz-result-icon {
+  font-size: 3.5rem;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.quiz-result-title {
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.quiz-result-desc {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  max-width: 480px;
+  margin: 0 auto 28px;
+}
+
+.quiz-result-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 32px 0;
+  text-align: left;
+}
+
+.quiz-email-capture {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  margin-top: 32px;
+  text-align: left;
+}
+
+.quiz-email-capture h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.quiz-email-capture p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+@media (max-width: 600px) {
+  .quiz-options { grid-template-columns: 1fr; }
+  .quiz-card { padding: 24px 20px; }
+  .quiz-result-products { grid-template-columns: 1fr 1fr; }
+}

@@ -1,18 +1,23 @@
+# TrailBuiltOverland.com — Netlify Configuration
+# Modeled on SilkierStrands.com best practices
+
 [build]
   publish = "."
 
+[build.environment]
+  NODE_VERSION = "20"
+
+# ── Security headers (all pages) ─────────────────────────────────────────────
 [[headers]]
   for = "/*"
   [headers.values]
-    X-Frame-Options = "DENY"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options             = "DENY"
+    X-XSS-Protection            = "1; mode=block"
+    X-Content-Type-Options      = "nosniff"
+    Referrer-Policy             = "strict-origin-when-cross-origin"
+    Permissions-Policy          = "camera=(), microphone=(), geolocation=()"
 
-[[headers]]
-  for = "/articles/*"
-  [headers.values]
-    Cache-Control = "public, max-age=3600, stale-while-revalidate=86400"
-
+# ── Cache static assets aggressively ─────────────────────────────────────────
 [[headers]]
   for = "/css/*"
   [headers.values]
@@ -23,7 +28,44 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# ── Cache article and category pages (1 hour, revalidate in background) ───────
+[[headers]]
+  for = "/articles/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/categories/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, stale-while-revalidate=86400"
+
+# ── Cache sitemap for 1 day ───────────────────────────────────────────────────
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# ── Cache robots.txt for 1 week ───────────────────────────────────────────────
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# ── Affiliate link redirect shortener ────────────────────────────────────────
+# Clean URLs: /go/B07SJHVQTJ → Amazon product page with affiliate tag
+# Usage in HTML: <a href="/go/B07SJHVQTJ">View on Amazon</a>
 [[redirects]]
-  from = "/sitemap.xml"
-  to   = "/sitemap.xml"
+  from   = "/go/:asin"
+  to     = "https://www.amazon.com/dp/:asin?tag=trailbuiltove-20"
+  status = 302
+
+# ── Serve sitemap.xml directly ────────────────────────────────────────────────
+[[redirects]]
+  from   = "/sitemap.xml"
+  to     = "/sitemap.xml"
   status = 200
