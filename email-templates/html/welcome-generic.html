@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Trail Built Overlanding</title>
+  <style>
+    body { margin: 0; padding: 0; background-color: #1a1a1a; font-family: Arial, Helvetica, sans-serif; }
+    .wrapper { background-color: #1a1a1a; padding: 40px 20px; }
+    .container { max-width: 600px; margin: 0 auto; background-color: #242424; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+    .header { background-color: #121212; padding: 36px 40px; text-align: center; border-bottom: 3px solid #d4751a; }
+    .header h1 { color: #f0ece4; font-family: Arial, Helvetica, sans-serif; font-size: 28px; margin: 0 0 6px 0; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+    .header h1 span { color: #d4751a; }
+    .header p { color: #a0998e; font-size: 13px; margin: 0; letter-spacing: 0.5px; }
+    .body { padding: 40px; color: #d0cbc3; font-size: 15px; line-height: 1.75; }
+    .body p { margin: 0 0 18px 0; }
+    .greeting { font-size: 18px; color: #f0ece4; font-weight: 600; margin: 0 0 20px 0; }
+    .what-we-do { background-color: #1a1a1a; border-left: 4px solid #d4751a; padding: 18px 22px; margin: 24px 0; border-radius: 0 6px 6px 0; }
+    .what-we-do p { margin: 0 0 8px 0; font-size: 14px; color: #b0a898; }
+    .what-we-do p:last-child { margin: 0; }
+    .what-we-do strong { color: #d4751a; }
+    .products-section { margin: 28px 0; }
+    .products-section h2 { font-size: 16px; font-weight: 700; color: #f0ece4; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 16px 0; }
+    .product-card { background-color: #1a1a1a; border: 1px solid #333; border-radius: 6px; padding: 16px 20px; margin-bottom: 10px; text-decoration: none; display: block; }
+    .product-name { font-weight: 700; font-size: 15px; color: #f0ece4; margin: 0 0 4px 0; }
+    .product-desc { font-size: 13px; color: #888; margin: 0 0 8px 0; line-height: 1.5; }
+    .product-link { font-size: 13px; color: #d4751a; font-weight: 600; text-decoration: none; }
+    .quiz-block { background-color: #1e1500; border: 1px solid #d4751a; border-radius: 6px; padding: 20px 24px; margin: 24px 0; text-align: center; }
+    .quiz-block p { font-size: 15px; color: #c0b8ae; margin: 0 0 14px 0; line-height: 1.6; }
+    .cta-button { display: inline-block; background-color: #d4751a; color: #ffffff; text-align: center; padding: 14px 32px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 15px; letter-spacing: 0.5px; }
+    .divider { border: none; border-top: 1px solid #333; margin: 28px 0; }
+    .footer { background-color: #121212; padding: 28px 40px; text-align: center; }
+    .footer p { font-size: 12px; color: #666; margin: 0 0 8px 0; line-height: 1.6; }
+    .footer a { color: #888; text-decoration: none; }
+    .footer a:hover { color: #d4751a; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+
+      <!-- Header -->
+      <div class="header">
+        <h1>Trail<span>Built</span></h1>
+        <p>Honest overlanding gear reviews &amp; build guides</p>
+      </div>
+
+      <!-- Body -->
+      <div class="body">
+        <p class="greeting">Welcome, {{FirstName}}!</p>
+
+        <p>We're glad you're here. Trail Built is an independent overlanding gear review site — we test and review the gear that actually matters for off-road travel, from recovery equipment and fridges to lighting and navigation.</p>
+
+        <div class="what-we-do">
+          <p><strong>What we publish every week:</strong></p>
+          <p>In-depth gear reviews tested in the field · Head-to-head comparisons · Vehicle-specific build guides · No manufacturer freebies, no sponsored content</p>
+        </div>
+
+        <div class="products-section">
+          <h2>Our Most-Read Reviews Right Now</h2>
+
+          <div class="product-card">
+            <p class="product-name">Best Overlanding Recovery Gear</p>
+            <p class="product-desc">Our complete guide to recovery boards, straps, shackles, and hi-lift jacks. Everything you need to get unstuck — ranked and reviewed.</p>
+            <a href="https://trailbuiltoverland.com/articles/best-overlanding-recovery-gear" class="product-link">Read the review →</a>
+          </div>
+
+          <div class="product-card">
+            <p class="product-name">Best Overlanding Fridges &amp; Coolers</p>
+            <p class="product-desc">We tested 8 portable 12V fridges over 6 months. Here's what we actually recommend — and what to avoid.</p>
+            <a href="https://trailbuiltoverland.com/articles/best-overlanding-fridges" class="product-link">Read the review →</a>
+          </div>
+
+          <div class="product-card">
+            <p class="product-name">Best Overlanding Winches</p>
+            <p class="product-desc">The complete guide to choosing a winch for your rig — with head-to-head comparisons of the top models from WARN, Smittybilt, and more.</p>
+            <a href="https://trailbuiltoverland.com/articles/best-overlanding-winches" class="product-link">Read the review →</a>
+          </div>
+
+          <div class="product-card">
+            <p class="product-name">Best Off-Road Light Bars</p>
+            <p class="product-desc">Auxiliary lighting tested for brightness, beam pattern, and waterproofing. From budget Nilight bars to premium Baja Designs setups.</p>
+            <a href="https://trailbuiltoverland.com/articles/best-off-road-light-bars" class="product-link">Read the review →</a>
+          </div>
+        </div>
+
+        <div class="quiz-block">
+          <p><strong style="color:#f0ece4;">Not sure where to start your build?</strong><br>Take our free 5-question quiz and get personalized gear recommendations matched to your exact vehicle type and budget.</p>
+          <a href="https://trailbuiltoverland.com/quiz.html" class="cta-button">Take the Rig Profile Quiz →</a>
+        </div>
+
+        <hr class="divider">
+
+        <p>Every Monday, we send one new gear review or head-to-head comparison — no fluff, no manufacturer freebies, no sponsored content. Just honest reviews from people who actually use this stuff in the field.</p>
+
+        <p>Have a question about your build? Just reply to this email — we read every message.</p>
+
+        <p style="margin-top: 24px;">See you out there,<br><strong style="color:#f0ece4;">The Trail Built Team</strong></p>
+      </div>
+
+      <!-- Footer — DO NOT remove {{SenderInfo}} or {{UnsubscribeURL}} -->
+      <div class="footer">
+        <p>You're receiving this because you signed up at <a href="https://trailbuiltoverland.com">trailbuiltoverland.com</a>.</p>
+        <p>{{SenderInfo}}</p>
+        <p><a href="{{UnsubscribeURL}}">Unsubscribe</a> &nbsp;·&nbsp; <a href="https://trailbuiltoverland.com/about">About Trail Built</a></p>
+        <p>&copy; 2025 Trail Built Overlanding. All rights reserved.</p>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
