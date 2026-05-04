@@ -1,24 +1,16 @@
 name: Weekly AI Content + Deploy
 
 on:
-  # Runs every Monday at 9:00 AM UTC (5:00 AM ET)
+  # Runs every Monday at 9am UTC
   schedule:
     - cron: '0 9 * * 1'
-  # Manual trigger from GitHub Actions tab
+  # Also allows manual trigger from GitHub Actions tab
   workflow_dispatch:
     inputs:
       topic:
-        description: 'Article topic (leave blank to auto-pick from queue)'
+        description: 'Article topic (optional — leave blank to auto-pick)'
         required: false
         default: ''
-      dry_run:
-        description: 'Dry run — generate article but do NOT commit or deploy'
-        required: false
-        default: 'false'
-        type: choice
-        options:
-          - 'false'
-          - 'true'
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
@@ -26,32 +18,21 @@ env:
 jobs:
   generate-and-deploy:
     runs-on: ubuntu-latest
+    # Required so GITHUB_TOKEN can push commits (otherwise push returns 403).
     permissions:
       contents: write
 
     steps:
-      # ── 1. Checkout ──────────────────────────────────────────────────────────
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
 
-      # ── 2. Setup runtimes ────────────────────────────────────────────────────
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
         with:
           node-version: '20'
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install Python dependencies
-        run: pip install requests python-dateutil
-
-      # ── 3. Generate article ──────────────────────────────────────────────────
       - name: Generate new article
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
@@ -64,82 +45,17 @@ jobs:
             node scripts/generate-article.js
           fi
 
-      # ── 4. Validate product ASINs ────────────────────────────────────────────
-      - name: Validate product ASINs
-        run: python3 scripts/validate-products.py || true
-
-      # ── 5. Regenerate sitemap ────────────────────────────────────────────────
-      - name: Regenerate sitemap
-        run: node scripts/generate-sitemap.mjs
-
-      # ── 6. SEO audit ─────────────────────────────────────────────────────────
-      - name: Run SEO audit
-        run: node scripts/seo-audit.mjs
-
-      # ── 7. Upload SEO audit as artifact ─────────────────────────────────────
-      - name: Upload SEO audit report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: seo-audit-${{ github.run_number }}
-          path: seo-audit-report.json
-          retention-days: 30
-
-      # ── 8. Commit & push (skip on dry run) ──────────────────────────────────
-      - name: Commit new article and updated files
-        if: ${{ github.event.inputs.dry_run != 'true' }}
+      - name: Commit new article
         run: |
           git config user.name  "Trail Built Bot"
-          git config user.email "bot@trailbuiltoverland.com"
-          git add articles/ index.html sitemap.xml seo-audit-report.json
-          if git diff --cached --quiet; then
-            echo "Nothing to commit — article may already exist."
-          else
-            ARTICLE=$(ls -t articles/*.html | head -1 | xargs basename)
-            git commit -m "chore: auto-publish ${ARTICLE} on $(date +%Y-%m-%d)"
-            echo "ARTICLE_SLUG=${ARTICLE}" >> $GITHUB_ENV
-          fi
+          git config user.email "bot@trailbuilt.com"
+          git add articles/ index.html sitemap.xml
+          git diff --cached --quiet || git commit -m "chore: auto-publish new article $(date +%Y-%m-%d)"
 
-      - name: Push changes to main
-        if: ${{ github.event.inputs.dry_run != 'true' }}
+      - name: Push changes
         run: git push origin main
 
-      # ── 9. Trigger Netlify deploy (optional build hook) ──────────────────────
-      - name: Trigger Netlify deploy
-        if: ${{ github.event.inputs.dry_run != 'true' && secrets.NETLIFY_BUILD_HOOK != '' }}
-        run: curl -s -X POST "${{ secrets.NETLIFY_BUILD_HOOK }}"
-        continue-on-error: true
-
-      # ── 10. Ping search engines ──────────────────────────────────────────────
-      - name: Ping search engines
-        if: ${{ github.event.inputs.dry_run != 'true' }}
-        env:
-          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
-        run: node scripts/ping-search-engines.mjs
-        continue-on-error: true
-
-      # ── 11. GitHub Actions job summary ───────────────────────────────────────
-      - name: Write job summary
-        if: always()
-        run: |
-          echo "## Trail Built Weekly Content Update" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "| Field | Value |" >> $GITHUB_STEP_SUMMARY
-          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
-          echo "| Run date | $(date -u '+%Y-%m-%d %H:%M UTC') |" >> $GITHUB_STEP_SUMMARY
-          echo "| Trigger | ${{ github.event_name }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Dry run | ${{ github.event.inputs.dry_run || 'false' }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Topic override | ${{ github.event.inputs.topic || '(auto)' }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Article count | $(ls articles/*.html | wc -l) |" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### SEO Audit" >> $GITHUB_STEP_SUMMARY
-          if [ -f seo-audit-report.json ]; then
-            ISSUES=$(python3 -c "import json; d=json.load(open('seo-audit-report.json')); print(d.get('issues',0))" 2>/dev/null || echo "N/A")
-            WARNINGS=$(python3 -c "import json; d=json.load(open('seo-audit-report.json')); print(d.get('warnings',0))" 2>/dev/null || echo "N/A")
-            CHECKS=$(python3 -c "import json; d=json.load(open('seo-audit-report.json')); print(d.get('checks_passed',0))" 2>/dev/null || echo "N/A")
-            echo "- Issues: **${ISSUES}**" >> $GITHUB_STEP_SUMMARY
-            echo "- Warnings: **${WARNINGS}**" >> $GITHUB_STEP_SUMMARY
-            echo "- Checks passed: **${CHECKS}**" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "- SEO audit report not found" >> $GITHUB_STEP_SUMMARY
-          fi
+      # Netlify auto-deploys from main — nothing else needed.
+      # If you prefer to trigger manually, add a Netlify build hook here:
+      # - name: Trigger Netlify deploy
+      #   run: curl -X POST ${{ secrets.NETLIFY_BUILD_HOOK }}
