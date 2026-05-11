@@ -1,10 +1,10 @@
 {
-  "generated": "2026-05-11T16:07:54.458Z",
+  "generated": "2026-05-11T23:27:09.037Z",
   "summary": {
-    "pages": 25,
+    "pages": 26,
     "issues": 0,
     "warnings": 0,
-    "passed": 269
+    "passed": 280
   },
   "issues": [],
   "warnings": [],
@@ -234,6 +234,17 @@
     "[/articles/best-overlanding-winches.html] All 6 Amazon links have affiliate tag",
     "[/articles/best-overlanding-winches.html] No placeholder href='#' links",
     "[/articles/best-overlanding-winches.html] JSON-LD structured data present",
+    "[/articles/best-vehicle-communication-gear-for-overlanding.html] Title OK (22 chars)",
+    "[/articles/best-vehicle-communication-gear-for-overlanding.html] Meta description OK (149 chars)",
+    "[/articles/best-vehicle-communication-gear-for-overlanding.html] Canonical URL present and correct",
+    "[/articles/best-vehicle-communication-gear-for-overlanding.html] og:title present",
+    "[/articles/best-vehicle-communication-gear-for-overlanding.html] og:description present",
+    "[/articles/best-vehicle-communication-gear-for-overlanding.html] og:image present",
+    "[/articles/best-vehicle-communication-gear-for-overlanding.html] robots meta present",
+    "[/articles/best-vehicle-communication-gear-for-overlanding.html] Single H1 tag",
+    "[/articles/best-vehicle-communication-gear-for-overlanding.html] All 5 Amazon links have affiliate tag",
+    "[/articles/best-vehicle-communication-gear-for-overlanding.html] No placeholder href='#' links",
+    "[/articles/best-vehicle-communication-gear-for-overlanding.html] JSON-LD structured data present",
     "[/articles/ford-bronco-overland-build-guide.html] Title OK (49 chars)",
     "[/articles/ford-bronco-overland-build-guide.html] Meta description OK (144 chars)",
     "[/articles/ford-bronco-overland-build-guide.html] Canonical URL present and correct",
@@ -279,7 +290,7 @@
     "[/articles/toyota-tacoma-overland-build-guide.html] No placeholder href='#' links",
     "[/articles/toyota-tacoma-overland-build-guide.html] JSON-LD structured data present",
     "robots.txt references sitemap",
-    "sitemap.xml has 25 URLs with correct domain"
+    "sitemap.xml has 26 URLs with correct domain"
   ],
   "pages": [
     {
@@ -671,6 +682,25 @@
         "robots meta present",
         "Single H1 tag",
         "All 6 Amazon links have affiliate tag",
+        "No placeholder href='#' links",
+        "JSON-LD structured data present"
+      ]
+    },
+    {
+      "url": "/articles/best-vehicle-communication-gear-for-overlanding.html",
+      "type": "article",
+      "issues": [],
+      "warnings": [],
+      "passed": [
+        "Title OK (22 chars)",
+        "Meta description OK (149 chars)",
+        "Canonical URL present and correct",
+        "og:title present",
+        "og:description present",
+        "og:image present",
+        "robots meta present",
+        "Single H1 tag",
+        "All 5 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
