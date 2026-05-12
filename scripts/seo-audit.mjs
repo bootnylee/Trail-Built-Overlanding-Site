@@ -4,6 +4,7 @@
 
 import { readFileSync, writeFileSync, readdirSync, existsSync } from "fs";
 import { resolve, dirname } from "path";
+import { spawnSync } from "child_process";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -224,3 +225,17 @@ if (warnings.length > 0) {
 }
 
 console.log(`📄 Full report saved to: ${REPORT_FILE}\n`);
+
+// ── Site quality gate ──────────────────────────────────────────────────────────
+// This script is already run by the scheduled GitHub workflow. Invoking the
+// dedicated quality gate here ensures malformed product cards, missing local
+// product images, broken affiliate links, uneven homepage card layouts, and stray
+// encoded share text fail future automated builds before publication.
+const qualityCheck = spawnSync(process.execPath, [resolve(__dirname, "quality-check.mjs")], {
+  cwd: ROOT,
+  stdio: "inherit",
+});
+
+if (qualityCheck.status !== 0) {
+  process.exit(qualityCheck.status || 1);
+}
