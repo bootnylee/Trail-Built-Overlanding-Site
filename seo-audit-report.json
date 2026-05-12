@@ -1,15 +1,15 @@
 {
-  "generated": "2026-05-11T23:27:09.037Z",
+  "generated": "2026-05-12T00:21:19.282Z",
   "summary": {
     "pages": 26,
     "issues": 0,
     "warnings": 0,
-    "passed": 280
+    "passed": 282
   },
   "issues": [],
   "warnings": [],
   "passed": [
-    "[/index.html] Title OK (53 chars)",
+    "[/index.html] Title OK (57 chars)",
     "[/index.html] Meta description OK (147 chars)",
     "[/index.html] Canonical URL present and correct",
     "[/index.html] og:title present",
@@ -178,6 +178,7 @@
     "[/articles/best-overlanding-first-aid-kit-essentials.html] og:image present",
     "[/articles/best-overlanding-first-aid-kit-essentials.html] robots meta present",
     "[/articles/best-overlanding-first-aid-kit-essentials.html] Single H1 tag",
+    "[/articles/best-overlanding-first-aid-kit-essentials.html] All 5 Amazon links have affiliate tag",
     "[/articles/best-overlanding-first-aid-kit-essentials.html] No placeholder href='#' links",
     "[/articles/best-overlanding-first-aid-kit-essentials.html] JSON-LD structured data present",
     "[/articles/best-overlanding-fridges.html] Title OK (57 chars)",
@@ -221,6 +222,7 @@
     "[/articles/best-overlanding-water-storage-and-filtration.html] og:image present",
     "[/articles/best-overlanding-water-storage-and-filtration.html] robots meta present",
     "[/articles/best-overlanding-water-storage-and-filtration.html] Single H1 tag",
+    "[/articles/best-overlanding-water-storage-and-filtration.html] All 5 Amazon links have affiliate tag",
     "[/articles/best-overlanding-water-storage-and-filtration.html] No placeholder href='#' links",
     "[/articles/best-overlanding-water-storage-and-filtration.html] JSON-LD structured data present",
     "[/articles/best-overlanding-winches.html] Title OK (64 chars)",
@@ -299,7 +301,7 @@
       "issues": [],
       "warnings": [],
       "passed": [
-        "Title OK (53 chars)",
+        "Title OK (57 chars)",
         "Meta description OK (147 chars)",
         "Canonical URL present and correct",
         "og:title present",
@@ -588,6 +590,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
+        "All 5 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -663,6 +666,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
+        "All 5 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" role="img" aria-label="Surviveware Small First Aid Kit">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff1f2"/><stop offset="1" stop-color="#ffffff"/></linearGradient></defs>
+  <rect width="800" height="560" rx="32" fill="url(#g)"/>
+  <rect x="95" y="90" width="610" height="330" rx="38" fill="#fff" stroke="#ef4444" stroke-width="10"/>
+  <circle cx="210" cy="255" r="88" fill="#ef4444" opacity="0.14"/>
+  <text x="210" y="286" text-anchor="middle" font-size="92" font-family="Arial, Helvetica, sans-serif">✚</text>
+  <text x="320" y="215" font-size="44" font-weight="800" font-family="Arial, Helvetica, sans-serif" fill="#1f2937">Trail Built</text>
+  <foreignObject x="320" y="240" width="310" height="110"><div xmlns="http://www.w3.org/1999/xhtml" style="font-family:Arial,Helvetica,sans-serif;font-size:26px;font-weight:700;line-height:1.15;color:#334155;">Surviveware Small First Aid Kit</div></foreignObject>
+  <rect x="320" y="360" width="250" height="24" rx="12" fill="#ef4444" opacity="0.35"/>
+  <text x="400" y="490" text-anchor="middle" font-size="22" font-family="Arial, Helvetica, sans-serif" fill="#64748b">Product card illustration • Direct product link below</text>
+</svg>
