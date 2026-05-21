@@ -63,6 +63,10 @@ jobs:
           else
             node scripts/generate-article.js
           fi
+          
+      # ── 4. Sanitize generated articles ───────────────────────────────────────
+      - name: Sanitize generated articles
+        run: node scripts/sanitize-articles.mjs
 
       # ── 4. Validate product ASINs ────────────────────────────────────────────
       - name: Validate product ASINs
