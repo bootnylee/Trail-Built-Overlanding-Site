@@ -106,8 +106,15 @@ jobs:
 
       # ── 9. Trigger Netlify deploy (optional build hook) ──────────────────────
       - name: Trigger Netlify deploy
-        if: ${{ github.event.inputs.dry_run != 'true' && secrets.NETLIFY_BUILD_HOOK != '' }}
-        run: curl -s -X POST "${{ secrets.NETLIFY_BUILD_HOOK }}"
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        env:
+          NETLIFY_BUILD_HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+        run: |
+          if [ -n "$NETLIFY_BUILD_HOOK" ]; then
+            curl -s -X POST "$NETLIFY_BUILD_HOOK"
+          else
+            echo "No NETLIFY_BUILD_HOOK set — skipping deploy trigger."
+          fi
         continue-on-error: true
 
       # ── 10. Ping search engines ──────────────────────────────────────────────
