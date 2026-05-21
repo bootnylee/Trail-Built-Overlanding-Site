@@ -173,7 +173,7 @@ End with a 3-question FAQ section using <h2 id="faq">FAQ</h2> and <h3> for each 
 async function generateMeta(topic) {
   const prompt = `For an overlanding affiliate article about "${topic}", write:
 1. A title tag (max 65 chars, include "2026")
-2. A meta description (max 155 chars, mention testing and specific product types)
+2. A meta description (min 100 chars, max 155 chars, mention testing, year 2026, and specific product types)
 3. An og:image Unsplash URL for a high-quality overlanding/off-road photo.
    Use format: https://images.unsplash.com/photo-PHOTOID?w=1200&q=80
    Pick a relevant Unsplash photo ID for overlanding/off-road content.
@@ -185,6 +185,11 @@ Return as JSON: {"title": "...", "description": "...", "ogImage": "..."}`;
   ]);
   try {
     const parsed = JSON.parse(raw.trim());
+    // Enforce minimum description length
+    if (parsed.description && parsed.description.length < 100) {
+      parsed.description = parsed.description + ` Our team tested the top-rated options in the field to find the best picks for every budget and overlanding build style in 2026.`;
+      if (parsed.description.length > 155) parsed.description = parsed.description.substring(0, 152) + '...';
+    }
     if (!parsed.ogImage) {
       parsed.ogImage = 'https://images.unsplash.com/photo-1533591380348-14193f1de18f?w=1200&q=80';
     }
@@ -192,7 +197,7 @@ Return as JSON: {"title": "...", "description": "...", "ogImage": "..."}`;
   } catch {
     return {
       title: `Best ${topic} 2026 — Trail Built`,
-      description: `Expert reviews and top picks for ${topic}. Tested in the field.`,
+      description: `Expert overlanding gear reviews for ${topic} in 2026. Our team tested the top-rated options in the field to find the best picks for every budget and build.`,
       ogImage: 'https://images.unsplash.com/photo-1533591380348-14193f1de18f?w=1200&q=80',
     };
   }
@@ -319,7 +324,7 @@ function buildHTML({ slug, title, description, ogImage, topic, bodyHTML, date, d
     <article class="article-body">
       <div class="share-bar" data-url="${articleUrl}" data-title="${escapeHtml(title)}">
         <span class="share-label">Share:</span>
-        <a class="share-btn share-twitter" href="https://twitter.com/intent/tweet?url=${encodeURIComponent(articleUrl)}&text=${encodeURIComponent(title)}" rel="noopener" target="_blank" aria-label="Share on Twitter">&#120143;</a>
+        <a class="share-btn share-twitter" href="https://twitter.com/intent/tweet?url=${encodeURIComponent(articleUrl)}&text=${encodeURIComponent(title)}" rel="noopener" target="_blank" aria-label="Share on X (Twitter)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
         <a class="share-btn share-facebook" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(articleUrl)}" rel="noopener" target="_blank" aria-label="Share on Facebook">&#128218;</a>
         <a class="share-btn share-pinterest" href="https://pinterest.com/pin/create/button/?url=${encodeURIComponent(articleUrl)}&description=${encodeURIComponent(title)}" rel="noopener" target="_blank" aria-label="Share on Pinterest">&#128204;</a>
         <button class="share-btn share-copy" onclick="navigator.clipboard.writeText('${articleUrl}').then(function(){this.textContent='Copied!';var btn=this;setTimeout(function(){btn.textContent='&#128279;'},2000)}.bind(this))" aria-label="Copy link">&#128279;</button>
