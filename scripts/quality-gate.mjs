@@ -174,6 +174,115 @@ const CRITICAL_CHECKS = [
       return null;
     },
   },
+  {
+    id: 'nested-grid-cards',
+    description: 'Cards nested inside other cards in grid sections (missing closing </div>)',
+    test: (content, file) => {
+      if (!file.endsWith('.html')) return null;
+      // Parse each grid section and count direct-child cards vs total descendant cards.
+      // A mismatch means at least one card is missing its closing </div>, causing
+      // cards to be nested inside siblings — which inflates row heights.
+      //
+      // Strategy: for each <div class="grid-3"> or <div class="grid-2"> block,
+      // walk the raw HTML and count open/close div tags to detect nesting.
+      const gridPattern = /<div class="grid-[23]">([\/\s\S]*?)<\/div>\s*<\/div>\s*<\/section>/g;
+      const issues = [];
+
+      // Simpler heuristic: count <div class="card"> opens vs </div> closes
+      // within each grid block. If a card div is not closed before the next
+      // <div class="card"> opens, we have a nesting problem.
+      // We detect this by looking for the pattern:
+      //   </div>\n<div class="card">   (correct: card-body close then new card)
+      // vs
+      //   </div>\n<div class="card">   where the outer card div was never closed.
+      //
+      // Most reliable: check that no <div class="card"> appears as a descendant
+      // of another <div class="card"> by counting div depth between card opens.
+      const lines = content.split('\n');
+      let depth = 0;
+      let insideCard = false;
+      let cardDepth = 0;
+      let nestedCardCount = 0;
+      let insideGrid = false;
+
+      for (const line of lines) {
+        const trimmed = line.trim();
+
+        // Track grid entry/exit
+        if (/class="grid-[23]"/.test(trimmed)) insideGrid = true;
+        if (!insideGrid) continue;
+
+        // Count div opens and closes
+        const opens = (trimmed.match(/<div/g) || []).length;
+        const closes = (trimmed.match(/<\/div>/g) || []).length;
+
+        if (trimmed.includes('class="card"') || trimmed.includes("class='card'")) {
+          if (insideCard && depth > cardDepth) {
+            // A new card opened while we're still inside a previous card
+            nestedCardCount++;
+            issues.push(`Card nested inside another card (missing closing </div> on parent card)`);
+          }
+          insideCard = true;
+          cardDepth = depth;
+        }
+
+        depth += opens - closes;
+
+        // When depth returns to grid level, we've exited the grid
+        if (depth <= 0) {
+          insideGrid = false;
+          insideCard = false;
+          depth = 0;
+        }
+      }
+
+      if (nestedCardCount > 0) {
+        return `${nestedCardCount} card(s) nested inside other cards in a grid section — check for missing </div> closing tags. This causes unequal card heights.`;
+      }
+      return null;
+    },
+  },
+  {
+    id: 'homepage-reviews-grid-count',
+    description: 'Homepage #reviews grid must have exactly 9 direct-child cards',
+    filename: 'index.html',
+    test: (content, file) => {
+      // Count <div class="card"> entries that appear between the #reviews section
+      // open and the next </section> tag. Use a depth-tracking approach to ensure
+      // we only count direct children of the grid-3 div, not nested descendants.
+      const reviewsStart = content.indexOf('<section id="reviews">');
+      const reviewsEnd = content.indexOf('</section>', reviewsStart);
+      if (reviewsStart === -1 || reviewsEnd === -1) return null;
+
+      const reviewsBlock = content.slice(reviewsStart, reviewsEnd);
+      const gridStart = reviewsBlock.indexOf('<div class="grid-3">');
+      if (gridStart === -1) return null;
+
+      const gridBlock = reviewsBlock.slice(gridStart);
+      const lines = gridBlock.split('\n');
+      let depth = 0;
+      let directCardCount = 0;
+
+      for (const line of lines) {
+        const trimmed = line.trim();
+        const opens = (trimmed.match(/<div/g) || []).length;
+        const closes = (trimmed.match(/<\/div>/g) || []).length;
+
+        // Direct children of grid-3 are at depth 1
+        if (depth === 1 && (trimmed.includes('class="card"') || trimmed.includes("class='card'"))) {
+          directCardCount++;
+        }
+
+        depth += opens - closes;
+        if (depth <= 0) break; // exited the grid-3 div
+      }
+
+      if (directCardCount !== 9) {
+        return `#reviews .grid-3 has ${directCardCount} direct-child card(s) — expected exactly 9. A missing </div> may be nesting cards inside siblings.`;
+      }
+      return null;
+    },
+  },
 ];
 
 const WARNING_CHECKS = [
