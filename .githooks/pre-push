@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(git rev-parse --show-toplevel)"
+cd "$repo_root"
+
+printf 'Running TrailBuiltOverland product/category image validation before push...\n'
+python3.11 scripts/prepush_validate_images.py

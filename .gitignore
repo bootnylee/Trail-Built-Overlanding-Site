@@ -1,0 +1,14 @@
+# One-time image-audit and research outputs generated during validation/fix work
+reports/
+
+# One-time repair/research helper scripts; keep scripts/prepush_validate_images.py tracked
+scripts/apply_category_link_images.py
+scripts/apply_verified_product_images.py
+scripts/audit_images.py
+scripts/build_image_research_inputs.py
+scripts/build_precise_unresolved.py
+scripts/check_asin_images.py
+scripts/consolidate_image_research.py
+scripts/extract_actual_products.py
+scripts/extract_products.py
+scripts/validate_researched_images.py
