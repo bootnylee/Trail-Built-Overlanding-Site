@@ -1,10 +1,10 @@
 {
-  "generated": "2026-05-25T16:03:49.562Z",
+  "generated": "2026-06-01T14:51:48.430Z",
   "summary": {
-    "pages": 27,
+    "pages": 28,
     "issues": 0,
     "warnings": 1,
-    "passed": 292
+    "passed": 303
   },
   "issues": [],
   "warnings": [
@@ -161,6 +161,17 @@
     "[/articles/4runner-5th-gen-overland-build-guide.html] All 31 Amazon links have affiliate tag",
     "[/articles/4runner-5th-gen-overland-build-guide.html] No placeholder href='#' links",
     "[/articles/4runner-5th-gen-overland-build-guide.html] JSON-LD structured data present",
+    "[/articles/best-hi-lift-jack-alternatives.html] Title OK (30 chars)",
+    "[/articles/best-hi-lift-jack-alternatives.html] Meta description OK (150 chars)",
+    "[/articles/best-hi-lift-jack-alternatives.html] Canonical URL present and correct",
+    "[/articles/best-hi-lift-jack-alternatives.html] og:title present",
+    "[/articles/best-hi-lift-jack-alternatives.html] og:description present",
+    "[/articles/best-hi-lift-jack-alternatives.html] og:image present",
+    "[/articles/best-hi-lift-jack-alternatives.html] robots meta present",
+    "[/articles/best-hi-lift-jack-alternatives.html] Single H1 tag",
+    "[/articles/best-hi-lift-jack-alternatives.html] All 5 Amazon links have affiliate tag",
+    "[/articles/best-hi-lift-jack-alternatives.html] No placeholder href='#' links",
+    "[/articles/best-hi-lift-jack-alternatives.html] JSON-LD structured data present",
     "[/articles/best-off-road-light-bars.html] Title OK (63 chars)",
     "[/articles/best-off-road-light-bars.html] Meta description OK (146 chars)",
     "[/articles/best-off-road-light-bars.html] Canonical URL present and correct",
@@ -304,7 +315,7 @@
     "[/articles/toyota-tacoma-overland-build-guide.html] No placeholder href='#' links",
     "[/articles/toyota-tacoma-overland-build-guide.html] JSON-LD structured data present",
     "robots.txt references sitemap",
-    "sitemap.xml has 27 URLs with correct domain"
+    "sitemap.xml has 28 URLs with correct domain"
   ],
   "pages": [
     {
@@ -565,6 +576,25 @@
         "robots meta present",
         "Single H1 tag",
         "All 31 Amazon links have affiliate tag",
+        "No placeholder href='#' links",
+        "JSON-LD structured data present"
+      ]
+    },
+    {
+      "url": "/articles/best-hi-lift-jack-alternatives.html",
+      "type": "article",
+      "issues": [],
+      "warnings": [],
+      "passed": [
+        "Title OK (30 chars)",
+        "Meta description OK (150 chars)",
+        "Canonical URL present and correct",
+        "og:title present",
+        "og:description present",
+        "og:image present",
+        "robots meta present",
+        "Single H1 tag",
+        "All 5 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
