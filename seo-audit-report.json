@@ -1,17 +1,13 @@
 {
-  "generated": "2026-06-08T12:58:46.314Z",
+  "generated": "2026-06-08T17:24:34.136Z",
   "summary": {
     "pages": 29,
     "issues": 0,
-    "warnings": 3,
-    "passed": 312
+    "warnings": 0,
+    "passed": 315
   },
   "issues": [],
-  "warnings": [
-    "[/articles/best-diesel-vs-gasoline-for-overlanding.html] Title too short (18 chars): \"Diesel vs Gas 2026\"",
-    "[/articles/best-diesel-vs-gasoline-for-overlanding.html] Meta description too short (2 chars)",
-    "[/articles/best-skid-plates-for-off-road-trucks.html] Meta description too long (166 chars)"
-  ],
+  "warnings": [],
   "passed": [
     "[/index.html] Title OK (57 chars)",
     "[/index.html] Meta description OK (147 chars)",
@@ -163,6 +159,8 @@
     "[/articles/4runner-5th-gen-overland-build-guide.html] All 31 Amazon links have affiliate tag",
     "[/articles/4runner-5th-gen-overland-build-guide.html] No placeholder href='#' links",
     "[/articles/4runner-5th-gen-overland-build-guide.html] JSON-LD structured data present",
+    "[/articles/best-diesel-vs-gasoline-for-overlanding.html] Title OK (48 chars)",
+    "[/articles/best-diesel-vs-gasoline-for-overlanding.html] Meta description OK (143 chars)",
     "[/articles/best-diesel-vs-gasoline-for-overlanding.html] Canonical URL present and correct",
     "[/articles/best-diesel-vs-gasoline-for-overlanding.html] og:title present",
     "[/articles/best-diesel-vs-gasoline-for-overlanding.html] og:description present",
@@ -261,6 +259,7 @@
     "[/articles/best-overlanding-winches.html] No placeholder href='#' links",
     "[/articles/best-overlanding-winches.html] JSON-LD structured data present",
     "[/articles/best-skid-plates-for-off-road-trucks.html] Title OK (21 chars)",
+    "[/articles/best-skid-plates-for-off-road-trucks.html] Meta description OK (141 chars)",
     "[/articles/best-skid-plates-for-off-road-trucks.html] Canonical URL present and correct",
     "[/articles/best-skid-plates-for-off-road-trucks.html] og:title present",
     "[/articles/best-skid-plates-for-off-road-trucks.html] og:description present",
@@ -595,11 +594,10 @@
       "url": "/articles/best-diesel-vs-gasoline-for-overlanding.html",
       "type": "article",
       "issues": [],
-      "warnings": [
-        "Title too short (18 chars): \"Diesel vs Gas 2026\"",
-        "Meta description too short (2 chars)"
-      ],
+      "warnings": [],
       "passed": [
+        "Title OK (48 chars)",
+        "Meta description OK (143 chars)",
         "Canonical URL present and correct",
         "og:title present",
         "og:description present",
@@ -767,11 +765,10 @@
       "url": "/articles/best-skid-plates-for-off-road-trucks.html",
       "type": "article",
       "issues": [],
-      "warnings": [
-        "Meta description too long (166 chars)"
-      ],
+      "warnings": [],
       "passed": [
         "Title OK (21 chars)",
+        "Meta description OK (141 chars)",
         "Canonical URL present and correct",
         "og:title present",
         "og:description present",
