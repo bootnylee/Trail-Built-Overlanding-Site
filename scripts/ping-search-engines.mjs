@@ -1,3 +1,4 @@
+import fs from "node:fs";
 // TrailBuiltOverland.com — Search Engine Sitemap Ping Script
 // Notifies Google and Bing of sitemap updates after weekly content additions.
 // Run automatically by GitHub Actions after each weekly update.
@@ -26,14 +27,33 @@ async function pingSitemap(url) {
   }
 }
 
+function getIndexNowKey() {
+  const envKey = process.env.INDEXNOW_KEY;
+  if (envKey) return { key: envKey, source: "environment" };
+
+  const keyFile = fs
+    .readdirSync(process.cwd(), { withFileTypes: true })
+    .filter((entry) => entry.isFile())
+    .map((entry) => entry.name)
+    .find((name) => /^[A-Za-z0-9-]{8,128}\.txt$/.test(name));
+
+  if (!keyFile) return null;
+
+  const candidate = keyFile.replace(/\.txt$/, "");
+  const contents = fs.readFileSync(keyFile, "utf8").trim();
+  return contents === candidate ? { key: candidate, source: "hosted key file" } : null;
+}
+
 async function pingIndexNow() {
-  // IndexNow protocol — supported by Bing, Yandex, and others
-  // Requires INDEXNOW_KEY env variable and a key file at the site root
-  const key = process.env.INDEXNOW_KEY;
-  if (!key) {
-    console.log("ℹ️  INDEXNOW_KEY not set — skipping IndexNow ping");
+  // IndexNow protocol — supported by Bing, Yandex, and others.
+  // Prefer INDEXNOW_KEY when configured, otherwise use a verified hosted root key file.
+  const keyConfig = getIndexNowKey();
+  if (!keyConfig) {
+    console.log("ℹ️  INDEXNOW_KEY/key file not set — skipping IndexNow ping");
     return;
   }
+  const { key, source } = keyConfig;
+  console.log(`ℹ️  Using IndexNow key from ${source}`);
 
   const payload = {
     host: "trailbuiltoverland.com",
