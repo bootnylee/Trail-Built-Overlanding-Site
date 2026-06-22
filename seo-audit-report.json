@@ -1,13 +1,14 @@
 {
-  "generated": "2026-06-15T14:56:14.981Z",
+  "generated": "2026-06-22T14:25:45.481Z",
   "summary": {
     "pages": 30,
     "issues": 0,
-    "warnings": 1,
-    "passed": 325
+    "warnings": 2,
+    "passed": 324
   },
   "issues": [],
   "warnings": [
+    "[/articles/best-hi-lift-jack-alternatives.html] Meta description too long (166 chars)",
     "[/articles/best-portable-power-stations-for-overlanding.html] Title too short (18 chars): \"Best Portable 2026\""
   ],
   "passed": [
@@ -172,8 +173,7 @@
     "[/articles/best-diesel-vs-gasoline-for-overlanding.html] All 5 Amazon links have affiliate tag",
     "[/articles/best-diesel-vs-gasoline-for-overlanding.html] No placeholder href='#' links",
     "[/articles/best-diesel-vs-gasoline-for-overlanding.html] JSON-LD structured data present",
-    "[/articles/best-hi-lift-jack-alternatives.html] Title OK (30 chars)",
-    "[/articles/best-hi-lift-jack-alternatives.html] Meta description OK (150 chars)",
+    "[/articles/best-hi-lift-jack-alternatives.html] Title OK (25 chars)",
     "[/articles/best-hi-lift-jack-alternatives.html] Canonical URL present and correct",
     "[/articles/best-hi-lift-jack-alternatives.html] og:title present",
     "[/articles/best-hi-lift-jack-alternatives.html] og:description present",
@@ -625,10 +625,11 @@
       "url": "/articles/best-hi-lift-jack-alternatives.html",
       "type": "article",
       "issues": [],
-      "warnings": [],
+      "warnings": [
+        "Meta description too long (166 chars)"
+      ],
       "passed": [
-        "Title OK (30 chars)",
-        "Meta description OK (150 chars)",
+        "Title OK (25 chars)",
         "Canonical URL present and correct",
         "og:title present",
         "og:description present",
