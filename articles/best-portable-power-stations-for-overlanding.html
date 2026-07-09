@@ -46,8 +46,8 @@
   },
   "author": {
     "@type": "Person",
-    "@id": "https://trailbuiltoverland.com/#author-trail-built-staff",
-    "name": "Trail Built Staff"
+    "@id": "https://trailbuiltoverland.com/#author-dylan-frost",
+    "name": "Dylan Frost"
   },
   "publisher": {
     "@type": "Organization",
@@ -165,7 +165,7 @@
         <div class="article-byline" itemscope itemtype="https://schema.org/Person">
 <div class="avatar"><svg aria-hidden="true" fill="none" height="40" viewbox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" fill="#2a3a2a" r="20"></circle><circle cx="20" cy="15" fill="#d4751a" r="7"></circle><ellipse cx="20" cy="34" fill="#d4751a" rx="12" ry="8"></ellipse></svg></div>
 <div class="byline-info">
-<strong itemprop="name"><a href="../about.html#trail-built-staff" rel="author" itemprop="url">Trail Built Staff</a></strong>
+<strong itemprop="name"><a href="../author/dylan-frost.html" rel="author" itemprop="url">Dylan Frost</a></strong>
 <span class="byline-meta">Published June 15, 2026 &middot; <a href="../about.html#how-we-test" class="how-we-test-link">How we test</a></span>
 </div>
 </div>
@@ -298,7 +298,50 @@
 <h3>How long does a portable power station last?</h3>
 <p>The lifespan of a portable power station depends on various factors, including the quality of the product, usage patterns, and maintenance. On average, a well-maintained portable power station can last for 3-5 years or more, with some models offering up to 10 years of service. Be sure to follow the manufacturer's guidelines for maintenance and replacement.</p>
 <p><strong>Footer Note:</strong> As an affiliate partner, we earn a commission from qualifying purchases made through our Amazon links. This helps support our content creation and research efforts. Thank you for your support!</p>
-    </article>
+    
+<!-- ===== USER REVIEWS (feature-flagged: dormant until REVIEWS_ENABLED=true) ===== -->
+<section class="user-reviews-section" aria-label="Reader reviews">
+  <h2 class="user-reviews-heading">Reader Reviews</h2>
+
+  <!-- Aggregate bar (populated by JS when reviews exist) -->
+  <div class="review-aggregate-bar" id="review-aggregate-bar">
+    <p class="review-aggregate-count">No reviews yet. Be the first to share your experience.</p>
+  </div>
+
+  <!-- Submission form -->
+  <div class="review-form-wrapper">
+    <p class="review-form-title">Share your experience with this gear</p>
+    <form class="review-form" id="review-form" novalidate>
+      <div>
+        <label for="reviewer-name">Your name</label>
+        <input type="text" id="reviewer-name" name="reviewer-name" placeholder="e.g. Jake M." maxlength="80" required />
+      </div>
+      <div>
+        <label>Your rating</label>
+        <div class="star-picker" role="group" aria-label="Star rating">
+          <button type="button" class="star-btn" aria-label="1 star">&#9733;</button>
+          <button type="button" class="star-btn" aria-label="2 stars">&#9733;</button>
+          <button type="button" class="star-btn" aria-label="3 stars">&#9733;</button>
+          <button type="button" class="star-btn" aria-label="4 stars">&#9733;</button>
+          <button type="button" class="star-btn" aria-label="5 stars">&#9733;</button>
+        </div>
+        <input type="hidden" name="rating" id="review-rating" value="0" />
+      </div>
+      <div>
+        <label for="review-text">Your review</label>
+        <textarea id="review-text" name="review-text" placeholder="What did you think? How did it perform on the trail?" maxlength="1000" required></textarea>
+      </div>
+      <button type="submit" class="review-form-submit">Submit Review</button>
+      <p class="review-form-message" id="review-form-message" role="status"></p>
+    </form>
+  </div>
+
+  <!-- Approved review cards (populated by JS) -->
+  <div class="review-list" id="review-list"></div>
+</section>
+<!-- ===== END USER REVIEWS ===== -->
+
+</article>
 
     <aside class="article-sidebar">
       <div class="sidebar-widget">
@@ -376,5 +419,6 @@
 <script src="../js/main.js"></script>
 <script src="../js/amazon.js"></script>
 <script src="../js/price-history.js"></script>
+<script src="../js/user-reviews.js"></script>
 </body>
 </html>

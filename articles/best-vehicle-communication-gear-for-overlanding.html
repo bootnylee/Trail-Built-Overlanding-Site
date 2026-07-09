@@ -47,8 +47,8 @@
   },
   "author": {
     "@type": "Person",
-    "@id": "https://trailbuiltoverland.com/#author-trail-built-staff",
-    "name": "Trail Built Staff"
+    "@id": "https://trailbuiltoverland.com/#author-marcus-reed",
+    "name": "Marcus Reed"
   },
   "publisher": {
     "@type": "Organization",
@@ -164,7 +164,7 @@
 <div class="article-byline" itemscope itemtype="https://schema.org/Person">
 <div class="avatar"><svg aria-hidden="true" fill="none" height="40" viewbox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" fill="#2a3a2a" r="20"></circle><circle cx="20" cy="15" fill="#d4751a" r="7"></circle><ellipse cx="20" cy="34" fill="#d4751a" rx="12" ry="8"></ellipse></svg></div>
 <div class="byline-info">
-<strong itemprop="name"><a href="../about.html#trail-built-staff" rel="author" itemprop="url">Trail Built Staff</a></strong>
+<strong itemprop="name"><a href="../author/marcus-reed.html" rel="author" itemprop="url">Marcus Reed</a></strong>
 <span class="byline-meta">Published May 11, 2026 &middot; <a href="../about.html#how-we-test" class="how-we-test-link">How we test</a></span>
 </div>
 </div>
@@ -203,6 +203,49 @@
 <p>Yes, these radios can be used for emergency communication, but it's essential to have a plan in place and know how to use them effectively. We recommend programming important channels, such as emergency services and NOAA weather radio, and keeping a list of contacts and frequencies handy.</p>
 <p><strong>Remember to always follow local regulations and best practices when using two-way radios for overlanding.</strong> For more information on our testing process and product recommendations, please visit our website.</p>
 <p><em>Footer note: This article contains affiliate links, which means we earn a commission if you purchase through these links. This helps support our content creation and testing process. Thank you for your support!</em></p>
+
+<!-- ===== USER REVIEWS (feature-flagged: dormant until REVIEWS_ENABLED=true) ===== -->
+<section class="user-reviews-section" aria-label="Reader reviews">
+  <h2 class="user-reviews-heading">Reader Reviews</h2>
+
+  <!-- Aggregate bar (populated by JS when reviews exist) -->
+  <div class="review-aggregate-bar" id="review-aggregate-bar">
+    <p class="review-aggregate-count">No reviews yet. Be the first to share your experience.</p>
+  </div>
+
+  <!-- Submission form -->
+  <div class="review-form-wrapper">
+    <p class="review-form-title">Share your experience with this gear</p>
+    <form class="review-form" id="review-form" novalidate>
+      <div>
+        <label for="reviewer-name">Your name</label>
+        <input type="text" id="reviewer-name" name="reviewer-name" placeholder="e.g. Jake M." maxlength="80" required />
+      </div>
+      <div>
+        <label>Your rating</label>
+        <div class="star-picker" role="group" aria-label="Star rating">
+          <button type="button" class="star-btn" aria-label="1 star">&#9733;</button>
+          <button type="button" class="star-btn" aria-label="2 stars">&#9733;</button>
+          <button type="button" class="star-btn" aria-label="3 stars">&#9733;</button>
+          <button type="button" class="star-btn" aria-label="4 stars">&#9733;</button>
+          <button type="button" class="star-btn" aria-label="5 stars">&#9733;</button>
+        </div>
+        <input type="hidden" name="rating" id="review-rating" value="0" />
+      </div>
+      <div>
+        <label for="review-text">Your review</label>
+        <textarea id="review-text" name="review-text" placeholder="What did you think? How did it perform on the trail?" maxlength="1000" required></textarea>
+      </div>
+      <button type="submit" class="review-form-submit">Submit Review</button>
+      <p class="review-form-message" id="review-form-message" role="status"></p>
+    </form>
+  </div>
+
+  <!-- Approved review cards (populated by JS) -->
+  <div class="review-list" id="review-list"></div>
+</section>
+<!-- ===== END USER REVIEWS ===== -->
+
 </article>
 <aside class="article-sidebar">
 <div class="sidebar-widget">
@@ -277,5 +320,6 @@
 <script src="../js/main.js"></script>
 <script src="../js/amazon.js"></script>
 <script src="../js/price-history.js"></script>
+<script src="../js/user-reviews.js"></script>
 </body>
 </html>
