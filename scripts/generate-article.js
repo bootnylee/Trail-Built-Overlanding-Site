@@ -81,12 +81,30 @@ function todayHuman() {
   return new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 function pickTopic() {
+  // CLI override — honour --topic as before
   const idx = process.argv.indexOf('--topic');
   if (idx !== -1 && process.argv[idx + 1]) return process.argv[idx + 1];
-  const existing = fs.readdirSync(ARTICLES_DIR).map(f => f.replace('.html', '').replace(/-/g, ' '));
-  const remaining = TOPIC_POOL.filter(t => !existing.some(e => e.includes(t.split(' ')[1])));
-  if (remaining.length === 0) return TOPIC_POOL[Math.floor(Math.random() * TOPIC_POOL.length)];
-  return remaining[Math.floor(Math.random() * remaining.length)];
+
+  // Build a Set of already-published slugs by stripping only the .html extension;
+  // no hyphen-to-space mangling so the comparison is exact.
+  const publishedSlugs = new Set(
+    fs.readdirSync(ARTICLES_DIR)
+      .filter(f => f.endsWith('.html'))
+      .map(f => f.slice(0, -5))          // strip ".html", keep hyphens intact
+  );
+
+  // Derive the slug for each pool entry using the same logic as line 479 in main().
+  const eligible = TOPIC_POOL.filter(t => {
+    const slug = slugify('best-' + t).replace(/^best-best-/, 'best-');
+    return !publishedSlugs.has(slug);
+  });
+
+  if (eligible.length === 0) {
+    console.error('TOPIC_POOL exhausted, add new topics');
+    process.exit(1);
+  }
+
+  return eligible[Math.floor(Math.random() * eligible.length)];
 }
 
 // ── Groq API ─────────────────────────────────────────────────────────────────
@@ -500,6 +518,17 @@ async function main() {
   });
 
   const outPath = path.join(ARTICLES_DIR, `${slug}.html`);
+
+  // Overwrite guard (change C): refuse to clobber an existing article unless
+  // --force was explicitly passed on the command line.
+  const forceFlag = process.argv.includes('--force');
+  if (fs.existsSync(outPath) && !forceFlag) {
+    throw new Error(
+      `OVERWRITE GUARD: ${outPath} already exists. ` +
+      'Pass --force to overwrite an existing article.'
+    );
+  }
+
   fs.writeFileSync(outPath, html);
   console.log(`Article written: ${outPath}`);
 
