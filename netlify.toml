@@ -56,6 +56,16 @@
   [headers.values]
     Cache-Control = "public, max-age=604800"
 
+# ── Canonical domain enforcement: www → non-www (301) ────────────────────────
+# Netlify handles http→https automatically via the "Force HTTPS" setting in
+# the Netlify dashboard (Site settings → Domain management → HTTPS).
+# This rule redirects www.trailbuiltoverland.com → trailbuiltoverland.com.
+[[redirects]]
+  from   = "https://www.trailbuiltoverland.com/*"
+  to     = "https://trailbuiltoverland.com/:splat"
+  status = 301
+  force  = true
+
 # ── Affiliate link redirect shortener ────────────────────────────────────────
 # Clean URLs: /go/B07SJHVQTJ → Amazon product page with affiliate tag
 # Usage in HTML: <a href="/go/B07SJHVQTJ">View on Amazon</a>
