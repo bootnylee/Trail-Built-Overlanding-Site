@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
+<!-- ═══════════════════════════════════════════════════════════════════
+     Google Analytics 4 — Trail Built Overlanding
+     ─────────────────────────────────────────────
+     MEASUREMENT ID: G-GX99D9KWL0
+     ↑ To change: replace G-GX99D9KWL0 with your new Measurement ID
+       in BOTH places below (the script src URL and the gtag config call).
+     ═══════════════════════════════════════════════════════════════════ -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GX99D9KWL0"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
-  gtag('config', 'G-GX99D9KWL0');
+  gtag('config', 'G-GX99D9KWL0', {
+    send_page_view: true,          // standard page view tracking
+    allow_google_signals: true,    // enables Demographics & Interests reports
+    // UTM parameters (utm_source, utm_medium, utm_campaign, etc.) are
+    // captured automatically by GA4 — no extra configuration needed.
+  });
 </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -302,6 +312,12 @@
   </div>
 </section>
 
+<!-- Netlify Forms hidden form — used as fallback email capture -->
+<form name="tbo-newsletter" netlify netlify-honeypot="bot-field" hidden>
+  <input type="email" name="email" />
+  <input type="text" name="rig_style" />
+  <input type="text" name="source" />
+</form>
 <!-- ===== MAIN CONTENT — question card + result cards ===== -->
 <main>
 
@@ -342,15 +358,31 @@
               <p id="result-email-desc">We'll send your personalized gear list plus weekly overlanding tips matched to your rig.</p>
             </div>
             <div id="eo-quiz-widget">
-              <form id="qz-email-form" onsubmit="handleQuizEmailSubmit(event)">
-                <div class="newsletter-fields">
-                  <input type="email" id="qz-email-input" placeholder="your@email.com" required />
-                  <button type="submit" class="btn btn-primary">Get My Gear List &rarr;</button>
+              <form id="qz-email-form" onsubmit="handleQuizEmailSubmit(event)" novalidate>
+                <div class="newsletter-fields" style="flex-direction:column;gap:10px;">
+                  <input type="text" id="qz-name-input" placeholder="First name (optional)" maxlength="60"
+                    style="background:rgba(255,255,255,0.08);border:1.5px solid rgba(240,236,228,0.25);border-radius:6px;color:#f0ece4;padding:12px 16px;font-size:0.9rem;outline:none;font-family:inherit;" />
+                  <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                    <input type="email" id="qz-email-input" placeholder="your@email.com" required
+                      style="flex:1;min-width:200px;background:rgba(255,255,255,0.08);border:1.5px solid rgba(240,236,228,0.25);border-radius:6px;color:#f0ece4;padding:12px 16px;font-size:0.9rem;outline:none;font-family:inherit;" />
+                    <button type="submit" id="qz-email-submit-btn" class="btn btn-primary" style="white-space:nowrap;">
+                      Get My Gear List &rarr;
+                    </button>
+                  </div>
                 </div>
-                <p class="newsletter-fine">No spam. Unsubscribe anytime.</p>
+                <p class="newsletter-fine" style="margin-top:8px;">
+                  No spam. Unsubscribe anytime.
+                  Your checklist downloads automatically after signup.
+                </p>
               </form>
-              <div id="qz-email-success" style="display:none;color:var(--green);font-weight:700;font-size:0.95rem;padding:12px 0;">
-                &#10003; Check your inbox — your gear list is on the way!
+              <div id="qz-email-success" style="display:none;padding:16px 0;">
+                <p style="color:var(--green);font-weight:700;font-size:0.95rem;margin-bottom:8px;">
+                  &#10003; You're in! Your gear checklist is downloading now.
+                </p>
+                <p style="color:var(--muted);font-size:0.85rem;margin:0;">
+                  Check your inbox for a confirmation email.
+                  <span id="qz-email-manual-link"></span>
+                </p>
               </div>
             </div>
           </div>
@@ -422,6 +454,7 @@
 </footer>
 
 <button id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg></button>
+<script src="js/email-capture.js"></script>
 <script src="js/main.js"></script>
 <script src="js/price-history.js"></script>
 <script>
@@ -677,6 +710,17 @@ function finishQuiz() {
     answers: answers,
     completedAt: new Date().toISOString()
   }));
+  // Persist rig style for email targeting
+  if (window.TBOEmailCapture?.persistRigStyle) {
+    window.TBOEmailCapture.persistRigStyle(vehicleAnswer);
+  }
+  // Fire GA4 quiz_complete event
+  if (typeof gtag === "function") {
+    gtag("event", "quiz_complete", {
+      rig_style: vehicleAnswer,
+      rig_style_label: window.TBOEmailCapture?.RIG_STYLE_LABELS?.[vehicleAnswer] || vehicleAnswer,
+    });
+  }
   showResult(vehicleAnswer);
 }
 
@@ -708,27 +752,59 @@ function showResult(vehicleType) {
     </a>
   `).join("");
 
-  // EmailOctopus widget injection
-  const eoContainer = document.getElementById("eo-quiz-widget");
-  if (eoContainer && EMAILOCTOPUS_FORM_ID !== "REPLACE_WITH_YOUR_FORM_ID") {
-    eoContainer.innerHTML = "";
-    const s = document.createElement("script");
-    s.src = `https://eocampaign1.com/form/${EMAILOCTOPUS_FORM_ID}.js`;
-    s.async = true;
-    s.setAttribute("data-form", EMAILOCTOPUS_FORM_ID);
-    eoContainer.appendChild(s);
-  }
+  // Email widget is now handled by js/email-capture.js
+  // Configure TBO_EMAIL_CONFIG.provider in that file to activate a real provider.
 
   setState("result");
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-// ── Email form fallback ───────────────────────────────────────────────────────
-function handleQuizEmailSubmit(e) {
+// ── Quiz email form submission ────────────────────────────────────────────────
+async function handleQuizEmailSubmit(e) {
   e.preventDefault();
-  // TODO: replace with real EmailOctopus API call when EMAILOCTOPUS_FORM_ID is set
+
+  const emailInput  = document.getElementById("qz-email-input");
+  const nameInput   = document.getElementById("qz-name-input");
+  const submitBtn   = document.getElementById("qz-email-submit-btn");
+  const successDiv  = document.getElementById("qz-email-success");
+  const manualLink  = document.getElementById("qz-email-manual-link");
+
+  const email = (emailInput?.value || "").trim();
+  if (!email || !email.includes("@")) {
+    emailInput?.focus();
+    return;
+  }
+
+  // Get the current rig style from quiz answers or localStorage
+  const style = answers?.vehicle
+    || (window.TBOEmailCapture?.getPersistedRigStyle?.())
+    || "suv";
+
+  // Disable button while submitting
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Sending…"; }
+
+  // Submit via the email capture module
+  let result = { ok: true };
+  if (window.TBOEmailCapture?.submitEmailSignup) {
+    result = await window.TBOEmailCapture.submitEmailSignup(email, style, "quiz");
+  }
+
+  // Trigger lead magnet download
+  if (window.TBOEmailCapture?.triggerLeadMagnetDownload) {
+    window.TBOEmailCapture.triggerLeadMagnetDownload(style);
+  }
+
+  // Show success state
   document.getElementById("qz-email-form").style.display = "none";
-  document.getElementById("qz-email-success").style.display = "block";
+  successDiv.style.display = "block";
+
+  // Show manual download link as fallback
+  if (manualLink && window.TBOEmailCapture?.LEAD_MAGNET_PDFS) {
+    const pdfPath = window.TBOEmailCapture.LEAD_MAGNET_PDFS[style];
+    if (pdfPath) {
+      manualLink.innerHTML = `<a href="${pdfPath}" download style="color:var(--accent);">Click here if the download didn't start automatically.</a>`;
+    }
+  }
 }
 </script>
 </body>

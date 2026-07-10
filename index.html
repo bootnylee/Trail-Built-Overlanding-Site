@@ -2,14 +2,24 @@
 
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-GX99D9KWL0"></script>
+<!-- ═══════════════════════════════════════════════════════════════════
+     Google Analytics 4 — Trail Built Overlanding
+     ─────────────────────────────────────────────
+     MEASUREMENT ID: G-GX99D9KWL0
+     ↑ To change: replace G-GX99D9KWL0 with your new Measurement ID
+       in BOTH places below (the script src URL and the gtag config call).
+     ═══════════════════════════════════════════════════════════════════ -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GX99D9KWL0"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
-  gtag('config', 'G-GX99D9KWL0');
+  gtag('config', 'G-GX99D9KWL0', {
+    send_page_view: true,          // standard page view tracking
+    allow_google_signals: true,    // enables Demographics & Interests reports
+    // UTM parameters (utm_source, utm_medium, utm_campaign, etc.) are
+    // captured automatically by GA4 — no extra configuration needed.
+  });
 </script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -616,6 +626,7 @@
 </div>
 </footer>
 <button aria-label="Back to top" class="back-to-top" id="back-to-top" title="Back to top"><svg aria-hidden="true" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><polyline points="18 15 12 9 6 15"></polyline></svg></button>
+<script src="js/email-capture.js"></script>
 <script src="js/main.js"></script>
 <script src="js/price-history.js"></script>
 </body>

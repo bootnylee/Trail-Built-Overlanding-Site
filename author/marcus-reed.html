@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
+<!-- ═══════════════════════════════════════════════════════════════════
+     Google Analytics 4 — Trail Built Overlanding
+     ─────────────────────────────────────────────
+     MEASUREMENT ID: G-GX99D9KWL0
+     ↑ To change: replace G-GX99D9KWL0 with your new Measurement ID
+       in BOTH places below (the script src URL and the gtag config call).
+     ═══════════════════════════════════════════════════════════════════ -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GX99D9KWL0"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-GX99D9KWL0');
+  gtag('config', 'G-GX99D9KWL0', {
+    send_page_view: true,          // standard page view tracking
+    allow_google_signals: true,    // enables Demographics & Interests reports
+    // UTM parameters (utm_source, utm_medium, utm_campaign, etc.) are
+    // captured automatically by GA4 — no extra configuration needed.
+  });
 </script>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />

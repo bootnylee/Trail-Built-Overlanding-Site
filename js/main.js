@@ -95,15 +95,26 @@ if (searchInput && searchResults) {
 }
 
 // ── Newsletter form ───────────────────────────────────────────────────────────
-function handleNewsletterSubmit(e) {
+async function handleNewsletterSubmit(e) {
   e.preventDefault();
-  const form = e.target;
-  const btn = form.querySelector('button[type="submit"]');
-  const email = form.querySelector('input[type="email"]').value;
-  btn.textContent = 'Thanks! Check your inbox';
+  const form  = e.target;
+  const btn   = form.querySelector('button[type="submit"]');
+  const emailInput = form.querySelector('input[type="email"]');
+  const email = (emailInput?.value || '').trim();
+  if (!email) return;
+
   btn.disabled = true;
+  btn.textContent = 'Sending\u2026';
+
+  // Use persisted rig style from quiz if available, otherwise generic
+  const style = window.TBOEmailCapture?.getPersistedRigStyle?.() || 'suv';
+
+  if (window.TBOEmailCapture?.submitEmailSignup) {
+    await window.TBOEmailCapture.submitEmailSignup(email, style, 'homepage');
+  }
+
+  btn.textContent = 'Thanks! Check your inbox';
   btn.style.background = 'var(--green)';
-  console.info('Newsletter signup:', email);
 }
 
 // ── Social sharing ────────────────────────────────────────────────────────────
@@ -142,11 +153,27 @@ if (backToTop) {
   });
 }
 
-// ── Affiliate click tracking ──────────────────────────────────────────────────
-document.querySelectorAll('a[href*="amazon"]').forEach(link => {
+// ── Affiliate click tracking (GA4 affiliate_click event) ─────────────────────
+// Fires on every outbound Amazon / buy link.
+// GA4 Measurement ID is configured in the gtag snippet in each page <head>.
+document.querySelectorAll('a[href*="amazon"], a.btn-amazon, a[data-affiliate]').forEach(link => {
   link.addEventListener('click', () => {
-    const label = link.closest('[data-product]')?.dataset.product || link.textContent.trim();
-    console.info('Affiliate click:', label, window.location.pathname);
-    // gtag('event', 'affiliate_click', { product: label, page: window.location.pathname });
+    // Resolve product name: prefer data-product on parent box, then link text
+    const productBox = link.closest('[data-product]');
+    const productName = productBox?.dataset.product
+      || link.dataset.product
+      || link.textContent.trim().replace(/[\u2197\u2192\u00bb]+/g, '').trim()
+      || 'unknown';
+
+    const destination = link.href || '';
+
+    // GA4 custom event
+    if (typeof gtag === 'function') {
+      gtag('event', 'affiliate_click', {
+        product:     productName,
+        destination: destination,
+        page:        window.location.pathname,
+      });
+    }
   });
 });
