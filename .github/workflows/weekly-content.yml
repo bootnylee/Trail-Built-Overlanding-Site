@@ -51,7 +51,11 @@ jobs:
       - name: Install Python dependencies
         run: pip install requests python-dateutil
 
-      # ── 3. Generate article ──────────────────────────────────────────────────
+      # ── 3. Verify tests before generating (no secrets passed) ───────────────
+      - name: Verify topic pool and overwrite guard
+        run: node scripts/verify-topic-pool.js && node scripts/test-overwrite-guard.js
+
+      # ── 4. Generate article ──────────────────────────────────────────────────
       - name: Generate new article
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
