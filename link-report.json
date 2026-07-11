@@ -1,0 +1,2104 @@
+{
+  "generatedAt": "2026-07-11T02:10:59.495Z",
+  "repoPath": "/home/ubuntu/Trail-Built-Overlanding-Site",
+  "note": "INCONCLUSIVE means the server returned 403/429/503 or timed out (bot-blocked). This is NOT proof the link is dead. Amazon product pages almost always return INCONCLUSIVE because Amazon blocks automated requests. Image CDN URLs on m.media-amazon.com are the reliable signal for whether product images are live.",
+  "summary": {
+    "OK": 100,
+    "BROKEN": 7,
+    "INCONCLUSIVE": 9
+  },
+  "broken": [
+    {
+      "type": "image",
+      "value": "https://images.unsplash.com/photo-1534533268935-054a0ee82a33?w=1200&amp;q=80",
+      "url": "https://images.unsplash.com/photo-1534533268935-054a0ee82a33?w=1200&amp;q=80",
+      "file": "articles/best-diesel-vs-gasoline-for-overlanding.html",
+      "line": 144
+    },
+    {
+      "type": "asin",
+      "value": "B07D74RGRK",
+      "url": "https://www.amazon.com/dp/B07D74RGRK",
+      "file": "articles/best-diesel-vs-gasoline-for-overlanding.html",
+      "line": 181
+    },
+    {
+      "type": "image",
+      "value": "https://images.unsplash.com/photo-1534330207369-33cb135c7833?w=1200&amp;q=80",
+      "url": "https://images.unsplash.com/photo-1534330207369-33cb135c7833?w=1200&amp;q=80",
+      "file": "articles/best-hi-lift-jack-alternatives.html",
+      "line": 186
+    },
+    {
+      "type": "image",
+      "value": "https://images.unsplash.com/photo-5t6gZLJRFwzX7KM4c4xwWw?w=1200&amp;q=80",
+      "url": "https://images.unsplash.com/photo-5t6gZLJRFwzX7KM4c4xwWw?w=1200&amp;q=80",
+      "file": "articles/best-portable-power-stations-for-overlanding.html",
+      "line": 186
+    },
+    {
+      "type": "asin",
+      "value": "B08R7RKMJH",
+      "url": "https://www.amazon.com/dp/B08R7RKMJH",
+      "file": "articles/best-portable-power-stations-for-overlanding.html",
+      "line": 299
+    },
+    {
+      "type": "image",
+      "value": "https://images.unsplash.com/photo-1624291040661-3b4aa2c89c6f?w=1200&amp;q=80",
+      "url": "https://images.unsplash.com/photo-1624291040661-3b4aa2c89c6f?w=1200&amp;q=80",
+      "file": "articles/best-skid-plates-for-off-road-trucks.html",
+      "line": 186
+    },
+    {
+      "type": "asin",
+      "value": "B09ZQ1C1MJ",
+      "url": "https://www.amazon.com/dp/B09ZQ1C1MJ",
+      "file": "articles/best-vehicle-communication-gear-for-overlanding.html",
+      "line": 207
+    }
+  ],
+  "allResults": [
+    {
+      "url": "https://images.unsplash.com/photo-1543365618-f4d2b8c2430d?w=1200&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 153,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1543365618-f4d2b8c2430d?w=1200&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0GF9XC4HC",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 199,
+          "type": "asin",
+          "value": "B0GF9XC4HC"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B08V3TQJ6H",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 221,
+          "type": "asin",
+          "value": "B08V3TQJ6H"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B07SJHVQTJ",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 242,
+          "type": "asin",
+          "value": "B07SJHVQTJ"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B00HYCVSW6",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 262,
+          "type": "asin",
+          "value": "B00HYCVSW6"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B01K2AH3F2",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 265,
+          "type": "asin",
+          "value": "B01K2AH3F2"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0BLQKXPNK",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 268,
+          "type": "asin",
+          "value": "B0BLQKXPNK"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B01KT0BF04",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 270,
+          "type": "asin",
+          "value": "B01KT0BF04"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B07F6ZTV6J",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 315,
+          "type": "asin",
+          "value": "B07F6ZTV6J"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B08BZVR4LY",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 357,
+          "type": "asin",
+          "value": "B08BZVR4LY"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0CBNKJXQR",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 361,
+          "type": "asin",
+          "value": "B0CBNKJXQR"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0CD9QV2MN",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 364,
+          "type": "asin",
+          "value": "B0CD9QV2MN"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B096ST3VMS",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 384,
+          "type": "asin",
+          "value": "B096ST3VMS"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0B9S6YX5N",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 388,
+          "type": "asin",
+          "value": "B0B9S6YX5N"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B09KXQJHKL",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 411,
+          "type": "asin",
+          "value": "B09KXQJHKL"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B07B3NS8Z7",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 435,
+          "type": "asin",
+          "value": "B07B3NS8Z7"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0F55VMN66",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 439,
+          "type": "asin",
+          "value": "B0F55VMN66"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B07PNTMSW6",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 442,
+          "type": "asin",
+          "value": "B07PNTMSW6"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B06XX197GJ",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 462,
+          "type": "asin",
+          "value": "B06XX197GJ"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B08CRJYJ22",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 465,
+          "type": "asin",
+          "value": "B08CRJYJ22"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B083G3NBNZ",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 484,
+          "type": "asin",
+          "value": "B083G3NBNZ"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1772308005714-976160554238?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 582,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1772308005714-976160554238?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/ford-bronco-overland-build-guide.html",
+          "line": 550,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1772308005714-976160554238?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/jeep-wrangler-overland-build-guide.html",
+          "line": 447,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1772308005714-976160554238?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/toyota-tacoma-overland-build-guide.html",
+          "line": 425,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1772308005714-976160554238?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1765519415962-89f771cbcbd0?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 589,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1765519415962-89f771cbcbd0?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/best-overlanding-recovery-gear.html",
+          "line": 406,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1765519415962-89f771cbcbd0?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/jeep-wrangler-overland-build-guide.html",
+          "line": 454,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1765519415962-89f771cbcbd0?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/toyota-tacoma-overland-build-guide.html",
+          "line": 432,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1765519415962-89f771cbcbd0?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1759428925891-eb797202e3b2?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 596,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1759428925891-eb797202e3b2?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/best-overlanding-recovery-gear.html",
+          "line": 430,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1759428925891-eb797202e3b2?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/ford-bronco-overland-build-guide.html",
+          "line": 564,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1759428925891-eb797202e3b2?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/jeep-wrangler-overland-build-guide.html",
+          "line": 468,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1759428925891-eb797202e3b2?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/toyota-tacoma-overland-build-guide.html",
+          "line": 439,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1759428925891-eb797202e3b2?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1767936192877-d9e57dd5fa33?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 603,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1767936192877-d9e57dd5fa33?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/ford-bronco-overland-build-guide.html",
+          "line": 578,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1767936192877-d9e57dd5fa33?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/toyota-tacoma-overland-build-guide.html",
+          "line": 446,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1767936192877-d9e57dd5fa33?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0BTBHQF8R",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 605,
+          "type": "asin",
+          "value": "B0BTBHQF8R"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1466220549276-aef9ce186540?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 610,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1466220549276-aef9ce186540?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/best-overlanding-solar-and-power.html",
+          "line": 498,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1466220549276-aef9ce186540?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/ford-bronco-overland-build-guide.html",
+          "line": 585,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1466220549276-aef9ce186540?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1650866155994-3bd730b5daf9?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 617,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1650866155994-3bd730b5daf9?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/best-overlanding-recovery-gear.html",
+          "line": 437,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1650866155994-3bd730b5daf9?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/best-overlanding-solar-and-power.html",
+          "line": 460,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1650866155994-3bd730b5daf9?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 627,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/best-off-road-light-bars.html",
+          "line": 383,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/best-overlanding-fridges.html",
+          "line": 468,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/best-overlanding-winches.html",
+          "line": 457,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/ford-bronco-overland-build-guide.html",
+          "line": 595,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/jeep-wrangler-overland-build-guide.html",
+          "line": 478,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/rooftop-tent-buying-guide.html",
+          "line": 358,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/toyota-tacoma-overland-build-guide.html",
+          "line": 456,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1748447244916-5569f702fd9f?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 634,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1748447244916-5569f702fd9f?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1768352841913-3bd99afa08f3?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 641,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1768352841913-3bd99afa08f3?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/ford-bronco-overland-build-guide.html",
+          "line": 609,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1768352841913-3bd99afa08f3?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/rooftop-tent-buying-guide.html",
+          "line": 365,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1768352841913-3bd99afa08f3?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1749441184544-69e94fa52703?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 648,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1749441184544-69e94fa52703?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/best-off-road-light-bars.html",
+          "line": 390,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1749441184544-69e94fa52703?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/ford-bronco-overland-build-guide.html",
+          "line": 616,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1749441184544-69e94fa52703?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/jeep-wrangler-overland-build-guide.html",
+          "line": 492,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1749441184544-69e94fa52703?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/toyota-tacoma-overland-build-guide.html",
+          "line": 470,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1749441184544-69e94fa52703?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1534533268935-054a0ee82a33?w=1200&amp;q=80",
+      "status": "BROKEN",
+      "sources": [
+        {
+          "file": "articles/best-diesel-vs-gasoline-for-overlanding.html",
+          "line": 144,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1534533268935-054a0ee82a33?w=1200&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B07D74RGRK",
+      "status": "BROKEN",
+      "sources": [
+        {
+          "file": "articles/best-diesel-vs-gasoline-for-overlanding.html",
+          "line": 181,
+          "type": "asin",
+          "value": "B07D74RGRK"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B07R7RKRNV",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-diesel-vs-gasoline-for-overlanding.html",
+          "line": 200,
+          "type": "asin",
+          "value": "B07R7RKRNV"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B082L9RYRH",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-diesel-vs-gasoline-for-overlanding.html",
+          "line": 219,
+          "type": "asin",
+          "value": "B082L9RYRH"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B07B9R7RYG",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-diesel-vs-gasoline-for-overlanding.html",
+          "line": 238,
+          "type": "asin",
+          "value": "B07B9R7RYG"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B07D74MFRX",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-diesel-vs-gasoline-for-overlanding.html",
+          "line": 257,
+          "type": "asin",
+          "value": "B07D74MFRX"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1534330207369-33cb135c7833?w=1200&amp;q=80",
+      "status": "BROKEN",
+      "sources": [
+        {
+          "file": "articles/best-hi-lift-jack-alternatives.html",
+          "line": 186,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1534330207369-33cb135c7833?w=1200&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B004P2Q5O6",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-hi-lift-jack-alternatives.html",
+          "line": 223,
+          "type": "asin",
+          "value": "B004P2Q5O6"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B07D74RGRX",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-hi-lift-jack-alternatives.html",
+          "line": 242,
+          "type": "asin",
+          "value": "B07D74RGRX"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B082DWG9RY",
+      "status": "INCONCLUSIVE",
+      "sources": [
+        {
+          "file": "articles/best-hi-lift-jack-alternatives.html",
+          "line": 280,
+          "type": "asin",
+          "value": "B082DWG9RY"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0002AQZZK",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-hi-lift-jack-alternatives.html",
+          "line": 299,
+          "type": "asin",
+          "value": "B0002AQZZK"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1768352841913-3bd99afa08f3?w=1200&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-off-road-light-bars.html",
+          "line": 187,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1768352841913-3bd99afa08f3?w=1200&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B007NKVDJC",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-off-road-light-bars.html",
+          "line": 260,
+          "type": "asin",
+          "value": "B007NKVDJC"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B073V7LWMK",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-off-road-light-bars.html",
+          "line": 283,
+          "type": "asin",
+          "value": "B073V7LWMK"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1714131862938-7388f7ec37c5?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-off-road-light-bars.html",
+          "line": 359,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1714131862938-7388f7ec37c5?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1770557386868-1aaff718a469?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-off-road-light-bars.html",
+          "line": 366,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1770557386868-1aaff718a469?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1772817337540-f2e36656ce20?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-off-road-light-bars.html",
+          "line": 373,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1772817337540-f2e36656ce20?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/ford-bronco-overland-build-guide.html",
+          "line": 571,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1772817337540-f2e36656ce20?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1603398938378-e54eab446dde?w=1200&q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-first-aid-kit-essentials.html",
+          "line": 173,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1603398938378-e54eab446dde?w=1200&q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0CKKBZH85",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-first-aid-kit-essentials.html",
+          "line": 183,
+          "type": "asin",
+          "value": "B0CKKBZH85"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B01HGSLB6K",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-first-aid-kit-essentials.html",
+          "line": 184,
+          "type": "asin",
+          "value": "B01HGSLB6K"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B07Q6Y1D9F",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-first-aid-kit-essentials.html",
+          "line": 185,
+          "type": "asin",
+          "value": "B07Q6Y1D9F"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B06XKQNPND",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-first-aid-kit-essentials.html",
+          "line": 186,
+          "type": "asin",
+          "value": "B06XKQNPND"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0C8484883",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-first-aid-kit-essentials.html",
+          "line": 187,
+          "type": "asin",
+          "value": "B0C8484883"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1466220549276-aef9ce186540?w=1200&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-fridges.html",
+          "line": 200,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1466220549276-aef9ce186540?w=1200&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B085MM9B2D",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-fridges.html",
+          "line": 273,
+          "type": "asin",
+          "value": "B085MM9B2D"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/s?k=Iceco+GO20+dual+zone+portable+refrigerator&amp;tag=trailbuiltove-20",
+      "status": "INCONCLUSIVE",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-fridges.html",
+          "line": 319,
+          "type": "amazon-search",
+          "value": "https://www.amazon.com/s?k=Iceco+GO20+dual+zone+portable+refrigerator&amp;tag=trailbuiltove-20"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/s?k=ARB+Elements+fridge+60L&amp;tag=trailbuiltove-20",
+      "status": "INCONCLUSIVE",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-fridges.html",
+          "line": 341,
+          "type": "amazon-search",
+          "value": "https://www.amazon.com/s?k=ARB+Elements+fridge+60L&amp;tag=trailbuiltove-20"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1766265413185-247e39c8aa41?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-fridges.html",
+          "line": 430,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1766265413185-247e39c8aa41?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/best-overlanding-winches.html",
+          "line": 440,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1766265413185-247e39c8aa41?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1742899273038-67ff67477663?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-fridges.html",
+          "line": 437,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1742899273038-67ff67477663?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1632107516496-f43c1a743019?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-fridges.html",
+          "line": 444,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1632107516496-f43c1a743019?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1543365618-f4d2b8c2430d?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-fridges.html",
+          "line": 454,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1543365618-f4d2b8c2430d?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/best-overlanding-recovery-gear.html",
+          "line": 444,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1543365618-f4d2b8c2430d?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/best-overlanding-solar-and-power.html",
+          "line": 484,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1543365618-f4d2b8c2430d?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/best-overlanding-winches.html",
+          "line": 464,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1543365618-f4d2b8c2430d?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/ford-bronco-overland-build-guide.html",
+          "line": 602,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1543365618-f4d2b8c2430d?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=1200&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-recovery-gear.html",
+          "line": 194,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=1200&amp;q=80"
+        },
+        {
+          "file": "articles/best-overlanding-winches.html",
+          "line": 200,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=1200&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0C71N8KNM",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-recovery-gear.html",
+          "line": 254,
+          "type": "asin",
+          "value": "B0C71N8KNM"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B07KCSPVWC",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-recovery-gear.html",
+          "line": 276,
+          "type": "asin",
+          "value": "B07KCSPVWC"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B07T7GDV9B",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-recovery-gear.html",
+          "line": 300,
+          "type": "asin",
+          "value": "B07T7GDV9B"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B00H4PFQFI",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-recovery-gear.html",
+          "line": 306,
+          "type": "asin",
+          "value": "B00H4PFQFI"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B06XXPDV7Q",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-recovery-gear.html",
+          "line": 327,
+          "type": "asin",
+          "value": "B06XXPDV7Q"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1648513074284-b3eb45298f6d?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-recovery-gear.html",
+          "line": 399,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1648513074284-b3eb45298f6d?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1744123696471-b65745c487a1?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-recovery-gear.html",
+          "line": 413,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1744123696471-b65745c487a1?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1659430000545-84a3b2acff16?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-recovery-gear.html",
+          "line": 420,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1659430000545-84a3b2acff16?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1650785548702-15b6bf31be94?w=1200&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-solar-and-power.html",
+          "line": 200,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1650785548702-15b6bf31be94?w=1200&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B07FGC1N3J",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-solar-and-power.html",
+          "line": 254,
+          "type": "asin",
+          "value": "B07FGC1N3J"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0BBZVVF39",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-solar-and-power.html",
+          "line": 279,
+          "type": "asin",
+          "value": "B0BBZVVF39"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0CNPHD4VY",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-solar-and-power.html",
+          "line": 303,
+          "type": "asin",
+          "value": "B0CNPHD4VY"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/s?k=Renogy+DCC50S+dual+battery+charger&amp;tag=trailbuiltove-20",
+      "status": "INCONCLUSIVE",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-solar-and-power.html",
+          "line": 351,
+          "type": "amazon-search",
+          "value": "https://www.amazon.com/s?k=Renogy+DCC50S+dual+battery+charger&amp;tag=trailbuiltove-20"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1770096171587-5a8c78f05571?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-solar-and-power.html",
+          "line": 467,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1770096171587-5a8c78f05571?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1767052879199-ac13c537df4f?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-solar-and-power.html",
+          "line": 474,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1767052879199-ac13c537df4f?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/rooftop-tent-buying-guide.html",
+          "line": 348,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1767052879199-ac13c537df4f?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1200&q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-water-storage-and-filtration.html",
+          "line": 174,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1200&q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B004ETQ2LO",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-water-storage-and-filtration.html",
+          "line": 184,
+          "type": "asin",
+          "value": "B004ETQ2LO"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B006QF3TW4",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-water-storage-and-filtration.html",
+          "line": 185,
+          "type": "asin",
+          "value": "B006QF3TW4"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B00V7X60X0",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-water-storage-and-filtration.html",
+          "line": 186,
+          "type": "asin",
+          "value": "B00V7X60X0"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0DB3S6NNZ",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-water-storage-and-filtration.html",
+          "line": 187,
+          "type": "asin",
+          "value": "B0DB3S6NNZ"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B01N7GC9Z6",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-water-storage-and-filtration.html",
+          "line": 188,
+          "type": "asin",
+          "value": "B01N7GC9Z6"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B00K150VAI",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-winches.html",
+          "line": 296,
+          "type": "asin",
+          "value": "B00K150VAI"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/s?k=Warn+VR+EVO+12-S+winch&amp;tag=trailbuiltove-20",
+      "status": "INCONCLUSIVE",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-winches.html",
+          "line": 319,
+          "type": "amazon-search",
+          "value": "https://www.amazon.com/s?k=Warn+VR+EVO+12-S+winch&amp;tag=trailbuiltove-20"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/s?k=Rugged+Ridge+Trekker+winch+10500&amp;tag=trailbuiltove-20",
+      "status": "INCONCLUSIVE",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-winches.html",
+          "line": 341,
+          "type": "amazon-search",
+          "value": "https://www.amazon.com/s?k=Rugged+Ridge+Trekker+winch+10500&amp;tag=trailbuiltove-20"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1638373106719-504c488cfc0e?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-winches.html",
+          "line": 433,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1638373106719-504c488cfc0e?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1558405588-0eff8afefeb3?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-winches.html",
+          "line": 447,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1558405588-0eff8afefeb3?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1602038187785-a7289bd743f3?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-winches.html",
+          "line": 471,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1602038187785-a7289bd743f3?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/toyota-tacoma-overland-build-guide.html",
+          "line": 463,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1602038187785-a7289bd743f3?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-5t6gZLJRFwzX7KM4c4xwWw?w=1200&amp;q=80",
+      "status": "BROKEN",
+      "sources": [
+        {
+          "file": "articles/best-portable-power-stations-for-overlanding.html",
+          "line": 186,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-5t6gZLJRFwzX7KM4c4xwWw?w=1200&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B08L5VXTK9",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-portable-power-stations-for-overlanding.html",
+          "line": 223,
+          "type": "asin",
+          "value": "B08L5VXTK9"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B082VWVKF4",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-portable-power-stations-for-overlanding.html",
+          "line": 280,
+          "type": "asin",
+          "value": "B082VWVKF4"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B08R7RKMJH",
+      "status": "BROKEN",
+      "sources": [
+        {
+          "file": "articles/best-portable-power-stations-for-overlanding.html",
+          "line": 299,
+          "type": "asin",
+          "value": "B08R7RKMJH"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1624291040661-3b4aa2c89c6f?w=1200&amp;q=80",
+      "status": "BROKEN",
+      "sources": [
+        {
+          "file": "articles/best-skid-plates-for-off-road-trucks.html",
+          "line": 186,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1624291040661-3b4aa2c89c6f?w=1200&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B07D74RJ4R",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-skid-plates-for-off-road-trucks.html",
+          "line": 222,
+          "type": "asin",
+          "value": "B07D74RJ4R"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B002R0F5XG",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-skid-plates-for-off-road-trucks.html",
+          "line": 241,
+          "type": "asin",
+          "value": "B002R0F5XG"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B003X27P5M",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-skid-plates-for-off-road-trucks.html",
+          "line": 260,
+          "type": "asin",
+          "value": "B003X27P5M"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B005Z5U1O6",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-skid-plates-for-off-road-trucks.html",
+          "line": 298,
+          "type": "asin",
+          "value": "B005Z5U1O6"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-vehicle-communication-gear-for-overlanding.html",
+          "line": 185,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B07FN2FBML",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-vehicle-communication-gear-for-overlanding.html",
+          "line": 203,
+          "type": "asin",
+          "value": "B07FN2FBML"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B081KJW5R7",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-vehicle-communication-gear-for-overlanding.html",
+          "line": 204,
+          "type": "asin",
+          "value": "B081KJW5R7"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B09PSKG7C3",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-vehicle-communication-gear-for-overlanding.html",
+          "line": 205,
+          "type": "asin",
+          "value": "B09PSKG7C3"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B09T3H8Y5B",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-vehicle-communication-gear-for-overlanding.html",
+          "line": 206,
+          "type": "asin",
+          "value": "B09T3H8Y5B"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B09ZQ1C1MJ",
+      "status": "BROKEN",
+      "sources": [
+        {
+          "file": "articles/best-vehicle-communication-gear-for-overlanding.html",
+          "line": 207,
+          "type": "asin",
+          "value": "B09ZQ1C1MJ"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1748447244916-5569f702fd9f?w=1200&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/ford-bronco-overland-build-guide.html",
+          "line": 153,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1748447244916-5569f702fd9f?w=1200&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B09QS1BC5N",
+      "status": "INCONCLUSIVE",
+      "sources": [
+        {
+          "file": "articles/ford-bronco-overland-build-guide.html",
+          "line": 202,
+          "type": "asin",
+          "value": "B09QS1BC5N"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1770096171602-032ad857cb23?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/ford-bronco-overland-build-guide.html",
+          "line": 557,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1770096171602-032ad857cb23?w=100&amp;q=80"
+        },
+        {
+          "file": "articles/jeep-wrangler-overland-build-guide.html",
+          "line": 461,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1770096171602-032ad857cb23?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1602038187785-a7289bd743f3?w=1200&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/jeep-wrangler-overland-build-guide.html",
+          "line": 153,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1602038187785-a7289bd743f3?w=1200&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1749441184544-69e94fa52703?w=1200&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/rooftop-tent-buying-guide.html",
+          "line": 157,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1749441184544-69e94fa52703?w=1200&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/s?k=CVT+Mt+Hood+2+Hardshell+Rooftop+Tent&amp;tag=trailbuiltove-20",
+      "status": "INCONCLUSIVE",
+      "sources": [
+        {
+          "file": "articles/rooftop-tent-buying-guide.html",
+          "line": 261,
+          "type": "amazon-search",
+          "value": "https://www.amazon.com/s?k=CVT+Mt+Hood+2+Hardshell+Rooftop+Tent&amp;tag=trailbuiltove-20"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1761872936203-cc1bfa27cad1?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/rooftop-tent-buying-guide.html",
+          "line": 334,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1761872936203-cc1bfa27cad1?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1761846786544-f0f522394fbb?w=100&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/rooftop-tent-buying-guide.html",
+          "line": 341,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1761846786544-f0f522394fbb?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/s?k=CVT+Mt+Rainier+rooftop+tent&amp;tag=trailbuiltove-20",
+      "status": "INCONCLUSIVE",
+      "sources": [
+        {
+          "file": "articles/rooftop-tent-buying-guide.html",
+          "line": 350,
+          "type": "amazon-search",
+          "value": "https://www.amazon.com/s?k=CVT+Mt+Rainier+rooftop+tent&amp;tag=trailbuiltove-20"
+        }
+      ]
+    },
+    {
+      "url": "https://trailbuiltoverland.com/assets/toyota-tacoma-overland-build-guide-hero.png",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/toyota-tacoma-overland-build-guide.html",
+          "line": 153,
+          "type": "image",
+          "value": "https://trailbuiltoverland.com/assets/toyota-tacoma-overland-build-guide-hero.png"
+        }
+      ]
+    }
+  ],
+  "staticAnalysis": {
+    "duplicateAsins": [],
+    "unsplashImages": [
+      {
+        "url": "https://images.unsplash.com/photo-1543365618-f4d2b8c2430d?w=1200&amp;q=80",
+        "file": "articles/4runner-5th-gen-overland-build-guide.html",
+        "line": 153
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1772308005714-976160554238?w=100&amp;q=80",
+        "file": "articles/4runner-5th-gen-overland-build-guide.html",
+        "line": 582
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1765519415962-89f771cbcbd0?w=100&amp;q=80",
+        "file": "articles/4runner-5th-gen-overland-build-guide.html",
+        "line": 589
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1759428925891-eb797202e3b2?w=100&amp;q=80",
+        "file": "articles/4runner-5th-gen-overland-build-guide.html",
+        "line": 596
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1767936192877-d9e57dd5fa33?w=100&amp;q=80",
+        "file": "articles/4runner-5th-gen-overland-build-guide.html",
+        "line": 603
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1466220549276-aef9ce186540?w=100&amp;q=80",
+        "file": "articles/4runner-5th-gen-overland-build-guide.html",
+        "line": 610
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1650866155994-3bd730b5daf9?w=100&amp;q=80",
+        "file": "articles/4runner-5th-gen-overland-build-guide.html",
+        "line": 617
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=100&amp;q=80",
+        "file": "articles/4runner-5th-gen-overland-build-guide.html",
+        "line": 627
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1748447244916-5569f702fd9f?w=100&amp;q=80",
+        "file": "articles/4runner-5th-gen-overland-build-guide.html",
+        "line": 634
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1768352841913-3bd99afa08f3?w=100&amp;q=80",
+        "file": "articles/4runner-5th-gen-overland-build-guide.html",
+        "line": 641
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1749441184544-69e94fa52703?w=100&amp;q=80",
+        "file": "articles/4runner-5th-gen-overland-build-guide.html",
+        "line": 648
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1534533268935-054a0ee82a33?w=1200&amp;q=80",
+        "file": "articles/best-diesel-vs-gasoline-for-overlanding.html",
+        "line": 144
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1534330207369-33cb135c7833?w=1200&amp;q=80",
+        "file": "articles/best-hi-lift-jack-alternatives.html",
+        "line": 186
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1768352841913-3bd99afa08f3?w=1200&amp;q=80",
+        "file": "articles/best-off-road-light-bars.html",
+        "line": 187
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1714131862938-7388f7ec37c5?w=100&amp;q=80",
+        "file": "articles/best-off-road-light-bars.html",
+        "line": 359
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1770557386868-1aaff718a469?w=100&amp;q=80",
+        "file": "articles/best-off-road-light-bars.html",
+        "line": 366
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1772817337540-f2e36656ce20?w=100&amp;q=80",
+        "file": "articles/best-off-road-light-bars.html",
+        "line": 373
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=100&amp;q=80",
+        "file": "articles/best-off-road-light-bars.html",
+        "line": 383
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1749441184544-69e94fa52703?w=100&amp;q=80",
+        "file": "articles/best-off-road-light-bars.html",
+        "line": 390
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1603398938378-e54eab446dde?w=1200&q=80",
+        "file": "articles/best-overlanding-first-aid-kit-essentials.html",
+        "line": 173
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1466220549276-aef9ce186540?w=1200&amp;q=80",
+        "file": "articles/best-overlanding-fridges.html",
+        "line": 200
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1766265413185-247e39c8aa41?w=100&amp;q=80",
+        "file": "articles/best-overlanding-fridges.html",
+        "line": 430
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1742899273038-67ff67477663?w=100&amp;q=80",
+        "file": "articles/best-overlanding-fridges.html",
+        "line": 437
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1632107516496-f43c1a743019?w=100&amp;q=80",
+        "file": "articles/best-overlanding-fridges.html",
+        "line": 444
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1543365618-f4d2b8c2430d?w=100&amp;q=80",
+        "file": "articles/best-overlanding-fridges.html",
+        "line": 454
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=100&amp;q=80",
+        "file": "articles/best-overlanding-fridges.html",
+        "line": 468
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=1200&amp;q=80",
+        "file": "articles/best-overlanding-recovery-gear.html",
+        "line": 194
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1648513074284-b3eb45298f6d?w=100&amp;q=80",
+        "file": "articles/best-overlanding-recovery-gear.html",
+        "line": 399
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1765519415962-89f771cbcbd0?w=100&amp;q=80",
+        "file": "articles/best-overlanding-recovery-gear.html",
+        "line": 406
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1744123696471-b65745c487a1?w=100&amp;q=80",
+        "file": "articles/best-overlanding-recovery-gear.html",
+        "line": 413
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1659430000545-84a3b2acff16?w=100&amp;q=80",
+        "file": "articles/best-overlanding-recovery-gear.html",
+        "line": 420
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1759428925891-eb797202e3b2?w=100&amp;q=80",
+        "file": "articles/best-overlanding-recovery-gear.html",
+        "line": 430
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1650866155994-3bd730b5daf9?w=100&amp;q=80",
+        "file": "articles/best-overlanding-recovery-gear.html",
+        "line": 437
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1543365618-f4d2b8c2430d?w=100&amp;q=80",
+        "file": "articles/best-overlanding-recovery-gear.html",
+        "line": 444
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1650785548702-15b6bf31be94?w=1200&amp;q=80",
+        "file": "articles/best-overlanding-solar-and-power.html",
+        "line": 200
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1650866155994-3bd730b5daf9?w=100&amp;q=80",
+        "file": "articles/best-overlanding-solar-and-power.html",
+        "line": 460
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1770096171587-5a8c78f05571?w=100&amp;q=80",
+        "file": "articles/best-overlanding-solar-and-power.html",
+        "line": 467
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1767052879199-ac13c537df4f?w=100&amp;q=80",
+        "file": "articles/best-overlanding-solar-and-power.html",
+        "line": 474
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1543365618-f4d2b8c2430d?w=100&amp;q=80",
+        "file": "articles/best-overlanding-solar-and-power.html",
+        "line": 484
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1466220549276-aef9ce186540?w=100&amp;q=80",
+        "file": "articles/best-overlanding-solar-and-power.html",
+        "line": 498
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1200&q=80",
+        "file": "articles/best-overlanding-water-storage-and-filtration.html",
+        "line": 174
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=1200&amp;q=80",
+        "file": "articles/best-overlanding-winches.html",
+        "line": 200
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1638373106719-504c488cfc0e?w=100&amp;q=80",
+        "file": "articles/best-overlanding-winches.html",
+        "line": 433
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1766265413185-247e39c8aa41?w=100&amp;q=80",
+        "file": "articles/best-overlanding-winches.html",
+        "line": 440
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1558405588-0eff8afefeb3?w=100&amp;q=80",
+        "file": "articles/best-overlanding-winches.html",
+        "line": 447
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=100&amp;q=80",
+        "file": "articles/best-overlanding-winches.html",
+        "line": 457
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1543365618-f4d2b8c2430d?w=100&amp;q=80",
+        "file": "articles/best-overlanding-winches.html",
+        "line": 464
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1602038187785-a7289bd743f3?w=100&amp;q=80",
+        "file": "articles/best-overlanding-winches.html",
+        "line": 471
+      },
+      {
+        "url": "https://images.unsplash.com/photo-5t6gZLJRFwzX7KM4c4xwWw?w=1200&amp;q=80",
+        "file": "articles/best-portable-power-stations-for-overlanding.html",
+        "line": 186
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1624291040661-3b4aa2c89c6f?w=1200&amp;q=80",
+        "file": "articles/best-skid-plates-for-off-road-trucks.html",
+        "line": 186
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&amp;q=80",
+        "file": "articles/best-vehicle-communication-gear-for-overlanding.html",
+        "line": 185
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1748447244916-5569f702fd9f?w=1200&amp;q=80",
+        "file": "articles/ford-bronco-overland-build-guide.html",
+        "line": 153
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1772308005714-976160554238?w=100&amp;q=80",
+        "file": "articles/ford-bronco-overland-build-guide.html",
+        "line": 550
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1770096171602-032ad857cb23?w=100&amp;q=80",
+        "file": "articles/ford-bronco-overland-build-guide.html",
+        "line": 557
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1759428925891-eb797202e3b2?w=100&amp;q=80",
+        "file": "articles/ford-bronco-overland-build-guide.html",
+        "line": 564
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1772817337540-f2e36656ce20?w=100&amp;q=80",
+        "file": "articles/ford-bronco-overland-build-guide.html",
+        "line": 571
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1767936192877-d9e57dd5fa33?w=100&amp;q=80",
+        "file": "articles/ford-bronco-overland-build-guide.html",
+        "line": 578
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1466220549276-aef9ce186540?w=100&amp;q=80",
+        "file": "articles/ford-bronco-overland-build-guide.html",
+        "line": 585
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=100&amp;q=80",
+        "file": "articles/ford-bronco-overland-build-guide.html",
+        "line": 595
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1543365618-f4d2b8c2430d?w=100&amp;q=80",
+        "file": "articles/ford-bronco-overland-build-guide.html",
+        "line": 602
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1768352841913-3bd99afa08f3?w=100&amp;q=80",
+        "file": "articles/ford-bronco-overland-build-guide.html",
+        "line": 609
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1749441184544-69e94fa52703?w=100&amp;q=80",
+        "file": "articles/ford-bronco-overland-build-guide.html",
+        "line": 616
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1602038187785-a7289bd743f3?w=1200&amp;q=80",
+        "file": "articles/jeep-wrangler-overland-build-guide.html",
+        "line": 153
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1772308005714-976160554238?w=100&amp;q=80",
+        "file": "articles/jeep-wrangler-overland-build-guide.html",
+        "line": 447
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1765519415962-89f771cbcbd0?w=100&amp;q=80",
+        "file": "articles/jeep-wrangler-overland-build-guide.html",
+        "line": 454
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1770096171602-032ad857cb23?w=100&amp;q=80",
+        "file": "articles/jeep-wrangler-overland-build-guide.html",
+        "line": 461
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1759428925891-eb797202e3b2?w=100&amp;q=80",
+        "file": "articles/jeep-wrangler-overland-build-guide.html",
+        "line": 468
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=100&amp;q=80",
+        "file": "articles/jeep-wrangler-overland-build-guide.html",
+        "line": 478
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1749441184544-69e94fa52703?w=100&amp;q=80",
+        "file": "articles/jeep-wrangler-overland-build-guide.html",
+        "line": 492
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1749441184544-69e94fa52703?w=1200&amp;q=80",
+        "file": "articles/rooftop-tent-buying-guide.html",
+        "line": 157
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1761872936203-cc1bfa27cad1?w=100&amp;q=80",
+        "file": "articles/rooftop-tent-buying-guide.html",
+        "line": 334
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1761846786544-f0f522394fbb?w=100&amp;q=80",
+        "file": "articles/rooftop-tent-buying-guide.html",
+        "line": 341
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1767052879199-ac13c537df4f?w=100&amp;q=80",
+        "file": "articles/rooftop-tent-buying-guide.html",
+        "line": 348
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=100&amp;q=80",
+        "file": "articles/rooftop-tent-buying-guide.html",
+        "line": 358
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1768352841913-3bd99afa08f3?w=100&amp;q=80",
+        "file": "articles/rooftop-tent-buying-guide.html",
+        "line": 365
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1772308005714-976160554238?w=100&amp;q=80",
+        "file": "articles/toyota-tacoma-overland-build-guide.html",
+        "line": 425
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1765519415962-89f771cbcbd0?w=100&amp;q=80",
+        "file": "articles/toyota-tacoma-overland-build-guide.html",
+        "line": 432
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1759428925891-eb797202e3b2?w=100&amp;q=80",
+        "file": "articles/toyota-tacoma-overland-build-guide.html",
+        "line": 439
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1767936192877-d9e57dd5fa33?w=100&amp;q=80",
+        "file": "articles/toyota-tacoma-overland-build-guide.html",
+        "line": 446
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1677739115529-abf0fa4d3ea2?w=100&amp;q=80",
+        "file": "articles/toyota-tacoma-overland-build-guide.html",
+        "line": 456
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1602038187785-a7289bd743f3?w=100&amp;q=80",
+        "file": "articles/toyota-tacoma-overland-build-guide.html",
+        "line": 463
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1749441184544-69e94fa52703?w=100&amp;q=80",
+        "file": "articles/toyota-tacoma-overland-build-guide.html",
+        "line": 470
+      }
+    ]
+  }
+}
