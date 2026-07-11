@@ -76,6 +76,13 @@ function slugify(text) {
     .replace(/-+/g, '-')
     .trim();
 }
+/**
+ * Single source of truth for topic → slug conversion.
+ * Extracted to avoid the two-path divergence that caused the PR #1 bug.
+ */
+function topicToSlug(topic) {
+  return slugify('best-' + topic).replace(/^best-best-/, 'best-');
+}
 function todayISO()   { return new Date().toISOString().split('T')[0]; }
 function todayHuman() {
   return new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
@@ -93,11 +100,8 @@ function pickTopic() {
       .map(f => f.slice(0, -5))          // strip ".html", keep hyphens intact
   );
 
-  // Derive the slug for each pool entry using the same logic as line 479 in main().
-  const eligible = TOPIC_POOL.filter(t => {
-    const slug = slugify('best-' + t).replace(/^best-best-/, 'best-');
-    return !publishedSlugs.has(slug);
-  });
+  // Derive the slug for each pool entry via the shared topicToSlug helper.
+  const eligible = TOPIC_POOL.filter(t => !publishedSlugs.has(topicToSlug(t)));
 
   if (eligible.length === 0) {
     console.error('TOPIC_POOL exhausted, add new topics');
@@ -494,12 +498,24 @@ async function main() {
   }
 
   const topic     = pickTopic();
-  const slug      = slugify(`best-${topic}`).replace(/^best-best-/, 'best-');
+  const slug      = topicToSlug(topic);
   const date      = todayISO();
   const dateHuman = todayHuman();
 
   console.log(`Topic: ${topic}`);
   console.log(`Slug:  ${slug}`);
+
+  // Overwrite guard: refuse to clobber an existing article unless --force was
+  // explicitly passed. Checked here — immediately after slug is known — so that
+  // no paid Groq calls are made for a topic that would be rejected anyway.
+  const outPath   = path.join(ARTICLES_DIR, `${slug}.html`);
+  const forceFlag = process.argv.includes('--force');
+  if (fs.existsSync(outPath) && !forceFlag) {
+    throw new Error(
+      `OVERWRITE GUARD: ${outPath} already exists. ` +
+      'Pass --force to overwrite an existing article.'
+    );
+  }
 
   const [bodyHTML, meta] = await Promise.all([
     generateArticleContent(topic),
@@ -517,18 +533,6 @@ async function main() {
     dateHuman,
   });
 
-  const outPath = path.join(ARTICLES_DIR, `${slug}.html`);
-
-  // Overwrite guard (change C): refuse to clobber an existing article unless
-  // --force was explicitly passed on the command line.
-  const forceFlag = process.argv.includes('--force');
-  if (fs.existsSync(outPath) && !forceFlag) {
-    throw new Error(
-      `OVERWRITE GUARD: ${outPath} already exists. ` +
-      'Pass --force to overwrite an existing article.'
-    );
-  }
-
   fs.writeFileSync(outPath, html);
   console.log(`Article written: ${outPath}`);
 
@@ -537,4 +541,9 @@ async function main() {
   console.log('Done.');
 }
 
-main().catch(err => { console.error(err); process.exit(1); });
+// Export helpers for unit testing; only run main() when invoked directly.
+if (require.main === module) {
+  main().catch(err => { console.error(err); process.exit(1); });
+}
+
+module.exports = { topicToSlug, main };
