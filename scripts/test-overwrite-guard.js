@@ -4,10 +4,12 @@
  *
  * Strategy
  * --------
- * We spawn generate-article.js as a child process with --topic set to an
- * already-published topic ('hi-lift jack alternatives').  The script is
- * invoked with a fake GROQ_API_KEY so it passes the key-presence check, but
- * the overwrite guard runs BEFORE any network call is made (Finding 2), so no
+ * The test is fully decoupled from live site content. It creates a temporary
+ * articles directory, writes a dummy article into it, then spawns
+ * generate-article.js with ARTICLES_DIR pointed at the temp dir and --topic
+ * chosen so that topicToSlug(topic) matches the dummy article's slug. The
+ * script is invoked with a fake GROQ_API_KEY so it passes the key-presence
+ * check, but the overwrite guard runs BEFORE any network call is made, so no
  * real Groq request is ever attempted.
  *
  * Expected outcome
@@ -25,26 +27,46 @@
 'use strict';
 
 const { spawnSync } = require('child_process');
+const fs            = require('fs');
+const os            = require('os');
 const path          = require('path');
 
 // ── Config ───────────────────────────────────────────────────────────────────
-const SCRIPT      = path.join(__dirname, 'generate-article.js');
-const TEST_TOPIC  = 'hi-lift jack alternatives';   // already published
+const SCRIPT       = path.join(__dirname, 'generate-article.js');
+const { topicToSlug } = require(SCRIPT);
+const TEST_TOPIC   = 'overwrite guard self test';        // synthetic topic
+const TEST_SLUG    = topicToSlug(TEST_TOPIC);            // derived via real helper
 
-// ── Run the real script ───────────────────────────────────────────────────────
-const result = spawnSync(
-  process.execPath,                          // same node binary
-  [SCRIPT, '--topic', TEST_TOPIC],
-  {
-    encoding: 'utf8',
-    env: {
-      ...process.env,
-      // Provide a syntactically valid but fake key so the key-presence check
-      // passes; the guard fires before any HTTP request is made.
-      GROQ_API_KEY: 'gsk_test_fake_key_for_overwrite_guard_test',
-    },
-  }
+// ── Set up an isolated temp articles directory with a dummy article ──────────
+const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'tb-guard-test-'));
+fs.writeFileSync(
+  path.join(tmpDir, `${TEST_SLUG}.html`),
+  '<!DOCTYPE html><html><body>dummy article for overwrite-guard test</body></html>\n'
 );
+
+let result;
+try {
+  // ── Run the real script against the temp directory ─────────────────────────
+  result = spawnSync(
+    process.execPath,                          // same node binary
+    [SCRIPT, '--topic', TEST_TOPIC],
+    {
+      encoding: 'utf8',
+      env: {
+        ...process.env,
+        // Point the generator at the isolated temp dir so the test never
+        // depends on (or touches) the live articles/ content.
+        ARTICLES_DIR: tmpDir,
+        // Provide a syntactically valid but fake key so the key-presence check
+        // passes; the guard fires before any HTTP request is made.
+        GROQ_API_KEY: 'gsk_test_fake_key_for_overwrite_guard_test',
+      },
+    }
+  );
+} finally {
+  // ── Clean up the temp directory regardless of outcome ──────────────────────
+  fs.rmSync(tmpDir, { recursive: true, force: true });
+}
 
 // ── Assertions ────────────────────────────────────────────────────────────────
 let passed = true;

@@ -19,7 +19,9 @@ const https = require('https');
 const ASSOCIATE_TAG  = process.env.AMAZON_ASSOCIATE_TAG || 'trailbuiltove-20';
 const GROQ_API_KEY   = process.env.GROQ_API_KEY;
 const GROQ_MODEL     = 'llama-3.3-70b-versatile';
-const ARTICLES_DIR   = path.join(__dirname, '..', 'articles');
+// ARTICLES_DIR can be overridden via env (used by tests to point at a temp
+// directory); defaults to the repo's articles/ folder so behavior is unchanged.
+const ARTICLES_DIR   = process.env.ARTICLES_DIR || path.join(__dirname, '..', 'articles');
 const INDEX_FILE     = path.join(__dirname, '..', 'index.html');
 const SITE_URL       = 'https://trailbuiltoverland.com';
 
@@ -546,4 +548,4 @@ if (require.main === module) {
   main().catch(err => { console.error(err); process.exit(1); });
 }
 
-module.exports = { topicToSlug, main };
+module.exports = { topicToSlug };
