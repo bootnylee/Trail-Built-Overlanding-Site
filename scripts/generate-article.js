@@ -446,33 +446,66 @@ function escapeHtml(str) {
 }
 
 // ── Index updater ─────────────────────────────────────────────────────────────
+// ANCHOR: we locate the insertion point by finding the stable
+// '<!-- ===== TOP PRODUCT' comment and inserting the new card immediately
+// before the </section> that precedes it.  This is whitespace-insensitive
+// and survives any future HTML reformatting of that section.
 function addArticleToIndex(slug, title, description, date, ogImage) {
   if (!fs.existsSync(INDEX_FILE)) return;
   let html = fs.readFileSync(INDEX_FILE, 'utf8');
-  const cleanTitle = title.replace(' - Trail Built', '').replace(' — Trail Built', '');
-  const card = `
-      <div class="card">
-        <div class="card-img">
-          <img src="${ogImage}" alt="${cleanTitle.replace(/"/g, '&quot;')}" loading="lazy" decoding="async" />
-        </div>
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="badge">Gear Guide</span>
-            <span class="card-date">${date}</span>
-          </div>
-          <h3><a href="articles/${slug}.html">${cleanTitle}</a></h3>
-          <p>${description}</p>
-          <div class="card-footer">
-            <a href="articles/${slug}.html" class="read-link">Read More &rarr;</a>
-            <span class="read-time">12 min</span>
-          </div>
-        </div>
-      </div>`;
 
-  html = html.replace('</div>\n\n    </div>\n  </div>\n</section>\n\n<!-- ===== TOP PRODUCT',
-    card + '\n</div>\n\n    </div>\n  </div>\n</section>\n\n<!-- ===== TOP PRODUCT');
-  fs.writeFileSync(INDEX_FILE, html);
-  console.log('Index updated with new article card.');
+  // ── Duplicate guard ──────────────────────────────────────────────────────
+  if (html.includes(`articles/${slug}.html`)) {
+    console.log(`Index already contains a link to ${slug} — skipping.`);
+    return;
+  }
+
+  const cleanTitle = title.replace(' - Trail Built', '').replace(' — Trail Built', '');
+  // Match the card format used by the SEO-reformatted index.html (no extra
+  // indentation; self-closing img tag without trailing space before />).
+  const card =
+`<div class="card">
+<div class="card-img"><img src="${ogImage}" alt="${cleanTitle.replace(/"/g, '&quot;')}" loading="lazy" decoding="async"/></div>
+<div class="card-body">
+<div class="card-meta">
+<span class="badge">Gear Guide</span>
+<span class="card-date">${date}</span>
+</div>
+<h3><a href="articles/${slug}.html">${cleanTitle}</a></h3>
+<p>${description}</p>
+<div class="card-footer">
+<a class="read-link" href="articles/${slug}.html">Read More &rarr;</a>
+<span class="read-time">12 min</span>
+</div>
+</div>
+</div>`;
+
+  // ── Anchor: </section>\n<!-- ===== TOP PRODUCT ────────────────────────────
+  // We look for the </section> immediately before the TOP PRODUCT comment
+  // (any amount of whitespace between them) and insert the new card before
+  // that </section>.  Using a regex makes this whitespace-insensitive.
+  const ANCHOR_RE = /(<\/section>)(\s*<!-- ===== TOP PRODUCT)/;
+  if (!ANCHOR_RE.test(html)) {
+    throw new Error(
+      'addArticleToIndex: anchor not found — ' +
+      'could not locate "</section>" before "<!-- ===== TOP PRODUCT" in index.html. ' +
+      'The homepage was NOT updated. Fix the anchor in scripts/generate-article.js.'
+    );
+  }
+
+  const updated = html.replace(ANCHOR_RE, card + '\n$1$2');
+
+  // ── No-change guard ───────────────────────────────────────────────────────
+  if (updated === html) {
+    throw new Error(
+      'addArticleToIndex: String.replace produced no change — ' +
+      'the anchor regex matched but the substitution was a no-op. ' +
+      'The homepage was NOT updated.'
+    );
+  }
+
+  fs.writeFileSync(INDEX_FILE, updated);
+  console.log(`Index updated: inserted card for "${slug}".`);
 }
 
 // ── Sitemap updater ───────────────────────────────────────────────────────────
