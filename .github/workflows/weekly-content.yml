@@ -67,7 +67,19 @@ jobs:
           else
             node scripts/generate-article.js
           fi
-          
+
+      # ── 3b. Link and image health check ─────────────────────────────────────
+      - name: Link and image health check
+        run: |
+          node scripts/check-links.js
+          BROKEN=$(python3 -c "import json; d=json.load(open('link-report.json')); print(d['summary'].get('BROKEN', 0))")
+          echo "BROKEN count: ${BROKEN}"
+          if [ "$BROKEN" -gt 0 ]; then
+            echo "::error::Link checker found ${BROKEN} BROKEN link(s)/image(s). See link-report.json."
+            exit 1
+          fi
+          echo "No BROKEN links. INCONCLUSIVE results (e.g. Amazon bot-blocks) do not fail the job."
+
       # ── 4. Sanitize generated articles ───────────────────────────────────────
       - name: Sanitize generated articles
         run: node scripts/sanitize-articles.mjs
