@@ -113,3 +113,38 @@
   };
 
 })(typeof window !== "undefined" ? window : global);
+
+  /**
+   * Inject live prices from products-data.js into elements with data-asin.
+   * Expects HTML like: <div class="product-price" data-asin="B07SJHVQTJ"></div>
+   * Or for articles: <div class="price" data-asin="B07SJHVQTJ"></div>
+   */
+  function injectLivePrices() {
+    if (!window.TrailBuiltProducts) return;
+    
+    const priceEls = document.querySelectorAll("[data-asin]");
+    priceEls.forEach(function (el) {
+      // Only target elements that are meant to hold prices
+      if (!el.classList.contains("product-price") && !el.classList.contains("price")) return;
+      
+      const asin = el.getAttribute("data-asin");
+      if (asin && window.TrailBuiltProducts[asin]) {
+        const p = window.TrailBuiltProducts[asin];
+        if (p.price > 0) {
+          // Keep the "on Amazon" text if it's an article price div
+          if (el.classList.contains("price")) {
+            el.textContent = p.priceDisplay + " on Amazon";
+          } else {
+            el.textContent = p.priceDisplay;
+          }
+        }
+      }
+    });
+  }
+
+  // Hook into DOMContentLoaded
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", injectLivePrices);
+  } else {
+    injectLivePrices();
+  }
