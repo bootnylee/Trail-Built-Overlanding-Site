@@ -1,8 +1,554 @@
 {
-  "generatedAt": "2026-07-13T00:00:00.000Z",
-  "mode": "initial",
+  "generatedAt": "2026-07-14T01:12:25.382Z",
+  "mode": "live",
   "totalAsins": 109,
   "updatedCount": 0,
   "updated": [],
-  "flagged": []
+  "flagged": [
+    {
+      "asin": "B00004VXNI",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0002AQZUG",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0002AQZZK",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0002H49BC",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B00042KG3A",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B00042KG4Y",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B000WZCSTO",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B002R0F5XG",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B003BU4MEK",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B003X27P5M",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B004ETQ2LO",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B004M3BAQE",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B004P2Q5O6",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0050DI9YQ",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B005Z5U1O6",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B006QF3TW4",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B007NKVDJC",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B007ZGOWZQ",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B009FQYNRG",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B00C0W9AJS",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B00C7B2NV4",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B00FHRADQ2",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B00H4PFQFI",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B00HGJQ3FE",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B00HYCVSW6",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B00K150VAI",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B00KF9C7WI",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B00V7X60X0",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B00XWAP2SU",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B015OL55VS",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B018LC0SMI",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B01HDWXABQ",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B01HGSLB6K",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B01K2AH3F2",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B01KT0BF04",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B01LZAQSBB",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B01N7GC9Z6",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B06XKQNPND",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B06XSHGZ2J",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B06XX197GJ",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B06XXPDV7Q",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B073V7LWMK",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0754KXVQN",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B079JC6XVC",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B07B3NS8Z7",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B07B9R7RYG",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B07BFGBWZV",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B07D74RGRK",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B07D74RGRX",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B07D74RJ4R",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B07F6ZTV6J",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B07FGC1N3J",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B07FN2FBML",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B07JQWGTV7",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B07KCSPVWC",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B07KQLX46Q",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B07PNTMSW6",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B07Q6Y1D9F",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B07R7NHY4B",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B07R7RGP4R",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B07R7RKRNV",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B07RJ2GJGB",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B07S5GK8NL",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B07SJHVQTJ",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B07T7GDV9B",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B08175B2TN",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B082DWG9RY",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B082L9RYRH",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B083G3NBNZ",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B085J32BZV",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B085MM9B2D",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B088BZPNCW",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B08BWVTP5X",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B08BZVR4LY",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B08CRJYJ22",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B08CS1JXH6",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B08F998MFH",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B08KGXD666",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B08V3TQJ6H",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B096ST3VMS",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B09D5PW315",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B09FF46FQ9",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B09G38DZQS",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B09PSKG7C3",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B09PSSSFPF",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B09QS1BC5N",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B09T3H8Y5B",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B09XFMQK4P",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B09Y27ZL4C",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B09ZQ1C1MJ",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0B9S6YX5N",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0B9XB57XM",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0BBZVVF39",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0BKTV2CWD",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0BLQKXPNK",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0BTBHQF8R",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0C71N8KNM",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0C8484883",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0CBNKJXQR",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0CD9QV2MN",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0CKKBZH85",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0CLGZB3L6",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0CNPHD4VY",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0DB3S6NNZ",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0DGR1Z85Q",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0F39T4YNZ",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0F55VMN66",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0FBQHNWGG",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0GF9XC4HC",
+      "reason": "NotReturned",
+      "action": "left unchanged"
+    }
+  ]
 }
