@@ -1,0 +1,79 @@
+{
+  "_comment": "Mocked Amazon Creators API GetItems responses used exclusively by --dry-run. Shape matches the real Creators API: itemsResult.items[] with offersV2.listings[].price.money (all camelCase). Trail-Built products-data.js contains only price/priceDisplay fields (no image fields), so image data from the API is accepted but has no effect on the rewriter. Values are fabricated for testing only.",
+  "responses": [
+    {
+      "itemsResult": {
+        "items": [
+          {
+            "asin": "B00004VXNI",
+            "offersV2": {
+              "listings": [
+                {
+                  "price": {
+                    "money": {
+                      "amount": 12.99,
+                      "currency": "USD",
+                      "displayAmount": "$12.99"
+                    }
+                  }
+                }
+              ]
+            },
+            "images": {
+              "primary": {
+                "large": {
+                  "url": "https://m.media-amazon.com/images/I/MOCK-trailbuilt-item1._SL1500_.jpg",
+                  "height": 1500,
+                  "width": 1500
+                }
+              }
+            }
+          },
+          {
+            "asin": "B0002AQZUG",
+            "offersV2": {
+              "listings": [
+                {
+                  "price": {
+                    "money": {
+                      "amount": 34.95,
+                      "currency": "USD",
+                      "displayAmount": "$34.95"
+                    }
+                  }
+                }
+              ]
+            },
+            "images": {
+              "primary": {
+                "large": {
+                  "url": "https://m.media-amazon.com/images/I/MOCK-trailbuilt-item2._SL1500_.jpg",
+                  "height": 1500,
+                  "width": 1500
+                }
+              }
+            }
+          },
+          {
+            "asin": "B0002AQZZK",
+            "images": {
+              "primary": {
+                "large": {
+                  "url": "https://m.media-amazon.com/images/I/MOCK-no-offer-item._SL1500_.jpg",
+                  "height": 1500,
+                  "width": 1500
+                }
+              }
+            }
+          }
+        ]
+      },
+      "errors": [
+        {
+          "code": "ItemNotAccessible",
+          "message": "The itemId B0002H49BC provided in the request is not accessible through the Creators API."
+        }
+      ]
+    }
+  ]
+}
