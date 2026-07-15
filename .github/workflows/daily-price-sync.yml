@@ -1,4 +1,4 @@
-name: Daily PA-API Price Sync
+name: Daily Creators API Price Sync
 
 on:
   schedule:
@@ -18,19 +18,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: '20'
+          node-version: '24'
 
+      # No dependency install needed: scripts/fetch-prices.js uses only
+      # Node built-in modules (fs, path, fetch).
       - name: Run price sync
         env:
-          PAAPI_ACCESS_KEY: ${{ secrets.PAAPI_ACCESS_KEY }}
-          PAAPI_SECRET_KEY: ${{ secrets.PAAPI_SECRET_KEY }}
+          CREATORS_CREDENTIAL_ID: ${{ secrets.CREATORS_CREDENTIAL_ID }}
+          CREATORS_CREDENTIAL_SECRET: ${{ secrets.CREATORS_CREDENTIAL_SECRET }}
           PAAPI_PARTNER_TAG: ${{ secrets.PAAPI_PARTNER_TAG }}
         run: node scripts/fetch-prices.js
 
@@ -42,6 +44,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No price changes — nothing to commit."
           else
-            git commit -m "chore: daily PA-API price sync"
+            git commit -m "chore: daily Creators API price sync"
             git push
           fi
