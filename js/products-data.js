@@ -31,8 +31,8 @@ window.TrailBuiltProducts = {
   "B0B4V6H9C2": {
     asin: "B0B4V6H9C2",
     name: "Bubba Rope Off-Road Truck Recovery Gear Set – Heavy-Duty Vehicle Tow Kit: Power ",
-    price: 305.19,
-    priceDisplay: "$305.19"
+    price: 305.37,
+    priceDisplay: "$305.37"
   },
   "B004ETQ2LO": {
     asin: "B004ETQ2LO",
@@ -199,8 +199,8 @@ window.TrailBuiltProducts = {
   "B06XX197GJ": {
     asin: "B06XX197GJ",
     name: "ARB Twin Air Compressor CKMTA12",
-    price: 799.00,
-    priceDisplay: "$799.00"
+    price: 770.74,
+    priceDisplay: "$770.74"
   },
   "B073V7LWMK": {
     asin: "B073V7LWMK",
@@ -295,8 +295,8 @@ window.TrailBuiltProducts = {
   "B07T7GDV9B": {
     asin: "B07T7GDV9B",
     name: "Factor 55 Extreme Duty 3/8" x 10" Soft Shackle, 43,500 lbs. Minimum Breaking Str",
-    price: 74.92,
-    priceDisplay: "$74.92"
+    price: 74.93,
+    priceDisplay: "$74.93"
   },
   "B07RFQVB9M": {
     asin: "B07RFQVB9M",
