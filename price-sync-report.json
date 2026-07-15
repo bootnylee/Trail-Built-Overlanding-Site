@@ -1,28 +1,33 @@
 {
-  "generatedAt": "2026-07-15T11:26:15.722Z",
-  "mode": "live",
+  "generatedAt": "2026-07-15T17:33:35.212Z",
+  "mode": "dry-run",
   "totalAsins": 109,
-  "updatedCount": 0,
-  "updated": [],
-  "flagged": [
+  "updatedCount": 2,
+  "updated": [
+    "B00004VXNI",
+    "B0002AQZUG"
+  ],
+  "proposedChanges": [
     {
       "asin": "B00004VXNI",
-      "reason": "NotReturned",
-      "action": "left unchanged"
+      "newPrice": 12.99,
+      "newPriceDisplay": "$12.99"
     },
     {
       "asin": "B0002AQZUG",
-      "reason": "NotReturned",
-      "action": "left unchanged"
-    },
+      "newPrice": 34.95,
+      "newPriceDisplay": "$34.95"
+    }
+  ],
+  "flagged": [
     {
       "asin": "B0002AQZZK",
-      "reason": "NotReturned",
+      "reason": "NoOffer",
       "action": "left unchanged"
     },
     {
       "asin": "B0002H49BC",
-      "reason": "NotReturned",
+      "reason": "ItemNotAccessible",
       "action": "left unchanged"
     },
     {
