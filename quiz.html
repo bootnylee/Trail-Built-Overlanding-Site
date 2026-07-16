@@ -131,6 +131,13 @@
       flex-shrink: 0;
       margin-top: 2px;
     }
+    .qz-option-icon-img {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
     .qz-option-label {
       font-weight: 700;
       font-size: 0.95rem;
@@ -680,7 +687,7 @@ function renderQuestion() {
     <div class="qz-options">
       ${q.options.map(opt => `
         <button class="qz-option${selected === opt.value ? ' selected' : ''}" data-value="${opt.value}" type="button">
-          <span class="qz-option-icon">${opt.icon}</span>
+          ${opt.icon.startsWith('http') ? `<img class="qz-option-icon-img" src="${opt.icon.includes('&h=') || opt.icon.includes('?h=') ? opt.icon : opt.icon + '&fit=crop&h=96'}" alt="${opt.label}" loading="lazy" width="48" height="48">` : `<span class="qz-option-icon">${opt.icon}</span>`}
           <span>
             <div class="qz-option-label">${opt.label}</div>
             <div class="qz-option-desc">${opt.desc}</div>
