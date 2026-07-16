@@ -279,6 +279,21 @@ function extractAsins(source) {
   return [...asins];
 }
 
+// Extract fallback ASINs (price: 0) — these have no live offer and are intentionally
+// excluded from Creators API queries. Their HTML links already point to Amazon search
+// URLs with the affiliate tag; querying them would only inflate the flagged count.
+function extractFallbackAsins(source) {
+  const fallbacks = new Set();
+  const blockRegex = /"([A-Z0-9]{10})":\s*\{([^}]+)\}/g;
+  let m;
+  while ((m = blockRegex.exec(source)) !== null) {
+    if (/\bprice:\s*0\b/.test(m[2])) {
+      fallbacks.add(m[1]);
+    }
+  }
+  return fallbacks;
+}
+
 // ─── Parse Creators API GetItems responses into { asin: { price, display, image } }
 
 function indexResponse(response, priceMap, errorMap) {
@@ -360,8 +375,20 @@ function updateProductBlocks(source, priceMap) {
 
 async function main() {
   const source = fs.readFileSync(PRODUCTS_FILE, "utf8");
-  const asins = extractAsins(source);
-  console.log(`Found ${asins.length} unique ASINs in products-data.js`);
+  const allAsins = extractAsins(source);
+  const fallbackAsins = extractFallbackAsins(source);
+  // Filter out fallback (price=0) ASINs — they have no live offer and are excluded
+  // from API queries. Their links already point to Amazon search URLs.
+  const asins = allAsins.filter((a) => !fallbackAsins.has(a));
+  if (fallbackAsins.size > 0) {
+    console.log(
+      `Skipping ${fallbackAsins.size} fallback (price=0) ASINs: ${[...fallbackAsins].join(", ")}`
+    );
+  }
+  console.log(
+    `Found ${asins.length} queryable ASINs in products-data.js` +
+    ` (${allAsins.length} total, ${fallbackAsins.size} fallbacks excluded)`
+  );
 
   const priceMap = new Map();
   const errorMap = new Map();

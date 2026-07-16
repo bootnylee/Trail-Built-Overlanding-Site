@@ -532,4 +532,28 @@ window.TrailBuiltProducts = {
     price: 408.98,
     priceDisplay: "$408.98"
   },
+  "B004P2Q5O6": {
+    asin: "B004P2Q5O6",
+    name: "Smittybilt 2722 Hi-Lift Jack Mount",
+    price: 0,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B06XXPDV7Q": {
+    asin: "B06XXPDV7Q",
+    name: "Bubba Rope Ultimate Recovery Kit",
+    price: 0,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B005Z5U1O6": {
+    asin: "B005Z5U1O6",
+    name: "BDS 55055 Skid Plate",
+    price: 0,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B0754KXVQN": {
+    asin: "B0754KXVQN",
+    name: "ARB Summit Front Bumper",
+    price: 0,
+    priceDisplay: "Check price on Amazon"
+  },
 };
