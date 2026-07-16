@@ -2,11 +2,12 @@
  * Netlify Function: subscribe
  *
  * Adds a subscriber to the Trail Built Overlanding EmailOctopus list.
+ * Uses the EmailOctopus API v2 (https://api.emailoctopus.com).
  * Credentials are read exclusively from Netlify environment variables —
  * they are never committed, logged, or returned in any response.
  *
  * Required env vars (set in Netlify dashboard → Site configuration → Env vars):
- *   EMAILOCTOPUS_API_KEY   — your EmailOctopus API key
+ *   EMAILOCTOPUS_API_KEY   — your EmailOctopus v2 API key
  *   EMAILOCTOPUS_LIST_ID   — the target list ID (UUID format)
  *
  * Request:  POST /.netlify/functions/subscribe
@@ -14,7 +15,7 @@
  *           Body: { "email": "subscriber@example.com" }
  *
  * Response 200: { "ok": true }
- * Response 400: { "ok": false, "error": "<friendly message>" }
+ * Response 400: { "ok": false, "error": "<friendly message or EO error code>" }
  * Response 500: { "ok": false, "error": "configuration-missing" }
  */
 
@@ -61,21 +62,23 @@ exports.handler = async function (event) {
     };
   }
 
-  // Call EmailOctopus API v1.6
-  // Docs: https://emailoctopus.com/api-documentation/lists/create-contact
-  const eoUrl = `https://emailoctopus.com/api/1.6/lists/${listId}/contacts`;
-  const eoPayload = {
-    api_key: apiKey,
-    email_address: email,
-    status: "SUBSCRIBED",
-  };
+  // Call EmailOctopus API v2
+  // Docs: https://emailoctopus.com/api-documentation/v2#tag/Contact/operation/postListsListIdContacts
+  // Auth: Bearer token in Authorization header — API key is never placed in the request body
+  const eoUrl = `https://api.emailoctopus.com/lists/${listId}/contacts`;
 
   let eoRes, eoData;
   try {
     eoRes = await fetch(eoUrl, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(eoPayload),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        email_address: email,
+        status: "subscribed",
+      }),
     });
     eoData = await eoRes.json();
   } catch (err) {
@@ -87,8 +90,8 @@ exports.handler = async function (event) {
     };
   }
 
-  // Handle already-subscribed as success
-  if (eoData?.error?.code === "MEMBER_EXISTS_WITH_EMAIL_ADDRESS") {
+  // 2xx → success
+  if (eoRes.ok) {
     return {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
@@ -96,21 +99,30 @@ exports.handler = async function (event) {
     };
   }
 
-  // Handle other API errors
-  if (eoData?.error || !eoRes.ok) {
-    const code = eoData?.error?.code || "UNKNOWN";
-    console.error("[subscribe] EmailOctopus error code:", code);
+  // 409 already-exists → treat as success (idempotent subscribe)
+  if (
+    eoRes.status === 409 &&
+    typeof eoData?.type === "string" &&
+    eoData.type.includes("already-exists")
+  ) {
     return {
-      statusCode: 400,
+      statusCode: 200,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ok: false, error: "Subscription failed. Please try again." }),
+      body: JSON.stringify({ ok: true }),
     };
   }
 
-  // Success
+  // All other non-2xx responses → surface the HTTP status and EO error type
+  // Never log or return the API key, list ID, or request body
+  const errorCode =
+    (typeof eoData?.type === "string"
+      ? eoData.type.split("/").pop()
+      : null) ||
+    String(eoRes.status);
+  console.error("[subscribe] EmailOctopus error status:", eoRes.status, "type:", errorCode);
   return {
-    statusCode: 200,
+    statusCode: eoRes.status >= 400 && eoRes.status < 500 ? 400 : 502,
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ ok: true }),
+    body: JSON.stringify({ ok: false, error: errorCode }),
   };
 };
