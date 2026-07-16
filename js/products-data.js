@@ -25,14 +25,14 @@ window.TrailBuiltProducts = {
   "B000WZCSTO": {
     asin: "B000WZCSTO",
     name: "Gerber Gear 22-41578N Gorge Folding Shovel, Black , 47.5 cm",
-    price: 37.00,
-    priceDisplay: "$37.00"
+    price: 38.79,
+    priceDisplay: "$38.79"
   },
   "B0B4V6H9C2": {
     asin: "B0B4V6H9C2",
     name: "Bubba Rope Off-Road Truck Recovery Gear Set – Heavy-Duty Vehicle Tow Kit: Power ",
-    price: 305.37,
-    priceDisplay: "$305.37"
+    price: 306.48,
+    priceDisplay: "$306.48"
   },
   "B004ETQ2LO": {
     asin: "B004ETQ2LO",
@@ -121,8 +121,8 @@ window.TrailBuiltProducts = {
   "B00FPECUZ4": {
     asin: "B00FPECUZ4",
     name: "Hi-Lift HL-484PC Cast Iron & Steel Hi-Lift Jack",
-    price: 128.29,
-    priceDisplay: "$128.29"
+    price: 128.32,
+    priceDisplay: "$128.32"
   },
   "B0C2F3GNFD": {
     asin: "B0C2F3GNFD",
@@ -139,8 +139,8 @@ window.TrailBuiltProducts = {
   "B015OL55VS": {
     asin: "B015OL55VS",
     name: "Adventure Medical Kits Trauma Pack Pro",
-    price: 264.96,
-    priceDisplay: "$264.96"
+    price: 268.90,
+    priceDisplay: "$268.90"
   },
   "B018LC0SMI": {
     asin: "B018LC0SMI",
@@ -199,8 +199,8 @@ window.TrailBuiltProducts = {
   "B06XX197GJ": {
     asin: "B06XX197GJ",
     name: "ARB Twin Air Compressor CKMTA12",
-    price: 770.74,
-    priceDisplay: "$770.74"
+    price: 799.00,
+    priceDisplay: "$799.00"
   },
   "B073V7LWMK": {
     asin: "B073V7LWMK",
@@ -295,8 +295,8 @@ window.TrailBuiltProducts = {
   "B07T7GDV9B": {
     asin: "B07T7GDV9B",
     name: "Factor 55 Extreme Duty 3/8" x 10" Soft Shackle, 43,500 lbs. Minimum Breaking Str",
-    price: 74.93,
-    priceDisplay: "$74.93"
+    price: 75.34,
+    priceDisplay: "$75.34"
   },
   "B07RFQVB9M": {
     asin: "B07RFQVB9M",
@@ -391,8 +391,8 @@ window.TrailBuiltProducts = {
   "B09D5PW315": {
     asin: "B09D5PW315",
     name: "Ram X-Grip Phone Mount",
-    price: 268.99,
-    priceDisplay: "$268.99"
+    price: 259.99,
+    priceDisplay: "$259.99"
   },
   "B09FF46FQ9": {
     asin: "B09FF46FQ9",
@@ -409,8 +409,8 @@ window.TrailBuiltProducts = {
   "B09PSSSFPF": {
     asin: "B09PSSSFPF",
     name: "Garmin Montana 750i",
-    price: 349.99,
-    priceDisplay: "$349.99"
+    price: 249.99,
+    priceDisplay: "$249.99"
   },
   "B09QS1BC5N": {
     asin: "B09QS1BC5N",
