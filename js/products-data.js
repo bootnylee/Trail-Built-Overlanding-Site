@@ -7,8 +7,8 @@ window.TrailBuiltProducts = {
   "B00004VXNI": {
     asin: "B00004VXNI",
     name: "Uniden PRO520XL Pro Series 40-Channel CB Radio. Compact Design. ANL Switch and P",
-    price: 87.45,
-    priceDisplay: "$87.45"
+    price: 88.45,
+    priceDisplay: "$88.45"
   },
   "B00042KG3A": {
     asin: "B00042KG3A",
@@ -31,8 +31,8 @@ window.TrailBuiltProducts = {
   "B0B4V6H9C2": {
     asin: "B0B4V6H9C2",
     name: "Bubba Rope Off-Road Truck Recovery Gear Set – Heavy-Duty Vehicle Tow Kit: Power ",
-    price: 306.48,
-    priceDisplay: "$306.48"
+    price: 305.00,
+    priceDisplay: "$305.00"
   },
   "B004ETQ2LO": {
     asin: "B004ETQ2LO",
@@ -49,8 +49,8 @@ window.TrailBuiltProducts = {
   "B0050DI9YQ": {
     asin: "B0050DI9YQ",
     name: "ARB CKMTA12 \'12V\' On-Board Twin High Performance Air Compressor, Ideal for Air L",
-    price: 635.00,
-    priceDisplay: "$635.00"
+    price: 634.95,
+    priceDisplay: "$634.95"
   },
   "B006QF3TW4": {
     asin: "B006QF3TW4",
@@ -121,8 +121,8 @@ window.TrailBuiltProducts = {
   "B00FPECUZ4": {
     asin: "B00FPECUZ4",
     name: "Hi-Lift HL-484PC Cast Iron & Steel Hi-Lift Jack",
-    price: 128.32,
-    priceDisplay: "$128.32"
+    price: 128.29,
+    priceDisplay: "$128.29"
   },
   "B0C2F3GNFD": {
     asin: "B0C2F3GNFD",
@@ -133,14 +133,14 @@ window.TrailBuiltProducts = {
   "B00XWAP2SU": {
     asin: "B00XWAP2SU",
     name: "Sawyer Products MINI Water Filter",
-    price: 119.63,
-    priceDisplay: "$119.63"
+    price: 119.70,
+    priceDisplay: "$119.70"
   },
   "B015OL55VS": {
     asin: "B015OL55VS",
     name: "Adventure Medical Kits Trauma Pack Pro",
-    price: 268.90,
-    priceDisplay: "$268.90"
+    price: 267.26,
+    priceDisplay: "$267.26"
   },
   "B018LC0SMI": {
     asin: "B018LC0SMI",
@@ -151,8 +151,8 @@ window.TrailBuiltProducts = {
   "B0CV9RPT8Y": {
     asin: "B0CV9RPT8Y",
     name: "Platypus GravityWorks Group Camping Water Filter System, 4-Liter" Kinetic Recovery Rope",
-    price: 134.95,
-    priceDisplay: "$134.95"
+    price: 133.95,
+    priceDisplay: "$133.95"
   },
   "B01HGSLB6K": {
     asin: "B01HGSLB6K",
@@ -169,8 +169,8 @@ window.TrailBuiltProducts = {
   "B01KT0BF04": {
     asin: "B01KT0BF04",
     name: "Baja Designs Squadron Pro pair",
-    price: 56.99,
-    priceDisplay: "$56.99"
+    price: 51.29,
+    priceDisplay: "$51.29"
   },
   "B004P9C5H8": {
     asin: "B004P9C5H8",
@@ -295,8 +295,8 @@ window.TrailBuiltProducts = {
   "B07T7GDV9B": {
     asin: "B07T7GDV9B",
     name: "Factor 55 Extreme Duty 3/8" x 10" Soft Shackle, 43,500 lbs. Minimum Breaking Str",
-    price: 75.34,
-    priceDisplay: "$75.34"
+    price: 75.09,
+    priceDisplay: "$75.09"
   },
   "B07RFQVB9M": {
     asin: "B07RFQVB9M",
@@ -409,8 +409,8 @@ window.TrailBuiltProducts = {
   "B09PSSSFPF": {
     asin: "B09PSSSFPF",
     name: "Garmin Montana 750i",
-    price: 249.99,
-    priceDisplay: "$249.99"
+    price: 349.99,
+    priceDisplay: "$349.99"
   },
   "B09QS1BC5N": {
     asin: "B09QS1BC5N",
@@ -439,8 +439,8 @@ window.TrailBuiltProducts = {
   "B0B9S6YX5N": {
     asin: "B0B9S6YX5N",
     name: "On-Board Air: ARB Twin Compressor",
-    price: 259.99,
-    priceDisplay: "$259.99"
+    price: 319.99,
+    priceDisplay: "$319.99"
   },
   "B0B9XB57XM": {
     asin: "B0B9XB57XM",
@@ -493,8 +493,8 @@ window.TrailBuiltProducts = {
   "B0CLGZB3L6": {
     asin: "B0CLGZB3L6",
     name: "Bluetti AC200P",
-    price: 799.00,
-    priceDisplay: "$799.00"
+    price: 899.00,
+    priceDisplay: "$899.00"
   },
   "B0CNPHD4VY": {
     asin: "B0CNPHD4VY",
