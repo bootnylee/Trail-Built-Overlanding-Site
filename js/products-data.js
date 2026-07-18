@@ -31,8 +31,8 @@ window.TrailBuiltProducts = {
   "B0B4V6H9C2": {
     asin: "B0B4V6H9C2",
     name: "Bubba Rope Off-Road Truck Recovery Gear Set – Heavy-Duty Vehicle Tow Kit: Power ",
-    price: 305.00,
-    priceDisplay: "$305.00"
+    price: 304.08,
+    priceDisplay: "$304.08"
   },
   "B004ETQ2LO": {
     asin: "B004ETQ2LO",
@@ -97,8 +97,8 @@ window.TrailBuiltProducts = {
   "B07Y5VVNP5": {
     asin: "B07Y5VVNP5",
     name: "Fab Fours Black Steel Rear (DR19-T4450-1)",
-    price: 916.55,
-    priceDisplay: "$916.55"
+    price: 921.20,
+    priceDisplay: "$921.20"
   },
   "B006R7AW6M": {
     asin: "B006R7AW6M",
@@ -151,8 +151,8 @@ window.TrailBuiltProducts = {
   "B0CV9RPT8Y": {
     asin: "B0CV9RPT8Y",
     name: "Platypus GravityWorks Group Camping Water Filter System, 4-Liter" Kinetic Recovery Rope",
-    price: 133.95,
-    priceDisplay: "$133.95"
+    price: 134.95,
+    priceDisplay: "$134.95"
   },
   "B01HGSLB6K": {
     asin: "B01HGSLB6K",
@@ -439,8 +439,8 @@ window.TrailBuiltProducts = {
   "B0B9S6YX5N": {
     asin: "B0B9S6YX5N",
     name: "On-Board Air: ARB Twin Compressor",
-    price: 319.99,
-    priceDisplay: "$319.99"
+    price: 212.49,
+    priceDisplay: "$212.49"
   },
   "B0B9XB57XM": {
     asin: "B0B9XB57XM",
@@ -463,8 +463,8 @@ window.TrailBuiltProducts = {
   "B0D7PPG25F": {
     asin: "B0D7PPG25F",
     name: "Jackery Explorer 1000 v2 Portable Power Station,1070Wh LiFePO4 Battery,1500W AC/" x 30' — Best for Full-Size Trucks",
-    price: 429.00,
-    priceDisplay: "$429.00"
+    price: 449.00,
+    priceDisplay: "$449.00"
   },
   "B0C8484883": {
     asin: "B0C8484883",
