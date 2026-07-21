@@ -1,10 +1,10 @@
 {
-  "generated": "2026-07-21T16:50:05.343Z",
+  "generated": "2026-07-21T21:47:56.042Z",
   "summary": {
-    "pages": 31,
+    "pages": 32,
     "issues": 0,
     "warnings": 0,
-    "passed": 337
+    "passed": 348
   },
   "issues": [],
   "warnings": [],
@@ -225,6 +225,17 @@
     "[/articles/best-overlanding-recovery-gear.html] All 9 Amazon links have affiliate tag",
     "[/articles/best-overlanding-recovery-gear.html] No placeholder href='#' links",
     "[/articles/best-overlanding-recovery-gear.html] JSON-LD structured data present",
+    "[/articles/best-overlanding-shower-and-hygiene-solutions.html] Title OK (24 chars)",
+    "[/articles/best-overlanding-shower-and-hygiene-solutions.html] Meta description OK (160 chars)",
+    "[/articles/best-overlanding-shower-and-hygiene-solutions.html] Canonical URL present and correct",
+    "[/articles/best-overlanding-shower-and-hygiene-solutions.html] og:title present",
+    "[/articles/best-overlanding-shower-and-hygiene-solutions.html] og:description present",
+    "[/articles/best-overlanding-shower-and-hygiene-solutions.html] og:image present",
+    "[/articles/best-overlanding-shower-and-hygiene-solutions.html] robots meta present",
+    "[/articles/best-overlanding-shower-and-hygiene-solutions.html] Single H1 tag",
+    "[/articles/best-overlanding-shower-and-hygiene-solutions.html] All 5 Amazon links have affiliate tag",
+    "[/articles/best-overlanding-shower-and-hygiene-solutions.html] No placeholder href='#' links",
+    "[/articles/best-overlanding-shower-and-hygiene-solutions.html] JSON-LD structured data present",
     "[/articles/best-overlanding-solar-and-power.html] Title OK (61 chars)",
     "[/articles/best-overlanding-solar-and-power.html] Meta description OK (144 chars)",
     "[/articles/best-overlanding-solar-and-power.html] Canonical URL present and correct",
@@ -347,7 +358,7 @@
     "[/articles/toyota-tacoma-overland-build-guide.html] No placeholder href='#' links",
     "[/articles/toyota-tacoma-overland-build-guide.html] JSON-LD structured data present",
     "robots.txt references sitemap",
-    "sitemap.xml has 31 URLs with correct domain"
+    "sitemap.xml has 32 URLs with correct domain"
   ],
   "pages": [
     {
@@ -722,6 +733,25 @@
         "robots meta present",
         "Single H1 tag",
         "All 9 Amazon links have affiliate tag",
+        "No placeholder href='#' links",
+        "JSON-LD structured data present"
+      ]
+    },
+    {
+      "url": "/articles/best-overlanding-shower-and-hygiene-solutions.html",
+      "type": "article",
+      "issues": [],
+      "warnings": [],
+      "passed": [
+        "Title OK (24 chars)",
+        "Meta description OK (160 chars)",
+        "Canonical URL present and correct",
+        "og:title present",
+        "og:description present",
+        "og:image present",
+        "robots meta present",
+        "Single H1 tag",
+        "All 5 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
