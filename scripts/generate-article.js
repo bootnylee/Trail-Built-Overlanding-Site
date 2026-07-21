@@ -70,7 +70,76 @@ const TOPIC_POOL = [
   'best overlanding dash cams and trail cameras',
 ];
 
+// ── Curated Unsplash fallback pool (all verified 200 OK as of 2026-07) ────────
+// Never include photo-1534536297917 — deleted by Unsplash.
+const UNSPLASH_FALLBACKS = [
+  'https://images.unsplash.com/photo-1533591380348-14193f1de18f?w=1200&q=80', // off-road truck trail
+  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80', // mountain road
+  'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=1200&q=80', // jeep trail
+  'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1200&q=80', // camping sunset
+  'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&q=80', // mountain landscape
+  'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1200&q=80', // forest road
+  'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1200&q=80', // desert off-road
+  'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1200&q=80', // camping fire
+];
+
 // ── Helpers ──────────────────────────────────────────────────────────────────
+/**
+ * Validate an external image URL by making an HTTP HEAD request.
+ * Returns true if the server responds with HTTP 200.
+ * Follows up to one redirect. Times out after 8 seconds.
+ */
+function validateImageUrl(url) {
+  return new Promise((resolve) => {
+    try {
+      const parsed = new URL(url);
+      const mod = parsed.protocol === 'https:' ? https : require('http');
+      const req = mod.request(
+        { hostname: parsed.hostname, path: parsed.pathname + parsed.search, method: 'HEAD', timeout: 8000 },
+        (res) => {
+          // Follow one redirect
+          if ((res.statusCode === 301 || res.statusCode === 302) && res.headers.location) {
+            validateImageUrl(res.headers.location).then(resolve);
+          } else {
+            resolve(res.statusCode === 200);
+          }
+        }
+      );
+      req.on('error', () => resolve(false));
+      req.on('timeout', () => { req.destroy(); resolve(false); });
+      req.end();
+    } catch { resolve(false); }
+  });
+}
+
+/**
+ * Validate a candidate image URL; on failure, retry up to maxRetries times
+ * by cycling through the UNSPLASH_FALLBACKS pool.
+ * Throws if no valid URL can be found after all retries.
+ */
+async function resolveValidImageUrl(candidateUrl, maxRetries = 3) {
+  // First try the candidate
+  const candidateOk = await validateImageUrl(candidateUrl);
+  if (candidateOk) return candidateUrl;
+  console.warn(`[image-validate] DEAD URL rejected: ${candidateUrl}`);
+
+  // Cycle through fallbacks
+  for (let i = 0; i < Math.min(maxRetries, UNSPLASH_FALLBACKS.length); i++) {
+    const fallback = UNSPLASH_FALLBACKS[i];
+    console.warn(`[image-validate] Trying fallback ${i + 1}/${maxRetries}: ${fallback}`);
+    const ok = await validateImageUrl(fallback);
+    if (ok) {
+      console.log(`[image-validate] Fallback accepted: ${fallback}`);
+      return fallback;
+    }
+    console.warn(`[image-validate] Fallback also dead: ${fallback}`);
+  }
+  throw new Error(
+    `[image-validate] All ${maxRetries} fallback image URLs failed. ` +
+    'Update UNSPLASH_FALLBACKS in generate-article.js with verified live URLs.'
+  );
+}
+
 function slugify(text) {
   return text.toLowerCase()
     .replace(/[^a-z0-9 -]/g, '')
@@ -556,6 +625,12 @@ async function main() {
     generateArticleContent(topic),
     generateMeta(topic),
   ]);
+
+  // Validate hero image URL — reject dead URLs before writing the article file.
+  // This prevents the link-check gate from failing in CI.
+  console.log(`[image-validate] Checking hero image: ${meta.ogImage}`);
+  meta.ogImage = await resolveValidImageUrl(meta.ogImage);
+  console.log(`[image-validate] Hero image OK: ${meta.ogImage}`);
 
   const html = buildHTML({
     slug,

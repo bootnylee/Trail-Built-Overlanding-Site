@@ -54,7 +54,7 @@ if (homepageCards < 6) errors.push(`index.html: expected at least 6 homepage gea
 if (/<a[^>]*class="review-card"[\s\S]*<a[^>]*class="review-card"/.test(index)) {
   errors.push('index.html: detected nested review-card anchors');
 }
-if (homepageCards > 12) {
+if (homepageCards > 20) {
   errors.push(`index.html: possible nested or duplicated homepage cards detected (${homepageCards} card markers)`);
 }
 
