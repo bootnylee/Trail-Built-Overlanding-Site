@@ -557,3 +557,11 @@ window.TrailBuiltProducts = {
     priceDisplay: "Check price on Amazon"
   },
 };
+
+/**
+ * ISO timestamp of the last successful live Creators API price sync.
+ * Written by scripts/fetch-prices.js on every successful live run.
+ * If older than 24 hours (or missing), the price-rendering layer hides
+ * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
+ */
+window.TrailBuiltLastSyncedAt = "2026-07-18T10:58:35.970Z";

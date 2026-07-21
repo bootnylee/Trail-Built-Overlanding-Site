@@ -115,28 +115,54 @@
 })(typeof window !== "undefined" ? window : global);
 
   /**
+   * Returns true if the last price sync is within the 24-hour freshness window.
+   * Reads window.TrailBuiltLastSyncedAt written by scripts/fetch-prices.js.
+   */
+  function isPriceFresh() {
+    var ts = window.TrailBuiltLastSyncedAt;
+    if (!ts) return false;
+    var age = Date.now() - new Date(ts).getTime();
+    return age < 24 * 60 * 60 * 1000; // 24 hours in ms
+  }
+
+  /**
    * Inject live prices from products-data.js into elements with data-asin.
    * Expects HTML like: <div class="product-price" data-asin="B07SJHVQTJ"></div>
    * Or for articles: <div class="price" data-asin="B07SJHVQTJ"></div>
+   *
+   * Freshness gate: if window.TrailBuiltLastSyncedAt is missing or older than
+   * 24 hours, numeric prices are hidden and replaced with a 'Check price on
+   * Amazon' affiliate link (correct tag: trailbuiltove-20) instead.
    */
   function injectLivePrices() {
     if (!window.TrailBuiltProducts) return;
-    
-    const priceEls = document.querySelectorAll("[data-asin]");
+
+    var fresh = isPriceFresh();
+
+    var priceEls = document.querySelectorAll("[data-asin]");
     priceEls.forEach(function (el) {
       // Only target elements that are meant to hold prices
       if (!el.classList.contains("product-price") && !el.classList.contains("price")) return;
-      
-      const asin = el.getAttribute("data-asin");
-      if (asin && window.TrailBuiltProducts[asin]) {
-        const p = window.TrailBuiltProducts[asin];
-        if (p.price > 0) {
-          // Keep the "on Amazon" text if it's an article price div
-          if (el.classList.contains("price")) {
-            el.textContent = p.priceDisplay + " on Amazon";
-          } else {
-            el.textContent = p.priceDisplay;
-          }
+
+      var asin = el.getAttribute("data-asin");
+      if (!asin || !window.TrailBuiltProducts[asin]) return;
+      var p = window.TrailBuiltProducts[asin];
+
+      if (!fresh || p.price === 0) {
+        // Prices are stale (or this product has no live offer) — show affiliate link
+        var link = document.createElement("a");
+        link.href = amazonLink(asin);
+        link.target = "_blank";
+        link.rel = "noopener sponsored";
+        link.textContent = "Check price on Amazon";
+        el.textContent = "";
+        el.appendChild(link);
+      } else {
+        // Prices are fresh — render numeric price
+        if (el.classList.contains("price")) {
+          el.textContent = p.priceDisplay + " on Amazon";
+        } else {
+          el.textContent = p.priceDisplay;
         }
       }
     });
