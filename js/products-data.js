@@ -49,8 +49,8 @@ window.TrailBuiltProducts = {
   "B0050DI9YQ": {
     asin: "B0050DI9YQ",
     name: "ARB CKMTA12 \'12V\' On-Board Twin High Performance Air Compressor, Ideal for Air L",
-    price: 634.95,
-    priceDisplay: "$634.95"
+    price: 635.00,
+    priceDisplay: "$635.00"
   },
   "B006QF3TW4": {
     asin: "B006QF3TW4",
@@ -97,8 +97,8 @@ window.TrailBuiltProducts = {
   "B07Y5VVNP5": {
     asin: "B07Y5VVNP5",
     name: "Fab Fours Black Steel Rear (DR19-T4450-1)",
-    price: 921.20,
-    priceDisplay: "$921.20"
+    price: 920.74,
+    priceDisplay: "$920.74"
   },
   "B006R7AW6M": {
     asin: "B006R7AW6M",
@@ -121,8 +121,8 @@ window.TrailBuiltProducts = {
   "B00FPECUZ4": {
     asin: "B00FPECUZ4",
     name: "Hi-Lift HL-484PC Cast Iron & Steel Hi-Lift Jack",
-    price: 128.29,
-    priceDisplay: "$128.29"
+    price: 128.36,
+    priceDisplay: "$128.36"
   },
   "B0C2F3GNFD": {
     asin: "B0C2F3GNFD",
@@ -133,8 +133,8 @@ window.TrailBuiltProducts = {
   "B00XWAP2SU": {
     asin: "B00XWAP2SU",
     name: "Sawyer Products MINI Water Filter",
-    price: 119.70,
-    priceDisplay: "$119.70"
+    price: 99.95,
+    priceDisplay: "$99.95"
   },
   "B015OL55VS": {
     asin: "B015OL55VS",
@@ -331,8 +331,8 @@ window.TrailBuiltProducts = {
   "B09PSKG7C3": {
     asin: "B09PSKG7C3",
     name: "Garmin inReach Mini 2, Lightweight and Compact Satellite Communicator, Hiking Ha",
-    price: 309.95,
-    priceDisplay: "$309.95"
+    price: 319.95,
+    priceDisplay: "$319.95"
   },
   "B09FB2BPRZ": {
     asin: "B09FB2BPRZ",
@@ -355,8 +355,8 @@ window.TrailBuiltProducts = {
   "B08BWVTP5X": {
     asin: "B08BWVTP5X",
     name: "Rough Country 2 Inch Budget Lift Kit",
-    price: 359.95,
-    priceDisplay: "$359.95"
+    price: 354.95,
+    priceDisplay: "$354.95"
   },
   "B08F998MFH": {
     asin: "B08F998MFH",
@@ -391,14 +391,14 @@ window.TrailBuiltProducts = {
   "B09D5PW315": {
     asin: "B09D5PW315",
     name: "Ram X-Grip Phone Mount",
-    price: 259.99,
-    priceDisplay: "$259.99"
+    price: 259.98,
+    priceDisplay: "$259.98"
   },
   "B09FF46FQ9": {
     asin: "B09FF46FQ9",
     name: "Jackery Explorer 500",
-    price: 199.99,
-    priceDisplay: "$199.99"
+    price: 186.99,
+    priceDisplay: "$186.99"
   },
   "B07CZZ8C5W": {
     asin: "B07CZZ8C5W",
@@ -409,8 +409,8 @@ window.TrailBuiltProducts = {
   "B09PSSSFPF": {
     asin: "B09PSSSFPF",
     name: "Garmin Montana 750i",
-    price: 349.99,
-    priceDisplay: "$349.99"
+    price: 347.49,
+    priceDisplay: "$347.49"
   },
   "B09QS1BC5N": {
     asin: "B09QS1BC5N",
@@ -445,8 +445,8 @@ window.TrailBuiltProducts = {
   "B0B9XB57XM": {
     asin: "B0B9XB57XM",
     name: "BLUETTI AC200L Portable Power Station 2048Wh",
-    price: 429.00,
-    priceDisplay: "$429.00"
+    price: 1019.48,
+    priceDisplay: "$1,019.48"
   },
   "B0F83RZVPN": {
     asin: "B0F83RZVPN",
@@ -463,8 +463,8 @@ window.TrailBuiltProducts = {
   "B0D7PPG25F": {
     asin: "B0D7PPG25F",
     name: "Jackery Explorer 1000 v2 Portable Power Station,1070Wh LiFePO4 Battery,1500W AC/" x 30' — Best for Full-Size Trucks",
-    price: 449.00,
-    priceDisplay: "$449.00"
+    price: 459.00,
+    priceDisplay: "$459.00"
   },
   "B0C8484883": {
     asin: "B0C8484883",
@@ -564,4 +564,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-07-18T10:58:35.970Z";
+window.TrailBuiltLastSyncedAt = "2026-07-22T11:44:37.570Z";
