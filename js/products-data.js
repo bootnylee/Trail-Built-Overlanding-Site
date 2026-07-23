@@ -139,8 +139,8 @@ window.TrailBuiltProducts = {
   "B015OL55VS": {
     asin: "B015OL55VS",
     name: "Adventure Medical Kits Trauma Pack Pro",
-    price: 267.26,
-    priceDisplay: "$267.26"
+    price: 262.09,
+    priceDisplay: "$262.09"
   },
   "B018LC0SMI": {
     asin: "B018LC0SMI",
@@ -295,8 +295,8 @@ window.TrailBuiltProducts = {
   "B07T7GDV9B": {
     asin: "B07T7GDV9B",
     name: "Factor 55 Extreme Duty 3/8" x 10" Soft Shackle, 43,500 lbs. Minimum Breaking Str",
-    price: 75.09,
-    priceDisplay: "$75.09"
+    price: 74.86,
+    priceDisplay: "$74.86"
   },
   "B07RFQVB9M": {
     asin: "B07RFQVB9M",
@@ -355,8 +355,8 @@ window.TrailBuiltProducts = {
   "B08BWVTP5X": {
     asin: "B08BWVTP5X",
     name: "Rough Country 2 Inch Budget Lift Kit",
-    price: 354.95,
-    priceDisplay: "$354.95"
+    price: 359.95,
+    priceDisplay: "$359.95"
   },
   "B08F998MFH": {
     asin: "B08F998MFH",
@@ -391,8 +391,8 @@ window.TrailBuiltProducts = {
   "B09D5PW315": {
     asin: "B09D5PW315",
     name: "Ram X-Grip Phone Mount",
-    price: 259.98,
-    priceDisplay: "$259.98"
+    price: 259.96,
+    priceDisplay: "$259.96"
   },
   "B09FF46FQ9": {
     asin: "B09FF46FQ9",
@@ -409,8 +409,8 @@ window.TrailBuiltProducts = {
   "B09PSSSFPF": {
     asin: "B09PSSSFPF",
     name: "Garmin Montana 750i",
-    price: 347.49,
-    priceDisplay: "$347.49"
+    price: 347.47,
+    priceDisplay: "$347.47"
   },
   "B09QS1BC5N": {
     asin: "B09QS1BC5N",
@@ -463,8 +463,8 @@ window.TrailBuiltProducts = {
   "B0D7PPG25F": {
     asin: "B0D7PPG25F",
     name: "Jackery Explorer 1000 v2 Portable Power Station,1070Wh LiFePO4 Battery,1500W AC/" x 30' — Best for Full-Size Trucks",
-    price: 459.00,
-    priceDisplay: "$459.00"
+    price: 469.00,
+    priceDisplay: "$469.00"
   },
   "B0C8484883": {
     asin: "B0C8484883",
@@ -564,4 +564,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-07-22T11:44:37.570Z";
+window.TrailBuiltLastSyncedAt = "2026-07-23T11:47:52.809Z";
