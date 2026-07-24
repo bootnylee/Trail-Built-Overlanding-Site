@@ -139,8 +139,8 @@ window.TrailBuiltProducts = {
   "B015OL55VS": {
     asin: "B015OL55VS",
     name: "Adventure Medical Kits Trauma Pack Pro",
-    price: 262.09,
-    priceDisplay: "$262.09"
+    price: 263.68,
+    priceDisplay: "$263.68"
   },
   "B018LC0SMI": {
     asin: "B018LC0SMI",
@@ -295,8 +295,8 @@ window.TrailBuiltProducts = {
   "B07T7GDV9B": {
     asin: "B07T7GDV9B",
     name: "Factor 55 Extreme Duty 3/8" x 10" Soft Shackle, 43,500 lbs. Minimum Breaking Str",
-    price: 74.86,
-    priceDisplay: "$74.86"
+    price: 76.56,
+    priceDisplay: "$76.56"
   },
   "B07RFQVB9M": {
     asin: "B07RFQVB9M",
@@ -409,8 +409,8 @@ window.TrailBuiltProducts = {
   "B09PSSSFPF": {
     asin: "B09PSSSFPF",
     name: "Garmin Montana 750i",
-    price: 347.47,
-    priceDisplay: "$347.47"
+    price: 349.99,
+    priceDisplay: "$349.99"
   },
   "B09QS1BC5N": {
     asin: "B09QS1BC5N",
@@ -564,4 +564,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-07-23T11:47:52.809Z";
+window.TrailBuiltLastSyncedAt = "2026-07-24T11:38:37.808Z";
