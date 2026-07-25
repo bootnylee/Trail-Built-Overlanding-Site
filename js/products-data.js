@@ -7,8 +7,8 @@ window.TrailBuiltProducts = {
   "B00004VXNI": {
     asin: "B00004VXNI",
     name: "Uniden PRO520XL Pro Series 40-Channel CB Radio. Compact Design. ANL Switch and P",
-    price: 88.45,
-    priceDisplay: "$88.45"
+    price: 85.69,
+    priceDisplay: "$85.69"
   },
   "B00042KG3A": {
     asin: "B00042KG3A",
@@ -49,8 +49,8 @@ window.TrailBuiltProducts = {
   "B0050DI9YQ": {
     asin: "B0050DI9YQ",
     name: "ARB CKMTA12 \'12V\' On-Board Twin High Performance Air Compressor, Ideal for Air L",
-    price: 635.00,
-    priceDisplay: "$635.00"
+    price: 634.21,
+    priceDisplay: "$634.21"
   },
   "B006QF3TW4": {
     asin: "B006QF3TW4",
@@ -139,8 +139,8 @@ window.TrailBuiltProducts = {
   "B015OL55VS": {
     asin: "B015OL55VS",
     name: "Adventure Medical Kits Trauma Pack Pro",
-    price: 263.68,
-    priceDisplay: "$263.68"
+    price: 263.86,
+    priceDisplay: "$263.86"
   },
   "B018LC0SMI": {
     asin: "B018LC0SMI",
@@ -157,8 +157,8 @@ window.TrailBuiltProducts = {
   "B01HGSLB6K": {
     asin: "B01HGSLB6K",
     name: "EVERLIT 250-Piece Survival First Aid Kit",
-    price: 32.39,
-    priceDisplay: "$32.39"
+    price: 35.99,
+    priceDisplay: "$35.99"
   },
   "B01K2AH3F2": {
     asin: "B01K2AH3F2",
@@ -187,8 +187,8 @@ window.TrailBuiltProducts = {
   "B06XKQNPND": {
     asin: "B06XKQNPND",
     name: "My Medic Sidekick First Aid Kit",
-    price: 121.49,
-    priceDisplay: "$121.49"
+    price: 121.95,
+    priceDisplay: "$121.95"
   },
   "B0GP98KPRH": {
     asin: "B0GP98KPRH",
@@ -295,8 +295,8 @@ window.TrailBuiltProducts = {
   "B07T7GDV9B": {
     asin: "B07T7GDV9B",
     name: "Factor 55 Extreme Duty 3/8" x 10" Soft Shackle, 43,500 lbs. Minimum Breaking Str",
-    price: 76.56,
-    priceDisplay: "$76.56"
+    price: 77.34,
+    priceDisplay: "$77.34"
   },
   "B07RFQVB9M": {
     asin: "B07RFQVB9M",
@@ -391,8 +391,8 @@ window.TrailBuiltProducts = {
   "B09D5PW315": {
     asin: "B09D5PW315",
     name: "Ram X-Grip Phone Mount",
-    price: 259.96,
-    priceDisplay: "$259.96"
+    price: 259.94,
+    priceDisplay: "$259.94"
   },
   "B09FF46FQ9": {
     asin: "B09FF46FQ9",
@@ -445,8 +445,8 @@ window.TrailBuiltProducts = {
   "B0B9XB57XM": {
     asin: "B0B9XB57XM",
     name: "BLUETTI AC200L Portable Power Station 2048Wh",
-    price: 1019.48,
-    priceDisplay: "$1,019.48"
+    price: 469.00,
+    priceDisplay: "$469.00"
   },
   "B0F83RZVPN": {
     asin: "B0F83RZVPN",
@@ -564,4 +564,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-07-24T11:38:37.808Z";
+window.TrailBuiltLastSyncedAt = "2026-07-25T11:06:04.612Z";
