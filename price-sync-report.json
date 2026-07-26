@@ -1,17 +1,13 @@
 {
-  "generatedAt": "2026-07-25T11:06:04.612Z",
+  "generatedAt": "2026-07-26T11:16:09.339Z",
   "mode": "live",
   "totalAsins": 81,
-  "updatedCount": 8,
+  "updatedCount": 4,
   "updated": [
-    "B00004VXNI",
-    "B0050DI9YQ",
-    "B015OL55VS",
-    "B01HGSLB6K",
+    "B007ZGOWZQ",
     "B06XKQNPND",
-    "B07T7GDV9B",
-    "B09D5PW315",
-    "B0B9XB57XM"
+    "B07RN86RTJ",
+    "B07Y5VVNP5"
   ],
   "flagged": [
     {
@@ -36,6 +32,11 @@
     },
     {
       "asin": "B07B3NS8Z7",
+      "reason": "NoOffer",
+      "action": "left unchanged"
+    },
+    {
+      "asin": "B0B9XB57XM",
       "reason": "NoOffer",
       "action": "left unchanged"
     },

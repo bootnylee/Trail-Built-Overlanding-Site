@@ -19,8 +19,8 @@ window.TrailBuiltProducts = {
   "B07RN86RTJ": {
     asin: "B07RN86RTJ",
     name: "Rugged Ridge Arcus Bumper - Front, Stubby - Fits 2018–2025 Jeep Wrangler JL & 20",
-    price: 649.99,
-    priceDisplay: "$649.99"
+    price: 703.99,
+    priceDisplay: "$703.99"
   },
   "B000WZCSTO": {
     asin: "B000WZCSTO",
@@ -67,8 +67,8 @@ window.TrailBuiltProducts = {
   "B007ZGOWZQ": {
     asin: "B007ZGOWZQ",
     name: "Helinox Chair One Original Lightweight Compact Collapsible Camping Chair Black/B",
-    price: 109.95,
-    priceDisplay: "$109.95"
+    price: 109.90,
+    priceDisplay: "$109.90"
   },
   "B009FQYNRG": {
     asin: "B009FQYNRG",
@@ -97,8 +97,8 @@ window.TrailBuiltProducts = {
   "B07Y5VVNP5": {
     asin: "B07Y5VVNP5",
     name: "Fab Fours Black Steel Rear (DR19-T4450-1)",
-    price: 920.74,
-    priceDisplay: "$920.74"
+    price: 921.10,
+    priceDisplay: "$921.10"
   },
   "B006R7AW6M": {
     asin: "B006R7AW6M",
@@ -187,8 +187,8 @@ window.TrailBuiltProducts = {
   "B06XKQNPND": {
     asin: "B06XKQNPND",
     name: "My Medic Sidekick First Aid Kit",
-    price: 121.95,
-    priceDisplay: "$121.95"
+    price: 121.49,
+    priceDisplay: "$121.49"
   },
   "B0GP98KPRH": {
     asin: "B0GP98KPRH",
@@ -564,4 +564,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-07-25T11:06:04.612Z";
+window.TrailBuiltLastSyncedAt = "2026-07-26T11:16:09.339Z";
