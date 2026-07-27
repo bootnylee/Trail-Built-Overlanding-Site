@@ -67,8 +67,8 @@ window.TrailBuiltProducts = {
   "B007ZGOWZQ": {
     asin: "B007ZGOWZQ",
     name: "Helinox Chair One Original Lightweight Compact Collapsible Camping Chair Black/B",
-    price: 109.90,
-    priceDisplay: "$109.90"
+    price: 109.95,
+    priceDisplay: "$109.95"
   },
   "B009FQYNRG": {
     asin: "B009FQYNRG",
@@ -97,8 +97,8 @@ window.TrailBuiltProducts = {
   "B07Y5VVNP5": {
     asin: "B07Y5VVNP5",
     name: "Fab Fours Black Steel Rear (DR19-T4450-1)",
-    price: 921.10,
-    priceDisplay: "$921.10"
+    price: 920.74,
+    priceDisplay: "$920.74"
   },
   "B006R7AW6M": {
     asin: "B006R7AW6M",
@@ -391,8 +391,8 @@ window.TrailBuiltProducts = {
   "B09D5PW315": {
     asin: "B09D5PW315",
     name: "Ram X-Grip Phone Mount",
-    price: 259.94,
-    priceDisplay: "$259.94"
+    price: 259.98,
+    priceDisplay: "$259.98"
   },
   "B09FF46FQ9": {
     asin: "B09FF46FQ9",
@@ -564,4 +564,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-07-26T11:16:09.339Z";
+window.TrailBuiltLastSyncedAt = "2026-07-27T12:53:06.511Z";
