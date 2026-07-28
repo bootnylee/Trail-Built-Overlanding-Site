@@ -97,8 +97,8 @@ window.TrailBuiltProducts = {
   "B07Y5VVNP5": {
     asin: "B07Y5VVNP5",
     name: "Fab Fours Black Steel Rear (DR19-T4450-1)",
-    price: 920.74,
-    priceDisplay: "$920.74"
+    price: 906.21,
+    priceDisplay: "$906.21"
   },
   "B006R7AW6M": {
     asin: "B006R7AW6M",
@@ -139,8 +139,8 @@ window.TrailBuiltProducts = {
   "B015OL55VS": {
     asin: "B015OL55VS",
     name: "Adventure Medical Kits Trauma Pack Pro",
-    price: 263.86,
-    priceDisplay: "$263.86"
+    price: 263.85,
+    priceDisplay: "$263.85"
   },
   "B018LC0SMI": {
     asin: "B018LC0SMI",
@@ -187,8 +187,8 @@ window.TrailBuiltProducts = {
   "B06XKQNPND": {
     asin: "B06XKQNPND",
     name: "My Medic Sidekick First Aid Kit",
-    price: 121.49,
-    priceDisplay: "$121.49"
+    price: 121.95,
+    priceDisplay: "$121.95"
   },
   "B0GP98KPRH": {
     asin: "B0GP98KPRH",
@@ -295,8 +295,8 @@ window.TrailBuiltProducts = {
   "B07T7GDV9B": {
     asin: "B07T7GDV9B",
     name: "Factor 55 Extreme Duty 3/8" x 10" Soft Shackle, 43,500 lbs. Minimum Breaking Str",
-    price: 77.34,
-    priceDisplay: "$77.34"
+    price: 77.01,
+    priceDisplay: "$77.01"
   },
   "B07RFQVB9M": {
     asin: "B07RFQVB9M",
@@ -355,8 +355,8 @@ window.TrailBuiltProducts = {
   "B08BWVTP5X": {
     asin: "B08BWVTP5X",
     name: "Rough Country 2 Inch Budget Lift Kit",
-    price: 359.95,
-    priceDisplay: "$359.95"
+    price: 354.95,
+    priceDisplay: "$354.95"
   },
   "B08F998MFH": {
     asin: "B08F998MFH",
@@ -511,8 +511,8 @@ window.TrailBuiltProducts = {
   "B0DGR1Z85Q": {
     asin: "B0DGR1Z85Q",
     name: "Garmin inReach Mini 2 Satellite Communicator",
-    price: 150.00,
-    priceDisplay: "$150.00"
+    price: 153.00,
+    priceDisplay: "$153.00"
   },
   "B0F39T4YNZ": {
     asin: "B0F39T4YNZ",
@@ -564,4 +564,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-07-27T12:53:06.511Z";
+window.TrailBuiltLastSyncedAt = "2026-07-28T11:53:31.428Z";
