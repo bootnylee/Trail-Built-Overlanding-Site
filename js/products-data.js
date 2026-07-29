@@ -49,8 +49,8 @@ window.TrailBuiltProducts = {
   "B0050DI9YQ": {
     asin: "B0050DI9YQ",
     name: "ARB CKMTA12 \'12V\' On-Board Twin High Performance Air Compressor, Ideal for Air L",
-    price: 634.21,
-    priceDisplay: "$634.21"
+    price: 649.99,
+    priceDisplay: "$649.99"
   },
   "B006QF3TW4": {
     asin: "B006QF3TW4",
@@ -115,8 +115,8 @@ window.TrailBuiltProducts = {
   "B00K150VAI": {
     asin: "B00K150VAI",
     name: "Smittybilt X2O 10,000 lb Waterproof Winch",
-    price: 612.00,
-    priceDisplay: "$612.00"
+    price: 611.50,
+    priceDisplay: "$611.50"
   },
   "B00FPECUZ4": {
     asin: "B00FPECUZ4",
@@ -139,8 +139,8 @@ window.TrailBuiltProducts = {
   "B015OL55VS": {
     asin: "B015OL55VS",
     name: "Adventure Medical Kits Trauma Pack Pro",
-    price: 263.85,
-    priceDisplay: "$263.85"
+    price: 268.62,
+    priceDisplay: "$268.62"
   },
   "B018LC0SMI": {
     asin: "B018LC0SMI",
@@ -187,8 +187,8 @@ window.TrailBuiltProducts = {
   "B06XKQNPND": {
     asin: "B06XKQNPND",
     name: "My Medic Sidekick First Aid Kit",
-    price: 121.95,
-    priceDisplay: "$121.95"
+    price: 121.49,
+    priceDisplay: "$121.49"
   },
   "B0GP98KPRH": {
     asin: "B0GP98KPRH",
@@ -301,8 +301,8 @@ window.TrailBuiltProducts = {
   "B07RFQVB9M": {
     asin: "B07RFQVB9M",
     name: "Renogy 200W Portable Solar Panel, 25% High Efficiency Solar Panel Kit with 20A C",
-    price: 319.99,
-    priceDisplay: "$319.99"
+    price: 318.99,
+    priceDisplay: "$318.99"
   },
   "B07RJ2GJGB": {
     asin: "B07RJ2GJGB",
@@ -409,8 +409,8 @@ window.TrailBuiltProducts = {
   "B09PSSSFPF": {
     asin: "B09PSSSFPF",
     name: "Garmin Montana 750i",
-    price: 349.99,
-    priceDisplay: "$349.99"
+    price: 349.00,
+    priceDisplay: "$349.00"
   },
   "B09QS1BC5N": {
     asin: "B09QS1BC5N",
@@ -469,8 +469,8 @@ window.TrailBuiltProducts = {
   "B0C8484883": {
     asin: "B0C8484883",
     name: "My Medic Sidekick First Aid Kit",
-    price: 78.95,
-    priceDisplay: "$78.95"
+    price: 71.00,
+    priceDisplay: "$71.00"
   },
   "B0H1HQBN5C": {
     asin: "B0H1HQBN5C",
@@ -499,8 +499,8 @@ window.TrailBuiltProducts = {
   "B0CNPHD4VY": {
     asin: "B0CNPHD4VY",
     name: "Battle Born 100Ah LiFePO4 Battery",
-    price: 174.94,
-    priceDisplay: "$174.94"
+    price: 195.50,
+    priceDisplay: "$195.50"
   },
   "B0DB3S6NNZ": {
     asin: "B0DB3S6NNZ",
@@ -564,4 +564,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-07-28T11:53:31.428Z";
+window.TrailBuiltLastSyncedAt = "2026-07-29T11:58:03.720Z";
