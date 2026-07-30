@@ -139,8 +139,8 @@ window.TrailBuiltProducts = {
   "B015OL55VS": {
     asin: "B015OL55VS",
     name: "Adventure Medical Kits Trauma Pack Pro",
-    price: 268.62,
-    priceDisplay: "$268.62"
+    price: 263.76,
+    priceDisplay: "$263.76"
   },
   "B018LC0SMI": {
     asin: "B018LC0SMI",
@@ -163,8 +163,8 @@ window.TrailBuiltProducts = {
   "B01K2AH3F2": {
     asin: "B01K2AH3F2",
     name: "TRED Pro 1100 Recovery Boards",
-    price: 174.99,
-    priceDisplay: "$174.99"
+    price: 158.35,
+    priceDisplay: "$158.35"
   },
   "B01KT0BF04": {
     asin: "B01KT0BF04",
@@ -367,8 +367,8 @@ window.TrailBuiltProducts = {
   "B08CRJYJ22": {
     asin: "B08CRJYJ22",
     name: "Dometic CFX3 55 fridge",
-    price: 159.99,
-    priceDisplay: "$159.99"
+    price: 151.99,
+    priceDisplay: "$151.99"
   },
   "B08CS1JXH6": {
     asin: "B08CS1JXH6",
@@ -391,8 +391,8 @@ window.TrailBuiltProducts = {
   "B09D5PW315": {
     asin: "B09D5PW315",
     name: "Ram X-Grip Phone Mount",
-    price: 259.98,
-    priceDisplay: "$259.98"
+    price: 239.99,
+    priceDisplay: "$239.99"
   },
   "B09FF46FQ9": {
     asin: "B09FF46FQ9",
@@ -564,4 +564,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-07-29T11:58:03.720Z";
+window.TrailBuiltLastSyncedAt = "2026-07-30T11:48:13.844Z";
