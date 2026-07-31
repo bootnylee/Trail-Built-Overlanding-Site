@@ -49,8 +49,8 @@ window.TrailBuiltProducts = {
   "B0050DI9YQ": {
     asin: "B0050DI9YQ",
     name: "ARB CKMTA12 \'12V\' On-Board Twin High Performance Air Compressor, Ideal for Air L",
-    price: 649.99,
-    priceDisplay: "$649.99"
+    price: 649.00,
+    priceDisplay: "$649.00"
   },
   "B006QF3TW4": {
     asin: "B006QF3TW4",
@@ -109,8 +109,8 @@ window.TrailBuiltProducts = {
   "B00HYCVSW6": {
     asin: "B00HYCVSW6",
     name: "TRED Pro 1100 Recovery Boards (Pair)",
-    price: 279.99,
-    priceDisplay: "$279.99"
+    price: 279.97,
+    priceDisplay: "$279.97"
   },
   "B00K150VAI": {
     asin: "B00K150VAI",
@@ -139,8 +139,8 @@ window.TrailBuiltProducts = {
   "B015OL55VS": {
     asin: "B015OL55VS",
     name: "Adventure Medical Kits Trauma Pack Pro",
-    price: 263.76,
-    priceDisplay: "$263.76"
+    price: 265.09,
+    priceDisplay: "$265.09"
   },
   "B018LC0SMI": {
     asin: "B018LC0SMI",
@@ -295,14 +295,14 @@ window.TrailBuiltProducts = {
   "B07T7GDV9B": {
     asin: "B07T7GDV9B",
     name: "Factor 55 Extreme Duty 3/8" x 10" Soft Shackle, 43,500 lbs. Minimum Breaking Str",
-    price: 77.01,
-    priceDisplay: "$77.01"
+    price: 77.00,
+    priceDisplay: "$77.00"
   },
   "B07RFQVB9M": {
     asin: "B07RFQVB9M",
     name: "Renogy 200W Portable Solar Panel, 25% High Efficiency Solar Panel Kit with 20A C",
-    price: 318.99,
-    priceDisplay: "$318.99"
+    price: 319.99,
+    priceDisplay: "$319.99"
   },
   "B07RJ2GJGB": {
     asin: "B07RJ2GJGB",
@@ -391,8 +391,8 @@ window.TrailBuiltProducts = {
   "B09D5PW315": {
     asin: "B09D5PW315",
     name: "Ram X-Grip Phone Mount",
-    price: 239.99,
-    priceDisplay: "$239.99"
+    price: 246.00,
+    priceDisplay: "$246.00"
   },
   "B09FF46FQ9": {
     asin: "B09FF46FQ9",
@@ -451,8 +451,8 @@ window.TrailBuiltProducts = {
   "B0F83RZVPN": {
     asin: "B0F83RZVPN",
     name: "SCUARI Skid Plate Bolts,Car Accessories Stainless Steel Bolts,Upgraded 2-in-1 Sk",
-    price: 7.89,
-    priceDisplay: "$7.89"
+    price: 6.29,
+    priceDisplay: "$6.29"
   },
   "B0BTBHQF8R": {
     asin: "B0BTBHQF8R",
@@ -493,14 +493,14 @@ window.TrailBuiltProducts = {
   "B0CLGZB3L6": {
     asin: "B0CLGZB3L6",
     name: "Bluetti AC200P",
-    price: 899.00,
-    priceDisplay: "$899.00"
+    price: 899.99,
+    priceDisplay: "$899.99"
   },
   "B0CNPHD4VY": {
     asin: "B0CNPHD4VY",
     name: "Battle Born 100Ah LiFePO4 Battery",
-    price: 195.50,
-    priceDisplay: "$195.50"
+    price: 219.99,
+    priceDisplay: "$219.99"
   },
   "B0DB3S6NNZ": {
     asin: "B0DB3S6NNZ",
@@ -564,4 +564,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-07-30T11:48:13.844Z";
+window.TrailBuiltLastSyncedAt = "2026-07-31T11:55:08.788Z";
