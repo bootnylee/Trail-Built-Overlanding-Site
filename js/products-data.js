@@ -2,7 +2,6 @@
  * TrailBuiltOverland.com — Product Data
  * Auto-updated daily by PA-API sync workflow.
  */
-
 window.TrailBuiltProducts = {
   "B00004VXNI": {
     asin: "B00004VXNI",
@@ -18,7 +17,7 @@ window.TrailBuiltProducts = {
   },
   "B07RN86RTJ": {
     asin: "B07RN86RTJ",
-    name: "Rugged Ridge Arcus Bumper - Front, Stubby - Fits 2018–2025 Jeep Wrangler JL & 20",
+    name: "Rugged Ridge Arcus Bumper - Front, Stubby - Fits 2018\u20132025 Jeep Wrangler JL & 20",
     price: 703.99,
     priceDisplay: "$703.99"
   },
@@ -30,7 +29,7 @@ window.TrailBuiltProducts = {
   },
   "B0B4V6H9C2": {
     asin: "B0B4V6H9C2",
-    name: "Bubba Rope Off-Road Truck Recovery Gear Set – Heavy-Duty Vehicle Tow Kit: Power ",
+    name: "Bubba Rope Off-Road Truck Recovery Gear Set \u2013 Heavy-Duty Vehicle Tow Kit: Power ",
     price: 304.08,
     priceDisplay: "$304.08"
   },
@@ -42,25 +41,25 @@ window.TrailBuiltProducts = {
   },
   "B004M3BAQE": {
     asin: "B004M3BAQE",
-    name: "Fiskars X27 Super Splitting Axe, 36" Wood Splitting Axe for Medium to Large Size",
+    name: "Fiskars X27 Super Splitting Axe, 36\" Wood Splitting Axe for Medium to Large Size",
     price: 69.98,
     priceDisplay: "$69.98"
   },
   "B0050DI9YQ": {
     asin: "B0050DI9YQ",
-    name: "ARB CKMTA12 \'12V\' On-Board Twin High Performance Air Compressor, Ideal for Air L",
+    name: "ARB CKMTA12 '12V' On-Board Twin High Performance Air Compressor, Ideal for Air Lockers",
     price: 649.00,
     priceDisplay: "$649.00"
   },
   "B006QF3TW4": {
     asin: "B006QF3TW4",
-    name: "LifeStraw Personal — Water Filter for Hiking, Camping, Travel, and Emergency Pre",
+    name: "LifeStraw Personal \u2014 Water Filter for Hiking, Camping, Travel, and Emergency Pre",
     price: 14.99,
     priceDisplay: "$14.99"
   },
   "B007NKVDJC": {
     asin: "B007NKVDJC",
-    name: "SR-SERIES 50" COMBO",
+    name: "SR-SERIES 50\" COMBO",
     price: 1179.99,
     priceDisplay: "$1,179.99"
   },
@@ -102,7 +101,7 @@ window.TrailBuiltProducts = {
   },
   "B006R7AW6M": {
     asin: "B006R7AW6M",
-    name: "Rough Country 2" Leveling Kit for 2007-2018 Chevy/GMC 1500 | 07-21 SUV - 1307",
+    name: "Rough Country 2\" Leveling Kit for 2007-2018 Chevy/GMC 1500 | 07-21 SUV - 1307",
     price: 34.95,
     priceDisplay: "$34.95"
   },
@@ -145,12 +144,12 @@ window.TrailBuiltProducts = {
   "B018LC0SMI": {
     asin: "B018LC0SMI",
     name: "Cali Raised LED Skid Plate",
-    price: 0,
+    price: 0.00,
     priceDisplay: "Check price on Amazon"
   },
   "B0CV9RPT8Y": {
     asin: "B0CV9RPT8Y",
-    name: "Platypus GravityWorks Group Camping Water Filter System, 4-Liter" Kinetic Recovery Rope",
+    name: "Platypus GravityWorks Group Camping Water Filter System, 4-Liter",
     price: 134.95,
     priceDisplay: "$134.95"
   },
@@ -174,7 +173,7 @@ window.TrailBuiltProducts = {
   },
   "B004P9C5H8": {
     asin: "B004P9C5H8",
-    name: "ARB ARB710LB 3-1/4" x 30\' Recovery Snatch Strap Minimum Breaking Strength 24000 ",
+    name: "ARB ARB710LB 3-1/4\" x 30' Recovery Snatch Strap Minimum Breaking Strength 24000 lbs",
     price: 99.95,
     priceDisplay: "$99.95"
   },
@@ -223,19 +222,19 @@ window.TrailBuiltProducts = {
   "B07BFGBWZV": {
     asin: "B07BFGBWZV",
     name: "Black Oak 30 Dual Row LED Bar",
-    price: 0,
+    price: 0.00,
     priceDisplay: "Check price on Amazon"
   },
   "B07D74RGRK": {
     asin: "B07D74RGRK",
     name: "Ford F-350",
-    price: 0,
+    price: 0.00,
     priceDisplay: "Check price on Amazon"
   },
   "B07D74RGRX": {
     asin: "B07D74RGRX",
     name: "T-Max 38",
-    price: 0,
+    price: 0.00,
     priceDisplay: "Check price on Amazon"
   },
   "B0F55VMN66": {
@@ -294,7 +293,7 @@ window.TrailBuiltProducts = {
   },
   "B07T7GDV9B": {
     asin: "B07T7GDV9B",
-    name: "Factor 55 Extreme Duty 3/8" x 10" Soft Shackle, 43,500 lbs. Minimum Breaking Str",
+    name: "Factor 55 Extreme Duty 3/8\" x 10\" Soft Shackle, 43,500 lbs. Minimum Breaking Strength",
     price: 77.00,
     priceDisplay: "$77.00"
   },
@@ -342,7 +341,7 @@ window.TrailBuiltProducts = {
   },
   "B085J32BZV": {
     asin: "B085J32BZV",
-    name: "onX Offroad App – Nationwide Digital Trail Map Membership for Phone, Tablet & Co",
+    name: "onX Offroad App \u2013 Nationwide Digital Trail Map Membership for Phone, Tablet & Co",
     price: 34.99,
     priceDisplay: "$34.99"
   },
@@ -414,7 +413,7 @@ window.TrailBuiltProducts = {
   },
   "B09QS1BC5N": {
     asin: "B09QS1BC5N",
-    name: "Addictive Desert Designs or Fab Fours Rock Sliders — Ford Bronco",
+    name: "Addictive Desert Designs or Fab Fours Rock Sliders \u2014 Ford Bronco",
     price: 2198.98,
     priceDisplay: "$2,198.98"
   },
@@ -433,7 +432,7 @@ window.TrailBuiltProducts = {
   "B09ZQ1C1MJ": {
     asin: "B09ZQ1C1MJ",
     name: "Midland MXT575 MicroMobile GMRS Radio",
-    price: 0,
+    price: 0.00,
     priceDisplay: "Check price on Amazon"
   },
   "B0B9S6YX5N": {
@@ -462,7 +461,7 @@ window.TrailBuiltProducts = {
   },
   "B0D7PPG25F": {
     asin: "B0D7PPG25F",
-    name: "Jackery Explorer 1000 v2 Portable Power Station,1070Wh LiFePO4 Battery,1500W AC/" x 30' — Best for Full-Size Trucks",
+    name: "Jackery Explorer 1000 v2 Portable Power Station, 1070Wh LiFePO4 Battery, 1500W AC",
     price: 469.00,
     priceDisplay: "$469.00"
   },
@@ -487,7 +486,7 @@ window.TrailBuiltProducts = {
   "B0CKKBZH85": {
     asin: "B0CKKBZH85",
     name: "Surviveware Small First Aid Kit",
-    price: 0,
+    price: 0.00,
     priceDisplay: "Check price on Amazon"
   },
   "B0CLGZB3L6": {
@@ -505,7 +504,7 @@ window.TrailBuiltProducts = {
   "B0DB3S6NNZ": {
     asin: "B0DB3S6NNZ",
     name: "MSR TrailShot Pocket-Sized Water Filter",
-    price: 0,
+    price: 0.00,
     priceDisplay: "Check price on Amazon"
   },
   "B0DGR1Z85Q": {
@@ -522,7 +521,7 @@ window.TrailBuiltProducts = {
   },
   "B0FBQHNWGG": {
     asin: "B0FBQHNWGG",
-    name: "Tires: Cooper Discoverer STT Pro — 285/75R17",
+    name: "Tires: Cooper Discoverer STT Pro \u2014 285/75R17",
     price: 5760.14,
     priceDisplay: "$5,760.14"
   },
@@ -535,29 +534,28 @@ window.TrailBuiltProducts = {
   "B004P2Q5O6": {
     asin: "B004P2Q5O6",
     name: "Smittybilt 2722 Hi-Lift Jack Mount",
-    price: 0,
+    price: 0.00,
     priceDisplay: "Check price on Amazon"
   },
   "B06XXPDV7Q": {
     asin: "B06XXPDV7Q",
     name: "Bubba Rope Ultimate Recovery Kit",
-    price: 0,
+    price: 0.00,
     priceDisplay: "Check price on Amazon"
   },
   "B005Z5U1O6": {
     asin: "B005Z5U1O6",
     name: "BDS 55055 Skid Plate",
-    price: 0,
+    price: 0.00,
     priceDisplay: "Check price on Amazon"
   },
   "B0754KXVQN": {
     asin: "B0754KXVQN",
     name: "ARB Summit Front Bumper",
-    price: 0,
+    price: 0.00,
     priceDisplay: "Check price on Amazon"
-  },
+  }
 };
-
 /**
  * ISO timestamp of the last successful live Creators API price sync.
  * Written by scripts/fetch-prices.js on every successful live run.

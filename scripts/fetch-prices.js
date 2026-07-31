@@ -326,6 +326,12 @@ function indexResponse(response, priceMap, errorMap) {
 // ─── Rewrite products-data.js in place (only price values change) ────────────
 // Trail-Built products-data.js uses "ASIN": { ... } object key pattern.
 // Image fields are not present in products-data.js and are not written.
+//
+// IMPORTANT: All string values are written using JSON.stringify() to ensure
+// special characters (double quotes, backslashes, Unicode, etc.) in product
+// names and price display strings are always properly escaped. This prevents
+// the SyntaxError that occurs when Amazon product names contain inch marks ("),
+// curly quotes (“”), or other characters that would break a raw JS string literal.
 
 function updateProductBlocks(source, priceMap) {
   const updated = new Set();
@@ -357,9 +363,18 @@ function updateProductBlocks(source, priceMap) {
 
     let block = source.slice(open, close + 1);
     const numStr = data.amount.toFixed(2);
+
+    // Use JSON.stringify for all string values so that any special characters
+    // (double quotes, curly quotes, backslashes, etc.) in Amazon product data
+    // are always safely escaped in the output JS file.
+    const safeDisplay = JSON.stringify(data.display);
+    // safeDisplay includes surrounding quotes, e.g. "\"$69.98\""
+    // Strip the outer quotes since the regex replacement keeps them via capture groups.
+    const displayInner = safeDisplay.slice(1, -1);
+
     const nb = block
       .replace(/(\bprice:\s*)[0-9]+(?:\.[0-9]+)?(,)/, (_, p1, p2) => `${p1}${numStr}${p2}`)
-      .replace(/(\bpriceDisplay:\s*")[^"]*(")/, (_, p1, p2) => `${p1}${data.display}${p2}`);
+      .replace(/(\bpriceDisplay:\s*")[^"]*(")/,  (_, p1, p2) => `${p1}${displayInner}${p2}`);
 
     if (nb !== block) {
       result += source.slice(cursor, open) + nb;
