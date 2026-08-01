@@ -96,8 +96,8 @@ window.TrailBuiltProducts = {
   "B07Y5VVNP5": {
     asin: "B07Y5VVNP5",
     name: "Fab Fours Black Steel Rear (DR19-T4450-1)",
-    price: 906.21,
-    priceDisplay: "$906.21"
+    price: 920.74,
+    priceDisplay: "$920.74"
   },
   "B006R7AW6M": {
     asin: "B006R7AW6M",
@@ -270,8 +270,8 @@ window.TrailBuiltProducts = {
   "B07KCSPVWC": {
     asin: "B07KCSPVWC",
     name: "Factor 55 Cronus Soft Shackle",
-    price: 359.95,
-    priceDisplay: "$359.95"
+    price: 342.44,
+    priceDisplay: "$342.44"
   },
   "B07KQLX46Q": {
     asin: "B07KQLX46Q",
@@ -300,8 +300,8 @@ window.TrailBuiltProducts = {
   "B07RFQVB9M": {
     asin: "B07RFQVB9M",
     name: "Renogy 200W Portable Solar Panel, 25% High Efficiency Solar Panel Kit with 20A C",
-    price: 319.99,
-    priceDisplay: "$319.99"
+    price: 318.99,
+    priceDisplay: "$318.99"
   },
   "B07RJ2GJGB": {
     asin: "B07RJ2GJGB",
@@ -438,8 +438,8 @@ window.TrailBuiltProducts = {
   "B0B9S6YX5N": {
     asin: "B0B9S6YX5N",
     name: "On-Board Air: ARB Twin Compressor",
-    price: 212.49,
-    priceDisplay: "$212.49"
+    price: 246.99,
+    priceDisplay: "$246.99"
   },
   "B0B9XB57XM": {
     asin: "B0B9XB57XM",
@@ -492,8 +492,8 @@ window.TrailBuiltProducts = {
   "B0CLGZB3L6": {
     asin: "B0CLGZB3L6",
     name: "Bluetti AC200P",
-    price: 899.99,
-    priceDisplay: "$899.99"
+    price: 1099.00,
+    priceDisplay: "$1,099.00"
   },
   "B0CNPHD4VY": {
     asin: "B0CNPHD4VY",
@@ -562,4 +562,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-07-31T11:55:08.788Z";
+window.TrailBuiltLastSyncedAt = "2026-08-01T11:13:04.170Z";
