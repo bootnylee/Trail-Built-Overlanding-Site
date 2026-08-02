@@ -6,8 +6,8 @@ window.TrailBuiltProducts = {
   "B00004VXNI": {
     asin: "B00004VXNI",
     name: "Uniden PRO520XL Pro Series 40-Channel CB Radio. Compact Design. ANL Switch and P",
-    price: 85.69,
-    priceDisplay: "$85.69"
+    price: 79.99,
+    priceDisplay: "$79.99"
   },
   "B00042KG3A": {
     asin: "B00042KG3A",
@@ -48,8 +48,8 @@ window.TrailBuiltProducts = {
   "B0050DI9YQ": {
     asin: "B0050DI9YQ",
     name: "ARB CKMTA12 '12V' On-Board Twin High Performance Air Compressor, Ideal for Air Lockers",
-    price: 649.00,
-    priceDisplay: "$649.00"
+    price: 647.99,
+    priceDisplay: "$647.99"
   },
   "B006QF3TW4": {
     asin: "B006QF3TW4",
@@ -96,8 +96,8 @@ window.TrailBuiltProducts = {
   "B07Y5VVNP5": {
     asin: "B07Y5VVNP5",
     name: "Fab Fours Black Steel Rear (DR19-T4450-1)",
-    price: 920.74,
-    priceDisplay: "$920.74"
+    price: 906.21,
+    priceDisplay: "$906.21"
   },
   "B006R7AW6M": {
     asin: "B006R7AW6M",
@@ -300,8 +300,8 @@ window.TrailBuiltProducts = {
   "B07RFQVB9M": {
     asin: "B07RFQVB9M",
     name: "Renogy 200W Portable Solar Panel, 25% High Efficiency Solar Panel Kit with 20A C",
-    price: 318.99,
-    priceDisplay: "$318.99"
+    price: 319.99,
+    priceDisplay: "$319.99"
   },
   "B07RJ2GJGB": {
     asin: "B07RJ2GJGB",
@@ -408,8 +408,8 @@ window.TrailBuiltProducts = {
   "B09PSSSFPF": {
     asin: "B09PSSSFPF",
     name: "Garmin Montana 750i",
-    price: 349.00,
-    priceDisplay: "$349.00"
+    price: 347.00,
+    priceDisplay: "$347.00"
   },
   "B09QS1BC5N": {
     asin: "B09QS1BC5N",
@@ -562,4 +562,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-08-01T11:13:04.170Z";
+window.TrailBuiltLastSyncedAt = "2026-08-02T11:13:17.513Z";
