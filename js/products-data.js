@@ -6,8 +6,8 @@ window.TrailBuiltProducts = {
   "B00004VXNI": {
     asin: "B00004VXNI",
     name: "Uniden PRO520XL Pro Series 40-Channel CB Radio. Compact Design. ANL Switch and P",
-    price: 79.99,
-    priceDisplay: "$79.99"
+    price: 85.69,
+    priceDisplay: "$85.69"
   },
   "B00042KG3A": {
     asin: "B00042KG3A",
@@ -294,8 +294,8 @@ window.TrailBuiltProducts = {
   "B07T7GDV9B": {
     asin: "B07T7GDV9B",
     name: "Factor 55 Extreme Duty 3/8\" x 10\" Soft Shackle, 43,500 lbs. Minimum Breaking Strength",
-    price: 77.00,
-    priceDisplay: "$77.00"
+    price: 76.74,
+    priceDisplay: "$76.74"
   },
   "B07RFQVB9M": {
     asin: "B07RFQVB9M",
@@ -330,8 +330,8 @@ window.TrailBuiltProducts = {
   "B09PSKG7C3": {
     asin: "B09PSKG7C3",
     name: "Garmin inReach Mini 2, Lightweight and Compact Satellite Communicator, Hiking Ha",
-    price: 319.95,
-    priceDisplay: "$319.95"
+    price: 249.99,
+    priceDisplay: "$249.99"
   },
   "B09FB2BPRZ": {
     asin: "B09FB2BPRZ",
@@ -366,8 +366,8 @@ window.TrailBuiltProducts = {
   "B08CRJYJ22": {
     asin: "B08CRJYJ22",
     name: "Dometic CFX3 55 fridge",
-    price: 151.99,
-    priceDisplay: "$151.99"
+    price: 158.77,
+    priceDisplay: "$158.77"
   },
   "B08CS1JXH6": {
     asin: "B08CS1JXH6",
@@ -390,14 +390,14 @@ window.TrailBuiltProducts = {
   "B09D5PW315": {
     asin: "B09D5PW315",
     name: "Ram X-Grip Phone Mount",
-    price: 246.00,
-    priceDisplay: "$246.00"
+    price: 241.88,
+    priceDisplay: "$241.88"
   },
   "B09FF46FQ9": {
     asin: "B09FF46FQ9",
     name: "Jackery Explorer 500",
-    price: 186.99,
-    priceDisplay: "$186.99"
+    price: 199.99,
+    priceDisplay: "$199.99"
   },
   "B07CZZ8C5W": {
     asin: "B07CZZ8C5W",
@@ -562,4 +562,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-08-02T11:13:17.513Z";
+window.TrailBuiltLastSyncedAt = "2026-08-03T12:52:39.212Z";
