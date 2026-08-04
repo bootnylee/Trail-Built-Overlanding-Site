@@ -114,8 +114,8 @@ window.TrailBuiltProducts = {
   "B00K150VAI": {
     asin: "B00K150VAI",
     name: "Smittybilt X2O 10,000 lb Waterproof Winch",
-    price: 611.50,
-    priceDisplay: "$611.50"
+    price: 607.00,
+    priceDisplay: "$607.00"
   },
   "B00FPECUZ4": {
     asin: "B00FPECUZ4",
@@ -270,8 +270,8 @@ window.TrailBuiltProducts = {
   "B07KCSPVWC": {
     asin: "B07KCSPVWC",
     name: "Factor 55 Cronus Soft Shackle",
-    price: 342.44,
-    priceDisplay: "$342.44"
+    price: 359.95,
+    priceDisplay: "$359.95"
   },
   "B07KQLX46Q": {
     asin: "B07KQLX46Q",
@@ -366,8 +366,8 @@ window.TrailBuiltProducts = {
   "B08CRJYJ22": {
     asin: "B08CRJYJ22",
     name: "Dometic CFX3 55 fridge",
-    price: 158.77,
-    priceDisplay: "$158.77"
+    price: 160.43,
+    priceDisplay: "$160.43"
   },
   "B08CS1JXH6": {
     asin: "B08CS1JXH6",
@@ -390,8 +390,8 @@ window.TrailBuiltProducts = {
   "B09D5PW315": {
     asin: "B09D5PW315",
     name: "Ram X-Grip Phone Mount",
-    price: 241.88,
-    priceDisplay: "$241.88"
+    price: 234.99,
+    priceDisplay: "$234.99"
   },
   "B09FF46FQ9": {
     asin: "B09FF46FQ9",
@@ -492,8 +492,8 @@ window.TrailBuiltProducts = {
   "B0CLGZB3L6": {
     asin: "B0CLGZB3L6",
     name: "Bluetti AC200P",
-    price: 1099.00,
-    priceDisplay: "$1,099.00"
+    price: 899.00,
+    priceDisplay: "$899.00"
   },
   "B0CNPHD4VY": {
     asin: "B0CNPHD4VY",
@@ -562,4 +562,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-08-03T12:52:39.212Z";
+window.TrailBuiltLastSyncedAt = "2026-08-04T12:00:13.209Z";
