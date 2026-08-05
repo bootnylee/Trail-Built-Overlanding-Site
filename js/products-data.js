@@ -48,8 +48,8 @@ window.TrailBuiltProducts = {
   "B0050DI9YQ": {
     asin: "B0050DI9YQ",
     name: "ARB CKMTA12 '12V' On-Board Twin High Performance Air Compressor, Ideal for Air Lockers",
-    price: 647.99,
-    priceDisplay: "$647.99"
+    price: 649.99,
+    priceDisplay: "$649.99"
   },
   "B006QF3TW4": {
     asin: "B006QF3TW4",
@@ -96,8 +96,8 @@ window.TrailBuiltProducts = {
   "B07Y5VVNP5": {
     asin: "B07Y5VVNP5",
     name: "Fab Fours Black Steel Rear (DR19-T4450-1)",
-    price: 906.21,
-    priceDisplay: "$906.21"
+    price: 908.29,
+    priceDisplay: "$908.29"
   },
   "B006R7AW6M": {
     asin: "B006R7AW6M",
@@ -114,8 +114,8 @@ window.TrailBuiltProducts = {
   "B00K150VAI": {
     asin: "B00K150VAI",
     name: "Smittybilt X2O 10,000 lb Waterproof Winch",
-    price: 607.00,
-    priceDisplay: "$607.00"
+    price: 599.00,
+    priceDisplay: "$599.00"
   },
   "B00FPECUZ4": {
     asin: "B00FPECUZ4",
@@ -138,8 +138,8 @@ window.TrailBuiltProducts = {
   "B015OL55VS": {
     asin: "B015OL55VS",
     name: "Adventure Medical Kits Trauma Pack Pro",
-    price: 265.09,
-    priceDisplay: "$265.09"
+    price: 265.42,
+    priceDisplay: "$265.42"
   },
   "B018LC0SMI": {
     asin: "B018LC0SMI",
@@ -276,14 +276,14 @@ window.TrailBuiltProducts = {
   "B07KQLX46Q": {
     asin: "B07KQLX46Q",
     name: "Fab Fours Black Steel Rear Bumper",
-    price: 2498.98,
-    priceDisplay: "$2,498.98"
+    price: 2646.09,
+    priceDisplay: "$2,646.09"
   },
   "B07PNTMSW6": {
     asin: "B07PNTMSW6",
     name: "Electrical: Battle Born LiFePO4 + Renogy Solar + Dometic Fridge",
-    price: 2479.26,
-    priceDisplay: "$2,479.26"
+    price: 2519.95,
+    priceDisplay: "$2,519.95"
   },
   "B09HZFCN22": {
     asin: "B09HZFCN22",
@@ -294,8 +294,8 @@ window.TrailBuiltProducts = {
   "B07T7GDV9B": {
     asin: "B07T7GDV9B",
     name: "Factor 55 Extreme Duty 3/8\" x 10\" Soft Shackle, 43,500 lbs. Minimum Breaking Strength",
-    price: 76.74,
-    priceDisplay: "$76.74"
+    price: 76.55,
+    priceDisplay: "$76.55"
   },
   "B07RFQVB9M": {
     asin: "B07RFQVB9M",
@@ -354,8 +354,8 @@ window.TrailBuiltProducts = {
   "B08BWVTP5X": {
     asin: "B08BWVTP5X",
     name: "Rough Country 2 Inch Budget Lift Kit",
-    price: 354.95,
-    priceDisplay: "$354.95"
+    price: 356.19,
+    priceDisplay: "$356.19"
   },
   "B08F998MFH": {
     asin: "B08F998MFH",
@@ -366,8 +366,8 @@ window.TrailBuiltProducts = {
   "B08CRJYJ22": {
     asin: "B08CRJYJ22",
     name: "Dometic CFX3 55 fridge",
-    price: 160.43,
-    priceDisplay: "$160.43"
+    price: 179.99,
+    priceDisplay: "$179.99"
   },
   "B08CS1JXH6": {
     asin: "B08CS1JXH6",
@@ -390,8 +390,8 @@ window.TrailBuiltProducts = {
   "B09D5PW315": {
     asin: "B09D5PW315",
     name: "Ram X-Grip Phone Mount",
-    price: 234.99,
-    priceDisplay: "$234.99"
+    price: 229.99,
+    priceDisplay: "$229.99"
   },
   "B09FF46FQ9": {
     asin: "B09FF46FQ9",
@@ -408,8 +408,8 @@ window.TrailBuiltProducts = {
   "B09PSSSFPF": {
     asin: "B09PSSSFPF",
     name: "Garmin Montana 750i",
-    price: 347.00,
-    priceDisplay: "$347.00"
+    price: 346.83,
+    priceDisplay: "$346.83"
   },
   "B09QS1BC5N": {
     asin: "B09QS1BC5N",
@@ -462,14 +462,14 @@ window.TrailBuiltProducts = {
   "B0D7PPG25F": {
     asin: "B0D7PPG25F",
     name: "Jackery Explorer 1000 v2 Portable Power Station, 1070Wh LiFePO4 Battery, 1500W AC",
-    price: 469.00,
-    priceDisplay: "$469.00"
+    price: 489.00,
+    priceDisplay: "$489.00"
   },
   "B0C8484883": {
     asin: "B0C8484883",
     name: "My Medic Sidekick First Aid Kit",
-    price: 71.00,
-    priceDisplay: "$71.00"
+    price: 78.95,
+    priceDisplay: "$78.95"
   },
   "B0H1HQBN5C": {
     asin: "B0H1HQBN5C",
@@ -562,4 +562,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-08-04T12:00:13.209Z";
+window.TrailBuiltLastSyncedAt = "2026-08-05T11:55:11.800Z";
