@@ -78,14 +78,14 @@ window.TrailBuiltProducts = {
   "B00C0W9AJS": {
     asin: "B00C0W9AJS",
     name: "Rough Country 2\" Budget Lift Kit",
-    price: 269.95,
-    priceDisplay: "$269.95"
+    price: 207.60,
+    priceDisplay: "$207.60"
   },
   "B00C7B2NV4": {
     asin: "B00C7B2NV4",
     name: "Gaia GPS App",
-    price: 39.49,
-    priceDisplay: "$39.49"
+    price: 44.49,
+    priceDisplay: "$44.49"
   },
   "B088BZPNCW": {
     asin: "B088BZPNCW",
@@ -138,8 +138,8 @@ window.TrailBuiltProducts = {
   "B015OL55VS": {
     asin: "B015OL55VS",
     name: "Adventure Medical Kits Trauma Pack Pro",
-    price: 265.42,
-    priceDisplay: "$265.42"
+    price: 265.00,
+    priceDisplay: "$265.00"
   },
   "B018LC0SMI": {
     asin: "B018LC0SMI",
@@ -390,8 +390,8 @@ window.TrailBuiltProducts = {
   "B09D5PW315": {
     asin: "B09D5PW315",
     name: "Ram X-Grip Phone Mount",
-    price: 229.99,
-    priceDisplay: "$229.99"
+    price: 227.09,
+    priceDisplay: "$227.09"
   },
   "B09FF46FQ9": {
     asin: "B09FF46FQ9",
@@ -408,8 +408,8 @@ window.TrailBuiltProducts = {
   "B09PSSSFPF": {
     asin: "B09PSSSFPF",
     name: "Garmin Montana 750i",
-    price: 346.83,
-    priceDisplay: "$346.83"
+    price: 249.99,
+    priceDisplay: "$249.99"
   },
   "B09QS1BC5N": {
     asin: "B09QS1BC5N",
@@ -444,8 +444,8 @@ window.TrailBuiltProducts = {
   "B0B9XB57XM": {
     asin: "B0B9XB57XM",
     name: "BLUETTI AC200L Portable Power Station 2048Wh",
-    price: 469.00,
-    priceDisplay: "$469.00"
+    price: 499.00,
+    priceDisplay: "$499.00"
   },
   "B0F83RZVPN": {
     asin: "B0F83RZVPN",
@@ -492,8 +492,8 @@ window.TrailBuiltProducts = {
   "B0CLGZB3L6": {
     asin: "B0CLGZB3L6",
     name: "Bluetti AC200P",
-    price: 899.00,
-    priceDisplay: "$899.00"
+    price: 798.99,
+    priceDisplay: "$798.99"
   },
   "B0CNPHD4VY": {
     asin: "B0CNPHD4VY",
@@ -562,4 +562,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-08-05T11:55:11.800Z";
+window.TrailBuiltLastSyncedAt = "2026-08-06T11:59:30.516Z";

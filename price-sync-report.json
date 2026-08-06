@@ -1,41 +1,30 @@
 {
-  "generatedAt": "2026-08-05T11:55:11.800Z",
+  "generatedAt": "2026-08-06T11:59:30.516Z",
   "mode": "live",
   "totalAsins": 81,
-  "updatedCount": 13,
+  "updatedCount": 7,
   "updated": [
-    "B0050DI9YQ",
-    "B00K150VAI",
+    "B00C0W9AJS",
+    "B00C7B2NV4",
     "B015OL55VS",
-    "B07KQLX46Q",
-    "B07PNTMSW6",
-    "B07T7GDV9B",
-    "B07Y5VVNP5",
-    "B08BWVTP5X",
-    "B08CRJYJ22",
     "B09D5PW315",
     "B09PSSSFPF",
-    "B0C8484883",
-    "B0D7PPG25F"
+    "B0B9XB57XM",
+    "B0CLGZB3L6"
   ],
   "flagged": [
+    {
+      "asin": "B00042KG3A",
+      "reason": "NoOffer",
+      "action": "left unchanged"
+    },
     {
       "asin": "B009FQYNRG",
       "reason": "NoOffer",
       "action": "left unchanged"
     },
     {
-      "asin": "B00C0W9AJS",
-      "reason": "NoOffer",
-      "action": "left unchanged"
-    },
-    {
       "asin": "B00XWAP2SU",
-      "reason": "NoOffer",
-      "action": "left unchanged"
-    },
-    {
-      "asin": "B01KT0BF04",
       "reason": "NoOffer",
       "action": "left unchanged"
     },
@@ -55,12 +44,12 @@
       "action": "left unchanged"
     },
     {
-      "asin": "B0B9XB57XM",
+      "asin": "B0CD9QV2MN",
       "reason": "NoOffer",
       "action": "left unchanged"
     },
     {
-      "asin": "B0CD9QV2MN",
+      "asin": "B0F55VMN66",
       "reason": "NoOffer",
       "action": "left unchanged"
     }
