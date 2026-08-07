@@ -2,6 +2,18 @@
 # Modeled on SilkierStrands.com best practices
 
 [build]
+  # ── ASIN Validation Gate ─────────────────────────────────────────────────────
+  # Runs before every deploy. Scans all buyer's guide articles, verifies each
+  # affiliate ASIN resolves to the correct product on Amazon, and blocks the
+  # deploy if any mismatch is found.
+  #
+  # Override env vars (set in Netlify dashboard → Site settings → Environment):
+  #   ASIN_VALIDATE=warn   → print failures but don't block deploy
+  #   ASIN_VALIDATE=skip   → bypass entirely (emergency use only)
+  #   PAAPI_ACCESS_KEY     → Amazon PA-API access key (enables faster validation)
+  #   PAAPI_SECRET_KEY     → Amazon PA-API secret key
+  #   PAAPI_ASSOCIATE_TAG  → affiliate tag (default: trailbuiltove-20)
+  command = "python3 tools/validate_asins.py ${ASIN_VALIDATE:+--warn-only}"
   publish = "."
   functions = "netlify/functions"
 
