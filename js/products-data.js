@@ -96,8 +96,8 @@ window.TrailBuiltProducts = {
   "B07Y5VVNP5": {
     asin: "B07Y5VVNP5",
     name: "Fab Fours Black Steel Rear (DR19-T4450-1)",
-    price: 908.29,
-    priceDisplay: "$908.29"
+    price: 917.11,
+    priceDisplay: "$917.11"
   },
   "B006R7AW6M": {
     asin: "B006R7AW6M",
@@ -138,8 +138,8 @@ window.TrailBuiltProducts = {
   "B015OL55VS": {
     asin: "B015OL55VS",
     name: "Adventure Medical Kits Trauma Pack Pro",
-    price: 265.00,
-    priceDisplay: "$265.00"
+    price: 265.06,
+    priceDisplay: "$265.06"
   },
   "B018LC0SMI": {
     asin: "B018LC0SMI",
@@ -246,8 +246,8 @@ window.TrailBuiltProducts = {
   "B07F6ZTV6J": {
     asin: "B07F6ZTV6J",
     name: "ARB front bumper 4Runner",
-    price: 315.99,
-    priceDisplay: "$315.99"
+    price: 318.99,
+    priceDisplay: "$318.99"
   },
   "B081HVLFQ3": {
     asin: "B081HVLFQ3",
@@ -300,8 +300,8 @@ window.TrailBuiltProducts = {
   "B07RFQVB9M": {
     asin: "B07RFQVB9M",
     name: "Renogy 200W Portable Solar Panel, 25% High Efficiency Solar Panel Kit with 20A C",
-    price: 319.99,
-    priceDisplay: "$319.99"
+    price: 322.99,
+    priceDisplay: "$322.99"
   },
   "B07RJ2GJGB": {
     asin: "B07RJ2GJGB",
@@ -390,8 +390,8 @@ window.TrailBuiltProducts = {
   "B09D5PW315": {
     asin: "B09D5PW315",
     name: "Ram X-Grip Phone Mount",
-    price: 227.09,
-    priceDisplay: "$227.09"
+    price: 223.43,
+    priceDisplay: "$223.43"
   },
   "B09FF46FQ9": {
     asin: "B09FF46FQ9",
@@ -462,8 +462,8 @@ window.TrailBuiltProducts = {
   "B0D7PPG25F": {
     asin: "B0D7PPG25F",
     name: "Jackery Explorer 1000 v2 Portable Power Station, 1070Wh LiFePO4 Battery, 1500W AC",
-    price: 489.00,
-    priceDisplay: "$489.00"
+    price: 559.00,
+    priceDisplay: "$559.00"
   },
   "B0C8484883": {
     asin: "B0C8484883",
@@ -492,8 +492,8 @@ window.TrailBuiltProducts = {
   "B0CLGZB3L6": {
     asin: "B0CLGZB3L6",
     name: "Bluetti AC200P",
-    price: 798.99,
-    priceDisplay: "$798.99"
+    price: 899.00,
+    priceDisplay: "$899.00"
   },
   "B0CNPHD4VY": {
     asin: "B0CNPHD4VY",
@@ -562,4 +562,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-08-06T11:59:30.516Z";
+window.TrailBuiltLastSyncedAt = "2026-08-07T10:47:30.220Z";
