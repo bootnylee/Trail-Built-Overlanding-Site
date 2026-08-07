@@ -4,28 +4,27 @@ asin_lookup.py — Amazon ASIN verification tool for Trail Built Overland guardr
 
 PART 1 of the affiliate-link guardrail system.
 
-Uses Amazon Product Advertising API (PA-API 5.0) when credentials are available,
-falls back to public Amazon page verification when they are not.
+Uses the Amazon Creators API (OAuth 2.0 / Login with Amazon) when credentials
+are available, falls back to public Amazon page scraping when they are not.
 
-PA-API SETUP (one-time):
-  1. Sign in to https://affiliate-program.amazon.com/
-  2. Go to Tools → Product Advertising API → Manage Credentials
-  3. Create an access key and note:
-       - Access Key ID  → set as env var PAAPI_ACCESS_KEY
-       - Secret Key     → set as env var PAAPI_SECRET_KEY
-       - Associate Tag  → set as env var PAAPI_ASSOCIATE_TAG (e.g. trailbuiltove-20)
-  4. Set PAAPI_REGION (default: us-east-1) and PAAPI_MARKETPLACE (default: www.amazon.com)
+CREATORS API SETUP (one-time):
+  1. Sign in to https://affiliate-program.amazon.com/creatorsapi
+  2. Create an application and note:
+       - Client ID     → set as env var CREATORS_API_CLIENT_ID
+       - Client Secret → set as env var CREATORS_API_CLIENT_SECRET
+  3. Set CREATORS_API_PARTNER_TAG to your affiliate tag (e.g. trailbuiltove-20)
 
-Without PA-API credentials, the tool falls back to scraping the public Amazon product
-page to verify that the ASIN resolves and the title fuzzy-matches the expected name.
+Credential reference: https://affiliate-program.amazon.com/creatorsapi/docs/en-us/get-started/using-curl
+
+Without Creators API credentials, the tool falls back to scraping the public Amazon
+product page to verify that the ASIN resolves and the title fuzzy-matches the
+expected name.
 """
 
 import os
 import re
 import time
 import json
-import hashlib
-import hmac
 import urllib.request
 import urllib.parse
 import urllib.error
@@ -34,26 +33,32 @@ from difflib import SequenceMatcher
 from typing import Optional
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Configuration — set these environment variables to enable PA-API
+# Configuration — set these environment variables to enable Creators API
 # ─────────────────────────────────────────────────────────────────────────────
-PAAPI_ACCESS_KEY    = os.environ.get("PAAPI_ACCESS_KEY", "")       # ← YOUR PA-API ACCESS KEY
-PAAPI_SECRET_KEY    = os.environ.get("PAAPI_SECRET_KEY", "")       # ← YOUR PA-API SECRET KEY
-PAAPI_ASSOCIATE_TAG = os.environ.get("PAAPI_ASSOCIATE_TAG", "trailbuiltove-20")
-PAAPI_REGION        = os.environ.get("PAAPI_REGION", "us-east-1")
-PAAPI_HOST          = "webservices.amazon.com"
-PAAPI_URI           = "/paapi5/getitems"
+CREATORS_API_CLIENT_ID     = os.environ.get("CREATORS_API_CLIENT_ID", "")      # ← YOUR CLIENT ID
+CREATORS_API_CLIENT_SECRET = os.environ.get("CREATORS_API_CLIENT_SECRET", "")  # ← YOUR CLIENT SECRET
+CREATORS_API_PARTNER_TAG   = os.environ.get("CREATORS_API_PARTNER_TAG", "trailbuiltove-20")
+CREATORS_API_MARKETPLACE   = os.environ.get("CREATORS_API_MARKETPLACE", "www.amazon.com")
+
+# OAuth 2.0 token endpoint (NA region — US, CA, MX, BR)
+CREATORS_API_TOKEN_URL = "https://api.amazon.com/auth/o2/token"
+# Creators API base URL (global)
+CREATORS_API_BASE_URL  = "https://creatorsapi.amazon"
+CREATORS_API_GETITEMS  = f"{CREATORS_API_BASE_URL}/catalog/v1/getItems"
 
 # Fuzzy-match threshold: Amazon title must share this fraction of words with expected name
 MATCH_THRESHOLD = 0.35   # intentionally lenient — catches completely wrong products
 
-# Rate limiting: PA-API allows 1 request/second on the free tier
-PAAPI_RATE_LIMIT_SECONDS = 1.1
+# Token cache (in-process; refreshed when expired)
+_token_cache: dict = {"token": None, "expires_at": 0.0}
 
-_last_paapi_call = 0.0
+# Rate limiting: be polite to both the API and the scrape fallback
+_last_api_call = 0.0
+API_RATE_LIMIT_SECONDS = 1.1
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Result dataclass
+# Result class
 # ─────────────────────────────────────────────────────────────────────────────
 class ASINResult:
     def __init__(self, asin: str, expected_name: str, amazon_title: Optional[str],
@@ -68,7 +73,7 @@ class ASINResult:
         self.match_score = match_score
         self.price = price
         self.image_url = image_url
-        self.source = source   # "paapi" or "scrape"
+        self.source = source   # "creators_api" or "scrape"
         self.error = error
 
     @property
@@ -101,17 +106,17 @@ class ASINResult:
 # Fuzzy title matching
 # ─────────────────────────────────────────────────────────────────────────────
 def _normalize(text: str) -> str:
-    """Lowercase, strip punctuation, collapse whitespace."""
     text = text.lower()
     text = re.sub(r'[^a-z0-9\s]', ' ', text)
     return re.sub(r'\s+', ' ', text).strip()
 
 
-def _title_matches(expected: str, amazon_title: str, threshold: float = MATCH_THRESHOLD) -> tuple[bool, float]:
+def _title_matches(expected: str, amazon_title: str,
+                   threshold: float = MATCH_THRESHOLD) -> tuple[bool, float]:
     """
     Return (matches, score). Uses word overlap + SequenceMatcher.
-    Lenient by design — we want to catch completely wrong products,
-    not penalize minor title variations (e.g. "Warn VR EVO 10-S" vs
+    Lenient by design — catches completely wrong products without penalising
+    minor title variations (e.g. "Warn VR EVO 10-S" vs
     "WARN 103253 VR EVO 10-S Electric 12V DC Winch 10,000 lb").
     """
     if not amazon_title:
@@ -120,118 +125,96 @@ def _title_matches(expected: str, amazon_title: str, threshold: float = MATCH_TH
     exp_norm = _normalize(expected)
     amz_norm = _normalize(amazon_title)
 
-    # Word overlap score
-    exp_words = set(exp_norm.split())
-    amz_words = set(amz_norm.split())
-    # Remove very short stop words
-    stop = {'a', 'an', 'the', 'for', 'and', 'or', 'in', 'on', 'of', 'to', 'with', 'lb', 'lbs'}
-    exp_words -= stop
-    amz_words -= stop
+    stop = {'a', 'an', 'the', 'for', 'and', 'or', 'in', 'on', 'of', 'to',
+            'with', 'lb', 'lbs', 'by', 'at', 'from'}
+    exp_words = set(w for w in exp_norm.split() if len(w) > 1 and w not in stop)
+    amz_words = set(w for w in amz_norm.split() if len(w) > 1 and w not in stop)
 
     if not exp_words:
-        return True, 1.0  # nothing to compare
+        return True, 1.0
 
     overlap = len(exp_words & amz_words) / len(exp_words)
-
-    # Sequence similarity as secondary signal
     seq_score = SequenceMatcher(None, exp_norm, amz_norm).ratio()
-
-    # Combined score: weight word overlap more heavily
     combined = (overlap * 0.7) + (seq_score * 0.3)
     return combined >= threshold, combined
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# PA-API 5.0 — AWS Signature V4 signing
+# Creators API — OAuth 2.0 token management
 # ─────────────────────────────────────────────────────────────────────────────
-def _sign(key: bytes, msg: str) -> bytes:
-    return hmac.new(key, msg.encode("utf-8"), hashlib.sha256).digest()
-
-
-def _get_signature_key(secret_key: str, date_stamp: str, region: str, service: str) -> bytes:
-    k_date    = _sign(("AWS4" + secret_key).encode("utf-8"), date_stamp)
-    k_region  = _sign(k_date, region)
-    k_service = _sign(k_region, service)
-    k_signing = _sign(k_service, "aws4_request")
-    return k_signing
-
-
-def _paapi_lookup(asin: str) -> dict:
+def _get_access_token() -> str:
     """
-    Call PA-API 5.0 GetItems for a single ASIN.
+    Fetch (or return cached) OAuth 2.0 access token from Login with Amazon.
+    Token lifetime is 3600 s; we refresh 60 s early.
+    """
+    now = time.time()
+    if _token_cache["token"] and now < _token_cache["expires_at"] - 60:
+        return _token_cache["token"]
+
+    payload = json.dumps({
+        "grant_type": "client_credentials",
+        "client_id": CREATORS_API_CLIENT_ID,
+        "client_secret": CREATORS_API_CLIENT_SECRET,
+        "scope": "creatorsapi::default",
+    }).encode("utf-8")
+
+    req = urllib.request.Request(
+        CREATORS_API_TOKEN_URL,
+        data=payload,
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    with urllib.request.urlopen(req, timeout=10) as resp:
+        data = json.loads(resp.read().decode("utf-8"))
+
+    token = data["access_token"]
+    expires_in = int(data.get("expires_in", 3600))
+    _token_cache["token"] = token
+    _token_cache["expires_at"] = now + expires_in
+    return token
+
+
+def _creators_api_lookup(asin: str) -> dict:
+    """
+    Call Creators API GetItems for a single ASIN.
     Returns the parsed JSON response dict, or raises on error.
+
+    Endpoint: POST https://creatorsapi.amazon/catalog/v1/getItems
+    Auth: Bearer token (OAuth 2.0 client_credentials via LwA)
+    Docs: https://affiliate-program.amazon.com/creatorsapi/docs/en-us/get-started/using-curl
     """
-    global _last_paapi_call
+    global _last_api_call
 
     # Rate limiting
-    elapsed = time.time() - _last_paapi_call
-    if elapsed < PAAPI_RATE_LIMIT_SECONDS:
-        time.sleep(PAAPI_RATE_LIMIT_SECONDS - elapsed)
+    elapsed = time.time() - _last_api_call
+    if elapsed < API_RATE_LIMIT_SECONDS:
+        time.sleep(API_RATE_LIMIT_SECONDS - elapsed)
 
-    payload = {
-        "ItemIds": [asin],
-        "Resources": [
-            "ItemInfo.Title",
-            "Offers.Listings.Price",
-            "Images.Primary.Large",
+    token = _get_access_token()
+
+    payload = json.dumps({
+        "itemIds": [asin],
+        "itemIdType": "ASIN",
+        "marketplace": CREATORS_API_MARKETPLACE,
+        "partnerTag": CREATORS_API_PARTNER_TAG,
+        "resources": [
+            "itemInfo.title",
+            "images.primary.large",
+            "offersV2.listings.price",
         ],
-        "PartnerTag": PAAPI_ASSOCIATE_TAG,
-        "PartnerType": "Associates",
-        "Marketplace": "www.amazon.com",
-    }
-    payload_json = json.dumps(payload)
+    }).encode("utf-8")
 
-    # Build canonical request
-    now = datetime.now(timezone.utc)
-    amz_date = now.strftime("%Y%m%dT%H%M%SZ")
-    date_stamp = now.strftime("%Y%m%d")
-
-    content_type = "application/json; charset=UTF-8"
-    x_amz_target = "com.amazon.paapi5.v1.ProductAdvertisingAPIv1.GetItems"
-
-    headers_to_sign = {
-        "content-encoding": "amz-1.0",
-        "content-type": content_type,
-        "host": PAAPI_HOST,
-        "x-amz-date": amz_date,
-        "x-amz-target": x_amz_target,
-    }
-    canonical_headers = "".join(f"{k}:{v}\n" for k, v in sorted(headers_to_sign.items()))
-    signed_headers = ";".join(sorted(headers_to_sign.keys()))
-
-    payload_hash = hashlib.sha256(payload_json.encode("utf-8")).hexdigest()
-    canonical_request = "\n".join([
-        "POST", PAAPI_URI, "",
-        canonical_headers, signed_headers, payload_hash
-    ])
-
-    credential_scope = f"{date_stamp}/{PAAPI_REGION}/ProductAdvertisingAPI/aws4_request"
-    string_to_sign = "\n".join([
-        "AWS4-HMAC-SHA256", amz_date, credential_scope,
-        hashlib.sha256(canonical_request.encode("utf-8")).hexdigest()
-    ])
-
-    signing_key = _get_signature_key(PAAPI_SECRET_KEY, date_stamp, PAAPI_REGION, "ProductAdvertisingAPI")
-    signature = hmac.new(signing_key, string_to_sign.encode("utf-8"), hashlib.sha256).hexdigest()
-
-    authorization = (
-        f"AWS4-HMAC-SHA256 Credential={PAAPI_ACCESS_KEY}/{credential_scope}, "
-        f"SignedHeaders={signed_headers}, Signature={signature}"
+    req = urllib.request.Request(
+        CREATORS_API_GETITEMS,
+        data=payload,
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json",
+            "x-marketplace": CREATORS_API_MARKETPLACE,
+        },
+        method="POST",
     )
-
-    req_headers = {
-        "Authorization": authorization,
-        "Content-Encoding": "amz-1.0",
-        "Content-Type": content_type,
-        "Host": PAAPI_HOST,
-        "X-Amz-Date": amz_date,
-        "X-Amz-Target": x_amz_target,
-    }
-
-    url = f"https://{PAAPI_HOST}{PAAPI_URI}"
-    req = urllib.request.Request(url, data=payload_json.encode("utf-8"),
-                                  headers=req_headers, method="POST")
-    _last_paapi_call = time.time()
+    _last_api_call = time.time()
 
     with urllib.request.urlopen(req, timeout=10) as resp:
         return json.loads(resp.read().decode("utf-8"))
@@ -250,7 +233,7 @@ def _scrape_amazon(asin: str) -> tuple[Optional[str], Optional[str]]:
         "User-Agent": (
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
             "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/120.0.0.0 Safari/537.36"
+            "Chrome/124.0.0.0 Safari/537.36"
         ),
         "Accept-Language": "en-US,en;q=0.9",
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -260,17 +243,14 @@ def _scrape_amazon(asin: str) -> tuple[Optional[str], Optional[str]]:
         with urllib.request.urlopen(req, timeout=12) as resp:
             html = resp.read().decode("utf-8", errors="replace")
 
-        # Extract title from <span id="productTitle">
         m = re.search(r'id="productTitle"[^>]*>\s*([^<]{5,300})', html)
         if m:
             return m.group(1).strip(), None
 
-        # Fallback: og:title meta tag
         m2 = re.search(r'<meta[^>]+property="og:title"[^>]+content="([^"]{5,300})"', html)
         if m2:
             return m2.group(1).strip(), None
 
-        # Check if it's a "page not found" or robot check
         if "robot" in html.lower() or "captcha" in html.lower():
             return None, "Amazon returned a bot-check page"
         if "Sorry, we just need to make sure you" in html:
@@ -280,7 +260,7 @@ def _scrape_amazon(asin: str) -> tuple[Optional[str], Optional[str]]:
 
     except urllib.error.HTTPError as e:
         if e.code == 404:
-            return None, f"ASIN not found (HTTP 404)"
+            return None, "ASIN not found (HTTP 404)"
         return None, f"HTTP {e.code}: {e.reason}"
     except Exception as e:
         return None, str(e)
@@ -294,7 +274,8 @@ def verify_asin(asin: str, expected_name: str) -> ASINResult:
     Verify that an ASIN resolves to a live Amazon listing and that the
     returned title fuzzy-matches the expected product name.
 
-    Uses PA-API when credentials are set, falls back to page scraping.
+    Uses Creators API when CREATORS_API_CLIENT_ID and CREATORS_API_CLIENT_SECRET
+    are set; falls back to public page scraping otherwise.
     """
     if not asin or not re.match(r'^[A-Z0-9]{10}$', asin):
         return ASINResult(
@@ -304,45 +285,49 @@ def verify_asin(asin: str, expected_name: str) -> ASINResult:
             source="none", error=f"Invalid ASIN format: '{asin}'"
         )
 
-    # ── Try PA-API first ──────────────────────────────────────────────────────
-    if PAAPI_ACCESS_KEY and PAAPI_SECRET_KEY:
+    # ── Try Creators API first ────────────────────────────────────────────────
+    if CREATORS_API_CLIENT_ID and CREATORS_API_CLIENT_SECRET:
         try:
-            resp = _paapi_lookup(asin)
-            items = resp.get("ItemsResult", {}).get("Items", [])
+            resp = _creators_api_lookup(asin)
+            items = resp.get("itemsResult", {}).get("items", [])
+
             if not items:
-                errors = resp.get("Errors", [])
-                err_msg = errors[0].get("Message", "No items returned") if errors else "No items returned"
+                errors = resp.get("errors", [])
+                err_msg = (errors[0].get("message", "No items returned")
+                           if errors else "No items returned")
                 return ASINResult(
                     asin=asin, expected_name=expected_name,
                     amazon_title=None, resolves=False, title_match=False,
                     match_score=0.0, price=None, image_url=None,
-                    source="paapi", error=err_msg
+                    source="creators_api", error=err_msg
                 )
 
             item = items[0]
-            title = item.get("ItemInfo", {}).get("Title", {}).get("DisplayValue")
-            price = (item.get("Offers", {})
-                        .get("Listings", [{}])[0]
-                        .get("Price", {})
-                        .get("DisplayAmount"))
-            image_url = (item.get("Images", {})
-                            .get("Primary", {})
-                            .get("Large", {})
-                            .get("URL"))
+            title = (item.get("itemInfo", {})
+                        .get("title", {})
+                        .get("displayValue"))
+            # offersV2 structure
+            listings = (item.get("offersV2", {}) or {}).get("listings", []) or []
+            price = (listings[0].get("price", {}).get("displayAmount")
+                     if listings else None)
+            image_url = (item.get("images", {})
+                            .get("primary", {})
+                            .get("large", {})
+                            .get("url") if item.get("images") else None)
 
             matches, score = _title_matches(expected_name, title or "")
             return ASINResult(
                 asin=asin, expected_name=expected_name,
                 amazon_title=title, resolves=True, title_match=matches,
                 match_score=score, price=price, image_url=image_url,
-                source="paapi"
+                source="creators_api"
             )
         except Exception as e:
-            # PA-API failed — fall through to scrape
+            # Creators API failed — fall through to scrape
             pass
 
     # ── Fallback: scrape public page ─────────────────────────────────────────
-    time.sleep(0.5)   # polite delay between scrape requests
+    time.sleep(0.5)
     title, err = _scrape_amazon(asin)
     if err:
         return ASINResult(
@@ -386,13 +371,13 @@ def verify_asins_bulk(products: list[dict], delay: float = 1.0) -> list[ASINResu
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# CLI usage: python3 asin_lookup.py B07SJHVQTJ "Warn VR EVO 10-S Winch"
+# CLI: python3 tools/asin_lookup.py B07SJHVQTJ "Warn VR EVO 10-S Winch"
 # ─────────────────────────────────────────────────────────────────────────────
 if __name__ == "__main__":
     import sys
     if len(sys.argv) < 3:
-        print("Usage: python3 asin_lookup.py <ASIN> <expected_product_name>")
-        print("       python3 asin_lookup.py B07SJHVQTJ 'Warn VR EVO 10-S Winch'")
+        print("Usage: python3 tools/asin_lookup.py <ASIN> <expected_product_name>")
+        print("       python3 tools/asin_lookup.py B07SJHVQTJ 'Warn VR EVO 10-S Winch'")
         sys.exit(1)
 
     asin_arg = sys.argv[1]

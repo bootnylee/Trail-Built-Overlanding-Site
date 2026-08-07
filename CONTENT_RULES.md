@@ -1,6 +1,6 @@
 # Content Generation Rules — Trail Built Overland
 
-**Version:** 1.0 | **Effective:** 2026-08-07 | **Applies to:** All buyer's guides and product reviews
+**Version:** 1.1 | **Effective:** 2026-08-07 | **Applies to:** All buyer's guides and product reviews
 
 These rules are mandatory for any AI-assisted or human content generation on this site.
 They exist to prevent phantom part numbers, wrong affiliate links, and product mismatches
@@ -13,7 +13,7 @@ from reaching readers.
 **Never state a specific model number, part number, or SKU in an article unless it was retrieved from a verified source.**
 
 Acceptable sources (in order of preference):
-1. Amazon Product Advertising API (PA-API) — the system of record
+1. Amazon Creators API — the system of record (see setup below)
 2. The manufacturer's official product catalog page (URL must be accessible)
 3. A live Amazon product listing (ASIN must be confirmed)
 
@@ -66,7 +66,7 @@ Every Monday at 8:00 AM PT, an automated health-check runs across:
 - silkierstrands.com
 - pauseandflourish.com
 
-It re-validates every ASIN for delistings, title changes, and mismatches, and emails a report to Kyle. If you receive a health-check email with failures, fix them before the next publish cycle.
+It re-validates every ASIN for delistings, title changes, and mismatches, and emails a report to **kamilano1@gmail.com**. If you receive a health-check email with failures, fix them before the next publish cycle.
 
 ---
 
@@ -104,15 +104,38 @@ python3 tools/weekly_asin_healthcheck.py --dry-run
 
 ---
 
-## PA-API Setup (One-Time, Enables Faster + More Reliable Validation)
+## Amazon Creators API Setup (One-Time, Enables Reliable Validation)
 
-1. Log in to https://affiliate-program.amazon.com/
-2. Go to **Tools → Product Advertising API → Manage Credentials**
-3. Create credentials and set these environment variables in Netlify:
-   - `PAAPI_ACCESS_KEY` — your PA-API access key ID
-   - `PAAPI_SECRET_KEY` — your PA-API secret key
-   - `PAAPI_ASSOCIATE_TAG` — `trailbuiltove-20`
-4. Also set them locally in your `.env` file for running validation scripts manually
+The guardrail uses the **Amazon Creators API** (OAuth 2.0 via Login with Amazon).
+This replaced the deprecated PA-API 5.0 in 2026.
 
-Without PA-API credentials, validation falls back to public Amazon page scraping
-(slower, may occasionally hit rate limits, but functionally equivalent).
+### Credential Portal
+https://affiliate-program.amazon.com/creatorsapi
+
+### Steps
+1. Sign in to Associates Central and navigate to the Creators API portal above
+2. Create an application — you will receive a **Client ID** and **Client Secret**
+3. Set these environment variables in **each site's Netlify dashboard**
+   (Site settings → Environment variables) and in the Manus scheduled task:
+
+| Environment Variable | Value | Where to set |
+|---|---|---|
+| `CREATORS_API_CLIENT_ID` | Your Creators API client ID | Netlify (all 3 sites) + Manus task |
+| `CREATORS_API_CLIENT_SECRET` | Your Creators API client secret | Netlify (all 3 sites) + Manus task |
+| `CREATORS_API_PARTNER_TAG` | `trailbuiltove-20` (TrailBuilt) | Netlify TrailBuilt |
+| `CREATORS_API_PARTNER_TAG` | `silkierstrands-20` (SilkierStrands) | Netlify SilkierStrands |
+| `CREATORS_API_PARTNER_TAG` | `pauseandflourish-20` (PauseAndFlourish) | Netlify PauseAndFlourish |
+
+### Auth Flow (for reference)
+- **Token endpoint:** `https://api.amazon.com/auth/o2/token`
+- **Grant type:** `client_credentials`
+- **Scope:** `creatorsapi::default`
+- **API endpoint:** `https://creatorsapi.amazon/catalog/v1/getItems`
+- **Auth header:** `Authorization: Bearer <access_token>`
+
+Without Creators API credentials, validation falls back to public Amazon page scraping
+(works but may occasionally hit Amazon's bot-check on cloud build IPs).
+
+### Prerequisite
+Your Associates account must have ≥10 qualifying sales in the trailing 30 days to
+access the Creators API. This is an ongoing requirement.
