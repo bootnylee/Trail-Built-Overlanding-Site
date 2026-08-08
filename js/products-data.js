@@ -36,8 +36,8 @@ window.TrailBuiltProducts = {
   "B004ETQ2LO": {
     asin: "B004ETQ2LO",
     name: "LifeStraw Personal Water Filter",
-    price: 70.00,
-    priceDisplay: "$70.00"
+    price: 66.55,
+    priceDisplay: "$66.55"
   },
   "B004M3BAQE": {
     asin: "B004M3BAQE",
@@ -78,8 +78,8 @@ window.TrailBuiltProducts = {
   "B00C0W9AJS": {
     asin: "B00C0W9AJS",
     name: "Rough Country 2\" Budget Lift Kit",
-    price: 207.60,
-    priceDisplay: "$207.60"
+    price: 269.95,
+    priceDisplay: "$269.95"
   },
   "B00C7B2NV4": {
     asin: "B00C7B2NV4",
@@ -96,8 +96,8 @@ window.TrailBuiltProducts = {
   "B07Y5VVNP5": {
     asin: "B07Y5VVNP5",
     name: "Fab Fours Black Steel Rear (DR19-T4450-1)",
-    price: 917.11,
-    priceDisplay: "$917.11"
+    price: 912.09,
+    priceDisplay: "$912.09"
   },
   "B006R7AW6M": {
     asin: "B006R7AW6M",
@@ -114,8 +114,8 @@ window.TrailBuiltProducts = {
   "B00K150VAI": {
     asin: "B00K150VAI",
     name: "Smittybilt X2O 10,000 lb Waterproof Winch",
-    price: 599.00,
-    priceDisplay: "$599.00"
+    price: 611.00,
+    priceDisplay: "$611.00"
   },
   "B00FPECUZ4": {
     asin: "B00FPECUZ4",
@@ -312,8 +312,8 @@ window.TrailBuiltProducts = {
   "B07S5GK8NL": {
     asin: "B07S5GK8NL",
     name: "Garmin inReach Mini 2",
-    price: 379.99,
-    priceDisplay: "$379.99"
+    price: 360.99,
+    priceDisplay: "$360.99"
   },
   "B07SJHVQTJ": {
     asin: "B07SJHVQTJ",
@@ -390,8 +390,8 @@ window.TrailBuiltProducts = {
   "B09D5PW315": {
     asin: "B09D5PW315",
     name: "Ram X-Grip Phone Mount",
-    price: 223.43,
-    priceDisplay: "$223.43"
+    price: 224.99,
+    priceDisplay: "$224.99"
   },
   "B09FF46FQ9": {
     asin: "B09FF46FQ9",
@@ -562,4 +562,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-08-07T10:47:30.220Z";
+window.TrailBuiltLastSyncedAt = "2026-08-08T10:26:07.148Z";
