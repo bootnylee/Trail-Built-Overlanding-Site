@@ -96,8 +96,8 @@ window.TrailBuiltProducts = {
   "B07Y5VVNP5": {
     asin: "B07Y5VVNP5",
     name: "Fab Fours Black Steel Rear (DR19-T4450-1)",
-    price: 912.09,
-    priceDisplay: "$912.09"
+    price: 908.29,
+    priceDisplay: "$908.29"
   },
   "B006R7AW6M": {
     asin: "B006R7AW6M",
@@ -354,8 +354,8 @@ window.TrailBuiltProducts = {
   "B08BWVTP5X": {
     asin: "B08BWVTP5X",
     name: "Rough Country 2 Inch Budget Lift Kit",
-    price: 356.19,
-    priceDisplay: "$356.19"
+    price: 359.95,
+    priceDisplay: "$359.95"
   },
   "B08F998MFH": {
     asin: "B08F998MFH",
@@ -562,4 +562,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-08-08T10:26:07.148Z";
+window.TrailBuiltLastSyncedAt = "2026-08-09T10:28:08.351Z";
