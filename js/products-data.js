@@ -36,8 +36,8 @@ window.TrailBuiltProducts = {
   "B004ETQ2LO": {
     asin: "B004ETQ2LO",
     name: "LifeStraw Personal Water Filter",
-    price: 66.55,
-    priceDisplay: "$66.55"
+    price: 70.00,
+    priceDisplay: "$70.00"
   },
   "B004M3BAQE": {
     asin: "B004M3BAQE",
@@ -318,8 +318,8 @@ window.TrailBuiltProducts = {
   "B07SJHVQTJ": {
     asin: "B07SJHVQTJ",
     name: "Rough Country Rock Sliders",
-    price: 786.86,
-    priceDisplay: "$786.86"
+    price: 771.47,
+    priceDisplay: "$771.47"
   },
   "B07VFKXZK5": {
     asin: "B07VFKXZK5",
@@ -390,8 +390,8 @@ window.TrailBuiltProducts = {
   "B09D5PW315": {
     asin: "B09D5PW315",
     name: "Ram X-Grip Phone Mount",
-    price: 224.99,
-    priceDisplay: "$224.99"
+    price: 223.43,
+    priceDisplay: "$223.43"
   },
   "B09FF46FQ9": {
     asin: "B09FF46FQ9",
@@ -462,8 +462,8 @@ window.TrailBuiltProducts = {
   "B0D7PPG25F": {
     asin: "B0D7PPG25F",
     name: "Jackery Explorer 1000 v2 Portable Power Station, 1070Wh LiFePO4 Battery, 1500W AC",
-    price: 559.00,
-    priceDisplay: "$559.00"
+    price: 489.00,
+    priceDisplay: "$489.00"
   },
   "B0C8484883": {
     asin: "B0C8484883",
@@ -562,4 +562,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-08-09T10:28:08.351Z";
+window.TrailBuiltLastSyncedAt = "2026-08-10T11:03:12.888Z";
