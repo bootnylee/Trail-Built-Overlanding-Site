@@ -1,0 +1,1028 @@
+{
+  "run_date": "2026-08-10",
+  "recipient": "kamilano1@gmail.com",
+  "sites": [
+    {
+      "site": "Trail Built Overland",
+      "url": "https://trailbuiltoverland.com",
+      "total": 36,
+      "passed": 10,
+      "failed": 26,
+      "failures": [
+        {
+          "article": "best-hi-lift-jack-alternatives.html",
+          "product": "Smittybilt 2722",
+          "asin": "B001CF3JFA",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-hi-lift-jack-alternatives.html",
+          "product": "ARB 32",
+          "asin": "B07GNLL8C9",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-hi-lift-jack-alternatives.html",
+          "product": "Hi-Lift Jack HL-484 48",
+          "asin": "B00042KG3A",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-overlanding-camp-chairs-and-tables.html",
+          "product": "REI Co-op Camp Chair",
+          "asin": "B084L87RJL",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-overlanding-camp-chairs-and-tables.html",
+          "product": "Helinox Camp Table",
+          "asin": "B0GGRFVB3B",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-overlanding-camp-chairs-and-tables.html",
+          "product": "NEMO Stargaze Chair",
+          "asin": "B0DK7QHNV6",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-overlanding-camp-chairs-and-tables.html",
+          "product": "Snow Peak Table",
+          "asin": "B018XJYI1G",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-overlanding-camp-chairs-and-tables.html",
+          "product": "Sea to Summit Alpha Table",
+          "asin": "B0GFYD484Y",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-overlanding-first-aid-kit-essentials.html",
+          "product": "Adventure Medical Kits Mountain Series Hiker",
+          "asin": "B0CKKBZH85",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-overlanding-first-aid-kit-essentials.html",
+          "product": "North American Rescue Eagle IFAK Kit",
+          "asin": "B06XKQNPND",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-overlanding-shower-and-hygiene-solutions.html",
+          "product": "Nemo Helio",
+          "asin": "B0DK7PWLXN",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-overlanding-shower-and-hygiene-solutions.html",
+          "product": "Advanced Elements",
+          "asin": "B000J2Q0T4",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-overlanding-shower-and-hygiene-solutions.html",
+          "product": "Mr. Heater",
+          "asin": "B011TRLUS8",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-overlanding-water-storage-and-filtration.html",
+          "product": "RotoPaX RX-2W 2-Gallon Water Pack",
+          "asin": "B004ETQ2LO",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-overlanding-water-storage-and-filtration.html",
+          "product": "LifeStraw Personal Water Filter",
+          "asin": "B006QF3TW4",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-overlanding-water-storage-and-filtration.html",
+          "product": "Sawyer Products MINI Water Filtration System",
+          "asin": "B0C2F3GNFD",
+          "issue": "ASIN not found (HTTP 500: Internal Server Error)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-overlanding-water-storage-and-filtration.html",
+          "product": "Platypus GravityWorks 4.0L Water Filter System",
+          "asin": "B0DB3S6NNZ",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-portable-power-stations-for-overlanding.html",
+          "product": "Anker 521 Portable Power Station 256Wh",
+          "asin": "B09FF46FQ9",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-portable-power-stations-for-overlanding.html",
+          "product": "Jackery Explorer 500",
+          "asin": "B07SM5HBK1",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-portable-power-stations-for-overlanding.html",
+          "product": "Goal Zero Yeti 1000",
+          "asin": "B0988916ZK",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-skid-plates-for-off-road-trucks.html",
+          "product": "Rancho RockGEAR RS62116 Skid Plate",
+          "asin": "B07G3VVZ5K",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-skid-plates-for-off-road-trucks.html",
+          "product": "EAG 4x4 Skid Plate",
+          "asin": "B07RRVJQV6",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-vehicle-communication-gear-for-overlanding.html",
+          "product": "Midland MXT275 MicroMobile GMRS Radio",
+          "asin": "B07FN2FBML",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-vehicle-communication-gear-for-overlanding.html",
+          "product": "Garmin inReach Mini 2 Satellite Communicator",
+          "asin": "B09PSKG7C3",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-winches-for-toyota-4runner.html",
+          "product": "Smittybilt X2O",
+          "asin": "B00K150VAI",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "best-winches-for-toyota-4runner.html",
+          "product": "Rugged Ridge",
+          "asin": "B07PF4GZVR",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        }
+      ]
+    },
+    {
+      "site": "SilkierStrands",
+      "url": "https://silkierstrands.com",
+      "total": 92,
+      "passed": 28,
+      "failed": 64,
+      "failures": [
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Pureology Hydrate Shampoo",
+          "asin": "B0891843GC",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Redken All Soft Shampoo",
+          "asin": "B0007X749U",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Pantene Daily Moisture Renewal Shampoo & Conditioner Set",
+          "asin": "B07MGMD2YF",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Nexxus Therappe Humectress Shampoo & Conditioner",
+          "asin": "B00C5AHTVQ",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "OGX Frizz-Free + Keratin Smoothing Oil Shampoo 5-in-1",
+          "asin": "B08LZ1CQRN",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Olaplex No. 8 Bond Intense Moisture Mask",
+          "asin": "B0FLTGFKPR",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Moroccanoil Intense Hydrating Mask",
+          "asin": "B002N5MKMG",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "OGX Frizz-Free + Keratin Smoothing Oil Shampoo",
+          "asin": "B0BJMBDYZN",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "OGX Brazilian Keratin Therapy Shampoo",
+          "asin": "B00GMP6O9I",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Moroccanoil Treatment Original",
+          "asin": "B001AO0WCG",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Olaplex No. 7 Bonding Oil",
+          "asin": "B07VR1NDSQ",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "ALFAPARF MILANO Semi di Lino Cristalli Liquidi Hair Oil",
+          "asin": "B0BPQZ22R1",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Dyson Supersonic Hair Dryer",
+          "asin": "B0B4T6RTZ2",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "HOT TOOLS Pro Artist Tourmaline 2000 Turbo Hair Dryer",
+          "asin": "B000Q30NDA",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Revlon One-Step Hair Dryer & Volumizer",
+          "asin": "B01LSUQSB0",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Conair Infiniti PRO Hair Dryer with Diffuser",
+          "asin": "B0C5S6QZ6Y",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "BaBylissPRO Nano Titanium Hair Dryer",
+          "asin": "B091KB6H1F",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "T3 SinglePass Luxe 1\\",
+          "asin": "B0BSHWKW1H",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "TYMO Ring Hair Straightener Brush",
+          "asin": "B098QTS954",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "BaBylissPRO Nano Titanium Ultra-Thin Straightener",
+          "asin": "B0CRJRB4GS",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Remington Shine Therapy 2 inch Hair Straightener",
+          "asin": "B09RTLFV3F",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Dyson Airwrap Multi-Styler Complete Long",
+          "asin": "B0B61XH5YT",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "TYMO CurlPro Plus Automatic Rotating Curling Iron",
+          "asin": "B0DPZLWX8J",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Hot Tools Professional 24K Gold Marcel Curling Iron",
+          "asin": "B00011QUKW",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Revlon Salon One-Step Volumizer PLUS 2.0",
+          "asin": "B0B6NVPGFP",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "INFINITIPRO BY CONAIR Spin Air Rotating Styler",
+          "asin": "B010XIHC54",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "tgin Honey Miracle Hair Mask",
+          "asin": "B00FN3EIS4",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "CHI 44 Iron Guard Thermal Protection Spray",
+          "asin": "B002RS6JSA",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "ghd Platinum+ Professional Hair Straightener",
+          "asin": "B07F7Q4PTN",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Remington Pro 1\\",
+          "asin": "B0050QJHTO",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Beachwaver S1 Rotating Curling Iron",
+          "asin": "B0B3L5PY79",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "CHI Air Expert Classic Tourmaline Ceramic Flat Iron",
+          "asin": "B003981CVQ",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "T3 Featherweight 3i Professional Ionic Hair Dryer",
+          "asin": "B0BSJH7JKK",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "K\u00e9rastase Elixir Ultime Original Hair Oil",
+          "asin": "B0D2LWFF2P",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "OUAI Hair Mask",
+          "asin": "B08WGJQTN1",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "K\u00e9rastase Nutritive Bain Satin Shampoo",
+          "asin": "B0BZZJYKZ6",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Kristin Ess Hair 1.25\\",
+          "asin": "B0B8YCSSWQ",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "T3 Switch Kit Curl Trio Interchangeable Curling Iron",
+          "asin": "B0CRG6S7W8",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "BIO IONIC Powerlight Pro Hair Dryer",
+          "asin": "B01HFH7XKK",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Olaplex No. 3 Hair Perfector",
+          "asin": "B0GHSXYY3Z",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "K\u00e9rastase R\u00e9sistance Masque Th\u00e9rapiste",
+          "asin": "B01KNWQW3I",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Fanola No Yellow Mask",
+          "asin": "B072K6B9RF",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Oribe Gold Lust Repair & Restore Shampoo",
+          "asin": "B07XGVX19G",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Sultra The Bombshell 1\\",
+          "asin": "B07CKKGR83",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "HOT TOOLS Pro Artist Nano Ceramic 1\\",
+          "asin": "B002BU010G",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Christophe Robin Regenerating Mask with Prickly Pear Seed Oil",
+          "asin": "B09FM2BFPL",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Biolage Hydra Source Shampoo for Dry Hair",
+          "asin": "B00J9WZZWI",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Joico Color Balance Purple Shampoo",
+          "asin": "B08L8D93QB",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Olaplex No.4P Blonde Enhancer Purple Toning Shampoo",
+          "asin": "B09FYK7FKR",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "SheaMoisture Curl Enhancing Smoothie",
+          "asin": "B08BT948RD",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Moroccanoil Treatment Hair Oil",
+          "asin": "B003L3OQ76",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "K18 Leave-In Molecular Repair Hair Mask",
+          "asin": "B0961ZS96M",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Briogeo Don",
+          "asin": "B0BKGZ9V1Z",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Mielle Organics Rosemary & Mint Scalp & Hair Strengthening Oil",
+          "asin": "B07N7PK9QK",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Kenra Platinum Blow-Dry Spray",
+          "asin": "B005BEF5EQ",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "PURA D",
+          "asin": "B07BHCB9Y2",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Redken All Soft Heavy Cream Mask Treatment",
+          "asin": "B005YNB6VA",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Olaplex N\u00ba. 9 Bond Protector Nourishing Hair Serum",
+          "asin": "B09XBZMG71",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "VERB Ghost Oil Weightless Hair Oil",
+          "asin": "B00C3HQB9C",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "SheaMoisture Manuka Honey & Mafura Oil Intensive Hydration Hair Masque",
+          "asin": "B07NSZHMWD",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Hot Tools Professional 24K Gold Curling Iron",
+          "asin": "B0CW7DMH1Z",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "OGX Smoothing + Keratin Smoothing Oil Shampoo",
+          "asin": "B0D185179H",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Amika Perk Up Talc-Free Dry Shampoo",
+          "asin": "B07H349CVV",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Batiste Original Dry Shampoo",
+          "asin": "B07MGZ6X2Q",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        }
+      ]
+    },
+    {
+      "site": "PauseAndFlourish",
+      "url": "https://pauseandflourish.com",
+      "total": 69,
+      "passed": 17,
+      "failed": 52,
+      "failures": [
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Pausitivi-T Menopause Support",
+          "asin": "B008KPZMS2",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Qunol Menopause Relief",
+          "asin": "B0GS3DQQD4",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Amberen Menopause Supplement (60 Day Supply)",
+          "asin": "B00DTCNI2I",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "New Chapter Estrotone Menopause Supplement",
+          "asin": "B01N169N8J",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Gaia Herbs Menopause Support Daytime",
+          "asin": "B0036THM7Q",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Remifemin Menopause Supplement",
+          "asin": "B0CRKW8DFJ",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Bonafide Relizen Hot Flash Relief",
+          "asin": "B01DTKK5ES",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Natrol Melatonin 10mg Advanced Sleep",
+          "asin": "B072SD2PNY",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Nobi Nutrition Magnesium Glycinate 500mg",
+          "asin": "B0CWM5K6W6",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "OLLY Goodbye Stress Gummies",
+          "asin": "B01M1HYRNJ",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Chill Pal Mesh Cooling Towel",
+          "asin": "B01K97XFO6",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Elegear Revolutionary Cooling Blanket",
+          "asin": "B07Q8ZT7JL",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Citracal Petites Calcium Citrate + D3",
+          "asin": "B07RCJY6WD",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "NATURELO Bone Strength Calcium Supplement",
+          "asin": "B0716RWHX4",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Replens Long-Lasting Vaginal Moisturizer",
+          "asin": "B000P9WSMY",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Neutrogena Rapid Firming Peptide Contour Lift Face Cream",
+          "asin": "B08X6PTV16",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Optimum Nutrition Gold Standard 100% Whey Protein",
+          "asin": "B000QSNYGI",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Nootropics Depot Rhodiola Rosea Extract",
+          "asin": "B0775B46M3",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Triquetra Health BioActive Vitamin B12 Drops",
+          "asin": "B08DP545FG",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Nature",
+          "asin": "B000KHMYR0",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Aloe Cadabra Natural Vaginal Lubricant & Moisturizer",
+          "asin": "B0161J28AI",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "O Positiv MENO Vitamins for Menopause",
+          "asin": "B0D6S94T77",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "EQUELLE Multi-Symptom Menopause Relief",
+          "asin": "B0D6DL2Q1M",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Bonafide Revaree Vaginal Moisturizer",
+          "asin": "B07GX65L5T",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Amberen Perimenopause Multi-Symptom Relief Supplement",
+          "asin": "B0C3T4CHQ2",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "CLEA Midlife Focus",
+          "asin": "B0DY8WM82R",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Amberen Menopause Supplement for Women",
+          "asin": "B00KFA94FC",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Natures Craft Complete Herbal Menopause Supplement",
+          "asin": "B089V9WXYL",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Eu Natural Staying Cool Menopause Supplements",
+          "asin": "B00S74SB9S",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "MENOLABS MenoFit Menopause Supplement",
+          "asin": "B084MM9VNS",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "HI FINE CARE Cooling Gel Pad for Sleep",
+          "asin": "B0D4QNYGSF",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Intimate Rose Kegel Exercise System",
+          "asin": "B014GMBDQ2",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Health & Her Perimenopause Supplement",
+          "asin": "B08H6KGPX3",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "OLLY Mellow Menopause",
+          "asin": "B0DBXQQGLG",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Metagenics Estrovera",
+          "asin": "B005NKRJWE",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "New Chapter Bone Strength Take Care Supplement",
+          "asin": "B01MZ6YI2A",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "NEURIVA Plus Brain Supplement",
+          "asin": "B07PBZRDJN",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Bonafide Thermella Hot Flash & Night Sweat Relief",
+          "asin": "B0FJMNTKQ7",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "THORNE Perimenopause Complete",
+          "asin": "B0GMYXQJTN",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "HUM Fan Club Menopause Probiotic Supplement",
+          "asin": "B09JVBW5KH",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "THORNE Hormone Advantage",
+          "asin": "B07RR9JF9B",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Estroven Complete + Ashwagandha Multi-Symptom Menopause Supplement",
+          "asin": "B0BHC66LZP",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Estroven Complete Menopause Relief Gummies",
+          "asin": "B0GS41K1XH",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Nature Made Calcium Magnesium Zinc with Vitamin D3",
+          "asin": "B000OD1F7U",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Kindra MenoRelief Menopause Supplement",
+          "asin": "B0DXWTW9BL",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Estroven Weight Management for Menopause Relief",
+          "asin": "B07RCHRS9N",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Femmenessence MacaPause",
+          "asin": "B07NY3FNQG",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Move Free Ultra Triple Action Joint Support Supplement",
+          "asin": "B07VLJN7C6",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Olay Collagen Peptide Face Moisturizer",
+          "asin": "B09GHN9129",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Youtheory Ashwagandha 1,000 mg",
+          "asin": "B0DY833VPB",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Remifemin Good Night - Menopause Sleep Support",
+          "asin": "B0CNTRGL4W",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        },
+        {
+          "article": "client/src/lib/products.ts",
+          "product": "Dr. Tobias Omega 3 Fish Oil Triple Strength",
+          "asin": "B00CAZAU62",
+          "issue": "ASIN not found (Amazon returned a bot-check page)",
+          "amazon_title": null
+        }
+      ]
+    }
+  ],
+  "total_failed": 142
+}

@@ -235,11 +235,12 @@ def format_email_report(site_reports: list[dict], run_date: str) -> tuple[str, s
             lines.append("<table border='1' cellpadding='4' style='border-collapse:collapse'>")
             lines.append("<tr><th>Article</th><th>Product</th><th>ASIN</th><th>Issue</th></tr>")
             for f in r["failures"]:
+                asin_val = f['asin']
                 lines.append(
                     f"<tr>"
                     f"<td>{f['article']}</td>"
                     f"<td>{f['product']}</td>"
-                    f"<td><a href='https://www.amazon.com/dp/{f[\"asin\"]}'>{f['asin']}</a></td>"
+                    f"<td><a href='https://www.amazon.com/dp/{asin_val}'>{asin_val}</a></td>"
                     f"<td>{f['issue']}</td>"
                     f"</tr>"
                 )
