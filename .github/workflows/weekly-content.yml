@@ -1,9 +1,10 @@
 name: Weekly AI Content + Deploy
 
 on:
-  # Runs every Monday at 9:00 AM UTC (5:00 AM ET)
+  # Runs every Monday at 9:00 AM UTC (5:00 AM ET) and 1:00 PM UTC (9:00 AM ET)
   schedule:
     - cron: '0 9 * * 1'
+    - cron: '0 13 * * 1'
   # Manual trigger from GitHub Actions tab
   workflow_dispatch:
     inputs:
@@ -37,26 +38,56 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
+      # ── 1b. Idempotency Guard ────────────────────────────────────────────────
+      - name: Check if already published today
+        id: check_published
+        run: |
+          TODAY=$(date -u +%Y-%m-%d)
+          echo "Checking for commits since 00:00 UTC today ($TODAY) with auto-publish pattern..."
+          
+          # Find commits today matching the auto-publish message pattern
+          PUBLISHED_TODAY=$(git log --since="${TODAY}T00:00:00Z" --grep="chore: auto-publish" --format="%H")
+          
+          if [ -n "$PUBLISHED_TODAY" ]; then
+            echo "Already published today - skipping"
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "No auto-publish commit found today - proceeding"
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Exit early if already published
+        if: steps.check_published.outputs.skip == 'true'
+        run: |
+          echo "Idempotency guard triggered: A publish commit was already found today."
+          echo "Ending job successfully without running generation."
+          exit 0
+
       # ── 2. Setup runtimes ────────────────────────────────────────────────────
       - name: Set up Node.js
+        if: steps.check_published.outputs.skip != 'true'
         uses: actions/setup-node@v7
         with:
           node-version: '24'
 
       - name: Set up Python
+        if: steps.check_published.outputs.skip != 'true'
         uses: actions/setup-python@v6
         with:
           python-version: '3.11'
 
       - name: Install Python dependencies
+        if: steps.check_published.outputs.skip != 'true'
         run: pip install requests python-dateutil
 
       # ── 3. Verify tests before generating (no secrets passed) ───────────────
       - name: Verify topic pool and overwrite guard
+        if: steps.check_published.outputs.skip != 'true'
         run: node scripts/verify-topic-pool.js && node scripts/test-overwrite-guard.js
 
       # ── 4. Generate article ──────────────────────────────────────────────────
       - name: Generate new article
+        if: steps.check_published.outputs.skip != 'true'
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           AMAZON_ASSOCIATE_TAG: ${{ secrets.AMAZON_ASSOCIATE_TAG }}
@@ -70,6 +101,7 @@ jobs:
 
       # ── 3b. Link and image health check ─────────────────────────────────────
       - name: Link and image health check
+        if: steps.check_published.outputs.skip != 'true'
         run: |
           node scripts/check-links.js
           BROKEN=$(python3 -c "import json; d=json.load(open('link-report.json')); print(d['summary'].get('BROKEN', 0))")
@@ -82,7 +114,7 @@ jobs:
 
       # ── 3c. Open issue if link check failed ─────────────────────────────────
       - name: Open issue on link-check failure
-        if: failure()
+        if: failure() && steps.check_published.outputs.skip != 'true'
         uses: actions/github-script@v7
         with:
           script: |
@@ -114,24 +146,28 @@ jobs:
 
       # ── 4. Sanitize generated articles ───────────────────────────────────────
       - name: Sanitize generated articles
+        if: steps.check_published.outputs.skip != 'true'
         run: node scripts/sanitize-articles.mjs
 
       # ── 4. Validate product ASINs ────────────────────────────────────────────
       - name: Validate product ASINs
+        if: steps.check_published.outputs.skip != 'true'
         run: python3 scripts/validate-products.py || true
 
       # ── 5. Regenerate sitemap ────────────────────────────────────────────────
       - name: Regenerate sitemap
+        if: steps.check_published.outputs.skip != 'true'
         run: node scripts/generate-sitemap.mjs
 
       # ── 6. SEO audit ─────────────────────────────────────────────────────────
       - name: Run SEO audit
+        if: steps.check_published.outputs.skip != 'true'
         run: node scripts/seo-audit.mjs
 
       # ── 7. Upload SEO audit as artifact ─────────────────────────────────────
       - name: Upload SEO audit report
         uses: actions/upload-artifact@v7
-        if: always()
+        if: always() && steps.check_published.outputs.skip != 'true'
         with:
           name: seo-audit-${{ github.run_number }}
           path: seo-audit-report.json
@@ -139,7 +175,7 @@ jobs:
 
       # ── 8. Commit & push (skip on dry run) ──────────────────────────────────
       - name: Commit new article and updated files
-        if: ${{ github.event.inputs.dry_run != 'true' }}
+        if: ${{ github.event.inputs.dry_run != 'true' && steps.check_published.outputs.skip != 'true' }}
         run: |
           git config user.name  "Trail Built Bot"
           git config user.email "bot@trailbuiltoverland.com"
@@ -153,12 +189,12 @@ jobs:
           fi
 
       - name: Push changes to main
-        if: ${{ github.event.inputs.dry_run != 'true' }}
+        if: ${{ github.event.inputs.dry_run != 'true' && steps.check_published.outputs.skip != 'true' }}
         run: git push origin main
 
       # ── 9. Trigger Netlify deploy (optional build hook) ──────────────────────
       - name: Trigger Netlify deploy
-        if: ${{ github.event.inputs.dry_run != 'true' }}
+        if: ${{ github.event.inputs.dry_run != 'true' && steps.check_published.outputs.skip != 'true' }}
         env:
           NETLIFY_BUILD_HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
         run: |
@@ -171,7 +207,7 @@ jobs:
 
       # ── 10. Ping search engines ──────────────────────────────────────────────
       - name: Ping search engines
-        if: ${{ github.event.inputs.dry_run != 'true' }}
+        if: ${{ github.event.inputs.dry_run != 'true' && steps.check_published.outputs.skip != 'true' }}
         env:
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
         run: node scripts/ping-search-engines.mjs
@@ -179,7 +215,7 @@ jobs:
 
       # ── 11. GitHub Actions job summary ───────────────────────────────────────
       - name: Write job summary
-        if: always()
+        if: always() && steps.check_published.outputs.skip != 'true'
         run: |
           echo "## Trail Built Weekly Content Update" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY

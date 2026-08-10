@@ -3,6 +3,8 @@ name: Verify Deploy Live
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - '.github/**'
 
 jobs:
   verify:
