@@ -182,6 +182,69 @@ function pickTopic() {
   return eligible[Math.floor(Math.random() * eligible.length)];
 }
 
+// ── ASIN pre-validation ─────────────────────────────────────────────────────
+/**
+ * Check whether an Amazon ASIN is live (HTTP 200) before the article is written.
+ * Treats bot-block (403/503) as INCONCLUSIVE (pass); only 404 is DEAD.
+ * Retries up to maxRetries times with exponential back-off.
+ */
+async function checkAsinLive(asin, maxRetries = 3) {
+  const url = `https://www.amazon.com/dp/${asin}`;
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    const result = await new Promise((resolve) => {
+      try {
+        const req = https.request(
+          {
+            hostname: 'www.amazon.com',
+            path: `/dp/${asin}`,
+            method: 'HEAD',
+            timeout: 10000,
+            headers: { 'User-Agent': 'Mozilla/5.0 (compatible; TrailBuiltBot/1.0)' },
+          },
+          (res) => {
+            if (res.statusCode === 404) resolve('DEAD');
+            else if (res.statusCode === 301 || res.statusCode === 302) resolve('OK'); // redirect = exists
+            else if (res.statusCode === 200) resolve('OK');
+            else resolve('INCONCLUSIVE'); // 403/503 = bot-block, treat as pass
+          }
+        );
+        req.on('error', () => resolve('INCONCLUSIVE'));
+        req.on('timeout', () => { req.destroy(); resolve('INCONCLUSIVE'); });
+        req.end();
+      } catch { resolve('INCONCLUSIVE'); }
+    });
+    if (result !== 'INCONCLUSIVE' || attempt === maxRetries) return result;
+    // Back-off before retry
+    await new Promise(r => setTimeout(r, attempt * 2000));
+  }
+  return 'INCONCLUSIVE';
+}
+
+/**
+ * Extract all ASINs from generated HTML body.
+ * Returns array of unique ASIN strings.
+ */
+function extractAsins(html) {
+  const matches = [...html.matchAll(/data-asin="([A-Z0-9]{10})"/g)];
+  return [...new Set(matches.map(m => m[1]))];
+}
+
+/**
+ * Validate all ASINs in bodyHTML. Returns { ok: string[], dead: string[] }.
+ */
+async function validateBodyAsins(bodyHTML) {
+  const asins = extractAsins(bodyHTML);
+  console.log(`[asin-precheck] Found ${asins.length} ASIN(s): ${asins.join(', ')}`);
+  const ok = [], dead = [];
+  for (const asin of asins) {
+    const status = await checkAsinLive(asin);
+    console.log(`[asin-precheck] ${asin}: ${status}`);
+    if (status === 'DEAD') dead.push(asin);
+    else ok.push(asin);
+  }
+  return { ok, dead };
+}
+
 // ── Groq API ─────────────────────────────────────────────────────────────────
 function groqRequest(messages) {
   return new Promise((resolve, reject) => {
@@ -621,17 +684,37 @@ async function main() {
     );
   }
 
-  const [bodyHTML, meta] = await Promise.all([
-    generateArticleContent(topic),
-    generateMeta(topic),
-  ]);
-
+    // Generate article with ASIN pre-validation and retry (up to 3 attempts)
+  const MAX_ASIN_RETRIES = 3;
+  let bodyHTML, meta;
+  let asinCheckPassed = false;
+  for (let attempt = 1; attempt <= MAX_ASIN_RETRIES; attempt++) {
+    console.log(`\n[asin-precheck] Generation attempt ${attempt}/${MAX_ASIN_RETRIES}`);
+    [bodyHTML, meta] = await Promise.all([
+      generateArticleContent(topic),
+      attempt === 1 ? generateMeta(topic) : Promise.resolve(meta), // reuse meta on retries
+    ]);
+    const { ok, dead } = await validateBodyAsins(bodyHTML);
+    if (dead.length === 0) {
+      console.log(`[asin-precheck] ✅ All ${ok.length} ASIN(s) verified live.`);
+      asinCheckPassed = true;
+      break;
+    }
+    console.warn(`[asin-precheck] ⚠️  Attempt ${attempt}: ${dead.length} dead ASIN(s): ${dead.join(', ')}`);
+    if (attempt < MAX_ASIN_RETRIES) {
+      console.log('[asin-precheck] Retrying generation with replacement products...');
+    } else {
+      // All retries exhausted — log clearly but continue (don't block publish;
+      // the link-check step will catch confirmed 404s and can open an issue)
+      console.error(`[asin-precheck] ❌ Dead ASIN(s) remain after ${MAX_ASIN_RETRIES} attempts: ${dead.join(', ')}`);
+      console.error('[asin-precheck] Proceeding to link-check gate which will block on confirmed 404s.');
+    }
+  }
   // Validate hero image URL — reject dead URLs before writing the article file.
   // This prevents the link-check gate from failing in CI.
   console.log(`[image-validate] Checking hero image: ${meta.ogImage}`);
   meta.ogImage = await resolveValidImageUrl(meta.ogImage);
   console.log(`[image-validate] Hero image OK: ${meta.ogImage}`);
-
   const html = buildHTML({
     slug,
     title: meta.title,

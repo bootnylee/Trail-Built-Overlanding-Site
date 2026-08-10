@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
+      issues: write
     steps:
       # ── 1. Checkout ──────────────────────────────────────────────────────────
       - name: Checkout repository
@@ -79,6 +79,38 @@ jobs:
             exit 1
           fi
           echo "No BROKEN links. INCONCLUSIVE results (e.g. Amazon bot-blocks) do not fail the job."
+
+      # ── 3c. Open issue if link check failed ─────────────────────────────────
+      - name: Open issue on link-check failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let broken = [];
+            try {
+              const report = JSON.parse(fs.readFileSync('link-report.json', 'utf8'));
+              broken = (report.links || []).filter(l => l.status === 'BROKEN');
+            } catch (e) {}
+            const lines = broken.map(l => `| \`${l.url}\` | ${l.file || ''} | ${l.status} |`);
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `WEEKLY PUBLISH FAILED: dead link(s) in generated article — ${new Date().toISOString().slice(0,10)}`,
+              body: [
+                '## Weekly Publish Blocked by Dead Link(s)',
+                '',
+                'The link-check gate found BROKEN link(s) in the newly generated article.',
+                'No article was committed. Fix the dead ASINs and re-run the workflow.',
+                '',
+                '| URL | File | Status |',
+                '|-----|------|--------|',
+                ...lines,
+                '',
+                `Workflow run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+              ].join('\n'),
+              labels: ['weekly-publish-failure'],
+            });
 
       # ── 4. Sanitize generated articles ───────────────────────────────────────
       - name: Sanitize generated articles
