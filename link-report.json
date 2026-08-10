@@ -1,21 +1,13 @@
 {
-  "generatedAt": "2026-07-16T00:21:27.790Z",
-  "repoPath": "/home/ubuntu/Trail-Built-Overlanding-Site",
+  "generatedAt": "2026-08-10T20:34:18.583Z",
+  "repoPath": "/home/ubuntu/tbo-site",
   "note": "INCONCLUSIVE means the server returned 403/429/503 or timed out (bot-blocked). This is NOT proof the link is dead. Amazon product pages almost always return INCONCLUSIVE because Amazon blocks automated requests. Image CDN URLs on m.media-amazon.com are the reliable signal for whether product images are live.",
   "summary": {
-    "OK": 98,
-    "BROKEN": 1,
-    "INCONCLUSIVE": 10
+    "OK": 127,
+    "BROKEN": 0,
+    "INCONCLUSIVE": 12
   },
-  "broken": [
-    {
-      "type": "asin",
-      "value": "B004P2Q5O6",
-      "url": "https://www.amazon.com/dp/B004P2Q5O6",
-      "file": "articles/best-hi-lift-jack-alternatives.html",
-      "line": 223
-    }
-  ],
+  "broken": [],
   "allResults": [
     {
       "url": "https://images.unsplash.com/photo-1543365618-f4d2b8c2430d?w=1200&amp;q=80",
@@ -30,26 +22,26 @@
       ]
     },
     {
-      "url": "https://www.amazon.com/dp/B0GF9XC4HC",
+      "url": "https://www.amazon.com/dp/B07VFKXZK5",
       "status": "OK",
       "sources": [
         {
           "file": "articles/4runner-5th-gen-overland-build-guide.html",
           "line": 199,
           "type": "asin",
-          "value": "B0GF9XC4HC"
+          "value": "B07VFKXZK5"
         }
       ]
     },
     {
-      "url": "https://www.amazon.com/dp/B087QRV2PQ",
+      "url": "https://www.amazon.com/dp/B07CZZ8C5W",
       "status": "OK",
       "sources": [
         {
           "file": "articles/4runner-5th-gen-overland-build-guide.html",
           "line": 221,
           "type": "asin",
-          "value": "B087QRV2PQ"
+          "value": "B07CZZ8C5W"
         }
       ]
     },
@@ -114,6 +106,18 @@
       ]
     },
     {
+      "url": "https://www.amazon.com/dp/B0GF9XC4HC",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 293,
+          "type": "asin",
+          "value": "B0GF9XC4HC"
+        }
+      ]
+    },
+    {
       "url": "https://www.amazon.com/dp/B07F6ZTV6J",
       "status": "OK",
       "sources": [
@@ -122,6 +126,18 @@
           "line": 315,
           "type": "asin",
           "value": "B07F6ZTV6J"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B087QRV2PQ",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 357,
+          "type": "asin",
+          "value": "B087QRV2PQ"
         }
       ]
     },
@@ -150,14 +166,14 @@
       ]
     },
     {
-      "url": "https://www.amazon.com/dp/B0B9S6YX5N",
+      "url": "https://www.amazon.com/dp/B0050DI9YQ",
       "status": "OK",
       "sources": [
         {
           "file": "articles/4runner-5th-gen-overland-build-guide.html",
           "line": 388,
           "type": "asin",
-          "value": "B0B9S6YX5N"
+          "value": "B0050DI9YQ"
         }
       ]
     },
@@ -170,6 +186,18 @@
           "line": 411,
           "type": "asin",
           "value": "B0FBQHNWGG"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B017XTU10O",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/4runner-5th-gen-overland-build-guide.html",
+          "line": 415,
+          "type": "asin",
+          "value": "B017XTU10O"
         }
       ]
     },
@@ -210,14 +238,14 @@
       ]
     },
     {
-      "url": "https://www.amazon.com/dp/B06XX197GJ",
+      "url": "https://www.amazon.com/dp/B07RFQVB9M",
       "status": "OK",
       "sources": [
         {
           "file": "articles/4runner-5th-gen-overland-build-guide.html",
           "line": 462,
           "type": "asin",
-          "value": "B06XX197GJ"
+          "value": "B07RFQVB9M"
         }
       ]
     },
@@ -234,14 +262,14 @@
       ]
     },
     {
-      "url": "https://www.amazon.com/dp/B0722PXTVH",
+      "url": "https://www.amazon.com/dp/B083V72TRV",
       "status": "OK",
       "sources": [
         {
           "file": "articles/4runner-5th-gen-overland-build-guide.html",
           "line": 484,
           "type": "asin",
-          "value": "B0722PXTVH"
+          "value": "B083V72TRV"
         }
       ]
     },
@@ -564,54 +592,6 @@
       ]
     },
     {
-      "url": "https://www.amazon.com/s?k=Ford+F-350&tag=trailbuiltove-20",
-      "status": "OK",
-      "sources": [
-        {
-          "file": "articles/best-diesel-vs-gasoline-for-overlanding.html",
-          "line": 181,
-          "type": "amazon-search",
-          "value": "https://www.amazon.com/s?k=Ford+F-350&tag=trailbuiltove-20"
-        },
-        {
-          "file": "articles/best-portable-power-stations-for-overlanding.html",
-          "line": 261,
-          "type": "amazon-search",
-          "value": "https://www.amazon.com/s?k=Ford+F-350&tag=trailbuiltove-20"
-        },
-        {
-          "file": "articles/best-winches-for-toyota-4runner.html",
-          "line": 144,
-          "type": "amazon-search",
-          "value": "https://www.amazon.com/s?k=Ford+F-350&tag=trailbuiltove-20"
-        }
-      ]
-    },
-    {
-      "url": "https://www.amazon.com/dp/B07RFQVB9M",
-      "status": "OK",
-      "sources": [
-        {
-          "file": "articles/best-diesel-vs-gasoline-for-overlanding.html",
-          "line": 200,
-          "type": "asin",
-          "value": "B07RFQVB9M"
-        }
-      ]
-    },
-    {
-      "url": "https://www.amazon.com/dp/B0D3TYXXX4",
-      "status": "OK",
-      "sources": [
-        {
-          "file": "articles/best-diesel-vs-gasoline-for-overlanding.html",
-          "line": 257,
-          "type": "asin",
-          "value": "B0D3TYXXX4"
-        }
-      ]
-    },
-    {
       "url": "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=1200&amp;q=80",
       "status": "OK",
       "sources": [
@@ -624,26 +604,26 @@
       ]
     },
     {
-      "url": "https://www.amazon.com/dp/B004P2Q5O6",
-      "status": "BROKEN",
-      "sources": [
-        {
-          "file": "articles/best-hi-lift-jack-alternatives.html",
-          "line": 223,
-          "type": "asin",
-          "value": "B004P2Q5O6"
-        }
-      ]
-    },
-    {
-      "url": "https://www.amazon.com/s?k=T-Max+38&tag=trailbuiltove-20",
+      "url": "https://www.amazon.com/dp/B001CF3JFA",
       "status": "OK",
       "sources": [
         {
           "file": "articles/best-hi-lift-jack-alternatives.html",
-          "line": 242,
+          "line": 215,
+          "type": "asin",
+          "value": "B001CF3JFA"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/s?k=Smittybilt+2722+Hi-Lift+Jack+Mount&tag=trailbuiltove-20",
+      "status": "INCONCLUSIVE",
+      "sources": [
+        {
+          "file": "articles/best-hi-lift-jack-alternatives.html",
+          "line": 224,
           "type": "amazon-search",
-          "value": "https://www.amazon.com/s?k=T-Max+38&tag=trailbuiltove-20"
+          "value": "https://www.amazon.com/s?k=Smittybilt+2722+Hi-Lift+Jack+Mount&tag=trailbuiltove-20"
         }
       ]
     },
@@ -653,21 +633,21 @@
       "sources": [
         {
           "file": "articles/best-hi-lift-jack-alternatives.html",
-          "line": 280,
+          "line": 281,
           "type": "asin",
           "value": "B09FB2BPRZ"
         }
       ]
     },
     {
-      "url": "https://www.amazon.com/dp/B0B4V6H9C2",
+      "url": "https://www.amazon.com/dp/B00042KG3A",
       "status": "OK",
       "sources": [
         {
           "file": "articles/best-hi-lift-jack-alternatives.html",
-          "line": 299,
+          "line": 300,
           "type": "asin",
-          "value": "B0B4V6H9C2"
+          "value": "B00042KG3A"
         }
       ]
     },
@@ -750,6 +730,84 @@
       ]
     },
     {
+      "url": "https://images.unsplash.com/photo-1533591380348-14193f1de18f?w=1200&amp;q=80",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-camp-chairs-and-tables.html",
+          "line": 106,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1533591380348-14193f1de18f?w=1200&amp;q=80"
+        },
+        {
+          "file": "articles/best-overlanding-shower-and-hygiene-solutions.html",
+          "line": 106,
+          "type": "image",
+          "value": "https://images.unsplash.com/photo-1533591380348-14193f1de18f?w=1200&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/s?k=REI+Co-op+Flexlite+Air+Chair&tag=trailbuiltove-20",
+      "status": "INCONCLUSIVE",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-camp-chairs-and-tables.html",
+          "line": 144,
+          "type": "amazon-search",
+          "value": "https://www.amazon.com/s?k=REI+Co-op+Flexlite+Air+Chair&tag=trailbuiltove-20"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0GGRFVB3B",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-camp-chairs-and-tables.html",
+          "line": 163,
+          "type": "asin",
+          "value": "B0GGRFVB3B"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0DK7QHNV6",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-camp-chairs-and-tables.html",
+          "line": 182,
+          "type": "asin",
+          "value": "B0DK7QHNV6"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B018XJYI1G",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-camp-chairs-and-tables.html",
+          "line": 201,
+          "type": "asin",
+          "value": "B018XJYI1G"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0GFYD484Y",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-camp-chairs-and-tables.html",
+          "line": 220,
+          "type": "asin",
+          "value": "B0GFYD484Y"
+        }
+      ]
+    },
+    {
       "url": "https://images.unsplash.com/photo-1603398938378-e54eab446dde?w=1200&q=80",
       "status": "OK",
       "sources": [
@@ -762,14 +820,14 @@
       ]
     },
     {
-      "url": "https://www.amazon.com/s?k=Surviveware+Small+First+Aid+Kit&tag=trailbuiltove-20",
-      "status": "INCONCLUSIVE",
+      "url": "https://www.amazon.com/dp/B0CKKBZH85",
+      "status": "OK",
       "sources": [
         {
           "file": "articles/best-overlanding-first-aid-kit-essentials.html",
           "line": 183,
-          "type": "amazon-search",
-          "value": "https://www.amazon.com/s?k=Surviveware+Small+First+Aid+Kit&tag=trailbuiltove-20"
+          "type": "asin",
+          "value": "B0CKKBZH85"
         }
       ]
     },
@@ -786,14 +844,14 @@
       ]
     },
     {
-      "url": "https://www.amazon.com/dp/B09HZFCN22",
+      "url": "https://www.amazon.com/dp/B07HLB8LL1",
       "status": "OK",
       "sources": [
         {
           "file": "articles/best-overlanding-first-aid-kit-essentials.html",
           "line": 185,
           "type": "asin",
-          "value": "B09HZFCN22"
+          "value": "B07HLB8LL1"
         }
       ]
     },
@@ -830,6 +888,30 @@
           "line": 200,
           "type": "image",
           "value": "https://images.unsplash.com/photo-1466220549276-aef9ce186540?w=1200&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0DVM1G8VM",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-fridges.html",
+          "line": 273,
+          "type": "asin",
+          "value": "B0DVM1G8VM"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0B9S6YX5N",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-fridges.html",
+          "line": 296,
+          "type": "asin",
+          "value": "B0B9S6YX5N"
         }
       ]
     },
@@ -954,14 +1036,14 @@
       ]
     },
     {
-      "url": "https://www.amazon.com/dp/B0D7PPG25F",
+      "url": "https://www.amazon.com/dp/B0C6WMYFS2",
       "status": "OK",
       "sources": [
         {
           "file": "articles/best-overlanding-recovery-gear.html",
           "line": 254,
           "type": "asin",
-          "value": "B0D7PPG25F"
+          "value": "B0C6WMYFS2"
         }
       ]
     },
@@ -978,38 +1060,38 @@
       ]
     },
     {
-      "url": "https://www.amazon.com/dp/B07VFKXZK5",
+      "url": "https://www.amazon.com/dp/B0BBWM9RMV",
       "status": "OK",
       "sources": [
         {
           "file": "articles/best-overlanding-recovery-gear.html",
           "line": 300,
           "type": "asin",
-          "value": "B07VFKXZK5"
+          "value": "B0BBWM9RMV"
         }
       ]
     },
     {
-      "url": "https://www.amazon.com/dp/B07Y5VVNP5",
+      "url": "https://www.amazon.com/dp/B00H4PFQFI",
       "status": "OK",
       "sources": [
         {
           "file": "articles/best-overlanding-recovery-gear.html",
           "line": 306,
           "type": "asin",
-          "value": "B07Y5VVNP5"
+          "value": "B00H4PFQFI"
         }
       ]
     },
     {
-      "url": "https://www.amazon.com/dp/B06XXPDV7Q",
-      "status": "OK",
+      "url": "https://www.amazon.com/s?k=Bubba+Rope+Ultimate+Recovery+Kit&tag=trailbuiltove-20",
+      "status": "INCONCLUSIVE",
       "sources": [
         {
           "file": "articles/best-overlanding-recovery-gear.html",
           "line": 327,
-          "type": "asin",
-          "value": "B06XXPDV7Q"
+          "type": "amazon-search",
+          "value": "https://www.amazon.com/s?k=Bubba+Rope+Ultimate+Recovery+Kit&tag=trailbuiltove-20"
         }
       ]
     },
@@ -1038,6 +1120,18 @@
       ]
     },
     {
+      "url": "https://www.amazon.com/dp/B0BBWMXRSC",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-recovery-gear.html",
+          "line": 415,
+          "type": "asin",
+          "value": "B0BBWMXRSC"
+        }
+      ]
+    },
+    {
       "url": "https://images.unsplash.com/photo-1659430000545-84a3b2acff16?w=100&amp;q=80",
       "status": "OK",
       "sources": [
@@ -1046,6 +1140,30 @@
           "line": 420,
           "type": "image",
           "value": "https://images.unsplash.com/photo-1659430000545-84a3b2acff16?w=100&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0DK7PWLXN",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-shower-and-hygiene-solutions.html",
+          "line": 145,
+          "type": "asin",
+          "value": "B0DK7PWLXN"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B000J2Q0T4",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-shower-and-hygiene-solutions.html",
+          "line": 164,
+          "type": "asin",
+          "value": "B000J2Q0T4"
         }
       ]
     },
@@ -1062,14 +1180,26 @@
       ]
     },
     {
-      "url": "https://www.amazon.com/dp/B081HVLFQ3",
+      "url": "https://www.amazon.com/dp/B0GRB1BRP8",
       "status": "OK",
       "sources": [
         {
           "file": "articles/best-overlanding-solar-and-power.html",
           "line": 254,
           "type": "asin",
-          "value": "B081HVLFQ3"
+          "value": "B0GRB1BRP8"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0D7PPG25F",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-solar-and-power.html",
+          "line": 279,
+          "type": "asin",
+          "value": "B0D7PPG25F"
         }
       ]
     },
@@ -1086,6 +1216,18 @@
       ]
     },
     {
+      "url": "https://www.amazon.com/s?k=Battle+Born+100Ah+LiFePO4+lithium+battery&tag=trailbuiltove-20",
+      "status": "INCONCLUSIVE",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-solar-and-power.html",
+          "line": 327,
+          "type": "amazon-search",
+          "value": "https://www.amazon.com/s?k=Battle+Born+100Ah+LiFePO4+lithium+battery&tag=trailbuiltove-20"
+        }
+      ]
+    },
+    {
       "url": "https://www.amazon.com/s?k=Renogy+DCC50S+dual+battery+charger&amp;tag=trailbuiltove-20",
       "status": "INCONCLUSIVE",
       "sources": [
@@ -1094,6 +1236,18 @@
           "line": 351,
           "type": "amazon-search",
           "value": "https://www.amazon.com/s?k=Renogy+DCC50S+dual+battery+charger&amp;tag=trailbuiltove-20"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B081HVLFQ3",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-overlanding-solar-and-power.html",
+          "line": 462,
+          "type": "asin",
+          "value": "B081HVLFQ3"
         }
       ]
     },
@@ -1176,14 +1330,14 @@
       ]
     },
     {
-      "url": "https://www.amazon.com/s?k=MSR+TrailShot+Pocket-Sized+Water+Filter&tag=trailbuiltove-20",
-      "status": "INCONCLUSIVE",
+      "url": "https://www.amazon.com/dp/B0DB3S6NNZ",
+      "status": "OK",
       "sources": [
         {
           "file": "articles/best-overlanding-water-storage-and-filtration.html",
           "line": 187,
-          "type": "amazon-search",
-          "value": "https://www.amazon.com/s?k=MSR+TrailShot+Pocket-Sized+Water+Filter&tag=trailbuiltove-20"
+          "type": "asin",
+          "value": "B0DB3S6NNZ"
         }
       ]
     },
@@ -1212,26 +1366,26 @@
       ]
     },
     {
-      "url": "https://www.amazon.com/s?k=Warn+VR+EVO+12-S+winch&amp;tag=trailbuiltove-20",
-      "status": "INCONCLUSIVE",
+      "url": "https://www.amazon.com/dp/B07SGG78NH",
+      "status": "OK",
       "sources": [
         {
           "file": "articles/best-overlanding-winches.html",
           "line": 319,
-          "type": "amazon-search",
-          "value": "https://www.amazon.com/s?k=Warn+VR+EVO+12-S+winch&amp;tag=trailbuiltove-20"
+          "type": "asin",
+          "value": "B07SGG78NH"
         }
       ]
     },
     {
-      "url": "https://www.amazon.com/s?k=Rugged+Ridge+Trekker+winch+10500&amp;tag=trailbuiltove-20",
-      "status": "INCONCLUSIVE",
+      "url": "https://www.amazon.com/dp/B07PF4GZVR",
+      "status": "OK",
       "sources": [
         {
           "file": "articles/best-overlanding-winches.html",
           "line": 341,
-          "type": "amazon-search",
-          "value": "https://www.amazon.com/s?k=Rugged+Ridge+Trekker+winch+10500&amp;tag=trailbuiltove-20"
+          "type": "asin",
+          "value": "B07PF4GZVR"
         }
       ]
     },
@@ -1290,14 +1444,26 @@
       ]
     },
     {
-      "url": "https://www.amazon.com/dp/B09FF46FQ9",
+      "url": "https://www.amazon.com/dp/B0988916ZK",
       "status": "OK",
       "sources": [
         {
           "file": "articles/best-portable-power-stations-for-overlanding.html",
           "line": 223,
           "type": "asin",
-          "value": "B09FF46FQ9"
+          "value": "B0988916ZK"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B07SM5HBK1",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-portable-power-stations-for-overlanding.html",
+          "line": 242,
+          "type": "asin",
+          "value": "B07SM5HBK1"
         }
       ]
     },
@@ -1338,14 +1504,26 @@
       ]
     },
     {
-      "url": "https://www.amazon.com/dp/B005Z5U1O6",
+      "url": "https://www.amazon.com/dp/B07G3VVZ5K",
       "status": "OK",
       "sources": [
         {
           "file": "articles/best-skid-plates-for-off-road-trucks.html",
-          "line": 298,
+          "line": 241,
           "type": "asin",
-          "value": "B005Z5U1O6"
+          "value": "B07G3VVZ5K"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B07RRVJQV6",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/best-skid-plates-for-off-road-trucks.html",
+          "line": 279,
+          "type": "asin",
+          "value": "B07RRVJQV6"
         }
       ]
     },
@@ -1386,38 +1564,38 @@
       ]
     },
     {
-      "url": "https://www.amazon.com/dp/B07CZZ8C5W",
+      "url": "https://www.amazon.com/dp/B09PSKG7C3",
       "status": "OK",
       "sources": [
         {
           "file": "articles/best-vehicle-communication-gear-for-overlanding.html",
           "line": 205,
           "type": "asin",
-          "value": "B07CZZ8C5W"
+          "value": "B09PSKG7C3"
         }
       ]
     },
     {
-      "url": "https://www.amazon.com/dp/B0DJPSBDYN",
+      "url": "https://www.amazon.com/dp/B0BNLT88FD",
       "status": "OK",
       "sources": [
         {
           "file": "articles/best-vehicle-communication-gear-for-overlanding.html",
           "line": 206,
           "type": "asin",
-          "value": "B0DJPSBDYN"
+          "value": "B0BNLT88FD"
         }
       ]
     },
     {
-      "url": "https://www.amazon.com/s?k=Midland+MXT575+MicroMobile+GMRS+Radio&tag=trailbuiltove-20",
-      "status": "INCONCLUSIVE",
+      "url": "https://www.amazon.com/dp/B09PF9KCKH",
+      "status": "OK",
       "sources": [
         {
           "file": "articles/best-vehicle-communication-gear-for-overlanding.html",
           "line": 207,
-          "type": "amazon-search",
-          "value": "https://www.amazon.com/s?k=Midland+MXT575+MicroMobile+GMRS+Radio&tag=trailbuiltove-20"
+          "type": "asin",
+          "value": "B09PF9KCKH"
         }
       ]
     },
@@ -1434,18 +1612,6 @@
       ]
     },
     {
-      "url": "https://www.amazon.com/dp/B07RN86RTJ",
-      "status": "OK",
-      "sources": [
-        {
-          "file": "articles/best-winches-for-toyota-4runner.html",
-          "line": 182,
-          "type": "asin",
-          "value": "B07RN86RTJ"
-        }
-      ]
-    },
-    {
       "url": "https://images.unsplash.com/photo-1748447244916-5569f702fd9f?w=1200&amp;q=80",
       "status": "OK",
       "sources": [
@@ -1458,14 +1624,86 @@
       ]
     },
     {
-      "url": "https://www.amazon.com/dp/B09QS1BC5N",
+      "url": "https://www.amazon.com/dp/B0F39T4YNZ",
       "status": "OK",
       "sources": [
         {
           "file": "articles/ford-bronco-overland-build-guide.html",
-          "line": 202,
+          "line": 224,
           "type": "asin",
-          "value": "B09QS1BC5N"
+          "value": "B0F39T4YNZ"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B07JQWGTV7",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/ford-bronco-overland-build-guide.html",
+          "line": 230,
+          "type": "asin",
+          "value": "B07JQWGTV7"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B00C0W9AJS",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/ford-bronco-overland-build-guide.html",
+          "line": 251,
+          "type": "asin",
+          "value": "B00C0W9AJS"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B09HC85Y46",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/ford-bronco-overland-build-guide.html",
+          "line": 336,
+          "type": "asin",
+          "value": "B09HC85Y46"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B07KQLX46Q",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/ford-bronco-overland-build-guide.html",
+          "line": 411,
+          "type": "asin",
+          "value": "B07KQLX46Q"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B01N65INQP",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/ford-bronco-overland-build-guide.html",
+          "line": 435,
+          "type": "asin",
+          "value": "B01N65INQP"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0CRCVKNHR",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/ford-bronco-overland-build-guide.html",
+          "line": 484,
+          "type": "asin",
+          "value": "B0CRCVKNHR"
         }
       ]
     },
@@ -1488,6 +1726,18 @@
       ]
     },
     {
+      "url": "https://www.amazon.com/dp/B0GP98KPRH",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/ford-bronco-overland-build-guide.html",
+          "line": 573,
+          "type": "asin",
+          "value": "B0GP98KPRH"
+        }
+      ]
+    },
+    {
       "url": "https://images.unsplash.com/photo-1602038187785-a7289bd743f3?w=1200&amp;q=80",
       "status": "OK",
       "sources": [
@@ -1496,6 +1746,78 @@
           "line": 153,
           "type": "image",
           "value": "https://images.unsplash.com/photo-1602038187785-a7289bd743f3?w=1200&amp;q=80"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B07PCSXHQ4",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/jeep-wrangler-overland-build-guide.html",
+          "line": 228,
+          "type": "asin",
+          "value": "B07PCSXHQ4"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/s?k=Synergy+Manufacturing+suspension+lift+kit+Wrangler&tag=trailbuiltove-20",
+      "status": "INCONCLUSIVE",
+      "sources": [
+        {
+          "file": "articles/jeep-wrangler-overland-build-guide.html",
+          "line": 293,
+          "type": "amazon-search",
+          "value": "https://www.amazon.com/s?k=Synergy+Manufacturing+suspension+lift+kit+Wrangler&tag=trailbuiltove-20"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0DSGR65ZF",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/jeep-wrangler-overland-build-guide.html",
+          "line": 296,
+          "type": "asin",
+          "value": "B0DSGR65ZF"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B009F49NP0",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/jeep-wrangler-overland-build-guide.html",
+          "line": 299,
+          "type": "asin",
+          "value": "B009F49NP0"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/s?k=Jeep+Wrangler+skid+plates+AEV+belly+armor&tag=trailbuiltove-20",
+      "status": "INCONCLUSIVE",
+      "sources": [
+        {
+          "file": "articles/jeep-wrangler-overland-build-guide.html",
+          "line": 302,
+          "type": "amazon-search",
+          "value": "https://www.amazon.com/s?k=Jeep+Wrangler+skid+plates+AEV+belly+armor&tag=trailbuiltove-20"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/s?k=iKamper+Skycamp+Mini+rooftop+tent&tag=trailbuiltove-20",
+      "status": "INCONCLUSIVE",
+      "sources": [
+        {
+          "file": "articles/jeep-wrangler-overland-build-guide.html",
+          "line": 325,
+          "type": "amazon-search",
+          "value": "https://www.amazon.com/s?k=iKamper+Skycamp+Mini+rooftop+tent&tag=trailbuiltove-20"
         }
       ]
     },
@@ -1568,6 +1890,30 @@
           "line": 153,
           "type": "image",
           "value": "https://trailbuiltoverland.com/assets/toyota-tacoma-overland-build-guide-hero.png"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0H3CD1ZTX",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/toyota-tacoma-overland-build-guide.html",
+          "line": 206,
+          "type": "asin",
+          "value": "B0H3CD1ZTX"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/dp/B0CLMHTZTF",
+      "status": "OK",
+      "sources": [
+        {
+          "file": "articles/toyota-tacoma-overland-build-guide.html",
+          "line": 238,
+          "type": "asin",
+          "value": "B0CLMHTZTF"
         }
       ]
     }
@@ -1671,6 +2017,11 @@
         "line": 390
       },
       {
+        "url": "https://images.unsplash.com/photo-1533591380348-14193f1de18f?w=1200&amp;q=80",
+        "file": "articles/best-overlanding-camp-chairs-and-tables.html",
+        "line": 106
+      },
+      {
         "url": "https://images.unsplash.com/photo-1603398938378-e54eab446dde?w=1200&q=80",
         "file": "articles/best-overlanding-first-aid-kit-essentials.html",
         "line": 173
@@ -1744,6 +2095,11 @@
         "url": "https://images.unsplash.com/photo-1543365618-f4d2b8c2430d?w=100&amp;q=80",
         "file": "articles/best-overlanding-recovery-gear.html",
         "line": 444
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1533591380348-14193f1de18f?w=1200&amp;q=80",
+        "file": "articles/best-overlanding-shower-and-hygiene-solutions.html",
+        "line": 106
       },
       {
         "url": "https://images.unsplash.com/photo-1650785548702-15b6bf31be94?w=1200&amp;q=80",
