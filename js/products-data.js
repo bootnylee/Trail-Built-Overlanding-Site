@@ -36,8 +36,8 @@ window.TrailBuiltProducts = {
   "B004ETQ2LO": {
     asin: "B004ETQ2LO",
     name: "LifeStraw Personal Water Filter",
-    price: 70.00,
-    priceDisplay: "$70.00"
+    price: 66.55,
+    priceDisplay: "$66.55"
   },
   "B004M3BAQE": {
     asin: "B004M3BAQE",
@@ -96,8 +96,8 @@ window.TrailBuiltProducts = {
   "B07Y5VVNP5": {
     asin: "B07Y5VVNP5",
     name: "Fab Fours Black Steel Rear (DR19-T4450-1)",
-    price: 908.29,
-    priceDisplay: "$908.29"
+    price: 901.03,
+    priceDisplay: "$901.03"
   },
   "B006R7AW6M": {
     asin: "B006R7AW6M",
@@ -294,14 +294,14 @@ window.TrailBuiltProducts = {
   "B07T7GDV9B": {
     asin: "B07T7GDV9B",
     name: "Factor 55 Extreme Duty 3/8\" x 10\" Soft Shackle, 43,500 lbs. Minimum Breaking Strength",
-    price: 76.55,
-    priceDisplay: "$76.55"
+    price: 76.40,
+    priceDisplay: "$76.40"
   },
   "B07RFQVB9M": {
     asin: "B07RFQVB9M",
     name: "Renogy 200W Portable Solar Panel, 25% High Efficiency Solar Panel Kit with 20A C",
-    price: 322.99,
-    priceDisplay: "$322.99"
+    price: 318.99,
+    priceDisplay: "$318.99"
   },
   "B07RJ2GJGB": {
     asin: "B07RJ2GJGB",
@@ -318,8 +318,8 @@ window.TrailBuiltProducts = {
   "B07SJHVQTJ": {
     asin: "B07SJHVQTJ",
     name: "Rough Country Rock Sliders",
-    price: 771.47,
-    priceDisplay: "$771.47"
+    price: 786.86,
+    priceDisplay: "$786.86"
   },
   "B07VFKXZK5": {
     asin: "B07VFKXZK5",
@@ -390,8 +390,8 @@ window.TrailBuiltProducts = {
   "B09D5PW315": {
     asin: "B09D5PW315",
     name: "Ram X-Grip Phone Mount",
-    price: 223.43,
-    priceDisplay: "$223.43"
+    price: 219.99,
+    priceDisplay: "$219.99"
   },
   "B09FF46FQ9": {
     asin: "B09FF46FQ9",
@@ -562,4 +562,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-08-10T11:03:12.888Z";
+window.TrailBuiltLastSyncedAt = "2026-08-11T10:45:14.614Z";
