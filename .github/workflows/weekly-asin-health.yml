@@ -6,9 +6,13 @@ on:
     - cron: '0 8 * * 1'
   workflow_dispatch:
 
+permissions:
+  contents: read
+  issues: write
+
 jobs:
   asin-health:
-    name: Validate all ASINs and report dead links
+    name: Validate ASIN liveness and product mappings (report-only)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: Run ASIN validation (warn-only — never blocks)
+      - name: Run ASIN liveness validation (warn-only — never blocks)
         id: validate
         env:
           PAAPI_PARTNER_TAG: ${{ secrets.PAAPI_PARTNER_TAG }}
@@ -29,47 +33,78 @@ jobs:
           echo "exit_code=$?" >> $GITHUB_OUTPUT
         continue-on-error: true
 
-      - name: Check for dead ASINs and open issue
+      - name: Run ASIN mapping validation (warn-only — never blocks)
+        env:
+          CREATORS_CREDENTIAL_ID: ${{ secrets.CREATORS_CREDENTIAL_ID }}
+          CREATORS_CREDENTIAL_SECRET: ${{ secrets.CREATORS_CREDENTIAL_SECRET }}
+          PAAPI_PARTNER_TAG: ${{ secrets.PAAPI_PARTNER_TAG }}
+        run: python3 tools/validate_asin_mappings.py --output /tmp/asin_mapping_report.json
+        continue-on-error: true
+
+      - name: Report dead or mis-mapped ASINs in a weekly issue
         uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
-            let report;
+            const safe = (value) => String(value ?? '')
+              .replace(/\|/g, '\\|')
+              .replace(/[\r\n]+/g, ' ')
+              .trim();
+
+            let livenessReport = {};
+            let mappingReport = {};
             try {
-              report = JSON.parse(fs.readFileSync('/tmp/asin_report.json', 'utf8'));
+              livenessReport = JSON.parse(fs.readFileSync('/tmp/asin_report.json', 'utf8'));
             } catch (e) {
-              console.log('No report file found, skipping issue creation');
-              return;
+              console.log('No liveness report found; continuing with mapping report if available.');
+            }
+            try {
+              mappingReport = JSON.parse(fs.readFileSync('/tmp/asin_mapping_report.json', 'utf8'));
+            } catch (e) {
+              console.log('No mapping report found; continuing with liveness report if available.');
             }
 
-            const broken = (report.products || []).filter(p =>
+            const broken = (livenessReport.products || []).filter(p =>
               p.status === 'BROKEN' || p.status === 'NOT_FOUND' || p.http_status === 404
             );
+            const mappingFindings = (mappingReport.findings || []).filter(f =>
+              f.verdict === 'MISMATCH' || f.verdict === 'DEAD'
+            );
 
-            if (broken.length === 0) {
-              console.log('✅ All ASINs healthy — no issue needed');
+            if (broken.length === 0 && mappingFindings.length === 0) {
+              console.log('All conclusive ASIN liveness and mapping checks passed — no issue needed.');
               return;
             }
 
-            const lines = broken.map(p =>
-              `| \`${p.asin}\` | ${p.name || p.product || 'unknown'} | ${p.status || p.error || 'dead'} |`
+            const deadLines = broken.map(p =>
+              `| \`${safe(p.asin)}\` | ${safe(p.name || p.product || 'unknown')} | ${safe(p.status || p.error || 'dead')} |`
             );
+            const mappingLines = mappingFindings.map(f =>
+              `| ${safe(f.page || 'catalog')} | \`${safe(f.asin)}\` | ${safe(f.context_name || f.product || 'unknown')} | ${safe(f.amazon_title || 'not returned')} | ${f.score == null ? '—' : `${Math.round(f.score * 100)}%`} | ${safe(f.verdict)} |`
+            );
+            const total = broken.length + mappingFindings.length;
 
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `ASIN HEALTH: ${broken.length} dead ASIN(s) detected — ${new Date().toISOString().slice(0,10)}`,
+              title: `ASIN HEALTH: ${total} issue(s) detected — ${new Date().toISOString().slice(0, 10)}`,
               body: [
-                `## Weekly ASIN Health Check — Dead ASINs Found`,
-                ``,
-                `| ASIN | Product | Status |`,
-                `|------|---------|--------|`,
-                ...lines,
-                ``,
-                `**Action required:** Replace dead ASINs with live equivalents before next weekly publish.`,
-                ``,
+                '## Weekly ASIN Health Check',
+                '',
+                '### DEAD ASINs',
+                deadLines.length
+                  ? ['| ASIN | Product | Status |', '|------|---------|--------|', ...deadLines].join('\n')
+                  : 'No dead ASINs found by the existing liveness check.',
+                '',
+                '## MIS-MAPPED LINKS',
+                mappingLines.length
+                  ? ['| Page | ASIN | Page Context | Amazon Title | Score | Verdict |', '|------|------|--------------|--------------|-------|---------|', ...mappingLines].join('\n')
+                  : 'No mismatched or dead ASIN mappings found by the context-aware check.',
+                '',
+                '**Action required:** Review every reported dead or mis-mapped link before the next content publish. INCONCLUSIVE results are intentionally excluded and never block the workflow.',
+                '',
                 `Workflow run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
               ].join('\n'),
               labels: ['asin-health'],
             });
-            console.log(`⚠️ Opened issue for ${broken.length} dead ASIN(s)`);
+            console.log(`Opened issue for ${broken.length} dead and ${mappingFindings.length} mis-mapped/dead mapping finding(s).`);
