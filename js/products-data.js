@@ -36,8 +36,8 @@ window.TrailBuiltProducts = {
   "B004ETQ2LO": {
     asin: "B004ETQ2LO",
     name: "LifeStraw Personal Water Filter",
-    price: 66.55,
-    priceDisplay: "$66.55"
+    price: 69.47,
+    priceDisplay: "$69.47"
   },
   "B004M3BAQE": {
     asin: "B004M3BAQE",
@@ -114,8 +114,8 @@ window.TrailBuiltProducts = {
   "B00K150VAI": {
     asin: "B00K150VAI",
     name: "Smittybilt X2O 10,000 lb Waterproof Winch",
-    price: 611.00,
-    priceDisplay: "$611.00"
+    price: 599.00,
+    priceDisplay: "$599.00"
   },
   "B00FPECUZ4": {
     asin: "B00FPECUZ4",
@@ -138,8 +138,8 @@ window.TrailBuiltProducts = {
   "B015OL55VS": {
     asin: "B015OL55VS",
     name: "Adventure Medical Kits Trauma Pack Pro",
-    price: 265.06,
-    priceDisplay: "$265.06"
+    price: 263.58,
+    priceDisplay: "$263.58"
   },
   "B018LC0SMI": {
     asin: "B018LC0SMI",
@@ -300,8 +300,8 @@ window.TrailBuiltProducts = {
   "B07RFQVB9M": {
     asin: "B07RFQVB9M",
     name: "Renogy 200W Portable Solar Panel, 25% High Efficiency Solar Panel Kit with 20A C",
-    price: 318.99,
-    priceDisplay: "$318.99"
+    price: 229.99,
+    priceDisplay: "$229.99"
   },
   "B07RJ2GJGB": {
     asin: "B07RJ2GJGB",
@@ -318,8 +318,8 @@ window.TrailBuiltProducts = {
   "B07SJHVQTJ": {
     asin: "B07SJHVQTJ",
     name: "Rough Country Rock Sliders",
-    price: 786.86,
-    priceDisplay: "$786.86"
+    price: 790.21,
+    priceDisplay: "$790.21"
   },
   "B07VFKXZK5": {
     asin: "B07VFKXZK5",
@@ -390,8 +390,8 @@ window.TrailBuiltProducts = {
   "B09D5PW315": {
     asin: "B09D5PW315",
     name: "Ram X-Grip Phone Mount",
-    price: 219.99,
-    priceDisplay: "$219.99"
+    price: 229.99,
+    priceDisplay: "$229.99"
   },
   "B09FF46FQ9": {
     asin: "B09FF46FQ9",
@@ -562,4 +562,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-08-11T10:45:14.614Z";
+window.TrailBuiltLastSyncedAt = "2026-08-12T10:56:53.665Z";
