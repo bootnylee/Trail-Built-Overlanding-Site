@@ -1,245 +1,334 @@
 #!/usr/bin/env python3
-"""
-validate_asins.py — Pre-publish ASIN validation gate for Trail Built Overland.
+"""Validate Trail Built affiliate destinations against visible product labels.
 
-PART 2 of the affiliate-link guardrail system.
-
-Run this script as part of the Netlify build command (see netlify.toml).
-It scans every HTML article for product ASINs, verifies each one resolves
-to a live Amazon listing with a matching title, and exits with code 1
-(blocking the deploy) if any product fails.
+Coverage includes index.html, all article pages, and category pages. Direct Amazon
+ASIN links are validated against live Amazon titles. Approved Amazon search-link
+fallbacks are validated deterministically for an Amazon domain, the correct
+affiliate tag, and meaningful query-to-label overlap.
 
 Usage:
-  python3 tools/validate_asins.py [--warn-only] [--output report.json]
-
-Flags:
-  --warn-only     Print failures but exit 0 (don't block deploy)
-  --output FILE   Write JSON report to FILE (default: asin_validation_report.json)
-  --article FILE  Validate a single article file only
-  --skip-blank    Skip products with no ASIN (default: skip with a notice)
+  python3 tools/validate_asins.py [--warn-only] [--static-only] [--output FILE]
+  python3 tools/validate_asins.py --article articles/example.html
 """
+from __future__ import annotations
 
-import sys
-import os
-import re
-import json
 import argparse
+import html as html_module
+import json
+import re
+import sys
 import time
+from collections import defaultdict
+from datetime import datetime, timezone
+from html.parser import HTMLParser
 from pathlib import Path
-from datetime import datetime
+from urllib.parse import parse_qs, urlparse
 
-# Add tools dir to path so we can import asin_lookup
 sys.path.insert(0, str(Path(__file__).parent))
-from asin_lookup import verify_asin, ASINResult
+from asin_lookup import verify_asin
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Configuration
-# ─────────────────────────────────────────────────────────────────────────────
 REPO_ROOT = Path(__file__).parent.parent
-ARTICLES_DIR = REPO_ROOT / "articles"
-REPORT_FILE = REPO_ROOT / "asin_validation_report.json"
-
-# ASINs that are intentionally blank (products with no Amazon listing)
-# Add to this list when you knowingly have a product without an Amazon link
-KNOWN_BLANK_ASINS = set()  # e.g. {"ARB Deluxe Skid Plate", "BDS 55055 Skid Plate"}
-
-# Delay between Amazon requests (seconds) — be polite
-REQUEST_DELAY = 1.5
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Extract products from HTML
-# ─────────────────────────────────────────────────────────────────────────────
-def extract_products_from_html(html_path: Path) -> list[dict]:
-    """
-    Extract all product boxes from a buyer's guide HTML file.
-    Returns list of dicts with keys: article, product_name, asin, h4
-    """
-    content = html_path.read_text(encoding="utf-8")
-    products = []
-
-    # Match product boxes: <div class="product-box" data-product="..." data-asin="...">
-    # Handle both attribute orderings
-    pattern = re.compile(
-        r'<div[^>]*class="product-box"[^>]*data-product="([^"]*)"[^>]*data-asin="([^"]*)"',
-    )
-    pattern2 = re.compile(
-        r'<div[^>]*class="product-box"[^>]*data-asin="([^"]*)"[^>]*data-product="([^"]*)"',
-    )
-
-    for m in pattern.finditer(content):
-        products.append({
-            "article": html_path.name,
-            "product_name": m.group(1).strip(),
-            "asin": m.group(2).strip(),
-        })
-
-    for m in pattern2.finditer(content):
-        entry = {
-            "article": html_path.name,
-            "product_name": m.group(2).strip(),
-            "asin": m.group(1).strip(),
-        }
-        # Avoid duplicates
-        if not any(p["product_name"] == entry["product_name"] and
-                   p["article"] == entry["article"] for p in products):
-            products.append(entry)
-
-    # Also check product-box-image structure (Group 1 articles use this)
-    img_pattern = re.compile(
-        r'<div[^>]*class="product-box"[^>]*data-product="([^"]*)"[^>]*data-asin="([^"]*)"'
-        r'.*?<div class="product-box-image"><img[^>]*alt="([^"]*)"',
-        re.DOTALL
-    )
-    # (already captured above via data-product/data-asin)
-
-    return products
+AFFILIATE_TAG = "trailbuiltove-20"
+REQUEST_DELAY = 1.25
+ASIN_PATTERN = re.compile(r"/dp/([A-Z0-9]{10})(?:[/?#]|$)")
+VALID_ASIN = re.compile(r"^[A-Z0-9]{10}$")
+VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}
+IGNORED_WORDS = {
+    "a", "an", "the", "for", "and", "or", "in", "on", "of", "to", "with", "by", "at", "from",
+    "shop", "check", "view", "buy", "price", "amazon", "gear", "best", "overlanding", "kit", "set",
+}
+GENERIC_LABELS = {"check price", "check price on amazon", "view on amazon", "buy on amazon", "amazon"}
 
 
-def extract_all_products(articles_dir: Path, single_file: Path = None) -> list[dict]:
-    """Extract products from all buyer's guide articles."""
+class Node:
+    def __init__(self, tag: str, attrs: dict[str, str], parent: "Node | None"):
+        self.tag = tag.lower()
+        self.attrs = {key.lower(): value or "" for key, value in attrs.items()}
+        self.parent = parent
+        self.children: list[Node] = []
+        self.text: list[str] = []
+
+    @property
+    def classes(self) -> set[str]:
+        return set(self.attrs.get("class", "").split())
+
+    def descendants(self):
+        for child in self.children:
+            yield child
+            yield from child.descendants()
+
+    def text_content(self) -> str:
+        parts = list(self.text)
+        for child in self.children:
+            parts.append(child.text_content())
+        return clean(" ".join(parts))
+
+    def first_heading(self) -> str:
+        for node in self.descendants():
+            if node.tag in {"h3", "h4", "h5"}:
+                value = node.text_content()
+                if value:
+                    return value
+        return ""
+
+
+class DomBuilder(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.root = Node("document", {}, None)
+        self.stack = [self.root]
+
+    def handle_starttag(self, tag, attrs):
+        node = Node(tag, dict(attrs), self.stack[-1])
+        self.stack[-1].children.append(node)
+        if tag.lower() not in VOID_TAGS:
+            self.stack.append(node)
+
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)
+        if tag.lower() not in VOID_TAGS:
+            self.handle_endtag(tag)
+
+    def handle_endtag(self, tag):
+        tag = tag.lower()
+        for index in range(len(self.stack) - 1, 0, -1):
+            if self.stack[index].tag == tag:
+                del self.stack[index:]
+                return
+
+    def handle_data(self, data):
+        self.stack[-1].text.append(data)
+
+
+def clean(value: str) -> str:
+    return " ".join(html_module.unescape(value or "").split())
+
+
+def normalize(value: str) -> str:
+    return " ".join(re.sub(r"[^a-z0-9]+", " ", clean(value).lower()).split())
+
+
+def content_words(value: str) -> set[str]:
+    return {word for word in normalize(value).split() if len(word) > 1 and word not in IGNORED_WORDS}
+
+
+def anchor_destination(node: Node) -> tuple[str, str]:
+    href = html_module.unescape(node.attrs.get("href", ""))
+    asin_match = ASIN_PATTERN.search(href)
+    if asin_match:
+        return "asin", asin_match.group(1)
+    parsed = urlparse(href)
+    if parsed.hostname and parsed.hostname.endswith("amazon.com") and parsed.path == "/s":
+        return "search", href
+    return "", ""
+
+
+def node_is_inside(node: Node, class_name: str) -> bool:
+    current = node.parent
+    while current:
+        if class_name in current.classes:
+            return True
+        current = current.parent
+    return False
+
+
+def add_product(records: list[dict], seen: set, source_file: Path, label: str, destination_type: str, destination: str, context: str):
+    label = clean(label)
+    if not label or not destination:
+        return
+    key = (str(source_file.relative_to(REPO_ROOT)), label, destination_type, destination, context)
+    if key in seen:
+        return
+    seen.add(key)
+    records.append({
+        "file": str(source_file.relative_to(REPO_ROOT)),
+        "product": label,
+        "destination_type": destination_type,
+        "asin": destination if destination_type == "asin" else "",
+        "url": f"https://www.amazon.com/dp/{destination}" if destination_type == "asin" else destination,
+        "context": context,
+    })
+
+
+def extract_from_card(card: Node, source_file: Path, records: list[dict], seen: set):
+    label = clean(card.attrs.get("data-product", "")) or card.first_heading()
+    if not label:
+        return
+    nodes = [card, *card.descendants()]
+    for node in nodes:
+        data_asin = node.attrs.get("data-asin", "")
+        if VALID_ASIN.fullmatch(data_asin):
+            add_product(records, seen, source_file, label, "asin", data_asin, "product-card")
+        data_search = html_module.unescape(node.attrs.get("data-search-query", ""))
+        if data_search:
+            add_product(records, seen, source_file, label, "search", data_search, "product-card")
+        if node.tag == "a":
+            kind, value = anchor_destination(node)
+            if kind:
+                add_product(records, seen, source_file, label, kind, value, "product-card")
+
+
+def extract_from_html(source_file: Path) -> list[dict]:
+    parser = DomBuilder()
+    parser.feed(source_file.read_text(encoding="utf-8"))
+    records: list[dict] = []
+    seen: set = set()
+    all_nodes = [parser.root, *parser.root.descendants()]
+
+    for node in all_nodes:
+        if node.tag == "div" and ({"product-box", "product-card"} & node.classes):
+            extract_from_card(node, source_file, records, seen)
+
+    for node in all_nodes:
+        if node.tag != "div" or "sidebar-product" not in node.classes:
+            continue
+        for child in node.descendants():
+            if child.tag != "a":
+                continue
+            kind, value = anchor_destination(child)
+            if kind:
+                add_product(records, seen, source_file, child.text_content(), kind, value, "sidebar")
+
+    for node in all_nodes:
+        if node.tag != "a" or node_is_inside(node, "product-box") or node_is_inside(node, "product-card") or node_is_inside(node, "sidebar-product"):
+            continue
+        kind, value = anchor_destination(node)
+        if not kind:
+            continue
+        label = node.text_content()
+        if normalize(label) in GENERIC_LABELS or len(content_words(label)) < 2:
+            continue
+        add_product(records, seen, source_file, label, kind, value, "standalone-promo")
+
+    return records
+
+
+def source_files(single_file: str | None) -> list[Path]:
     if single_file:
-        return extract_products_from_html(single_file)
+        path = Path(single_file)
+        return [path if path.is_absolute() else REPO_ROOT / path]
+    files = [REPO_ROOT / "index.html"]
+    files.extend(sorted((REPO_ROOT / "articles").glob("*.html")))
+    files.extend(sorted((REPO_ROOT / "categories").glob("*.html")))
+    return [path for path in files if path.exists()]
 
-    all_products = []
-    for html_file in sorted(articles_dir.glob("best-*.html")):
-        all_products.extend(extract_products_from_html(html_file))
-    return all_products
+
+def validate_search(record: dict) -> tuple[bool, str, str]:
+    parsed = urlparse(record["url"])
+    query = parse_qs(parsed.query)
+    target = (query.get("k") or [""])[0]
+    tag = (query.get("tag") or [""])[0]
+    if not (parsed.scheme == "https" and parsed.hostname and parsed.hostname.endswith("amazon.com") and parsed.path == "/s"):
+        return False, "search destination is not an Amazon product search", target
+    if tag != AFFILIATE_TAG:
+        return False, f"wrong affiliate tag '{tag or 'missing'}'", target
+    expected_words = content_words(record["product"])
+    query_words = content_words(target)
+    overlap = len(expected_words & query_words)
+    required = 1 if len(expected_words) <= 2 else 2
+    if overlap < required:
+        return False, f"search query does not sufficiently match visible product label (overlap {overlap}/{len(expected_words)})", target
+    return True, "targeted Amazon search query matches visible product label", target
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Validation
-# ─────────────────────────────────────────────────────────────────────────────
-def validate_products(products: list[dict], warn_only: bool = False) -> dict:
-    """
-    Validate all products. Returns a report dict.
-    """
-    results = {
-        "timestamp": datetime.utcnow().isoformat() + "Z",
-        "total": len(products),
+def validate_records(records: list[dict], static_only: bool) -> dict:
+    report = {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "scope": "site-wide HTML product cards, sidebars, and named promotional links",
+        "total": len(records),
+        "direct_asins": sum(record["destination_type"] == "asin" for record in records),
+        "search_fallbacks": sum(record["destination_type"] == "search" for record in records),
         "passed": 0,
         "failed": 0,
-        "skipped_blank": 0,
-        "failures": [],
-        "passes": [],
-        "skipped": [],
+        "title_mismatches": 0,
+        "dead_asins": 0,
+        "search_destination_issues": 0,
+        "unverified_live_checks": 0,
+        "products": [],
     }
-
-    print(f"\n{'='*60}")
-    print(f"ASIN Validation Gate — Trail Built Overland")
-    print(f"{'='*60}")
-    print(f"Checking {len(products)} products across {len(set(p['article'] for p in products))} articles...")
-    print(f"Mode: {'warn-only' if warn_only else 'blocking'}\n")
-
-    for i, product in enumerate(products):
-        asin = product["asin"]
-        name = product["product_name"]
-        article = product["article"]
-
-        # Skip blank ASINs
-        if not asin:
-            if name in KNOWN_BLANK_ASINS:
-                print(f"  ~ [{article}] {name}: blank ASIN (known, skipped)")
+    for index, record in enumerate(records):
+        result = dict(record)
+        if record["destination_type"] == "search":
+            ok, issue, query = validate_search(record)
+            result.update({"status": "PASS" if ok else "FAIL", "issue": issue, "search_query": query})
+            if ok:
+                report["passed"] += 1
             else:
-                print(f"  ~ [{article}] {name}: no ASIN (needs manual review)")
-            results["skipped_blank"] += 1
-            results["skipped"].append({"article": article, "product": name, "reason": "no_asin"})
+                report["failed"] += 1
+                report["search_destination_issues"] += 1
+            report["products"].append(result)
             continue
 
-        # Validate
-        result = verify_asin(asin, name)
+        if static_only:
+            result.update({"status": "UNVERIFIED", "issue": "static-only run: Amazon title not requested"})
+            report["unverified_live_checks"] += 1
+            report["products"].append(result)
+            continue
 
-        if result.ok:
-            print(f"  ✓ [{article}] {name} ({asin}) → {(result.amazon_title or '')[:50]}")
-            results["passed"] += 1
-            results["passes"].append({
-                "article": article,
-                "product": name,
-                "asin": asin,
-                "amazon_title": result.amazon_title,
-                "match_score": result.match_score,
-                "source": result.source,
-            })
+        live = verify_asin(record["asin"], record["product"])
+        result.update({
+            "status": "PASS" if live.ok else "FAIL",
+            "amazon_title": live.amazon_title,
+            "match_score": live.match_score,
+            "source": live.source,
+            "issue": live.error or "",
+        })
+        if live.ok:
+            report["passed"] += 1
         else:
-            issue = []
-            if not result.resolves:
-                issue.append(f"ASIN does not resolve ({result.error or 'not found'})")
-            elif not result.title_match:
-                issue.append(
-                    f"title mismatch (score {result.match_score:.0%}): "
-                    f"expected '{name}' but got '{result.amazon_title or 'N/A'}'"
-                )
-            issue_str = "; ".join(issue)
-            print(f"  ✗ [{article}] {name} ({asin}): {issue_str}")
-            results["failed"] += 1
-            results["failures"].append({
-                "article": article,
-                "product": name,
-                "asin": asin,
-                "amazon_title": result.amazon_title,
-                "match_score": result.match_score,
-                "issue": issue_str,
-                "source": result.source,
-            })
-
-        # Polite delay between requests
-        if i < len(products) - 1:
+            report["failed"] += 1
+            if not live.resolves:
+                report["dead_asins"] += 1
+                result["issue"] = live.error or "ASIN did not resolve"
+            elif not live.title_match:
+                report["title_mismatches"] += 1
+                result["issue"] = f"title mismatch: expected '{record['product']}' but got '{live.amazon_title or 'N/A'}'"
+        report["products"].append(result)
+        if index < len(records) - 1:
             time.sleep(REQUEST_DELAY)
+    return report
 
-    return results
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Main
-# ─────────────────────────────────────────────────────────────────────────────
-def main():
-    parser = argparse.ArgumentParser(description="Validate affiliate ASINs before deploy")
-    parser.add_argument("--warn-only", action="store_true",
-                        help="Print failures but exit 0 (don't block deploy)")
-    parser.add_argument("--output", default=str(REPORT_FILE),
-                        help="Path to write JSON report")
-    parser.add_argument("--article", default=None,
-                        help="Validate a single article file only")
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Validate affiliate product destinations across Trail Built")
+    parser.add_argument("--warn-only", action="store_true", help="Report failures without a nonzero exit code")
+    parser.add_argument("--static-only", action="store_true", help="Validate extraction and search links without live Amazon title lookups")
+    parser.add_argument("--output", default=str(REPO_ROOT / "asin_validation_report.json"), help="JSON report path")
+    parser.add_argument("--article", help="Validate one HTML file relative to repository root")
     args = parser.parse_args()
 
-    single_file = Path(args.article) if args.article else None
-    products = extract_all_products(ARTICLES_DIR, single_file)
+    files = source_files(args.article)
+    records = [record for source_file in files for record in extract_from_html(source_file)]
+    report = validate_records(records, static_only=args.static_only)
+    report["files_checked"] = [str(path.relative_to(REPO_ROOT)) for path in files]
 
-    if not products:
-        print("No products found to validate.")
-        sys.exit(0)
+    output = Path(args.output)
+    if not output.is_absolute():
+        output = REPO_ROOT / output
+    output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
 
-    report = validate_products(products, warn_only=args.warn_only)
+    print("\nAffiliate Product-Destination Consistency Check")
+    print("=" * 56)
+    print(f"Files checked:      {len(files)}")
+    print(f"Product slots:      {report['total']}")
+    print(f"Direct ASINs:       {report['direct_asins']}")
+    print(f"Search fallbacks:   {report['search_fallbacks']}")
+    print(f"Passed:             {report['passed']}")
+    print(f"Failed:             {report['failed']}")
+    print(f"Title mismatches:   {report['title_mismatches']}")
+    print(f"Dead ASINs:         {report['dead_asins']}")
+    print(f"Search-link issues: {report['search_destination_issues']}")
+    print(f"Unverified:         {report['unverified_live_checks']}")
+    print(f"Report:             {output}")
 
-    # Write report
-    report_path = Path(args.output)
-    report_path.write_text(json.dumps(report, indent=2))
+    if report["failed"]:
+        print("\nFailures:")
+        for item in report["products"]:
+            if item["status"] == "FAIL":
+                print(f"  - [{item['file']}] {item['product']} -> {item.get('asin') or item.get('url')}: {item['issue']}")
 
-    # Print summary
-    print(f"\n{'='*60}")
-    print(f"SUMMARY")
-    print(f"{'='*60}")
-    print(f"  Passed:  {report['passed']}")
-    print(f"  Failed:  {report['failed']}")
-    print(f"  Skipped: {report['skipped_blank']} (blank ASINs)")
-    print(f"  Report:  {report_path}")
-
-    if report["failures"]:
-        print(f"\n⚠  {report['failed']} product(s) failed validation:")
-        for f in report["failures"]:
-            print(f"   • [{f['article']}] {f['product']} ({f['asin']}): {f['issue']}")
-
-        if args.warn_only:
-            print("\n⚠  warn-only mode: deploy proceeding despite failures.")
-            sys.exit(0)
-        else:
-            print("\n✗  Deploy BLOCKED. Fix the above issues before publishing.")
-            print("   To override (not recommended): add --warn-only flag to the build command.")
-            sys.exit(1)
-    else:
-        print(f"\n✓  All products validated. Deploy proceeding.")
-        sys.exit(0)
+    return 0 if args.warn_only or report["failed"] == 0 else 1
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

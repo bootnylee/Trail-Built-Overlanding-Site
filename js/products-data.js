@@ -554,6 +554,192 @@ window.TrailBuiltProducts = {
     name: "ARB Summit Front Bumper",
     price: 0.00,
     priceDisplay: "Check price on Amazon"
+  },
+  "B00042KQ58": {
+    asin: "B00042KQ58",
+    name: "Hi-Lift Jack Off-Road Kit ORK",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B0009XAMTM": {
+    asin: "B0009XAMTM",
+    name: "Yakima LoadWarrior Medium Sized Heavy Duty Steel Cargo Basket Roof Rack with Universal Mounting Hardware for All Yakima StreamLine Crossbars, Black",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B006ERS6OU": {
+    asin: "B006ERS6OU",
+    name: "GSI Camper Pinnacle",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B00A960IMU": {
+    asin: "B00A960IMU",
+    name: "BFGoodrich Mud Terrain T/A KM3 Radial Car Tire for Light Trucks, SUVs, and Crossovers, 37x12.50R17/D 124Q | Light Truck Mud Terrain All Season Traction 124Q Rated D (8 Ply) Radial Construction Raised Black Letters Tire",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B00TOX6UM6": {
+    asin: "B00TOX6UM6",
+    name: "Sawyer Products SP105 MINI Water Filtration System, Single, Black",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B01DJXIT7U": {
+    asin: "B01DJXIT7U",
+    name: "BFGoodrich All-Terrain T/A KO2 LT265/75R16 123R",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B06XS8PXJB": {
+    asin: "B06XS8PXJB",
+    name: "Western Mountaineering, MegaLite Sleeping Bag: 30F Down, Navy Blue, 6ft/Right Zip",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B073PLJ59J": {
+    asin: "B073PLJ59J",
+    name: "BFGoodrich All Terrain T/A KO2 Radial Car Tire for Light Trucks, SUVs, and Crossovers, 35x12.50R17/E 121R LRE | Light Truck All Terrain All Weather Traction 121R Rated E (10 Ply) Radial Construction Raised White Letters Tire",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B073V6WK74": {
+    asin: "B073V6WK74",
+    name: "Baja Designs Squadron Pro Black LED Light Pod Pair - 2 PCS LED with Wiring Harness (Spot; Clear)",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B073X696GN": {
+    asin: "B073X696GN",
+    name: "ARB Element 63Qts Fridge/Freezer 10810602 (ARB Elements Weatherproof 63 Quart Fridge)",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B074KS63SC": {
+    asin: "B074KS63SC",
+    name: "Falken FALKEN WILDPEAK MT01 All- Season Radial Tire-LT285/70R17 121/118Q E/10 121Q 10-ply",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B07JCD9CMN": {
+    asin: "B07JCD9CMN",
+    name: "Genuine Toyota 4Runner TRD Skid Plate PTR60-89190. 2014-2019 4Runner",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B07THMM1CK": {
+    asin: "B07THMM1CK",
+    name: "ICECO GO20 Dual Zone 12V Refrigerator, Portable Fridge Freezer with SECOP Compressor, DC 12/24V, AC 100-240V, 0\u2109 to 50\u2109, Electric Cooler for Truck, RV, SUV, Outdoor, Driving, 21 Quart, Gray",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B082T13CGL": {
+    asin: "B082T13CGL",
+    name: "Dometic CFX5 \u2013 Portable Fridge with Compressor \u2013 12 V/24 V, 110 \u2013 240 V \u2013 Small Electric Fridge for Car, Beach \u2013 Mini Fridge, Refrigerator",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B083G3NBNZ": {
+    asin: "B083G3NBNZ",
+    name: "Dometic CFX3 55-Liter Portable Refrigerator and Freezer with ICE Maker, Powered by AC/DC or Solar",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B085MM9B2D": {
+    asin: "B085MM9B2D",
+    name: "Dometic CFX3 35 Portable Refrigerator and Freezer - 36L - Powered by AC/DC or Solar Portable Refrigerator, Smokey Gray",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B088QSP3RD": {
+    asin: "B088QSP3RD",
+    name: "Cali Raised LED Lo Pro Ditch Light Kit, 27W Side Pods, for 4Runner 2010-24",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B08FX3S5LF": {
+    asin: "B08FX3S5LF",
+    name: "Goal Zero Yeti Portable Power Station - Yeti 1500X w/ 1,516 Watt Hours Battery Capacity, USB Ports & AC Inverter - Rechargeable Solar Generator for Camping, Travel, Outdoor Events, Off-Grid & Home Use | 10 Versatile Ports, AC Inverter & USB Ports, Anodized Aluminum Enclosure, 600W MPPT Solar Charging, for Camping & Multi Use",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B08ZJWK7HT": {
+    asin: "B08ZJWK7HT",
+    name: "Rhino USA Kinetic Recovery Rope, 1in x 30ft - Heavy Duty Snatch Strap | Shock-Absorbing Stretch for Smoother Pulls. Tow Rope/Snatch Strap for Truck, Jeep, UTV & ATV Off-Road Recovery. Gray",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B093BB5JKF": {
+    asin: "B093BB5JKF",
+    name: "Renogy Smart 50A DC-DC MPPT Battery Charger 12V, Dual Input for RVs/Vans | 50V/660W solar input,AGM/Gel/Flooded/Li, MPPT 99% tracking,alternator+dual input,overvoltage/short protection,negative ground",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B096ST3VMS": {
+    asin: "B096ST3VMS",
+    name: "Goal Zero Yeti Portable Power Station - Yeti 1000X w/ 983 Watt Hours Battery Capacity, USB Ports & AC Inverter - Rechargeable Solar Generator for Camping, Travel, Outdoor Events, Off-Grid & Home Use | 7 Versatile Ports, AC Inverter & USB Ports, Anodized Aluminum Enclosure, 600W MPPT Solar Charge Controller, for Multi Use",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B0999TVQ4W": {
+    asin: "B0999TVQ4W",
+    name: "Rough Country 2\\\" Lift Kit for Ford Bronco 2021-2025 - Run up to 35\\\" Tires, Easy Bolt-on Install",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B09HZDWRLH": {
+    asin: "B09HZDWRLH",
+    name: "Bestop 5687317 Trektop - '21-Current Bronco 4-Door (Black Twill)",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B09Y27LDF8": {
+    asin: "B09Y27LDF8",
+    name: "Rough Country Rock Sliders for 2007-2018 Jeep Wrangler JK | 4-Door - 90800",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B0B5BC5HV6": {
+    asin: "B0B5BC5HV6",
+    name: "AEV EX Front Bumper (High Flare) for 2018-2026 JL Wrangler and JT Gladiator - High Clearance, Hot Stamped Boron Steel with Superior Winch Access and Visibility",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B0BKTSX6NC": {
+    asin: "B0BKTSX6NC",
+    name: "OME BP51 4Runner (10-23) 2-3 inch Lift Kit Old Man Emu Suspension OME4R-5GEN-BP51 Fits 5th Gen Toyota 4Runner (Heavy 400+ lbs.)",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B0BTMWT1C1": {
+    asin: "B0BTMWT1C1",
+    name: "TeraFlex 1155400 Bronco Front Spacer Leveling Kit",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B0BZ6HDCQ1": {
+    asin: "B0BZ6HDCQ1",
+    name: "Fox Racing 88306213 Elite Coil Over Shocks",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B0CBNKJXQR": {
+    asin: "B0CBNKJXQR",
+    name: "Mini Skycamp 3.0 by iKamper",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B0DT9W7CYY": {
+    asin: "B0DT9W7CYY",
+    name: "Big Agnes Copper Spur UL - Backpacking Tent",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
+  },
+  "B0GQJXQYXJ": {
+    asin: "B0GQJXQYXJ",
+    name: "Bilstein Set of Front & Rear B8 5100 Series Shocks Compatible with 2016-2023 Tacoma with 0-1\\\" Rear Lift | Provides 0-1\\\" Front Lift | Easy Installation | Built to Last",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
   }
 };
 /**

@@ -35,9 +35,22 @@ from typing import Optional
 # ─────────────────────────────────────────────────────────────────────────────
 # Configuration — set these environment variables to enable Creators API
 # ─────────────────────────────────────────────────────────────────────────────
-CREATORS_API_CLIENT_ID     = os.environ.get("CREATORS_API_CLIENT_ID", "")      # ← YOUR CLIENT ID
-CREATORS_API_CLIENT_SECRET = os.environ.get("CREATORS_API_CLIENT_SECRET", "")  # ← YOUR CLIENT SECRET
-CREATORS_API_PARTNER_TAG   = os.environ.get("CREATORS_API_PARTNER_TAG", "trailbuiltove-20")
+# Accept both the validator-specific names and the credentials already used by
+# the scheduled price-sync workflow. This keeps live title validation on the
+# Amazon Creators API rather than falling back to bot-blocked page scraping.
+CREATORS_API_CLIENT_ID = (
+    os.environ.get("CREATORS_API_CLIENT_ID", "")
+    or os.environ.get("CREATORS_CREDENTIAL_ID", "")
+)
+CREATORS_API_CLIENT_SECRET = (
+    os.environ.get("CREATORS_API_CLIENT_SECRET", "")
+    or os.environ.get("CREATORS_CREDENTIAL_SECRET", "")
+)
+CREATORS_API_PARTNER_TAG = (
+    os.environ.get("CREATORS_API_PARTNER_TAG", "")
+    or os.environ.get("PAAPI_PARTNER_TAG", "")
+    or "trailbuiltove-20"
+)
 CREATORS_API_MARKETPLACE   = os.environ.get("CREATORS_API_MARKETPLACE", "www.amazon.com")
 
 # OAuth 2.0 token endpoint (NA region — US, CA, MX, BR)
@@ -108,6 +121,9 @@ class ASINResult:
 def _normalize(text: str) -> str:
     text = text.lower()
     text = re.sub(r'[^a-z0-9\s]', ' ', text)
+    # Normalize common editorial shorthand to Amazon-title vocabulary.
+    text = re.sub(r'\bbfg\b', 'bfgoodrich', text)
+    text = re.sub(r'\b(\d+)s\b', r'\1', text)
     return re.sub(r'\s+', ' ', text).strip()
 
 
@@ -126,7 +142,8 @@ def _title_matches(expected: str, amazon_title: str,
     amz_norm = _normalize(amazon_title)
 
     stop = {'a', 'an', 'the', 'for', 'and', 'or', 'in', 'on', 'of', 'to',
-            'with', 'lb', 'lbs', 'by', 'at', 'from'}
+            'with', 'lb', 'lbs', 'by', 'at', 'from', 'shop', 'check', 'view',
+            'buy', 'price', 'amazon'}
     exp_words = set(w for w in exp_norm.split() if len(w) > 1 and w not in stop)
     amz_words = set(w for w in amz_norm.split() if len(w) > 1 and w not in stop)
 

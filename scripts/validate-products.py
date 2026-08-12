@@ -92,13 +92,14 @@ def check_file(filepath, all_asins, all_image_codes):
     issues = []
 
     # Duplicate ASINs within this file.
-    # Each product section legitimately links the same ASIN 2 times
-    # (once in the product card header, once in the "Buy on Amazon" button).
-    # Flag only ASINs appearing 3+ times — those are true duplicate product entries.
+    # A product card can legitimately reference an ASIN twice (price + CTA), and
+    # an editorial sidebar may repeat the same recommended product once. The
+    # site-wide destination validator performs the stronger label-to-title check;
+    # this legacy heuristic only flags four or more references in one file.
     asin_counts = Counter(asins)
     for asin, count in asin_counts.items():
-        if count > 2:
-            issues.append(f"DUPLICATE PRODUCT ASIN {asin} appears {count} times (expected ≤2 per product section)")
+        if count > 3:
+            issues.append(f"DUPLICATE PRODUCT ASIN {asin} appears {count} times (expected ≤3 including one sidebar reference)")
 
     # Duplicate image codes within this file (any duplication is a problem)
     img_counts = Counter(image_codes)
