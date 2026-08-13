@@ -48,8 +48,8 @@ window.TrailBuiltProducts = {
   "B0050DI9YQ": {
     asin: "B0050DI9YQ",
     name: "ARB CKMTA12 '12V' On-Board Twin High Performance Air Compressor, Ideal for Air Lockers",
-    price: 649.99,
-    priceDisplay: "$649.99"
+    price: 659.00,
+    priceDisplay: "$659.00"
   },
   "B006QF3TW4": {
     asin: "B006QF3TW4",
@@ -138,8 +138,8 @@ window.TrailBuiltProducts = {
   "B015OL55VS": {
     asin: "B015OL55VS",
     name: "Adventure Medical Kits Trauma Pack Pro",
-    price: 263.58,
-    priceDisplay: "$263.58"
+    price: 256.41,
+    priceDisplay: "$256.41"
   },
   "B018LC0SMI": {
     asin: "B018LC0SMI",
@@ -300,8 +300,8 @@ window.TrailBuiltProducts = {
   "B07RFQVB9M": {
     asin: "B07RFQVB9M",
     name: "Renogy 200W Portable Solar Panel, 25% High Efficiency Solar Panel Kit with 20A C",
-    price: 229.99,
-    priceDisplay: "$229.99"
+    price: 287.99,
+    priceDisplay: "$287.99"
   },
   "B07RJ2GJGB": {
     asin: "B07RJ2GJGB",
@@ -366,8 +366,8 @@ window.TrailBuiltProducts = {
   "B08CRJYJ22": {
     asin: "B08CRJYJ22",
     name: "Dometic CFX3 55 fridge",
-    price: 179.99,
-    priceDisplay: "$179.99"
+    price: 159.99,
+    priceDisplay: "$159.99"
   },
   "B08CS1JXH6": {
     asin: "B08CS1JXH6",
@@ -462,8 +462,8 @@ window.TrailBuiltProducts = {
   "B0D7PPG25F": {
     asin: "B0D7PPG25F",
     name: "Jackery Explorer 1000 v2 Portable Power Station, 1070Wh LiFePO4 Battery, 1500W AC",
-    price: 489.00,
-    priceDisplay: "$489.00"
+    price: 499.00,
+    priceDisplay: "$499.00"
   },
   "B0C8484883": {
     asin: "B0C8484883",
@@ -480,8 +480,8 @@ window.TrailBuiltProducts = {
   "B0CD9QV2MN": {
     asin: "B0CD9QV2MN",
     name: "Roof-Top Tent: iKamper Skycamp Mini",
-    price: 525.95,
-    priceDisplay: "$525.95"
+    price: 440.00,
+    priceDisplay: "$440.00"
   },
   "B0CKKBZH85": {
     asin: "B0CKKBZH85",
@@ -498,8 +498,8 @@ window.TrailBuiltProducts = {
   "B0CNPHD4VY": {
     asin: "B0CNPHD4VY",
     name: "Battle Born 100Ah LiFePO4 Battery",
-    price: 219.99,
-    priceDisplay: "$219.99"
+    price: 174.94,
+    priceDisplay: "$174.94"
   },
   "B0DB3S6NNZ": {
     asin: "B0DB3S6NNZ",
@@ -528,8 +528,8 @@ window.TrailBuiltProducts = {
   "B0GF9XC4HC": {
     asin: "B0GF9XC4HC",
     name: "Fox 2.0 Performance Series Shocks",
-    price: 408.98,
-    priceDisplay: "$408.98"
+    price: 481.68,
+    priceDisplay: "$481.68"
   },
   "B004P2Q5O6": {
     asin: "B004P2Q5O6",
@@ -748,4 +748,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-08-12T10:56:53.665Z";
+window.TrailBuiltLastSyncedAt = "2026-08-13T10:57:26.701Z";
