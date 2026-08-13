@@ -471,12 +471,6 @@ window.TrailBuiltProducts = {
     price: 78.95,
     priceDisplay: "$78.95"
   },
-  "B0H1HQBN5C": {
-    asin: "B0H1HQBN5C",
-    name: "MONOKING Roof Rack Cargo Basket for Double Cab 2018-2026 Jeep Wrangler JL JLU 2 ",
-    price: 259.99,
-    priceDisplay: "$259.99"
-  },
   "B0CD9QV2MN": {
     asin: "B0CD9QV2MN",
     name: "Roof-Top Tent: iKamper Skycamp Mini",

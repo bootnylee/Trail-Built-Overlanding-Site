@@ -58,6 +58,30 @@ GENERIC_CONTEXTS = {
     "click here", "learn more", "shop now", "view on amazon", "view price",
 }
 
+# Direct Amazon links on vehicle-specific build guides must not resolve to a
+# title that expressly names a different vehicle platform. Generic accessories
+# remain valid when the Amazon title names no vehicle at all.
+BUILD_GUIDE_VEHICLES = {
+    "articles/4runner-5th-gen-overland-build-guide.html": "4runner",
+    "articles/ford-bronco-overland-build-guide.html": "bronco",
+    "articles/jeep-wrangler-overland-build-guide.html": "wrangler",
+    "articles/toyota-tacoma-overland-build-guide.html": "tacoma",
+}
+VEHICLE_TITLE_ALIASES = {
+    "4runner": ("4runner", "4 runner"),
+    "bronco": ("bronco",),
+    "wrangler": ("wrangler", "jlu", "jl jeep", "jk jeep"),
+    "tacoma": ("tacoma",),
+    "tundra": ("tundra",),
+    "gladiator": ("gladiator",),
+    "ranger": ("ranger",),
+    "f150": ("f150", "f 150"),
+    "f250": ("f250", "f 250"),
+    "colorado": ("colorado",),
+    "canyon": ("canyon",),
+    "ram": ("ram 1500", "ram 2500", "ram truck"),
+}
+
 
 def clean_text(value: str) -> str:
     return re.sub(r"\s+", " ", html.unescape(value or "")).strip()
@@ -73,6 +97,26 @@ def canonical_token(token: str) -> str:
     # Singularize only simple English plurals; it prevents title variants such
     # as "Pillow" versus "Pillows" from masking a valid brand/product match.
     return token[:-1] if len(token) > 3 and token.endswith("s") and not token.endswith("ss") else token
+
+
+def title_vehicle_context(title: str) -> set[str]:
+    """Return explicit vehicle platforms named in an Amazon product title."""
+    normalised_title = normalise(title)
+    found: set[str] = set()
+    for vehicle, aliases in VEHICLE_TITLE_ALIASES.items():
+        for alias in aliases:
+            if re.search(rf"\b{re.escape(alias)}\b", normalised_title):
+                found.add(vehicle)
+                break
+    return found
+
+
+def vehicle_fitment_mismatch(page: str, title: str) -> tuple[str, set[str], bool]:
+    """Flag only explicit cross-platform titles on a vehicle-specific build guide."""
+    expected_vehicle = BUILD_GUIDE_VEHICLES.get(page, "")
+    title_vehicles = title_vehicle_context(title)
+    mismatch = bool(expected_vehicle and title_vehicles and expected_vehicle not in title_vehicles)
+    return expected_vehicle, title_vehicles, mismatch
 
 
 def meaningful_context(value: str) -> bool:
@@ -446,6 +490,8 @@ def main() -> int:
             "anchor_text": link["anchor_text"],
             "nearest_heading": link["nearest_heading"],
             "product_card_title": link["product_card_title"],
+            "expected_vehicle": "",
+            "amazon_title_vehicles": [],
             "amazon_title": lookup.title,
             "score": None,
             "matched_tokens": [],
@@ -454,7 +500,18 @@ def main() -> int:
             "detail": lookup.detail,
         }
         if lookup.verdict == "LIVE":
-            if not meaningful_context(context_name):
+            expected_vehicle, title_vehicles, cross_platform = vehicle_fitment_mismatch(
+                link["page"], lookup.title or ""
+            )
+            finding["expected_vehicle"] = expected_vehicle
+            finding["amazon_title_vehicles"] = sorted(title_vehicles)
+            if cross_platform:
+                finding["verdict"] = "MISMATCH"
+                finding["detail"] = (
+                    f"Vehicle-fitment mismatch: the {expected_vehicle} build guide links to an Amazon title "
+                    f"explicitly naming {', '.join(sorted(title_vehicles))}"
+                )
+            elif not meaningful_context(context_name):
                 finding["verdict"] = "INCONCLUSIVE"
                 finding["detail"] = "No sufficiently specific product context was available near the link"
             else:
@@ -479,7 +536,13 @@ def main() -> int:
         "links_found": len(extracted),
         "unique_asins": len(cache),
         "lookup_mode": "creators_api_with_scrape_fallback" if client else "scrape_fallback_only",
-        "summary": {**counts, "parse_errors": len(parse_errors)},
+        "summary": {
+            **counts,
+            "parse_errors": len(parse_errors),
+            "vehicle_fitment_mismatches": sum(
+                "Vehicle-fitment mismatch:" in item.get("detail", "") for item in findings
+            ),
+        },
         "parse_errors": parse_errors,
         "findings": findings,
     }
