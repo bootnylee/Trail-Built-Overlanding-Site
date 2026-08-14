@@ -149,10 +149,17 @@ jobs:
         if: steps.check_published.outputs.skip != 'true'
         run: node scripts/sanitize-articles.mjs
 
-      # ── 4. Validate product ASINs ────────────────────────────────────────────
-      - name: Validate product ASINs
+      # ── 4. Enforce direct, live-verified Amazon product destinations ─────────
+      - name: Enforce direct Amazon ASIN policy
         if: steps.check_published.outputs.skip != 'true'
-        run: python3 scripts/validate-products.py || true
+        env:
+          CREATORS_CREDENTIAL_ID: ${{ secrets.CREATORS_CREDENTIAL_ID }}
+          CREATORS_CREDENTIAL_SECRET: ${{ secrets.CREATORS_CREDENTIAL_SECRET }}
+          PAAPI_PARTNER_TAG: ${{ secrets.PAAPI_PARTNER_TAG }}
+        run: |
+          python3 scripts/validate-products.py
+          python3 tools/validate_asins.py --output /tmp/affiliate_destination_report.json
+          python3 tools/validate_asin_mappings.py --output /tmp/asin_mapping_report.json
 
       # ── 5. Regenerate sitemap ────────────────────────────────────────────────
       - name: Regenerate sitemap

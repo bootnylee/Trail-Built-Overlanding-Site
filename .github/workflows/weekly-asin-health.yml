@@ -30,7 +30,7 @@ jobs:
           CREATORS_CREDENTIAL_SECRET: ${{ secrets.CREATORS_CREDENTIAL_SECRET }}
           PAAPI_PARTNER_TAG: ${{ secrets.PAAPI_PARTNER_TAG }}
         run: |
-          python3 tools/validate_asins.py --warn-only --output /tmp/affiliate_destination_report.json
+          python3 tools/validate_asins.py --output /tmp/affiliate_destination_report.json
 
       - name: Validate page-context ASIN mappings
         env:
@@ -102,7 +102,7 @@ jobs:
                   ? ['| Source | ASIN | Page Context | Amazon Title | Score | Verdict |', '|---|---|---|---|---|---|', ...mappingLines].join('\n')
                   : 'None.',
                 '',
-                `**Summary:** ${destinationReport.dead_asins || 0} dead ASIN(s), ${destinationReport.title_mismatches || 0} named-product title mismatch(es), ${destinationReport.search_destination_issues || 0} malformed search fallback(s), and ${mappingFailures.length} context-aware mapping finding(s).`,
+                `**Summary:** ${destinationReport.dead_asins || 0} dead ASIN(s), ${destinationReport.title_mismatches || 0} named-product title mismatch(es), ${destinationReport.search_destination_issues || 0} prohibited Amazon search destination(s), and ${mappingFailures.length} context-aware mapping finding(s).`,
                 '',
                 '**Action required:** Review each reported destination before the next content publish. INCONCLUSIVE Amazon lookups are intentionally excluded from issue creation.',
                 '',

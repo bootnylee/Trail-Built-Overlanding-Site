@@ -462,13 +462,13 @@ def main() -> int:
     if args.max_links > 0:
         extracted = extracted[: args.max_links]
 
-    credential_id = os.environ.get("CREATORS_CREDENTIAL_ID", "")
-    credential_secret = os.environ.get("CREATORS_CREDENTIAL_SECRET", "")
-    partner_tag = os.environ.get("PAAPI_PARTNER_TAG", "")
+    credential_id = os.environ.get("CREATORS_CREDENTIAL_ID", "") or os.environ.get("CREATORS_API_CLIENT_ID", "")
+    credential_secret = os.environ.get("CREATORS_CREDENTIAL_SECRET", "") or os.environ.get("CREATORS_API_CLIENT_SECRET", "")
+    partner_tag = os.environ.get("PAAPI_PARTNER_TAG", "") or os.environ.get("CREATORS_API_PARTNER_TAG", "")
     client = CreatorsClient(credential_id, credential_secret, partner_tag) if all((credential_id, credential_secret, partner_tag)) else None
 
     print("=" * 72)
-    print("ASIN Mapping Validation — Trail Built Overland (non-blocking)")
+    print("ASIN Mapping Validation — Trail Built Overland (blocking gate)")
     print("=" * 72)
     print(f"HTML files scanned: {len(html_files)} | Amazon links found: {len(extracted)}")
     print(f"Lookup source: {'Amazon Creators API with scrape fallback' if client else 'public Amazon scrape fallback'}")
@@ -530,7 +530,7 @@ def main() -> int:
     report = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "validator": "tools/validate_asin_mappings.py",
-        "non_blocking": True,
+        "non_blocking": False,
         "threshold": MATCH_THRESHOLD,
         "html_files_scanned": len(html_files),
         "links_found": len(extracted),
@@ -554,8 +554,10 @@ def main() -> int:
         f"SUMMARY | match={counts['MATCH']} mismatch={counts['MISMATCH']} "
         f"dead={counts['DEAD']} inconclusive={counts['INCONCLUSIVE']} | report={report_path}"
     )
-    # Explicitly report-only: mapping findings must never block deployment or a
-    # scheduled issue-only health check.
+    blocking_findings = counts["MISMATCH"] + counts["DEAD"] + counts["INCONCLUSIVE"] + len(parse_errors)
+    if blocking_findings:
+        print(f"BLOCKED | {blocking_findings} unresolved, dead, mismatched, or unparsable direct product destination(s)", file=sys.stderr)
+        return 1
     return 0
 
 
@@ -563,7 +565,5 @@ if __name__ == "__main__":
     try:
         raise SystemExit(main())
     except Exception as unexpected_error:
-        # Preserve the non-blocking contract even if a malformed local HTML file
-        # or transient system error escapes the normal per-link safeguards.
-        print(f"INCONCLUSIVE | validator internal error: {unexpected_error}", file=sys.stderr)
-        raise SystemExit(0)
+        print(f"BLOCKED | validator internal error: {unexpected_error}", file=sys.stderr)
+        raise SystemExit(1)

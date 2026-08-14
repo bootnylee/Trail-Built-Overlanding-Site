@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 """Validate Trail Built affiliate destinations against visible product labels.
 
-Coverage includes index.html, all article pages, and category pages. Direct Amazon
-ASIN links are validated against live Amazon titles. Approved Amazon search-link
-fallbacks are validated deterministically for an Amazon domain, the correct
-affiliate tag, and meaningful query-to-label overlap.
+Coverage includes index.html, all article pages, and category pages. Every product
+destination must be a direct Amazon /dp/ ASIN link. Direct ASIN links are validated
+against live Amazon titles; Amazon search URLs are prohibited and fail validation.
 
 Usage:
-  python3 tools/validate_asins.py [--warn-only] [--static-only] [--output FILE]
+  python3 tools/validate_asins.py [--static-only] [--output FILE]
   python3 tools/validate_asins.py --article articles/example.html
 """
 from __future__ import annotations
@@ -249,13 +248,13 @@ def validate_records(records: list[dict], static_only: bool) -> dict:
     for index, record in enumerate(records):
         result = dict(record)
         if record["destination_type"] == "search":
-            ok, issue, query = validate_search(record)
-            result.update({"status": "PASS" if ok else "FAIL", "issue": issue, "search_query": query})
-            if ok:
-                report["passed"] += 1
-            else:
-                report["failed"] += 1
-                report["search_destination_issues"] += 1
+            result.update({
+                "status": "FAIL",
+                "issue": "Amazon search destinations are prohibited; a live direct /dp/ ASIN is required",
+                "search_query": parse_qs(urlparse(record["url"]).query).get("k", [""])[0],
+            })
+            report["failed"] += 1
+            report["search_destination_issues"] += 1
             report["products"].append(result)
             continue
 
@@ -291,7 +290,6 @@ def validate_records(records: list[dict], static_only: bool) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Validate affiliate product destinations across Trail Built")
-    parser.add_argument("--warn-only", action="store_true", help="Report failures without a nonzero exit code")
     parser.add_argument("--static-only", action="store_true", help="Validate extraction and search links without live Amazon title lookups")
     parser.add_argument("--output", default=str(REPO_ROOT / "asin_validation_report.json"), help="JSON report path")
     parser.add_argument("--article", help="Validate one HTML file relative to repository root")
@@ -327,7 +325,7 @@ def main() -> int:
             if item["status"] == "FAIL":
                 print(f"  - [{item['file']}] {item['product']} -> {item.get('asin') or item.get('url')}: {item['issue']}")
 
-    return 0 if args.warn_only or report["failed"] == 0 else 1
+    return 0 if report["failed"] == 0 else 1
 
 
 if __name__ == "__main__":

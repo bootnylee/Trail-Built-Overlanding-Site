@@ -225,24 +225,29 @@ async function checkAsinLive(asin, maxRetries = 3) {
  * Returns array of unique ASIN strings.
  */
 function extractAsins(html) {
-  const matches = [...html.matchAll(/data-asin="([A-Z0-9]{10})"/g)];
-  return [...new Set(matches.map(m => m[1]))];
+  const dataAsins = [...html.matchAll(/data-asin="([A-Z0-9]{10})"/g)].map(m => m[1]);
+  const directLinkAsins = [...html.matchAll(/amazon\.com\/dp\/([A-Z0-9]{10})(?:[?/#]|\"|')/g)].map(m => m[1]);
+  return [...new Set([...dataAsins, ...directLinkAsins])];
 }
 
 /**
  * Validate all ASINs in bodyHTML. Returns { ok: string[], dead: string[] }.
  */
 async function validateBodyAsins(bodyHTML) {
+  if (/amazon\.com\/s\?/i.test(bodyHTML)) {
+    return { ok: [], failed: ['Amazon search URLs are prohibited'] };
+  }
   const asins = extractAsins(bodyHTML);
   console.log(`[asin-precheck] Found ${asins.length} ASIN(s): ${asins.join(', ')}`);
-  const ok = [], dead = [];
+  if (asins.length === 0) return { ok: [], failed: ['No direct Amazon ASINs were supplied'] };
+  const ok = [], failed = [];
   for (const asin of asins) {
     const status = await checkAsinLive(asin);
     console.log(`[asin-precheck] ${asin}: ${status}`);
-    if (status === 'DEAD') dead.push(asin);
-    else ok.push(asin);
+    if (status === 'OK') ok.push(asin);
+    else failed.push(`${asin}: ${status}`);
   }
-  return { ok, dead };
+  return { ok, failed };
 }
 
 // ── Groq API ─────────────────────────────────────────────────────────────────
@@ -291,8 +296,8 @@ Write in a confident, practical, first-person-plural voice ("we tested", "we ran
 Every article must include:
 - A compelling intro paragraph
 - 4-6 specific product recommendations with realistic prices in USD
-- Amazon affiliate links formatted as: https://www.amazon.com/dp/ASIN?tag=${ASSOCIATE_TAG}
-  Use real, valid 10-character Amazon ASINs (e.g. B07SJHVQTJ). Each product MUST have a UNIQUE ASIN.
+- Amazon affiliate links formatted only as: https://www.amazon.com/dp/ASIN?tag=${ASSOCIATE_TAG}
+  Use a real, valid, direct 10-character Amazon ASIN (e.g. B07SJHVQTJ) for every product. Never use an Amazon search URL, shortened URL, product family URL, placeholder, or guessed ASIN. If you cannot provide an exact direct ASIN, omit that product recommendation entirely. Each product MUST have a UNIQUE ASIN.
 - Pros/cons or "why we like it" for each product
 - At least one FAQ section with 3 questions
 - An affiliate disclosure reminder in the footer note
@@ -317,7 +322,7 @@ For each product recommendation, wrap in this exact structure:
   const userPrompt = `Write a comprehensive buyer's guide article titled "Best ${topic.charAt(0).toUpperCase() + topic.slice(1)} 2026".
 Include 4-5 product picks across budget, mid-range, and premium tiers.
 Make it around 1,200-1,500 words. Be specific with product names, prices, and real-world testing details.
-Each product MUST have a unique Amazon ASIN — do NOT reuse the same ASIN for multiple products.
+Each product MUST have a unique, exact direct Amazon ASIN — do NOT reuse ASINs, create Amazon search links, or include a product when you cannot supply a direct /dp/ ASIN.
 End with a 3-question FAQ section using <h2 id="faq">FAQ</h2> and <h3> for each question.`;
 
   return groqRequest([
@@ -694,21 +699,19 @@ async function main() {
       generateArticleContent(topic),
       attempt === 1 ? generateMeta(topic) : Promise.resolve(meta), // reuse meta on retries
     ]);
-    const { ok, dead } = await validateBodyAsins(bodyHTML);
-    if (dead.length === 0) {
-      console.log(`[asin-precheck] ✅ All ${ok.length} ASIN(s) verified live.`);
+    const { ok, failed } = await validateBodyAsins(bodyHTML);
+    if (failed.length === 0) {
+      console.log(`[asin-precheck] ✅ All ${ok.length} direct ASIN(s) verified live.`);
       asinCheckPassed = true;
       break;
     }
-    console.warn(`[asin-precheck] ⚠️  Attempt ${attempt}: ${dead.length} dead ASIN(s): ${dead.join(', ')}`);
+    console.warn(`[asin-precheck] ⚠️  Attempt ${attempt}: ${failed.join('; ')}`);
     if (attempt < MAX_ASIN_RETRIES) {
-      console.log('[asin-precheck] Retrying generation with replacement products...');
-    } else {
-      // All retries exhausted — log clearly but continue (don't block publish;
-      // the link-check step will catch confirmed 404s and can open an issue)
-      console.error(`[asin-precheck] ❌ Dead ASIN(s) remain after ${MAX_ASIN_RETRIES} attempts: ${dead.join(', ')}`);
-      console.error('[asin-precheck] Proceeding to link-check gate which will block on confirmed 404s.');
+      console.log('[asin-precheck] Retrying generation without unverified or search-link products...');
     }
+  }
+  if (!asinCheckPassed) {
+    throw new Error(`[asin-precheck] Blocking publish: no generated draft passed direct-ASIN validation after ${MAX_ASIN_RETRIES} attempts.`);
   }
   // Validate hero image URL — reject dead URLs before writing the article file.
   // This prevents the link-check gate from failing in CI.
