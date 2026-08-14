@@ -45,7 +45,7 @@
    * Build a short affiliate redirect URL using the /go/ shortener.
    * Requires the Netlify redirect rule: /go/:asin → Amazon.
    * @param {string} asin
-   * @returns {string} Short URL e.g. https://trailbuiltoverland.com/go/B07SJHVQTJ
+   * @returns {string} Short URL e.g. https://trailbuiltoverland.com/go/B0F55VMN66
    */
   function shortLink(asin) {
     if (!asin) return "#";
@@ -54,7 +54,7 @@
 
   /**
    * Inject affiliate links into all [data-asin] anchor elements on the page.
-   * Usage: add data-asin="B07SJHVQTJ" to any <a> element.
+   * Usage: add data-asin="B0F55VMN66" to any <a> element.
    * The href will be set to the full tagged Amazon URL.
    * Also sets target="_blank" rel="noopener sponsored".
    */
@@ -127,8 +127,8 @@
 
   /**
    * Inject live prices from products-data.js into elements with data-asin.
-   * Expects HTML like: <div class="product-price" data-asin="B07SJHVQTJ"></div>
-   * Or for articles: <div class="price" data-asin="B07SJHVQTJ"></div>
+   * Expects HTML like: <div class="product-price" data-asin="B0F55VMN66"></div>
+   * Or for articles: <div class="price" data-asin="B0F55VMN66"></div>
    *
    * Freshness gate: if window.TrailBuiltLastSyncedAt is missing or older than
    * 24 hours, numeric prices are hidden and replaced with a 'Check price on

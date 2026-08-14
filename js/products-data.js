@@ -153,24 +153,14 @@ window.TrailBuiltProducts = {
     price: 134.95,
     priceDisplay: "$134.95"
   },
-  "B01HGSLB6K": {
-    asin: "B01HGSLB6K",
-    name: "EVERLIT 250-Piece Survival First Aid Kit",
-    price: 35.99,
-    priceDisplay: "$35.99"
-  },
+
   "B01K2AH3F2": {
     asin: "B01K2AH3F2",
     name: "TRED Pro 1100 Recovery Boards",
     price: 174.99,
     priceDisplay: "$174.99"
   },
-  "B01KT0BF04": {
-    asin: "B01KT0BF04",
-    name: "Baja Designs Squadron Pro pair",
-    price: 51.29,
-    priceDisplay: "$51.29"
-  },
+
   "B004P9C5H8": {
     asin: "B004P9C5H8",
     name: "ARB ARB710LB 3-1/4\" x 30' Recovery Snatch Strap Minimum Breaking Strength 24000 lbs",
@@ -195,12 +185,7 @@ window.TrailBuiltProducts = {
     price: 479.95,
     priceDisplay: "$479.95"
   },
-  "B073V7LWMK": {
-    asin: "B073V7LWMK",
-    name: "Rigid Industries SR-Series 50",
-    price: 2059.95,
-    priceDisplay: "$2,059.95"
-  },
+
   "B079JC6XVC": {
     asin: "B079JC6XVC",
     name: "Goal Zero Lighthouse 600 Lantern",
@@ -309,8 +294,8 @@ window.TrailBuiltProducts = {
     price: 360.99,
     priceDisplay: "$360.99"
   },
-  "B07SJHVQTJ": {
-    asin: "B07SJHVQTJ",
+  "B0F55VMN66": {
+    asin: "B0F55VMN66",
     name: "Rough Country Rock Sliders",
     price: 790.22,
     priceDisplay: "$790.22"
@@ -429,12 +414,7 @@ window.TrailBuiltProducts = {
     price: 0.00,
     priceDisplay: "Check price on Amazon"
   },
-  "B0B9S6YX5N": {
-    asin: "B0B9S6YX5N",
-    name: "On-Board Air: ARB Twin Compressor",
-    price: 246.99,
-    priceDisplay: "$246.99"
-  },
+
   "B0B9XB57XM": {
     asin: "B0B9XB57XM",
     name: "BLUETTI AC200L Portable Power Station 2048Wh",
@@ -459,12 +439,7 @@ window.TrailBuiltProducts = {
     price: 499.00,
     priceDisplay: "$499.00"
   },
-  "B0C8484883": {
-    asin: "B0C8484883",
-    name: "My Medic Sidekick First Aid Kit",
-    price: 78.95,
-    priceDisplay: "$78.95"
-  },
+
   "B0CD9QV2MN": {
     asin: "B0CD9QV2MN",
     name: "Roof-Top Tent: iKamper Skycamp Mini",
@@ -483,12 +458,7 @@ window.TrailBuiltProducts = {
     price: 899.00,
     priceDisplay: "$899.00"
   },
-  "B0CNPHD4VY": {
-    asin: "B0CNPHD4VY",
-    name: "Battle Born 100Ah LiFePO4 Battery",
-    price: 174.94,
-    priceDisplay: "$174.94"
-  },
+
   "B0DB3S6NNZ": {
     asin: "B0DB3S6NNZ",
     name: "MSR TrailShot Pocket-Sized Water Filter",
@@ -513,8 +483,8 @@ window.TrailBuiltProducts = {
     price: 5760.14,
     priceDisplay: "$5,760.14"
   },
-  "B0GF9XC4HC": {
-    asin: "B0GF9XC4HC",
+  "B07VFKXZK5": {
+    asin: "B07VFKXZK5",
     name: "Fox 2.0 Performance Series Shocks",
     price: 481.68,
     priceDisplay: "$481.68"
@@ -549,12 +519,7 @@ window.TrailBuiltProducts = {
     price: 0.00,
     priceDisplay: "Check price on Amazon"
   },
-  "B0009XAMTM": {
-    asin: "B0009XAMTM",
-    name: "Yakima LoadWarrior Medium Sized Heavy Duty Steel Cargo Basket Roof Rack with Universal Mounting Hardware for All Yakima StreamLine Crossbars, Black",
-    price: 0.00,
-    priceDisplay: "Check price on Amazon"
-  },
+
   "B006ERS6OU": {
     asin: "B006ERS6OU",
     name: "GSI Camper Pinnacle",
@@ -597,12 +562,7 @@ window.TrailBuiltProducts = {
     price: 0.00,
     priceDisplay: "Check price on Amazon"
   },
-  "B073X696GN": {
-    asin: "B073X696GN",
-    name: "ARB Element 63Qts Fridge/Freezer 10810602 (ARB Elements Weatherproof 63 Quart Fridge)",
-    price: 0.00,
-    priceDisplay: "Check price on Amazon"
-  },
+
   "B074KS63SC": {
     asin: "B074KS63SC",
     name: "Falken FALKEN WILDPEAK MT01 All- Season Radial Tire-LT285/70R17 121/118Q E/10 121Q 10-ply",
@@ -615,12 +575,7 @@ window.TrailBuiltProducts = {
     price: 0.00,
     priceDisplay: "Check price on Amazon"
   },
-  "B07THMM1CK": {
-    asin: "B07THMM1CK",
-    name: "ICECO GO20 Dual Zone 12V Refrigerator, Portable Fridge Freezer with SECOP Compressor, DC 12/24V, AC 100-240V, 0\u2109 to 50\u2109, Electric Cooler for Truck, RV, SUV, Outdoor, Driving, 21 Quart, Gray",
-    price: 0.00,
-    priceDisplay: "Check price on Amazon"
-  },
+
   "B082T13CGL": {
     asin: "B082T13CGL",
     name: "Dometic CFX5 \u2013 Portable Fridge with Compressor \u2013 12 V/24 V, 110 \u2013 240 V \u2013 Small Electric Fridge for Car, Beach \u2013 Mini Fridge, Refrigerator",
@@ -705,12 +660,7 @@ window.TrailBuiltProducts = {
     price: 0.00,
     priceDisplay: "Check price on Amazon"
   },
-  "B0CBNKJXQR": {
-    asin: "B0CBNKJXQR",
-    name: "Mini Skycamp 3.0 by iKamper",
-    price: 0.00,
-    priceDisplay: "Check price on Amazon"
-  },
+
   "B0DT9W7CYY": {
     asin: "B0DT9W7CYY",
     name: "Big Agnes Copper Spur UL - Backpacking Tent",

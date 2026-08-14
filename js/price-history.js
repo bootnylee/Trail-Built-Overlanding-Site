@@ -16,26 +16,6 @@
  */
 
 const priceHistoryData = {
-  // WARN VR EVO 10-S Winch
-  "B07SJHVQTJ": {
-    asin: "B07SJHVQTJ",
-    name: "WARN VR EVO 10-S Winch",
-    currentPrice: 950,
-    lowestPrice: 879,
-    highestPrice: 1049,
-    averagePrice: 965,
-    history: [
-      { date: "2025-11-01", price: 1049 },
-      { date: "2025-12-01", price: 989 },
-      { date: "2026-01-01", price: 950 },
-      { date: "2026-02-01", price: 950 },
-      { date: "2026-03-01", price: 979 },
-      { date: "2026-04-01", price: 950 },
-      { date: "2026-05-01", price: 950 },
-    ],
-    lastUpdated: "2026-05-01",
-  },
-
   // MaxTrax MKII Recovery Boards
   "B00HYCVSW6": {
     asin: "B00HYCVSW6",
