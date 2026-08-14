@@ -163,6 +163,14 @@ def _title_matches(expected: str, amazon_title: str,
 # ─────────────────────────────────────────────────────────────────────────────
 # Creators API — OAuth 2.0 token management
 # ─────────────────────────────────────────────────────────────────────────────
+def _oauth_error_detail(error: Exception) -> str:
+    """Return the exact OAuth status/body without ever including submitted credentials."""
+    if isinstance(error, urllib.error.HTTPError):
+        body = error.read().decode("utf-8", errors="replace").strip()
+        return f"HTTP {error.code} {error.reason}: {body}"
+    return f"{type(error).__name__}: {error}"
+
+
 def _get_access_token() -> str:
     """Return a cached Creators API token, supporting both documented credential generations."""
     now = time.time()
@@ -212,8 +220,9 @@ def _get_access_token() -> str:
             )
         except Exception as v2_error:
             raise RuntimeError(
-                "Creators API authentication failed with both supported credential flows "
-                f"({type(v3_error).__name__}; {type(v2_error).__name__})"
+                "Creators API authentication failed with both supported credential flows; "
+                f"v3={_oauth_error_detail(v3_error)}; "
+                f"v2={_oauth_error_detail(v2_error)}"
             ) from v2_error
 
 
