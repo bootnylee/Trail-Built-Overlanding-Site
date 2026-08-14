@@ -195,12 +195,6 @@ window.TrailBuiltProducts = {
     price: 479.95,
     priceDisplay: "$479.95"
   },
-  "B06XX197GJ": {
-    asin: "B06XX197GJ",
-    name: "ARB Twin Air Compressor CKMTA12",
-    price: 799.00,
-    priceDisplay: "$799.00"
-  },
   "B073V7LWMK": {
     asin: "B073V7LWMK",
     name: "Rigid Industries SR-Series 50",
@@ -672,12 +666,6 @@ window.TrailBuiltProducts = {
   "B096ST3VMS": {
     asin: "B096ST3VMS",
     name: "Goal Zero Yeti Portable Power Station - Yeti 1000X w/ 983 Watt Hours Battery Capacity, USB Ports & AC Inverter - Rechargeable Solar Generator for Camping, Travel, Outdoor Events, Off-Grid & Home Use | 7 Versatile Ports, AC Inverter & USB Ports, Anodized Aluminum Enclosure, 600W MPPT Solar Charge Controller, for Multi Use",
-    price: 0.00,
-    priceDisplay: "Check price on Amazon"
-  },
-  "B0999TVQ4W": {
-    asin: "B0999TVQ4W",
-    name: "Rough Country 2\\\" Lift Kit for Ford Bronco 2021-2025 - Run up to 35\\\" Tires, Easy Bolt-on Install",
     price: 0.00,
     priceDisplay: "Check price on Amazon"
   },
