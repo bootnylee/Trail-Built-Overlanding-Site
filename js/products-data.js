@@ -108,8 +108,8 @@ window.TrailBuiltProducts = {
   "B00HYCVSW6": {
     asin: "B00HYCVSW6",
     name: "TRED Pro 1100 Recovery Boards (Pair)",
-    price: 279.97,
-    priceDisplay: "$279.97"
+    price: 267.97,
+    priceDisplay: "$267.97"
   },
   "B00K150VAI": {
     asin: "B00K150VAI",
@@ -138,8 +138,8 @@ window.TrailBuiltProducts = {
   "B015OL55VS": {
     asin: "B015OL55VS",
     name: "Adventure Medical Kits Trauma Pack Pro",
-    price: 256.41,
-    priceDisplay: "$256.41"
+    price: 255.26,
+    priceDisplay: "$255.26"
   },
   "B018LC0SMI": {
     asin: "B018LC0SMI",
@@ -162,8 +162,8 @@ window.TrailBuiltProducts = {
   "B01K2AH3F2": {
     asin: "B01K2AH3F2",
     name: "TRED Pro 1100 Recovery Boards",
-    price: 158.35,
-    priceDisplay: "$158.35"
+    price: 174.99,
+    priceDisplay: "$174.99"
   },
   "B01KT0BF04": {
     asin: "B01KT0BF04",
@@ -294,8 +294,8 @@ window.TrailBuiltProducts = {
   "B07T7GDV9B": {
     asin: "B07T7GDV9B",
     name: "Factor 55 Extreme Duty 3/8\" x 10\" Soft Shackle, 43,500 lbs. Minimum Breaking Strength",
-    price: 76.40,
-    priceDisplay: "$76.40"
+    price: 76.24,
+    priceDisplay: "$76.24"
   },
   "B07RFQVB9M": {
     asin: "B07RFQVB9M",
@@ -318,8 +318,8 @@ window.TrailBuiltProducts = {
   "B07SJHVQTJ": {
     asin: "B07SJHVQTJ",
     name: "Rough Country Rock Sliders",
-    price: 790.21,
-    priceDisplay: "$790.21"
+    price: 790.22,
+    priceDisplay: "$790.22"
   },
   "B07VFKXZK5": {
     asin: "B07VFKXZK5",
@@ -390,14 +390,14 @@ window.TrailBuiltProducts = {
   "B09D5PW315": {
     asin: "B09D5PW315",
     name: "Ram X-Grip Phone Mount",
-    price: 229.99,
-    priceDisplay: "$229.99"
+    price: 209.99,
+    priceDisplay: "$209.99"
   },
   "B09FF46FQ9": {
     asin: "B09FF46FQ9",
     name: "Jackery Explorer 500",
-    price: 199.99,
-    priceDisplay: "$199.99"
+    price: 159.99,
+    priceDisplay: "$159.99"
   },
   "B07CZZ8C5W": {
     asin: "B07CZZ8C5W",
@@ -742,4 +742,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-08-13T10:57:26.701Z";
+window.TrailBuiltLastSyncedAt = "2026-08-14T10:54:08.812Z";
