@@ -51,7 +51,7 @@ REQUEST_DELAY_SECONDS = 1.05
 STOP_WORDS = {
     "a", "an", "and", "at", "by", "for", "from", "in", "on", "of", "or", "the", "to", "with",
     "amazon", "buy", "check", "click", "deal", "details", "get", "here", "learn", "more", "now",
-    "price", "shop", "view", "your", "you", "lb", "lbs", "oz", "pack",
+    "price", "shop", "view", "your", "you", "lb", "lbs", "oz", "pack", "why", "we", "like", "it",
 }
 GENERIC_CONTEXTS = {
     "amazon", "buy", "buy now", "buy on amazon", "check price", "check price on amazon",
@@ -90,7 +90,13 @@ def clean_text(value: str) -> str:
 def normalise(value: str) -> str:
     value = unicodedata.normalize("NFKD", clean_text(value))
     value = "".join(character for character in value if not unicodedata.combining(character))
-    return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9\s]", " ", value.lower())).strip()
+    value = re.sub(r"\s+", " ", re.sub(r"[^a-z0-9\s]", " ", value.lower())).strip()
+    # Normalize common manufacturer and model-spacing variants while retaining
+    # the underlying product identity requirement for every other token.
+    value = re.sub(r"\bbfg\b", "bfgoodrich", value)
+    value = re.sub(r"\bbp\s+51\b", "bp51", value)
+    value = re.sub(r"\bgen(\d+)\b", r"gen \1", value)
+    return value
 
 
 def canonical_token(token: str) -> str:

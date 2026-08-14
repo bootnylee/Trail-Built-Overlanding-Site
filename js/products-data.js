@@ -258,12 +258,6 @@ window.TrailBuiltProducts = {
     price: 2646.09,
     priceDisplay: "$2,646.09"
   },
-  "B07PNTMSW6": {
-    asin: "B07PNTMSW6",
-    name: "Electrical: Battle Born LiFePO4 + Renogy Solar + Dometic Fridge",
-    price: 2519.95,
-    priceDisplay: "$2,519.95"
-  },
   "B09HZFCN22": {
     asin: "B09HZFCN22",
     name: "Dorman 43-1261HD Rear Leaf Spring Compatible with Select Ford Models",
@@ -296,7 +290,7 @@ window.TrailBuiltProducts = {
   },
   "B0F55VMN66": {
     asin: "B0F55VMN66",
-    name: "Rough Country Rock Sliders",
+    name: "Warn ZEON 10-S Platinum 12V Winch with Synthetic Rope",
     price: 790.22,
     priceDisplay: "$790.22"
   },
@@ -306,12 +300,6 @@ window.TrailBuiltProducts = {
     name: "Garmin inReach Mini 2, Lightweight and Compact Satellite Communicator, Hiking Ha",
     price: 249.99,
     priceDisplay: "$249.99"
-  },
-  "B09FB2BPRZ": {
-    asin: "B09FB2BPRZ",
-    name: "Rough Country Rock Sliders for 4-Seater 2014-2022 Polaris RZR 900/1000XP - 93065",
-    price: 299.95,
-    priceDisplay: "$299.95"
   },
   "B085J32BZV": {
     asin: "B085J32BZV",
