@@ -300,12 +300,7 @@ window.TrailBuiltProducts = {
     price: 790.22,
     priceDisplay: "$790.22"
   },
-  "B07VFKXZK5": {
-    asin: "B07VFKXZK5",
-    name: "Old Man Emu BP-51 Internal Bypass Suspension Lift Kit for Tacoma, Incl. Coilover",
-    price: 4194.99,
-    priceDisplay: "$4,194.99"
-  },
+
   "B09PSKG7C3": {
     asin: "B09PSKG7C3",
     name: "Garmin inReach Mini 2, Lightweight and Compact Satellite Communicator, Hiking Ha",
@@ -482,12 +477,6 @@ window.TrailBuiltProducts = {
     name: "Tires: Cooper Discoverer STT Pro \u2014 285/75R17",
     price: 5760.14,
     priceDisplay: "$5,760.14"
-  },
-  "B07VFKXZK5": {
-    asin: "B07VFKXZK5",
-    name: "Fox 2.0 Performance Series Shocks",
-    price: 481.68,
-    priceDisplay: "$481.68"
   },
   "B004P2Q5O6": {
     asin: "B004P2Q5O6",
