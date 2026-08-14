@@ -21,6 +21,7 @@ product page to verify that the ASIN resolves and the title fuzzy-matches the
 expected name.
 """
 
+import base64
 import os
 import re
 import time
@@ -53,8 +54,11 @@ CREATORS_API_PARTNER_TAG = (
 )
 CREATORS_API_MARKETPLACE   = os.environ.get("CREATORS_API_MARKETPLACE", "www.amazon.com")
 
-# OAuth 2.0 token endpoint (NA region — US, CA, MX, BR)
+# OAuth 2.0 token endpoints. New Creators API credentials use v3 LwA;
+# existing credentials may still require the v2 Cognito exchange used by the
+# established daily price-sync client.
 CREATORS_API_TOKEN_URL = "https://api.amazon.com/auth/o2/token"
+CREATORS_API_COGNITO_TOKEN_URL = "https://creatorsapi.auth.us-east-1.amazoncognito.com/oauth2/token"
 # Creators API base URL (global)
 CREATORS_API_BASE_URL  = "https://creatorsapi.amazon"
 CREATORS_API_GETITEMS  = f"{CREATORS_API_BASE_URL}/catalog/v1/getItems"
@@ -160,35 +164,57 @@ def _title_matches(expected: str, amazon_title: str,
 # Creators API — OAuth 2.0 token management
 # ─────────────────────────────────────────────────────────────────────────────
 def _get_access_token() -> str:
-    """
-    Fetch (or return cached) OAuth 2.0 access token from Login with Amazon.
-    Token lifetime is 3600 s; we refresh 60 s early.
-    """
+    """Return a cached Creators API token, supporting both documented credential generations."""
     now = time.time()
     if _token_cache["token"] and now < _token_cache["expires_at"] - 60:
         return _token_cache["token"]
 
-    payload = json.dumps({
+    def request_token(url: str, data: bytes, headers: dict[str, str]) -> str:
+        req = urllib.request.Request(url, data=data, headers=headers, method="POST")
+        with urllib.request.urlopen(req, timeout=12) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+        token = payload.get("access_token")
+        if not token:
+            raise RuntimeError("token response did not include access_token")
+        expires_in = int(payload.get("expires_in", 3600))
+        _token_cache["token"] = token
+        _token_cache["expires_at"] = now + expires_in
+        return token
+
+    v3_payload = json.dumps({
         "grant_type": "client_credentials",
         "client_id": CREATORS_API_CLIENT_ID,
         "client_secret": CREATORS_API_CLIENT_SECRET,
         "scope": "creatorsapi::default",
     }).encode("utf-8")
-
-    req = urllib.request.Request(
-        CREATORS_API_TOKEN_URL,
-        data=payload,
-        headers={"Content-Type": "application/json"},
-        method="POST",
-    )
-    with urllib.request.urlopen(req, timeout=10) as resp:
-        data = json.loads(resp.read().decode("utf-8"))
-
-    token = data["access_token"]
-    expires_in = int(data.get("expires_in", 3600))
-    _token_cache["token"] = token
-    _token_cache["expires_at"] = now + expires_in
-    return token
+    try:
+        return request_token(
+            CREATORS_API_TOKEN_URL,
+            v3_payload,
+            {"Content-Type": "application/json"},
+        )
+    except Exception as v3_error:
+        basic = base64.b64encode(
+            f"{CREATORS_API_CLIENT_ID}:{CREATORS_API_CLIENT_SECRET}".encode("utf-8")
+        ).decode("ascii")
+        v2_payload = urllib.parse.urlencode({
+            "grant_type": "client_credentials",
+            "scope": "creatorsapi/default",
+        }).encode("utf-8")
+        try:
+            return request_token(
+                CREATORS_API_COGNITO_TOKEN_URL,
+                v2_payload,
+                {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Authorization": f"Basic {basic}",
+                },
+            )
+        except Exception as v2_error:
+            raise RuntimeError(
+                "Creators API authentication failed with both supported credential flows "
+                f"({type(v3_error).__name__}; {type(v2_error).__name__})"
+            ) from v2_error
 
 
 def _creators_api_lookup(asin: str) -> dict:
@@ -214,6 +240,7 @@ def _creators_api_lookup(asin: str) -> dict:
         "itemIdType": "ASIN",
         "marketplace": CREATORS_API_MARKETPLACE,
         "partnerTag": CREATORS_API_PARTNER_TAG,
+        "partnerType": "Associates",
         "resources": [
             "itemInfo.title",
             "images.primary.large",
@@ -340,10 +367,16 @@ def verify_asin(asin: str, expected_name: str) -> ASINResult:
                 source="creators_api"
             )
         except Exception as e:
-            # Creators API failed — fall through to scrape
-            pass
+            # Credentials were supplied, so silently degrading to bot-prone
+            # scraping would make a deployment outcome non-deterministic.
+            return ASINResult(
+                asin=asin, expected_name=expected_name,
+                amazon_title=None, resolves=False, title_match=False,
+                match_score=0.0, price=None, image_url=None,
+                source="creators_api", error=f"Creators API lookup failed: {e}"
+            )
 
-    # ── Fallback: scrape public page ─────────────────────────────────────────
+    # ── Fallback: scrape public page only when no API credentials exist ──────
     time.sleep(0.5)
     title, err = _scrape_amazon(asin)
     if err:
