@@ -6,8 +6,8 @@ window.TrailBuiltProducts = {
   "B00004VXNI": {
     asin: "B00004VXNI",
     name: "Uniden PRO520XL Pro Series 40-Channel CB Radio. Compact Design. ANL Switch and P",
-    price: 85.69,
-    priceDisplay: "$85.69"
+    price: 87.64,
+    priceDisplay: "$87.64"
   },
   "B00042KG3A": {
     asin: "B00042KG3A",
@@ -102,14 +102,14 @@ window.TrailBuiltProducts = {
   "B006R7AW6M": {
     asin: "B006R7AW6M",
     name: "Rough Country 2\" Leveling Kit for 2007-2018 Chevy/GMC 1500 | 07-21 SUV - 1307",
-    price: 34.95,
-    priceDisplay: "$34.95"
+    price: 32.99,
+    priceDisplay: "$32.99"
   },
   "B00HYCVSW6": {
     asin: "B00HYCVSW6",
     name: "TRED Pro 1100 Recovery Boards (Pair)",
-    price: 267.97,
-    priceDisplay: "$267.97"
+    price: 268.99,
+    priceDisplay: "$268.99"
   },
   "B00K150VAI": {
     asin: "B00K150VAI",
@@ -120,8 +120,8 @@ window.TrailBuiltProducts = {
   "B00FPECUZ4": {
     asin: "B00FPECUZ4",
     name: "Hi-Lift HL-484PC Cast Iron & Steel Hi-Lift Jack",
-    price: 128.36,
-    priceDisplay: "$128.36"
+    price: 131.42,
+    priceDisplay: "$131.42"
   },
   "B0C2F3GNFD": {
     asin: "B0C2F3GNFD",
@@ -267,8 +267,8 @@ window.TrailBuiltProducts = {
   "B07T7GDV9B": {
     asin: "B07T7GDV9B",
     name: "Factor 55 Extreme Duty 3/8\" x 10\" Soft Shackle, 43,500 lbs. Minimum Breaking Strength",
-    price: 76.24,
-    priceDisplay: "$76.24"
+    price: 76.09,
+    priceDisplay: "$76.09"
   },
   "B07RFQVB9M": {
     asin: "B07RFQVB9M",
@@ -657,4 +657,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-08-14T10:54:08.812Z";
+window.TrailBuiltLastSyncedAt = "2026-08-15T10:17:32.071Z";

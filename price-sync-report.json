@@ -1,16 +1,14 @@
 {
-  "generatedAt": "2026-08-14T10:54:08.813Z",
+  "generatedAt": "2026-08-15T10:17:32.071Z",
   "mode": "live",
-  "totalAsins": 80,
-  "updatedCount": 7,
+  "totalAsins": 68,
+  "updatedCount": 5,
   "updated": [
+    "B00004VXNI",
+    "B006R7AW6M",
+    "B00FPECUZ4",
     "B00HYCVSW6",
-    "B015OL55VS",
-    "B01K2AH3F2",
-    "B07SJHVQTJ",
-    "B07T7GDV9B",
-    "B09D5PW315",
-    "B09FF46FQ9"
+    "B07T7GDV9B"
   ],
   "flagged": [
     {
@@ -29,8 +27,8 @@
       "action": "left unchanged"
     },
     {
-      "asin": "B06XX197GJ",
-      "reason": "InvalidParameterValue",
+      "asin": "B015OL55VS",
+      "reason": "NoOffer",
       "action": "left unchanged"
     },
     {
@@ -40,11 +38,6 @@
     },
     {
       "asin": "B07CZZ8C5W",
-      "reason": "NoOffer",
-      "action": "left unchanged"
-    },
-    {
-      "asin": "B09PSKG7C3",
       "reason": "NoOffer",
       "action": "left unchanged"
     },
