@@ -48,8 +48,8 @@ window.TrailBuiltProducts = {
   "B0050DI9YQ": {
     asin: "B0050DI9YQ",
     name: "ARB CKMTA12 '12V' On-Board Twin High Performance Air Compressor, Ideal for Air Lockers",
-    price: 659.00,
-    priceDisplay: "$659.00"
+    price: 649.99,
+    priceDisplay: "$649.99"
   },
   "B006QF3TW4": {
     asin: "B006QF3TW4",
@@ -108,8 +108,8 @@ window.TrailBuiltProducts = {
   "B00HYCVSW6": {
     asin: "B00HYCVSW6",
     name: "TRED Pro 1100 Recovery Boards (Pair)",
-    price: 268.99,
-    priceDisplay: "$268.99"
+    price: 279.99,
+    priceDisplay: "$279.99"
   },
   "B00K150VAI": {
     asin: "B00K150VAI",
@@ -267,8 +267,8 @@ window.TrailBuiltProducts = {
   "B07T7GDV9B": {
     asin: "B07T7GDV9B",
     name: "Factor 55 Extreme Duty 3/8\" x 10\" Soft Shackle, 43,500 lbs. Minimum Breaking Strength",
-    price: 76.09,
-    priceDisplay: "$76.09"
+    price: 75.71,
+    priceDisplay: "$75.71"
   },
   "B07RFQVB9M": {
     asin: "B07RFQVB9M",
@@ -376,8 +376,8 @@ window.TrailBuiltProducts = {
   "B09QS1BC5N": {
     asin: "B09QS1BC5N",
     name: "Addictive Desert Designs or Fab Fours Rock Sliders \u2014 Ford Bronco",
-    price: 2198.98,
-    priceDisplay: "$2,198.98"
+    price: 2400.99,
+    priceDisplay: "$2,400.99"
   },
   "B0DJPSBDYN": {
     asin: "B0DJPSBDYN",
@@ -407,8 +407,8 @@ window.TrailBuiltProducts = {
   "B0F83RZVPN": {
     asin: "B0F83RZVPN",
     name: "SCUARI Skid Plate Bolts,Car Accessories Stainless Steel Bolts,Upgraded 2-in-1 Sk",
-    price: 6.29,
-    priceDisplay: "$6.29"
+    price: 7.89,
+    priceDisplay: "$7.89"
   },
   "B0BTBHQF8R": {
     asin: "B0BTBHQF8R",
@@ -657,4 +657,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-08-15T10:17:32.071Z";
+window.TrailBuiltLastSyncedAt = "2026-08-16T10:17:31.642Z";
