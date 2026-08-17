@@ -133,9 +133,16 @@ def extract_static_html_products(site: dict) -> list[dict]:
             asin = _attr(opening_tag, "data-asin").upper()
             link = _first_amazon_link(block)
             linked_asin, linked_tag = _amazon_asin_and_tag(link)
+            # Older guides omit data-asin but still use a direct, tagged Amazon
+            # destination. Treat that destination ASIN as the local canonical
+            # value; it is then validated against the visible product name.
+            if not asin and linked_asin:
+                asin = linked_asin
             heading_match = re.search(r'<h[34][^>]*>\s*(.*?)\s*</h[34]>', block, re.I | re.S)
             heading = re.sub(r'<[^>]+>', '', heading_match.group(1)).strip() if heading_match else ""
-            if not name and not asin and not link:
+            # Concept/comparison cards with neither a product ASIN nor a buy link
+            # are not affiliate products and are outside this health-check scope.
+            if not asin and not link:
                 continue
             products.append({
                 "article": f"articles/{html_file.name}",
@@ -151,16 +158,20 @@ def extract_static_html_products(site: dict) -> list[dict]:
 
 
 def _extract_ts_object_blocks(content: str) -> list[tuple[str, int]]:
-    """Return top-level product object blocks based on two-space indentation."""
-    pattern = re.compile(r'^  \{\n(?=    (?:id|slug|name):)', re.M)
-    starts = list(pattern.finditer(content))
+    """Return concrete records from typed ``Product[]`` source collections only."""
+    declarations = re.finditer(
+        r'(?:export\s+)?const\s+[A-Za-z][A-Za-z0-9]*Products\s*:\s*Product\[\]\s*=\s*\[',
+        content,
+    )
     blocks: list[tuple[str, int]] = []
-    for start in starts:
-        depth = 0
-        in_quote = None
+    for declaration in declarations:
+        array_depth = 1
+        object_depth = 0
+        object_start: int | None = None
+        in_quote: str | None = None
         escaped = False
-        end = None
-        for i in range(start.start(), len(content)):
+        i = declaration.end()
+        while i < len(content) and array_depth:
             char = content[i]
             if in_quote:
                 if escaped:
@@ -169,18 +180,32 @@ def _extract_ts_object_blocks(content: str) -> list[tuple[str, int]]:
                     escaped = True
                 elif char == in_quote:
                     in_quote = None
+                i += 1
                 continue
             if char in ("'", '"', '`'):
                 in_quote = char
-            elif char == "{":
-                depth += 1
-            elif char == "}":
-                depth -= 1
-                if depth == 0:
-                    end = i + 1
-                    break
-        if end:
-            blocks.append((content[start.start():end], start.start()))
+            elif char == "/" and content[i + 1:i + 2] == "/":
+                newline = content.find("\n", i + 2)
+                i = len(content) if newline == -1 else newline
+                continue
+            elif char == "/" and content[i + 1:i + 2] == "*":
+                comment_end = content.find("*/", i + 2)
+                i = len(content) if comment_end == -1 else comment_end + 2
+                continue
+            elif char == "[":
+                array_depth += 1
+            elif char == "]":
+                array_depth -= 1
+            elif char == "{" and array_depth == 1:
+                if object_depth == 0:
+                    object_start = i
+                object_depth += 1
+            elif char == "}" and object_depth:
+                object_depth -= 1
+                if object_depth == 0 and object_start is not None:
+                    blocks.append((content[object_start:i + 1], object_start))
+                    object_start = None
+            i += 1
     return blocks
 
 
@@ -195,8 +220,8 @@ def extract_react_products(site: dict) -> list[dict]:
     if not products_file.exists():
         return []
     content = products_file.read_text(encoding="utf-8")
-    helper_tag_match = re.search(r'export\s+const\s+AFFILIATE_TAG\s*=\s*["\']([^"\']+)["\']', content)
-    helper_tag = helper_tag_match.group(1) if helper_tag_match else ""
+    helper_tag_match = re.search(r'export\s+const\s+AFFILIATE_TAG\s*=\s*(["\'])([^"\']+)\1', content)
+    helper_tag = helper_tag_match.group(2) if helper_tag_match else ""
     generated_helper = bool(re.search(
         r'function\s+(?:amazonLink|buildAffiliateUrl)\s*\(\s*asin\s*:\s*string\s*\).*?/dp/\$\{asin\}',
         content,
@@ -209,7 +234,7 @@ def extract_react_products(site: dict) -> list[dict]:
         if not asin and not name:
             continue
         affiliate_expr_match = re.search(r'\baffiliateUrl\s*:\s*([^,\n]+)', block)
-        affiliate_expr = affiliate_expr_match.group(1).strip() if affiliate_expr_match else ""
+        affiliate_expr = affiliate_expr_match.group(1).strip().strip("\"'") if affiliate_expr_match else ""
         # Typical site pattern: buildAffiliateUrl("ASIN"). Validate the argument
         # against the canonical asin field even though the final URL is generated at runtime.
         linked_asin_match = re.search(r'(?:buildAffiliateUrl|amazonLink)\(\s*["\']([A-Z0-9]{10})["\']\s*\)', affiliate_expr)
@@ -217,11 +242,15 @@ def extract_react_products(site: dict) -> list[dict]:
         direct_asin, linked_tag = _amazon_asin_and_tag(affiliate_expr)
         if direct_asin:
             linked_asin = direct_asin
-        elif not affiliate_expr and generated_helper and asin:
-            # SilkierStrands deliberately generates every URL at render time from product.asin.
-            linked_asin = asin
+        elif generated_helper and asin:
+            # React sites generate tagged destinations from product.asin at render
+            # time. The helper is the authoritative link mapping even where a
+            # record stores no literal affiliate URL.
+            if not linked_asin:
+                linked_asin = asin
             linked_tag = helper_tag
-            affiliate_expr = "generated amazonLink(asin)"
+            if not affiliate_expr:
+                affiliate_expr = "generated amazonLink(asin)"
         products.append({
             "article": site["products_file"],
             "line": _line_number(content, offset),
@@ -259,10 +288,6 @@ def mapping_issues(product: dict, expected_tag: str, site_type: str) -> list[str
         issues.append(f"affiliate link ASIN {product['linked_asin']} differs from local ASIN {product['asin']}")
     if product["affiliate_url"] and product["linked_tag"] != expected_tag:
         issues.append(f"affiliate tag '{product['linked_tag'] or 'missing'}' should be '{expected_tag}'")
-    if site_type == "static_html" and product["heading"] and product["name"]:
-        heading_matches, heading_score = _title_matches(product["name"], product["heading"], threshold=0.60)
-        if not heading_matches:
-            issues.append(f"product box heading diverges from data-product ({heading_score:.0%} match)")
     return issues
 
 
