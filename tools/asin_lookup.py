@@ -72,6 +72,11 @@ _token_cache: dict = {"token": None, "expires_at": 0.0}
 # Rate limiting: be polite to both the API and the scrape fallback
 _last_api_call = 0.0
 API_RATE_LIMIT_SECONDS = 1.1
+# A full-site validation can temporarily reach Amazon's per-client request quota.
+# Retry only HTTP 429 responses after a conservative server cooldown; all other
+# lookup failures remain blocking so unverified products cannot be published.
+CREATORS_API_MAX_429_RETRIES = 3
+CREATORS_API_429_BACKOFF_SECONDS = 60
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -269,8 +274,22 @@ def _creators_api_lookup(asin: str) -> dict:
     )
     _last_api_call = time.time()
 
-    with urllib.request.urlopen(req, timeout=10) as resp:
-        return json.loads(resp.read().decode("utf-8"))
+    for attempt in range(CREATORS_API_MAX_429_RETRIES + 1):
+        try:
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                return json.loads(resp.read().decode("utf-8"))
+        except urllib.error.HTTPError as error:
+            if error.code != 429 or attempt >= CREATORS_API_MAX_429_RETRIES:
+                raise
+            retry_after = error.headers.get("Retry-After", "").strip()
+            try:
+                cooldown = max(int(retry_after), CREATORS_API_429_BACKOFF_SECONDS)
+            except ValueError:
+                cooldown = CREATORS_API_429_BACKOFF_SECONDS * (attempt + 1)
+            time.sleep(cooldown)
+            _last_api_call = time.time()
+
+    raise RuntimeError("Creators API retry loop ended without a response")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
