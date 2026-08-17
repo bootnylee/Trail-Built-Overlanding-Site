@@ -405,8 +405,10 @@ async function main() {
     },
   };
 
-  fs.writeFileSync('link-report.json', JSON.stringify(report, null, 2));
-  console.log('\nlink-report.json written.\n');
+  const reportPath = 'reports/link-report.json';
+  fs.mkdirSync('reports', { recursive: true });
+  fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
+  console.log(`\n${reportPath} written.\n`);
 
   // ── Print summary ────────────────────────────────────────────────────────────
   console.log('╔══════════════════════════════════════════════════════════╗');

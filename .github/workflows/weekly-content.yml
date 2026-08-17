@@ -104,10 +104,10 @@ jobs:
         if: steps.check_published.outputs.skip != 'true'
         run: |
           node scripts/check-links.js
-          BROKEN=$(python3 -c "import json; d=json.load(open('link-report.json')); print(d['summary'].get('BROKEN', 0))")
+          BROKEN=$(python3 -c "import json; d=json.load(open('reports/link-report.json')); print(d['summary'].get('BROKEN', 0))")
           echo "BROKEN count: ${BROKEN}"
           if [ "$BROKEN" -gt 0 ]; then
-            echo "::error::Link checker found ${BROKEN} BROKEN link(s)/image(s). See link-report.json."
+            echo "::error::Link checker found ${BROKEN} BROKEN link(s)/image(s). See reports/link-report.json."
             exit 1
           fi
           echo "No BROKEN links. INCONCLUSIVE results (e.g. Amazon bot-blocks) do not fail the job."
@@ -121,7 +121,7 @@ jobs:
             const fs = require('fs');
             let broken = [];
             try {
-              const report = JSON.parse(fs.readFileSync('link-report.json', 'utf8'));
+              const report = JSON.parse(fs.readFileSync('reports/link-report.json', 'utf8'));
               broken = (report.links || []).filter(l => l.status === 'BROKEN');
             } catch (e) {}
             const lines = broken.map(l => `| \`${l.url}\` | ${l.file || ''} | ${l.status} |`);
