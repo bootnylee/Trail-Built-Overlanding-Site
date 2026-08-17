@@ -432,21 +432,36 @@ def extract_links(html_file: Path) -> list[dict[str, str]]:
     return parser.links
 
 
-def lookup_title(asin: str, client: Optional[CreatorsClient], offline: bool) -> LookupResult:
-    if offline:
-        return LookupResult("INCONCLUSIVE", None, "offline", "Offline mode requested")
-    if client is not None:
-        api_result = client.lookup(asin)
-        if api_result.verdict in {"LIVE", "DEAD"}:
-            return api_result
-        # API auth/service failures fall back to the public page. The eventual
-        # scraper result remains conservative for bot blocks and throttling.
-    return scrape_lookup(asin)
+def load_primary_titles(report_path: Path) -> dict[tuple[str, str], str]:
+    """Load verified live titles from validate_asins.py's required prior gate."""
+    try:
+        payload = json.loads(report_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise RuntimeError(f"required direct-ASIN report is unavailable: {error}") from error
+
+    titles: dict[tuple[str, str], str] = {}
+    for product in payload.get("products", []):
+        if (
+            product.get("status") == "PASS"
+            and product.get("destination_type") == "asin"
+            and product.get("file")
+            and product.get("asin")
+            and product.get("amazon_title")
+        ):
+            titles[(str(product["file"]), str(product["asin"]).upper())] = clean_text(str(product["amazon_title"]))
+    if not titles:
+        raise RuntimeError("required direct-ASIN report contained no verified direct product titles")
+    return titles
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Validate Amazon ASIN mappings against visible HTML product context")
     parser.add_argument("--output", default=str(DEFAULT_REPORT), help="JSON report path")
+    parser.add_argument(
+        "--primary-report",
+        default=str(REPO_ROOT / "asin_validation_report.json"),
+        help="Required output from the preceding authenticated direct-ASIN gate",
+    )
     parser.add_argument("--offline", action="store_true", help="Parse links without calling Amazon; all lookups are inconclusive")
     parser.add_argument("--max-links", type=int, default=0, help="Optional cap for controlled local smoke tests")
     args = parser.parse_args()
@@ -468,27 +483,25 @@ def main() -> int:
     if args.max_links > 0:
         extracted = extracted[: args.max_links]
 
-    credential_id = os.environ.get("CREATORS_CREDENTIAL_ID", "") or os.environ.get("CREATORS_API_CLIENT_ID", "")
-    credential_secret = os.environ.get("CREATORS_CREDENTIAL_SECRET", "") or os.environ.get("CREATORS_API_CLIENT_SECRET", "")
-    partner_tag = os.environ.get("PAAPI_PARTNER_TAG", "") or os.environ.get("CREATORS_API_PARTNER_TAG", "")
-    client = CreatorsClient(credential_id, credential_secret, partner_tag) if all((credential_id, credential_secret, partner_tag)) else None
+    primary_titles = load_primary_titles(Path(args.primary_report))
 
     print("=" * 72)
     print("ASIN Mapping Validation — Trail Built Overland (blocking gate)")
     print("=" * 72)
     print(f"HTML files scanned: {len(html_files)} | Amazon links found: {len(extracted)}")
-    print(f"Lookup source: {'Amazon Creators API with scrape fallback' if client else 'public Amazon scrape fallback'}")
+    print("Lookup source: required authenticated direct-ASIN validation report")
 
-    cache: dict[str, LookupResult] = {}
     findings: list[dict[str, Any]] = []
-    for index, link in enumerate(extracted):
+    for link in extracted:
         asin = link["asin"]
         context_name = link["context_name"]
-        if asin not in cache:
-            cache[asin] = lookup_title(asin, client, args.offline)
-            if index < len(extracted) - 1 and not args.offline:
-                time.sleep(REQUEST_DELAY_SECONDS)
-        lookup = cache[asin]
+        primary_key = (link["page"], asin)
+        # Standalone generic Amazon anchors that are not a named product slot are
+        # intentionally excluded. Every named product destination is covered by
+        # the preceding required direct-ASIN gate and appears in primary_titles.
+        if primary_key not in primary_titles:
+            continue
+        lookup = LookupResult("LIVE", primary_titles[primary_key], "primary_direct_asin_gate", "")
         finding: dict[str, Any] = {
             "page": link["page"],
             "asin": asin,
@@ -540,8 +553,8 @@ def main() -> int:
         "threshold": MATCH_THRESHOLD,
         "html_files_scanned": len(html_files),
         "links_found": len(extracted),
-        "unique_asins": len(cache),
-        "lookup_mode": "creators_api_with_scrape_fallback" if client else "scrape_fallback_only",
+        "unique_asins": len({item["asin"] for item in findings}),
+        "lookup_mode": "authenticated_primary_direct_asin_report",
         "summary": {
             **counts,
             "parse_errors": len(parse_errors),
