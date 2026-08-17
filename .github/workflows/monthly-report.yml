@@ -38,9 +38,6 @@ jobs:
       - name: Run SEO audit
         run: node scripts/seo-audit.mjs || true
 
-      - name: Run product validator
-        run: python3 scripts/validate-products.py || true
-
       - name: Generate monthly report (Python)
         env:
           EMAILOCTOPUS_API_KEY: ${{ secrets.EMAILOCTOPUS_API_KEY }}

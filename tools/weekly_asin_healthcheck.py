@@ -1,328 +1,522 @@
 #!/usr/bin/env python3
-"""
-weekly_asin_healthcheck.py — Weekly ASIN health-check across all three sites.
+"""Canonical weekly affiliate health-check for all three Bootnylee affiliate sites.
 
-PART 3 of the affiliate-link guardrail system.
+This is the single source of truth for recurring affiliate validation. It checks,
+for every product record on Trail Built Overland, SilkierStrands, and
+PauseAndFlourish:
 
-Validates every affiliate ASIN on TrailBuilt, SilkierStrands, and PauseAndFlourish.
-Sends a concise email report to kamilano1@gmail.com via Gmail (uses the Gmail MCP
-connector in the Manus scheduled task).
+1. The local product name maps to one ASIN.
+2. The destination affiliate link maps to that same ASIN.
+3. The affiliate tag maps to the site's expected Associates tag (static HTML).
+4. The ASIN resolves to a real Amazon catalog item.
+5. Amazon's returned title fuzzy-matches the local product name.
 
-Scheduled: every Monday at 8:00 AM PT (cron: 0 0 15 * * 1, America/Los_Angeles).
+Primary source of truth: Amazon Creators API GetItems (OAuth 2.0).
+Fallback: public Amazon product-page verification when API credentials are absent.
+
+Optional catalog refresh:
+  --sync-price-images runs each site's existing Creators API GetItems sync script.
+  The sync scripts are never PA-API scripts and use CREATORS_API_* credentials.
+  This option writes a report only; committing/pushing any catalog changes is a
+  deliberate, separate release action.
 
 Usage:
-  python3 tools/weekly_asin_healthcheck.py [--dry-run]
-
-  --dry-run: Run checks but don't send email; print report to stdout instead.
-
-Sites checked:
-  - Trail Built Overland (trailbuiltoverland.com) — static HTML, ASINs in data-asin attrs
-  - SilkierStrands (silkierstrands.com) — React app, ASINs in products.ts
-  - PauseAndFlourish (pauseandflourish.com) — React app, ASINs in products.ts
-
-Configuration (env vars — set in Netlify dashboard and Manus scheduled task):
-  CREATORS_API_CLIENT_ID     → Amazon Creators API client ID
-  CREATORS_API_CLIENT_SECRET → Amazon Creators API client secret
-  CREATORS_API_PARTNER_TAG   → affiliate tag (default: trailbuiltove-20)
-  Credentials portal: https://affiliate-program.amazon.com/creatorsapi
-
-Without credentials, falls back to public page scraping (slower, may hit rate limits).
+  python3 tools/weekly_asin_healthcheck.py --dry-run
+  python3 tools/weekly_asin_healthcheck.py --sync-price-images
 
 Report recipient: kamilano1@gmail.com
 """
 
-import sys
-import os
-import re
-import json
-import time
+from __future__ import annotations
+
 import argparse
+import html as html_lib
+import os
+import json
+import re
+import subprocess
+import sys
+import time
+from datetime import datetime, timezone
 from pathlib import Path
-from datetime import datetime
+from urllib.parse import parse_qs, urlparse
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Report recipient
-# ─────────────────────────────────────────────────────────────────────────────
 REPORT_RECIPIENT = "kamilano1@gmail.com"
+REQUEST_DELAY_SECONDS = 1.25
+REPO_ROOT = Path(__file__).resolve().parent.parent
+REPORT_PATH = REPO_ROOT / "affiliate_healthcheck_report.json"
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Site configurations
-# ─────────────────────────────────────────────────────────────────────────────
 SITES = [
     {
         "name": "Trail Built Overland",
         "url": "https://trailbuiltoverland.com",
         "repo": Path("/home/ubuntu/trail-built-overland"),
         "type": "static_html",
-        "affiliate_tag": "trailbuiltove-20",
+        "partner_tag": "trailbuiltove-20",
+        "sync_command": ["node", "scripts/fetch-prices.js"],
     },
     {
         "name": "SilkierStrands",
         "url": "https://silkierstrands.com",
         "repo": Path("/home/ubuntu/silkierstrands"),
         "type": "react_products_ts",
-        "affiliate_tag": "silkierstrands-20",
+        "partner_tag": "silkierstrands-20",
         "products_file": "client/src/lib/products.ts",
+        "sync_command": ["node", "scripts/fetch-prices.js"],
     },
     {
         "name": "PauseAndFlourish",
         "url": "https://pauseandflourish.com",
         "repo": Path("/home/ubuntu/pauseandflourish"),
         "type": "react_products_ts",
-        "affiliate_tag": "pauseandflourish-20",
+        "partner_tag": "pauseandflourish-20",
         "products_file": "client/src/lib/products.ts",
+        "sync_command": ["node", "scripts/fetch-prices.js"],
     },
 ]
 
-# Add tools dir to path so we can import asin_lookup
 sys.path.insert(0, str(Path(__file__).parent))
-from asin_lookup import verify_asin
-
-REQUEST_DELAY = 1.5
+from asin_lookup import _title_matches, verify_asin  # noqa: E402
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Product extraction per site type
+# Generic parsing helpers
 # ─────────────────────────────────────────────────────────────────────────────
-def extract_static_html_products(repo: Path) -> list[dict]:
-    """Extract ASINs from static HTML buyer's guide articles."""
-    products = []
-    articles_dir = repo / "articles"
+def _attr(opening_tag: str, name: str) -> str:
+    match = re.search(rf'\b{re.escape(name)}\s*=\s*["\']([^"\']*)["\']', opening_tag, re.I)
+    return html_lib.unescape(match.group(1).strip()) if match else ""
+
+
+def _amazon_asin_and_tag(url: str) -> tuple[str, str]:
+    """Return (ASIN, Associates tag) for an Amazon /dp/ link, or ('', '')."""
+    decoded = html_lib.unescape(url)
+    asin_match = re.search(r'amazon\.(?:com|co\.uk|ca|de|fr|it|es|co\.jp)/dp/([A-Z0-9]{10})', decoded, re.I)
+    asin = asin_match.group(1).upper() if asin_match else ""
+    tag = parse_qs(urlparse(decoded).query).get("tag", [""])[0]
+    return asin, tag
+
+
+def _first_amazon_link(fragment: str) -> str:
+    match = re.search(r'href\s*=\s*["\'](https?://(?:www\.)?amazon\.[^"\']+)["\']', fragment, re.I)
+    return html_lib.unescape(match.group(1)) if match else ""
+
+
+def _line_number(text: str, offset: int) -> int:
+    return text.count("\n", 0, offset) + 1
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Site-specific record extraction
+# ─────────────────────────────────────────────────────────────────────────────
+def extract_static_html_products(site: dict) -> list[dict]:
+    """Extract product boxes, their named ASINs, and linked ASINs from all guides."""
+    products: list[dict] = []
+    articles_dir = site["repo"] / "articles"
     if not articles_dir.exists():
         return products
 
-    for html_file in sorted(articles_dir.glob("best-*.html")):
+    for html_file in sorted(articles_dir.glob("*.html")):
+        # Buyer guide convention; build guides/concept articles with no product boxes are skipped.
+        if not html_file.name.startswith("best-"):
+            continue
         content = html_file.read_text(encoding="utf-8")
-        for m in re.finditer(
-            r'<div[^>]*class="product-box"[^>]*data-product="([^"]*)"[^>]*data-asin="([^"]*)"',
-            content
-        ):
-            name, asin = m.group(1).strip(), m.group(2).strip()
-            if asin:
-                products.append({"article": html_file.name, "name": name, "asin": asin})
-        for m in re.finditer(
-            r'<div[^>]*class="product-box"[^>]*data-asin="([^"]*)"[^>]*data-product="([^"]*)"',
-            content
-        ):
-            asin, name = m.group(1).strip(), m.group(2).strip()
-            if asin and not any(p["name"] == name and p["article"] == html_file.name
-                                for p in products):
-                products.append({"article": html_file.name, "name": name, "asin": asin})
+        starts = list(re.finditer(
+            r'<div\b[^>]*\bclass\s*=\s*["\'](?:[^"\']*\s)?product-box(?:\s[^"\']*)?["\'][^>]*>',
+            content,
+            re.I,
+        ))
+        for index, start in enumerate(starts):
+            opening_tag = start.group(0)
+            end = starts[index + 1].start() if index + 1 < len(starts) else len(content)
+            block = content[start.start():end]
+            name = _attr(opening_tag, "data-product")
+            asin = _attr(opening_tag, "data-asin").upper()
+            link = _first_amazon_link(block)
+            linked_asin, linked_tag = _amazon_asin_and_tag(link)
+            heading_match = re.search(r'<h[34][^>]*>\s*(.*?)\s*</h[34]>', block, re.I | re.S)
+            heading = re.sub(r'<[^>]+>', '', heading_match.group(1)).strip() if heading_match else ""
+            if not name and not asin and not link:
+                continue
+            products.append({
+                "article": f"articles/{html_file.name}",
+                "line": _line_number(content, start.start()),
+                "name": name or heading,
+                "heading": heading,
+                "asin": asin,
+                "affiliate_url": link,
+                "linked_asin": linked_asin,
+                "linked_tag": linked_tag,
+            })
     return products
 
 
-def extract_react_products(repo: Path, products_file: str) -> list[dict]:
-    """Extract ASINs from a React products.ts file."""
-    products = []
-    ts_path = repo / products_file
-    if not ts_path.exists():
-        return products
+def _extract_ts_object_blocks(content: str) -> list[tuple[str, int]]:
+    """Return top-level product object blocks based on two-space indentation."""
+    pattern = re.compile(r'^  \{\n(?=    (?:id|slug|name):)', re.M)
+    starts = list(pattern.finditer(content))
+    blocks: list[tuple[str, int]] = []
+    for start in starts:
+        depth = 0
+        in_quote = None
+        escaped = False
+        end = None
+        for i in range(start.start(), len(content)):
+            char = content[i]
+            if in_quote:
+                if escaped:
+                    escaped = False
+                elif char == "\\":
+                    escaped = True
+                elif char == in_quote:
+                    in_quote = None
+                continue
+            if char in ("'", '"', '`'):
+                in_quote = char
+            elif char == "{":
+                depth += 1
+            elif char == "}":
+                depth -= 1
+                if depth == 0:
+                    end = i + 1
+                    break
+        if end:
+            blocks.append((content[start.start():end], start.start()))
+    return blocks
 
-    content = ts_path.read_text(encoding="utf-8")
-    seen = set()
 
-    obj_pattern = re.compile(
-        r'\{[^{}]*?name:\s*["\']([^"\']{3,100})["\'][^{}]*?asin:\s*["\']([A-Z0-9]{10})["\'][^{}]*?\}',
-        re.DOTALL
-    )
-    obj_pattern2 = re.compile(
-        r'\{[^{}]*?asin:\s*["\']([A-Z0-9]{10})["\'][^{}]*?name:\s*["\']([^"\']{3,100})["\'][^{}]*?\}',
-        re.DOTALL
-    )
+def _ts_field(block: str, field: str) -> str:
+    match = re.search(rf'\b{re.escape(field)}\s*:\s*["\']([^"\']*)["\']', block)
+    return match.group(1).strip() if match else ""
 
-    for m in obj_pattern.finditer(content):
-        key = f"{m.group(1)}|{m.group(2)}"
-        if key not in seen:
-            seen.add(key)
-            products.append({"article": products_file, "name": m.group(1).strip(),
-                             "asin": m.group(2).strip()})
 
-    for m in obj_pattern2.finditer(content):
-        key = f"{m.group(2)}|{m.group(1)}"
-        if key not in seen:
-            seen.add(key)
-            products.append({"article": products_file, "name": m.group(2).strip(),
-                             "asin": m.group(1).strip()})
-
+def extract_react_products(site: dict) -> list[dict]:
+    """Extract product records and generated affiliate-link mappings from products.ts."""
+    products_file = site["repo"] / site["products_file"]
+    if not products_file.exists():
+        return []
+    content = products_file.read_text(encoding="utf-8")
+    helper_tag_match = re.search(r'export\s+const\s+AFFILIATE_TAG\s*=\s*["\']([^"\']+)["\']', content)
+    helper_tag = helper_tag_match.group(1) if helper_tag_match else ""
+    generated_helper = bool(re.search(
+        r'function\s+(?:amazonLink|buildAffiliateUrl)\s*\(\s*asin\s*:\s*string\s*\).*?/dp/\$\{asin\}',
+        content,
+        re.S,
+    ))
+    products: list[dict] = []
+    for block, offset in _extract_ts_object_blocks(content):
+        asin = _ts_field(block, "asin").upper()
+        name = _ts_field(block, "name")
+        if not asin and not name:
+            continue
+        affiliate_expr_match = re.search(r'\baffiliateUrl\s*:\s*([^,\n]+)', block)
+        affiliate_expr = affiliate_expr_match.group(1).strip() if affiliate_expr_match else ""
+        # Typical site pattern: buildAffiliateUrl("ASIN"). Validate the argument
+        # against the canonical asin field even though the final URL is generated at runtime.
+        linked_asin_match = re.search(r'(?:buildAffiliateUrl|amazonLink)\(\s*["\']([A-Z0-9]{10})["\']\s*\)', affiliate_expr)
+        linked_asin = linked_asin_match.group(1).upper() if linked_asin_match else ""
+        direct_asin, linked_tag = _amazon_asin_and_tag(affiliate_expr)
+        if direct_asin:
+            linked_asin = direct_asin
+        elif not affiliate_expr and generated_helper and asin:
+            # SilkierStrands deliberately generates every URL at render time from product.asin.
+            linked_asin = asin
+            linked_tag = helper_tag
+            affiliate_expr = "generated amazonLink(asin)"
+        products.append({
+            "article": site["products_file"],
+            "line": _line_number(content, offset),
+            "name": name,
+            "heading": name,
+            "asin": asin,
+            "affiliate_url": affiliate_expr,
+            "linked_asin": linked_asin,
+            "linked_tag": linked_tag,
+        })
     return products
 
 
 def extract_site_products(site: dict) -> list[dict]:
-    repo = site["repo"]
-    if not repo.exists():
-        print(f"  ⚠ Repo not found: {repo}")
+    if not site["repo"].exists():
         return []
     if site["type"] == "static_html":
-        return extract_static_html_products(repo)
-    elif site["type"] == "react_products_ts":
-        return extract_react_products(repo, site.get("products_file", "client/src/lib/products.ts"))
-    return []
+        return extract_static_html_products(site)
+    return extract_react_products(site)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Validation
 # ─────────────────────────────────────────────────────────────────────────────
-def validate_site(site: dict) -> dict:
-    print(f"\n  Checking {site['name']} ({site['url']})...")
-    products = extract_site_products(site)
-    print(f"  Found {len(products)} products with ASINs")
+def mapping_issues(product: dict, expected_tag: str, site_type: str) -> list[str]:
+    issues: list[str] = []
+    if not product["name"]:
+        issues.append("missing local product name")
+    if not product["asin"]:
+        issues.append("missing local ASIN")
+        return issues
+    if not product["linked_asin"]:
+        issues.append("missing Amazon affiliate link/ASIN mapping")
+    elif product["linked_asin"] != product["asin"]:
+        issues.append(f"affiliate link ASIN {product['linked_asin']} differs from local ASIN {product['asin']}")
+    if product["affiliate_url"] and product["linked_tag"] != expected_tag:
+        issues.append(f"affiliate tag '{product['linked_tag'] or 'missing'}' should be '{expected_tag}'")
+    if site_type == "static_html" and product["heading"] and product["name"]:
+        heading_matches, heading_score = _title_matches(product["name"], product["heading"], threshold=0.60)
+        if not heading_matches:
+            issues.append(f"product box heading diverges from data-product ({heading_score:.0%} match)")
+    return issues
 
-    site_report = {
+
+def validate_site(site: dict) -> dict:
+    products = extract_site_products(site)
+    report = {
         "site": site["name"],
         "url": site["url"],
         "total": len(products),
         "passed": 0,
         "failed": 0,
+        "mapping_failures": 0,
+        "catalog_failures": 0,
+        "inconclusive": 0,
         "failures": [],
     }
+    print(f"\nChecking {site['name']} — {len(products)} product records")
 
-    for i, p in enumerate(products):
-        result = verify_asin(p["asin"], p["name"])
-        if result.ok:
-            site_report["passed"] += 1
-        else:
-            site_report["failed"] += 1
-            issue = []
-            if not result.resolves:
-                issue.append(f"ASIN not found ({result.error or 'delisted'})")
-            elif not result.title_match:
-                issue.append(
-                    f"title mismatch ({result.match_score:.0%}): "
-                    f"got '{(result.amazon_title or 'N/A')[:60]}'"
-                )
-            site_report["failures"].append({
-                "article": p.get("article", ""),
-                "product": p["name"],
-                "asin": p["asin"],
-                "issue": "; ".join(issue),
-                "amazon_title": result.amazon_title,
+    # Verify each unique ASIN once, then apply the catalog result to all occurrences.
+    asin_cache: dict[tuple[str, str], object] = {}
+    for product in products:
+        local_issues = mapping_issues(product, site["partner_tag"], site["type"])
+        catalog_result = None
+        asin = product["asin"]
+        if asin and product["name"]:
+            cache_key = (asin, product["name"])
+            if cache_key not in asin_cache:
+                asin_cache[cache_key] = verify_asin(asin, product["name"])
+                time.sleep(REQUEST_DELAY_SECONDS)
+            catalog_result = asin_cache[cache_key]
+            if not catalog_result.ok:
+                if catalog_result.source == "scrape" and catalog_result.error and any(
+                    token in catalog_result.error.lower() for token in ("bot-check", "rate-limit", "http 500", "http 503")
+                ):
+                    report["inconclusive"] += 1
+                elif not catalog_result.resolves:
+                    local_issues.append(f"Amazon catalog does not resolve: {catalog_result.error or 'not found'}")
+                    report["catalog_failures"] += 1
+                else:
+                    local_issues.append(
+                        f"Amazon title mismatch ({catalog_result.match_score:.0%}): "
+                        f"{catalog_result.amazon_title or 'no title returned'}"
+                    )
+                    report["catalog_failures"] += 1
+        elif not asin:
+            report["mapping_failures"] += 1
+
+        if local_issues:
+            report["failed"] += 1
+            if any("affiliate" in issue or "missing local" in issue or "heading" in issue for issue in local_issues):
+                report["mapping_failures"] += 1
+            report["failures"].append({
+                "article": product["article"],
+                "line": product["line"],
+                "product": product["name"],
+                "asin": product["asin"],
+                "linked_asin": product["linked_asin"],
+                "issue": "; ".join(local_issues),
+                "amazon_title": getattr(catalog_result, "amazon_title", None),
+                "source": getattr(catalog_result, "source", None),
             })
-            print(f"    ✗ {p['name']} ({p['asin']}): {'; '.join(issue)}")
-
-        if i < len(products) - 1:
-            time.sleep(REQUEST_DELAY)
-
-    return site_report
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Report formatting
-# ─────────────────────────────────────────────────────────────────────────────
-def format_email_report(site_reports: list[dict], run_date: str) -> tuple[str, str]:
-    total_products = sum(r["total"] for r in site_reports)
-    total_failed = sum(r["failed"] for r in site_reports)
-    total_passed = sum(r["passed"] for r in site_reports)
-
-    status_emoji = "✅" if total_failed == 0 else "⚠️"
-    subject = f"{status_emoji} Weekly Affiliate Link Health-Check — {run_date}"
-
-    lines = [
-        f"<h2>Weekly Affiliate Link Health-Check</h2>",
-        f"<p><strong>Run date:</strong> {run_date}</p>",
-        f"<p><strong>Total products checked:</strong> {total_products} "
-        f"({total_passed} passed, {total_failed} failed)</p>",
-    ]
-
-    if total_failed == 0:
-        lines.append("<p>✅ <strong>All affiliate links are healthy.</strong> No action required.</p>")
-    else:
-        lines.append(f"<p>⚠️ <strong>{total_failed} product(s) need attention.</strong></p>")
-
-    for r in site_reports:
-        lines.append(f"<h3>{r['site']} ({r['url']})</h3>")
-        lines.append(f"<p>{r['passed']}/{r['total']} products OK</p>")
-        if r["failures"]:
-            lines.append("<table border='1' cellpadding='4' style='border-collapse:collapse'>")
-            lines.append("<tr><th>Article</th><th>Product</th><th>ASIN</th><th>Issue</th></tr>")
-            for f in r["failures"]:
-                asin_val = f['asin']
-                lines.append(
-                    f"<tr>"
-                    f"<td>{f['article']}</td>"
-                    f"<td>{f['product']}</td>"
-                    f"<td><a href='https://www.amazon.com/dp/{asin_val}'>{asin_val}</a></td>"
-                    f"<td>{f['issue']}</td>"
-                    f"</tr>"
-                )
-            lines.append("</table>")
+            print(f"  ✗ {product['name']} ({product['asin'] or 'no ASIN'}): {'; '.join(local_issues)}")
         else:
-            lines.append("<p>✅ No issues.</p>")
-
-    lines.append(f"<hr><p><small>Sent to {REPORT_RECIPIENT} by the Trail Built affiliate guardrail system.</small></p>")
-    return subject, "\n".join(lines)
+            report["passed"] += 1
+    return report
 
 
-def format_plain_report(site_reports: list[dict], run_date: str) -> str:
-    total_failed = sum(r["failed"] for r in site_reports)
-    total_passed = sum(r["passed"] for r in site_reports)
-    total = sum(r["total"] for r in site_reports)
+# ─────────────────────────────────────────────────────────────────────────────
+# Trail Built context-aware direct-link mapping stage
+# ─────────────────────────────────────────────────────────────────────────────
+def run_trail_context_mapping() -> dict:
+    """Run the legacy two-stage HTML context validator inside this canonical job.
 
+    This preserves coverage for direct Amazon anchors outside product-box markup,
+    nearby visible product labels, and vehicle-fitment mismatches on build guides.
+    The former standalone GitHub Actions workflow is retired; this function is its
+    single canonical execution path.
+    """
+    reports_dir = REPO_ROOT / "reports"
+    reports_dir.mkdir(exist_ok=True)
+    direct_report = reports_dir / "canonical_direct_asin_validation.json"
+    context_report = reports_dir / "canonical_context_mapping_validation.json"
+    direct = subprocess.run(
+        [sys.executable, "tools/validate_asins.py", "--output", str(direct_report)],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+        timeout=900,
+    )
+    context = subprocess.run(
+        [
+            sys.executable,
+            "tools/validate_asin_mappings.py",
+            "--primary-report",
+            str(direct_report),
+            "--output",
+            str(context_report),
+        ],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+        timeout=900,
+    )
+    summary = {}
+    try:
+        summary = json.loads(context_report.read_text(encoding="utf-8")).get("summary", {})
+    except (OSError, json.JSONDecodeError):
+        summary = {"status": "inconclusive", "detail": "Context report was not generated"}
+    return {
+        "status": "ok" if direct.returncode == 0 and context.returncode == 0 else "findings_or_inconclusive",
+        "direct_exit_code": direct.returncode,
+        "context_exit_code": context.returncode,
+        "summary": summary,
+        "direct_report": str(direct_report.relative_to(REPO_ROOT)),
+        "context_report": str(context_report.relative_to(REPO_ROOT)),
+        "output_tail": (direct.stdout + "\n" + direct.stderr + "\n" + context.stdout + "\n" + context.stderr).strip()[-2000:],
+    }
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Optional Creators API price/image refresh
+# ─────────────────────────────────────────────────────────────────────────────
+def run_catalog_sync(site: dict) -> dict:
+    """Run a site's existing Creators API GetItems price/image script when requested."""
+    child_env = os.environ.copy()
+    child_env["CREATORS_API_PARTNER_TAG"] = site["partner_tag"]
+    process = subprocess.run(
+        site["sync_command"],
+        cwd=site["repo"],
+        capture_output=True,
+        text=True,
+        timeout=300,
+        env=child_env,
+    )
+    return {
+        "site": site["name"],
+        "exit_code": process.returncode,
+        "status": "ok" if process.returncode == 0 else "failed",
+        "summary": (process.stdout + "\n" + process.stderr).strip()[-2000:],
+    }
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Reporting
+# ─────────────────────────────────────────────────────────────────────────────
+def _plain_report(site_reports: list[dict], context_mapping: dict, sync_reports: list[dict], run_date: str) -> str:
+    total = sum(report["total"] for report in site_reports)
+    passed = sum(report["passed"] for report in site_reports)
+    failed = sum(report["failed"] for report in site_reports)
+    mapping = sum(report["mapping_failures"] for report in site_reports)
+    catalog = sum(report["catalog_failures"] for report in site_reports)
+    inconclusive = sum(report["inconclusive"] for report in site_reports)
     lines = [
         f"Weekly Affiliate Link Health-Check — {run_date}",
-        f"{'='*60}",
-        f"Total: {total} | Passed: {total_passed} | Failed: {total_failed}",
-        f"Report recipient: {REPORT_RECIPIENT}",
+        "=" * 64,
+        f"Canonical job: full product → ASIN → affiliate-link → Amazon-title validation",
+        f"Products checked: {total} | Passed: {passed} | Failures: {failed}",
+        f"Mapping failures: {mapping} | Catalog/title failures: {catalog} | Inconclusive: {inconclusive}",
         "",
     ]
-    for r in site_reports:
-        lines.append(f"--- {r['site']} ---")
-        lines.append(f"  {r['passed']}/{r['total']} OK")
-        for f in r["failures"]:
-            lines.append(f"  ✗ [{f['article']}] {f['product']} ({f['asin']}): {f['issue']}")
+    for report in site_reports:
+        lines.append(f"--- {report['site']} ({report['url']}) ---")
+        lines.append(
+            f"{report['passed']}/{report['total']} valid | "
+            f"mapping: {report['mapping_failures']} | catalog: {report['catalog_failures']} | "
+            f"inconclusive: {report['inconclusive']}"
+        )
+        if report["failures"]:
+            for failure in report["failures"]:
+                lines.append(
+                    f"  ✗ [{failure['article']}:{failure['line']}] {failure['product']} "
+                    f"(local ASIN {failure['asin'] or 'none'}; linked ASIN {failure['linked_asin'] or 'none'}): "
+                    f"{failure['issue']}"
+                )
+        else:
+            lines.append("  ✓ No mapping or catalog failures.")
         lines.append("")
+    lines.append("--- Trail Built direct-link context / vehicle-fitment mapping ---")
+    lines.append(
+        f"status: {context_mapping.get('status', 'not run')} | "
+        f"direct gate exit: {context_mapping.get('direct_exit_code', 'n/a')} | "
+        f"context gate exit: {context_mapping.get('context_exit_code', 'n/a')}"
+    )
+    if context_mapping.get("summary"):
+        lines.append(f"summary: {json.dumps(context_mapping['summary'], sort_keys=True)}")
+    lines.append("")
+    if sync_reports:
+        lines.append("--- Optional Creators API price/image sync ---")
+        for sync in sync_reports:
+            lines.append(f"{sync['site']}: {sync['status']} (exit {sync['exit_code']})")
+        lines.append("")
+    lines.extend([
+        "Notes:",
+        "- Amazon bot-check/rate-limit responses are reported as inconclusive, not as delistings.",
+        "- Set CREATORS_API_CLIENT_ID, CREATORS_API_CLIENT_SECRET, and the per-site",
+        "  CREATORS_API_PARTNER_TAG to use Amazon's official Creators API rather than scrape fallback.",
+        f"- Report recipient: {REPORT_RECIPIENT}",
+    ])
     return "\n".join(lines)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Main
-# ─────────────────────────────────────────────────────────────────────────────
-def main():
-    parser = argparse.ArgumentParser(description="Weekly ASIN health-check across all sites")
-    parser.add_argument("--dry-run", action="store_true",
-                        help="Run checks but print report instead of emailing")
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Canonical affiliate health-check")
+    parser.add_argument("--dry-run", action="store_true", help="Preserved for scheduled task compatibility; validation is always read-only.")
+    parser.add_argument("--sync-price-images", action="store_true", help="Also invoke each site's Creators API GetItems catalog sync script.")
     args = parser.parse_args()
 
-    run_date = datetime.utcnow().strftime("%Y-%m-%d")
-    print(f"Weekly ASIN Health-Check — {run_date}")
+    run_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    print(f"Canonical Weekly Affiliate Link Health-Check — {run_date}")
     print(f"Report recipient: {REPORT_RECIPIENT}")
-    print(f"{'='*60}")
+    print("Source of truth: Amazon Creators API GetItems with public-page fallback")
 
-    site_reports = []
-    for site in SITES:
-        report = validate_site(site)
-        site_reports.append(report)
-
-    # Save JSON report
-    report_path = Path("/home/ubuntu/trail-built-overland/asin_healthcheck_report.json")
-    full_report = {
-        "run_date": run_date,
+    site_reports = [validate_site(site) for site in SITES]
+    context_mapping = run_trail_context_mapping()
+    creators_credentials_present = bool(
+        os.environ.get("CREATORS_API_CLIENT_ID")
+        and os.environ.get("CREATORS_API_CLIENT_SECRET")
+    )
+    if args.sync_price_images and creators_credentials_present:
+        sync_reports = [run_catalog_sync(site) for site in SITES]
+    elif args.sync_price_images:
+        sync_reports = [{
+            "site": "All sites",
+            "exit_code": None,
+            "status": "skipped",
+            "summary": "Skipped: CREATORS_API_CLIENT_ID and CREATORS_API_CLIENT_SECRET are not configured for this run.",
+        }]
+    else:
+        sync_reports = []
+    plain = _plain_report(site_reports, context_mapping, sync_reports, run_date)
+    payload = {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
         "recipient": REPORT_RECIPIENT,
+        "canonical_job": "Weekly Affiliate Link Health-Check",
+        "validation_scope": "product-to-ASIN-to-affiliate-link-to-Amazon-title",
         "sites": site_reports,
-        "total_failed": sum(r["failed"] for r in site_reports),
+        "trail_context_mapping": context_mapping,
+        "catalog_sync": sync_reports,
+        "summary": {
+            "total_products": sum(report["total"] for report in site_reports),
+            "passed": sum(report["passed"] for report in site_reports),
+            "failed": sum(report["failed"] for report in site_reports),
+            "mapping_failures": sum(report["mapping_failures"] for report in site_reports),
+            "catalog_failures": sum(report["catalog_failures"] for report in site_reports),
+            "inconclusive": sum(report["inconclusive"] for report in site_reports),
+        },
     }
-    report_path.write_text(json.dumps(full_report, indent=2))
-    print(f"\nReport saved to: {report_path}")
-
-    subject, body_html = format_email_report(site_reports, run_date)
-    plain = format_plain_report(site_reports, run_date)
-
-    if args.dry_run:
-        print(f"\n{'='*60}")
-        print("DRY RUN — email not sent. Report:")
-        print(f"{'='*60}")
-        print(plain)
-        return subject, body_html, plain
-
-    print(f"\n{'='*60}")
+    REPORT_PATH.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    print("\n" + "=" * 64)
     print(plain)
-    print(f"{'='*60}")
-    print(f"\nEmail report ready.")
-    print(f"  Subject:   {subject}")
-    print(f"  Recipient: {REPORT_RECIPIENT}")
-    print("(Email will be sent by the Manus scheduled task via Gmail connector)")
-
-    return subject, body_html, plain
+    print(f"\nJSON report: {REPORT_PATH}")
+    # Weekly reporting should continue even if failures are discovered; failures are the report.
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

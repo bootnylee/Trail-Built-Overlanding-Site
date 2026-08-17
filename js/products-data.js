@@ -1,6 +1,6 @@
 /**
  * TrailBuiltOverland.com — Product Data
- * Auto-updated daily by PA-API sync workflow.
+ * Catalog fields are refreshed only through the canonical Creators API affiliate automation.
  */
 window.TrailBuiltProducts = {
   "B00004VXNI": {

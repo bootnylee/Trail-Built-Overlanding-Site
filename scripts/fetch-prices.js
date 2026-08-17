@@ -17,7 +17,7 @@
  * and left unchanged — never deleted.
  *
  * Credentials are read STRICTLY from environment variables:
- *   CREATORS_CREDENTIAL_ID, CREATORS_CREDENTIAL_SECRET, PAAPI_PARTNER_TAG
+ *   CREATORS_API_CLIENT_ID, CREATORS_API_CLIENT_SECRET, CREATORS_API_PARTNER_TAG
  * They are never logged, printed, or written to disk.
  *
  * Auth auto-detects credential version:
@@ -48,7 +48,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..");
 const PRODUCTS_FILE = path.join(REPO_ROOT, "js", "products-data.js");
 const REPORT_FILE = path.join(REPO_ROOT, "price-sync-report.json");
-const FIXTURE_FILE = path.join(__dirname, "fixtures", "paapi-getitems-mock.json");
+const FIXTURE_FILE = path.join(__dirname, "fixtures", "creators-api-getitems-mock.json");
 
 const CREATORS_API_BASE = "https://creatorsapi.amazon";
 const GETITEMS_PATH = "/catalog/v1/getItems";
@@ -78,13 +78,13 @@ const DRY_RUN = process.argv.includes("--dry-run");
 // ─── Credentials (env only — never logged, never hardcoded) ─────────────────
 
 function getCredentials() {
-  const credentialId = process.env.CREATORS_CREDENTIAL_ID;
-  const credentialSecret = process.env.CREATORS_CREDENTIAL_SECRET;
-  const partnerTag = process.env.PAAPI_PARTNER_TAG;
+  const credentialId = process.env.CREATORS_API_CLIENT_ID;
+  const credentialSecret = process.env.CREATORS_API_CLIENT_SECRET;
+  const partnerTag = process.env.CREATORS_API_PARTNER_TAG;
   if (!credentialId || !credentialSecret || !partnerTag) {
     console.error(
       "ERROR: Missing required environment variables. " +
-        "CREATORS_CREDENTIAL_ID, CREATORS_CREDENTIAL_SECRET, and PAAPI_PARTNER_TAG must all be set."
+        "CREATORS_API_CLIENT_ID, CREATORS_API_CLIENT_SECRET, and CREATORS_API_PARTNER_TAG must all be set."
     );
     process.exit(1);
   }
@@ -200,8 +200,9 @@ async function getItems(credentials, asins) {
 
   const payload = JSON.stringify({
     itemIds: asins,
+    itemIdType: "ASIN",
+    marketplace: MARKETPLACE,
     partnerTag: credentials.partnerTag,
-    partnerType: "Associates",
     resources: RESOURCES,
   });
 

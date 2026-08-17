@@ -36,22 +36,12 @@ from typing import Optional
 # ─────────────────────────────────────────────────────────────────────────────
 # Configuration — set these environment variables to enable Creators API
 # ─────────────────────────────────────────────────────────────────────────────
-# Accept both the validator-specific names and the credentials already used by
-# the scheduled price-sync workflow. This keeps live title validation on the
-# Amazon Creators API rather than falling back to bot-blocked page scraping.
-CREATORS_API_CLIENT_ID = (
-    os.environ.get("CREATORS_API_CLIENT_ID", "")
-    or os.environ.get("CREATORS_CREDENTIAL_ID", "")
-)
-CREATORS_API_CLIENT_SECRET = (
-    os.environ.get("CREATORS_API_CLIENT_SECRET", "")
-    or os.environ.get("CREATORS_CREDENTIAL_SECRET", "")
-)
-CREATORS_API_PARTNER_TAG = (
-    os.environ.get("CREATORS_API_PARTNER_TAG", "")
-    or os.environ.get("PAAPI_PARTNER_TAG", "")
-    or "trailbuiltove-20"
-)
+# Use only the current Amazon Creators API environment variables. Legacy PA-API
+# variable names are intentionally unsupported so obsolete credentials cannot
+# silently reactivate a deprecated integration.
+CREATORS_API_CLIENT_ID = os.environ.get("CREATORS_API_CLIENT_ID", "")
+CREATORS_API_CLIENT_SECRET = os.environ.get("CREATORS_API_CLIENT_SECRET", "")
+CREATORS_API_PARTNER_TAG = os.environ.get("CREATORS_API_PARTNER_TAG", "trailbuiltove-20")
 CREATORS_API_MARKETPLACE   = os.environ.get("CREATORS_API_MARKETPLACE", "www.amazon.com")
 
 # OAuth 2.0 token endpoints. New Creators API credentials use v3 LwA;
