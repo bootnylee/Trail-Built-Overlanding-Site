@@ -216,12 +216,6 @@ window.TrailBuiltProducts = {
     price: 0.00,
     priceDisplay: "Check price on Amazon"
   },
-  "B0F55VMN66": {
-    asin: "B0F55VMN66",
-    name: "Warn Zeon 10-S Platinum 12V Electrical Utility Winch with 100 ft of 3/8 in Spydu",
-    price: 2160.10,
-    priceDisplay: "$2,160.10"
-  },
   "B07F6ZTV6J": {
     asin: "B07F6ZTV6J",
     name: "ARB front bumper 4Runner",
