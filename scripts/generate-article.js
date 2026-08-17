@@ -316,13 +316,13 @@ For each product recommendation, wrap in this exact structure:
     <h5>Why We Like It</h5>
     <ul><li>...</li></ul>
   </div>
-  <a href="https://www.amazon.com/dp/ASIN?tag=${ASSOCIATE_TAG}" class="btn-amazon" rel="nofollow sponsored noopener" target="_blank">Check Price on Amazon ↗</a>
+  <a href="DIRECT_TAGGED_AMAZON_PRODUCT_URL" class="btn-amazon" rel="nofollow sponsored noopener" target="_blank">Check Price on Amazon ↗</a>
 </div>`;
 
   const userPrompt = `Write a comprehensive buyer's guide article titled "Best ${topic.charAt(0).toUpperCase() + topic.slice(1)} 2026".
 Include 4-5 product picks across budget, mid-range, and premium tiers.
 Make it around 1,200-1,500 words. Be specific with product names, prices, and real-world testing details.
-Each product MUST have a unique, exact direct Amazon ASIN — do NOT reuse ASINs, create Amazon search links, or include a product when you cannot supply a direct /dp/ ASIN.
+Each product MUST have a unique, exact direct Amazon ASIN. Replace DIRECT_TAGGED_AMAZON_PRODUCT_URL with the concrete https://www.amazon.com/dp/{10-character ASIN}?tag=${ASSOCIATE_TAG} destination. Do NOT reuse ASINs, create Amazon search links, leave a placeholder URL, or include a product when you cannot supply a direct /dp/ ASIN.
 End with a 3-question FAQ section using <h2 id="faq">FAQ</h2> and <h3> for each question.`;
 
   return groqRequest([

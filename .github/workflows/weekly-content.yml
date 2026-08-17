@@ -160,6 +160,7 @@ jobs:
           python3 scripts/validate-products.py
           python3 tools/validate_asins.py --output /tmp/affiliate_destination_report.json
           python3 tools/validate_asin_mappings.py --output /tmp/asin_mapping_report.json
+          python3 tools/validate_rendered_amazon_anchors.py
 
       # ── 5. Regenerate sitemap ────────────────────────────────────────────────
       - name: Regenerate sitemap
