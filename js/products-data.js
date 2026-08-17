@@ -267,8 +267,8 @@ window.TrailBuiltProducts = {
   "B07T7GDV9B": {
     asin: "B07T7GDV9B",
     name: "Factor 55 Extreme Duty 3/8\" x 10\" Soft Shackle, 43,500 lbs. Minimum Breaking Strength",
-    price: 75.71,
-    priceDisplay: "$75.71"
+    price: 76.09,
+    priceDisplay: "$76.09"
   },
   "B07RFQVB9M": {
     asin: "B07RFQVB9M",
@@ -358,8 +358,8 @@ window.TrailBuiltProducts = {
   "B09FF46FQ9": {
     asin: "B09FF46FQ9",
     name: "Jackery Explorer 500",
-    price: 159.99,
-    priceDisplay: "$159.99"
+    price: 259.99,
+    priceDisplay: "$259.99"
   },
   "B07CZZ8C5W": {
     asin: "B07CZZ8C5W",
@@ -438,8 +438,8 @@ window.TrailBuiltProducts = {
   "B0CLGZB3L6": {
     asin: "B0CLGZB3L6",
     name: "Bluetti AC200P",
-    price: 899.00,
-    priceDisplay: "$899.00"
+    price: 798.99,
+    priceDisplay: "$798.99"
   },
 
   "B0DB3S6NNZ": {
@@ -657,4 +657,4 @@ window.TrailBuiltProducts = {
  * If older than 24 hours (or missing), the price-rendering layer hides
  * numeric prices and shows a 'Check price on Amazon' affiliate link instead.
  */
-window.TrailBuiltLastSyncedAt = "2026-08-16T10:17:31.642Z";
+window.TrailBuiltLastSyncedAt = "2026-08-17T10:26:24.682Z";
