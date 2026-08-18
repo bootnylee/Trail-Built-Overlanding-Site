@@ -3,11 +3,13 @@
  * scripts/fetch-prices.js — Amazon Creators API price sync
  *
  * Reads every ASIN key from js/products-data.js, calls the Amazon
- * Creators API GetItems in batches of 10 ASINs (resources: offersV2.listings.price,
- * images.primary.large), throttled to 1 request/second with exponential backoff
+ * Creators API GetItems in batches of 10 ASINs (title, price, availability,
+ * buy-box state, and primary-image resources), throttled to 1 request/second with exponential backoff
  * on HTTP 429, then rewrites products-data.js in place, updating ONLY:
  *   - price:        <number>            (from offersV2.listings[0].price.money.amount)
  *   - priceDisplay: "<displayAmount>"   (from offersV2.listings[0].price.money.displayAmount)
+ *   - availability: "Available"         (only when the official offer reports quantity)
+ *   - isBuyBoxWinner: <boolean>          (from offersV2.listings[0].isBuyBoxWinner)
  * Note: Trail-Built image management is handled separately via data-amazon-img attributes
  * and image-code URLs; image fields are not present in products-data.js and are not
  * written by this script.
@@ -71,7 +73,13 @@ const TOKEN_EXPIRY_BUFFER_MS = 60_000; // 60s buffer before expiry
 // Request images.primary.large for completeness even though Trail-Built
 // doesn't store image URLs in products-data.js (images are managed via
 // data-amazon-img attributes and image-code URLs in the frontend).
-const RESOURCES = ["offersV2.listings.price", "images.primary.large"];
+const RESOURCES = [
+  "itemInfo.title",
+  "offersV2.listings.price",
+  "offersV2.listings.availability",
+  "offersV2.listings.isBuyBoxWinner",
+  "images.primary.large",
+];
 
 const DRY_RUN = process.argv.includes("--dry-run");
 
@@ -280,21 +288,6 @@ function extractAsins(source) {
   return [...asins];
 }
 
-// Extract fallback ASINs (price: 0) — these have no live offer and are intentionally
-// excluded from Creators API queries. Their HTML links already point to Amazon search
-// URLs with the affiliate tag; querying them would only inflate the flagged count.
-function extractFallbackAsins(source) {
-  const fallbacks = new Set();
-  const blockRegex = /"([A-Z0-9]{10})":\s*\{([^}]+)\}/g;
-  let m;
-  while ((m = blockRegex.exec(source)) !== null) {
-    if (/\bprice:\s*0\b/.test(m[2])) {
-      fallbacks.add(m[1]);
-    }
-  }
-  return fallbacks;
-}
-
 // ─── Parse Creators API GetItems responses into { asin: { price, display, image } }
 
 function indexResponse(response, priceMap, errorMap) {
@@ -305,17 +298,22 @@ function indexResponse(response, priceMap, errorMap) {
       errorMap.set(asinMatch[1], err.code ?? "Unknown");
     }
   }
-  // Items (Creators API camelCase: itemsResult.items[])
-  for (const item of response?.itemsResult?.items ?? []) {
+  // Official GetItems response container is itemResults.items[]. Retain the
+  // earlier pluralized spelling as a compatibility fallback for archived fixtures.
+  const items = response?.itemResults?.items ?? response?.itemsResult?.items ?? [];
+  for (const item of items) {
     const asin = item.asin;
     if (!asin) continue;
     const listing = item.offersV2?.listings?.[0];
     const money = listing?.price?.money;
     const image = item.images?.primary?.large?.url ?? null;
+    const maxOrderQuantity = listing?.availability?.maxOrderQuantity ?? 0;
     if (money?.amount != null && money?.displayAmount) {
       priceMap.set(asin, {
         amount: money.amount,
         display: money.displayAmount,
+        availability: maxOrderQuantity > 0 ? "Available" : "",
+        isBuyBoxWinner: listing?.isBuyBoxWinner === true,
         image, // captured but not written to products-data.js for Trail-Built
       });
     } else {
@@ -373,9 +371,13 @@ function updateProductBlocks(source, priceMap) {
     // Strip the outer quotes since the regex replacement keeps them via capture groups.
     const displayInner = safeDisplay.slice(1, -1);
 
+    const safeAvailability = JSON.stringify(data.availability || "");
     const nb = block
+      .replace(/\n\s*availability:\s*"[^"]*",?/g, "")
+      .replace(/\n\s*isBuyBoxWinner:\s*(?:true|false),?/g, "")
       .replace(/(\bprice:\s*)[0-9]+(?:\.[0-9]+)?(,)/, (_, p1, p2) => `${p1}${numStr}${p2}`)
-      .replace(/(\bpriceDisplay:\s*")[^"]*(")/,  (_, p1, p2) => `${p1}${displayInner}${p2}`);
+      .replace(/(\bpriceDisplay:\s*")[^"]*(")/,  (_, p1, p2) => `${p1}${displayInner}${p2}`)
+      .replace(/(\bpriceDisplay:\s*"[^"]*")/, `$1,\n    availability: ${safeAvailability},\n    isBuyBoxWinner: ${data.isBuyBoxWinner}`);
 
     if (nb !== block) {
       result += source.slice(cursor, open) + nb;
@@ -391,20 +393,11 @@ function updateProductBlocks(source, priceMap) {
 
 async function main() {
   const source = fs.readFileSync(PRODUCTS_FILE, "utf8");
-  const allAsins = extractAsins(source);
-  const fallbackAsins = extractFallbackAsins(source);
-  // Filter out fallback (price=0) ASINs — they have no live offer and are excluded
-  // from API queries. Their links already point to Amazon search URLs.
-  const asins = allAsins.filter((a) => !fallbackAsins.has(a));
-  if (fallbackAsins.size > 0) {
-    console.log(
-      `Skipping ${fallbackAsins.size} fallback (price=0) ASINs: ${[...fallbackAsins].join(", ")}`
-    );
-  }
-  console.log(
-    `Found ${asins.length} queryable ASINs in products-data.js` +
-    ` (${allAsins.length} total, ${fallbackAsins.size} fallbacks excluded)`
-  );
+  const asins = extractAsins(source);
+  // Query all direct product ASINs, including entries currently priced at zero.
+  // A zero-price record may simply be an older unavailable snapshot; GetItems is
+  // the only authoritative way to determine whether a current offer exists.
+  console.log(`Found ${asins.length} direct product ASINs in products-data.js`);
 
   const priceMap = new Map();
   const errorMap = new Map();

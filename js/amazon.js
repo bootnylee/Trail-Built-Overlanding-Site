@@ -65,7 +65,7 @@
       if (asin) {
         el.href = amazonLink(asin);
         el.setAttribute("target", "_blank");
-        el.setAttribute("rel", "noopener sponsored");
+        el.setAttribute("rel", "sponsored nofollow noopener");
       }
     });
   }
@@ -153,7 +153,7 @@
         var link = document.createElement("a");
         link.href = amazonLink(asin);
         link.target = "_blank";
-        link.rel = "noopener sponsored";
+        link.rel = "sponsored nofollow noopener";
         link.textContent = "Check price on Amazon";
         el.textContent = "";
         el.appendChild(link);

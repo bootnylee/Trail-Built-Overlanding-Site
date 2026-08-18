@@ -351,7 +351,9 @@ def verify_asin(asin: str, expected_name: str) -> ASINResult:
     if CREATORS_API_CLIENT_ID and CREATORS_API_CLIENT_SECRET:
         try:
             resp = _creators_api_lookup(asin)
-            items = resp.get("itemsResult", {}).get("items", [])
+            # Official GetItems responses use itemResults.items; retain the
+            # previous spelling solely for compatibility with archived fixtures.
+            items = resp.get("itemResults", {}).get("items", []) or resp.get("itemsResult", {}).get("items", [])
 
             if not items:
                 errors = resp.get("errors", [])
@@ -370,7 +372,7 @@ def verify_asin(asin: str, expected_name: str) -> ASINResult:
                         .get("displayValue"))
             # offersV2 structure
             listings = (item.get("offersV2", {}) or {}).get("listings", []) or []
-            price = (listings[0].get("price", {}).get("displayAmount")
+            price = (listings[0].get("price", {}).get("money", {}).get("displayAmount")
                      if listings else None)
             image_url = (item.get("images", {})
                             .get("primary", {})
