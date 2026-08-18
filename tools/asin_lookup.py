@@ -244,7 +244,6 @@ def _creators_api_lookup(asin: str) -> dict:
         "itemIdType": "ASIN",
         "marketplace": CREATORS_API_MARKETPLACE,
         "partnerTag": CREATORS_API_PARTNER_TAG,
-        "partnerType": "Associates",
         "resources": [
             "itemInfo.title",
             "images.primary.large",
