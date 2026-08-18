@@ -643,6 +643,13 @@ window.TrailBuiltProducts = {
     name: "Bilstein Set of Front & Rear B8 5100 Series Shocks Compatible with 2016-2023 Tacoma with 0-1\\\" Rear Lift | Provides 0-1\\\" Front Lift | Easy Installation | Built to Last",
     price: 0.00,
     priceDisplay: "Check price on Amazon"
+  },
+
+  "B07TJ35L3V": {
+    asin: "B07TJ35L3V",
+    name: "ICECO GO20 Dual Zone Portable Refrigerator",
+    price: 0.00,
+    priceDisplay: ""
   }
 };
 /**
