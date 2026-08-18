@@ -323,9 +323,13 @@ def upsert_schema(soup: BeautifulSoup, records: list[dict], filename: str, faqs:
 
 
 def ensure_scripts(soup: BeautifulSoup) -> None:
-    sources = {script.get("src", "") for script in soup.select("script[src]")}
-    for src in ("../js/products-data.js", "../js/amazon.js", "../js/guide-commerce.js"):
-        if src not in sources:
+    catalog_src = "../js/products-data.js?v=20260818"
+    sources = {script.get("src", "").split("?", 1)[0] for script in soup.select("script[src]")}
+    for script in soup.select("script[src]"):
+        if script.get("src", "").split("?", 1)[0] == "../js/products-data.js":
+            script["src"] = catalog_src
+    for src in (catalog_src, "../js/amazon.js", "../js/guide-commerce.js"):
+        if src.split("?", 1)[0] not in sources:
             script = soup.new_tag("script", src=src)
             soup.body.append(script)
 
