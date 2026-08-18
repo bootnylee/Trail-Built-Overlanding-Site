@@ -165,13 +165,13 @@ def comparison_table(soup: BeautifulSoup, records: list[dict]) -> Tag:
     heading = soup.new_tag("h2")
     heading.string = "Compare the Top Picks"
     note = soup.new_tag("p", attrs={"class": "guide-comparison-note"})
-    note.string = "Prices and offer details appear only after a fresh Amazon catalog refresh. Editorial assessment reflects the guide’s on-page review, not customer star ratings."
+    note.string = "Prices and offer details appear only after a fresh Amazon catalog refresh."
     header.extend([heading, note])
     wrap = soup.new_tag("div", attrs={"class": "guide-table-wrap"})
     table = soup.new_tag("table", attrs={"class": "guide-comparison-table"})
     thead = soup.new_tag("thead")
     tr = soup.new_tag("tr")
-    for label in ("Product", "Key spec(s)", "Price", "Rating", "Buy"):
+    for label in ("Product", "Key spec(s)", "Price", "Buy"):
         th = soup.new_tag("th")
         th.string = label
         tr.append(th)
@@ -184,8 +184,6 @@ def comparison_table(soup: BeautifulSoup, records: list[dict]) -> Tag:
         spec = soup.new_tag("td", attrs={"class": "guide-comparison-spec"})
         spec.string = record["spec"]
         price_cell = soup.new_tag("td")
-        rating = soup.new_tag("td", attrs={"class": "guide-rating"})
-        rating.string = " assessment"
         buy = soup.new_tag("td")
         if record["asin"]:
             price = soup.new_tag("span", attrs={"class": "guide-price", "data-asin": record["asin"], "data-catalog-price": "", "hidden": ""})
@@ -198,7 +196,7 @@ def comparison_table(soup: BeautifulSoup, records: list[dict]) -> Tag:
             unavailable.string = "Not linked"
             price_cell.append(unavailable)
             buy.append(BeautifulSoup("<span class='guide-unavailable'>No verified link</span>", "html.parser"))
-        row.extend([name, spec, price_cell, rating, buy])
+        row.extend([name, spec, price_cell, buy])
         tbody.append(row)
     table.extend([thead, tbody])
     wrap.append(table)
@@ -294,7 +292,7 @@ def upsert_schema(soup: BeautifulSoup, records: list[dict], filename: str, faqs:
             product["url"] = f"https://www.amazon.com/dp/{record['asin']}?tag={TAG}"
         product["review"] = {
             "@type": "Review",
-            "name": "Trail Built editorial assessment",
+            "name": "Trail Built editorial review",
             "author": {"@type": "Person", "name": author},
             "reviewBody": record["spec"],
         }

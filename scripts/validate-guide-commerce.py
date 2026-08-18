@@ -66,6 +66,8 @@ def main() -> int:
 
         if "guide-comparison-table" not in raw:
             failures.append(f"{label}: missing comparison table")
+        if "guide-rating" in raw or re.search(r">\s*Rating\s*<", raw, re.I) or "Editorial assessment" in raw:
+            failures.append(f"{label}: contains a removed Rating column or placeholder assessment text")
         if 'src="../js/guide-commerce.js"' not in raw:
             failures.append(f"{label}: missing guide commerce renderer")
 

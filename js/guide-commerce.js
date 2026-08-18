@@ -39,7 +39,9 @@
       return;
     }
     element.hidden = false;
-    element.textContent = product.availability;
+    var price = element.parentElement && element.parentElement.querySelector("[data-catalog-price]");
+    var hasVisiblePrice = price && !price.hidden && price.textContent;
+    element.textContent = hasVisiblePrice ? " · " + product.availability : product.availability;
   }
 
   function renderBadge(element, product, fresh) {

@@ -1696,7 +1696,7 @@ body[data-reviews-enabled="true"] .user-reviews-section { display: block; }
 .guide-table-wrap { overflow-x: auto; }
 .guide-comparison-table {
   width: 100%;
-  min-width: 710px;
+  min-width: 640px;
   border-collapse: collapse;
   font-size: 0.86rem;
 }
@@ -1716,12 +1716,12 @@ body[data-reviews-enabled="true"] .user-reviews-section { display: block; }
 }
 .guide-comparison-table tr:last-child td { border-bottom: 0; }
 .guide-comparison-table td:first-child { min-width: 190px; font-weight: 700; }
-.guide-comparison-spec { color: var(--muted); line-height: 1.4; max-width: 200px; }
+.guide-comparison-table td:nth-child(3) { min-width: 150px; white-space: nowrap; }
+.guide-comparison-table td:last-child { min-width: 168px; padding-right: 22px; }
+.guide-comparison-spec { color: var(--muted); line-height: 1.4; max-width: 240px; }
 .guide-price { color: var(--accent); font-weight: 800; white-space: nowrap; }
-.guide-rating { color: var(--muted); font-size: 0.78rem; white-space: nowrap; }
-.guide-rating::before { content: 'Editorial'; color: var(--green); font-weight: 700; }
 .guide-price[hidden], .guide-availability[hidden], .guide-catalog-badge[hidden] { display: none; }
-.guide-availability { color: var(--green); font-size: 0.75rem; display: block; margin-top: 4px; }
+.guide-availability { color: var(--green); font-size: 0.78rem; display: inline; white-space: nowrap; }
 .guide-catalog-badge {
   display: inline-block;
   margin-top: 5px;
