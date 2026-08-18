@@ -178,6 +178,25 @@ class LinkContextParser(HTMLParser):
         return any(term in classes for term in ("product-card", "product-box", "product-item", "product-tile", "product-row"))
 
     @staticmethod
+    def _is_generated_commerce(attrs: dict[str, str]) -> bool:
+        """Return true for template-generated table, card, and sticky CTA wrappers.
+
+        These links are already checked by the authenticated direct-ASIN gate.
+        They must not be re-scored using the generic heading "Compare the Top
+        Picks", which would create a false product-title mismatch.
+        """
+        classes = attrs.get("class", "").lower()
+        return (
+            "data-guide-generated" in attrs
+            or "data-guide-sticky" in attrs
+            or "guide-comparison" in classes
+            or "guide-mobile-sticky" in classes
+        )
+
+    def _inside_generated_commerce(self) -> bool:
+        return any(entry.get("is_generated_commerce") for entry in self.stack)
+
+    @staticmethod
     def _attr_context(attrs: dict[str, str]) -> str:
         for key in ("data-product", "data-product-name", "data-name", "data-title"):
             value = clean_text(attrs.get(key, ""))
@@ -197,6 +216,7 @@ class LinkContextParser(HTMLParser):
             "tag": tag.lower(),
             "attrs": attrs,
             "is_product_card": self._is_product_card(attrs),
+            "is_generated_commerce": self._is_generated_commerce(attrs),
             "title": self._attr_context(attrs),
         }
         self.stack.append(entry)
@@ -207,7 +227,7 @@ class LinkContextParser(HTMLParser):
         if tag.lower() == "a":
             href = html.unescape(attrs.get("href", ""))
             match = ASIN_LINK_RE.search(href)
-            if match:
+            if match and not self._inside_generated_commerce():
                 card = self._nearest_card()
                 self.active_anchor = {
                     "asin": match.group(1).upper(),
@@ -367,7 +387,9 @@ class CreatorsClient:
         data = self._safe_json(body)
         if status != 200:
             return LookupResult("INCONCLUSIVE", None, "creators_api", f"GetItems HTTP {status or 'network'}")
-        items = data.get("itemsResult", {}).get("items", [])
+        # Both response spellings appear in Amazon's current reference pages;
+        # accept either form while the direct-ASIN gate remains authoritative.
+        items = data.get("itemResults", {}).get("items", []) or data.get("itemsResult", {}).get("items", [])
         if items:
             title = items[0].get("itemInfo", {}).get("title", {}).get("displayValue")
             if title:
