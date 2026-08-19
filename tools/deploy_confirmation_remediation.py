@@ -138,10 +138,10 @@ def classify_failure(log_text: str) -> dict[str, Any]:
     missing = re.search(r"Cannot find module ['\"]?([^'\"\s]+)", log_text, re.I)
     if missing:
         return {"category": "missing_module", "path": missing.group(1), "safe": True}
-    if re.search(r"(?:title mismatch|catalog/title failure|amazon title).*?(?:asin\s*)?([A-Z0-9]{10})", log_text, re.I | re.S):
+    if "title mismatch" in lowered or "catalog/title failure" in lowered:
         asin = re.search(r"([A-Z0-9]{10})", log_text)
         return {"category": "asin_title_mismatch", "asin": asin.group(1) if asin else "", "safe": True}
-    if re.search(r"(?:dead|unavailable|delisted).{0,120}(?:asin\s*)?([A-Z0-9]{10})", log_text, re.I | re.S):
+    if any(term in lowered for term in ("dead asin", "unavailable asin", "delisted", "asin not found", "http 404")):
         asin = re.search(r"([A-Z0-9]{10})", log_text)
         return {"category": "dead_or_unavailable_asin", "asin": asin.group(1) if asin else "", "safe": True}
     if "product-data" in lowered and ("parse error" in lowered or "syntaxerror" in lowered):
@@ -206,9 +206,64 @@ def _remove_react_asin_record(content: str, asin: str) -> tuple[str, bool]:
     return content[:match.start()] + revised + content[match.end():], revised != record
 
 
+def _unlink_static_article_product(site: Site, finding: dict[str, Any], dry_run: bool) -> dict[str, Any]:
+    """Remove only an exact unverified ASIN destination from one static guide.
+
+    The rendered product remains available as editorial content; the direct ASIN and
+    every matching Amazon anchor are removed so the standardizer renders the required
+    No verified link state rather than a broken destination.
+    """
+    asin = str(finding.get("asin", "")).upper()
+    relative = str(finding.get("article", "")).lstrip("/")
+    article = site.repo / relative
+    if not asin or not article.exists() or article.suffix != ".html":
+        return {"status": "escalate", "detail": "Could not identify one static product block to unlink."}
+    content = article.read_text(encoding="utf-8")
+    original = content
+    content = re.sub(r'\sdata-asin=["\']' + re.escape(asin) + r'["\']', ' data-asin="" data-needs-asin="true"', content)
+    content = re.sub(
+        r'<a([^>]*?)href=["\'][^"\']*(?:amazon\.[^"\']+|amzn\.to)[^"\']*(?:/dp/|dp%2F)' + re.escape(asin) + r'[^"\']*["\']([^>]*)>(.*?)</a>',
+        r'<span class="product-link-status" data-needs-asin="true">No verified link</span>',
+        content,
+        flags=re.I | re.S,
+    )
+    if content == original:
+        return {"status": "escalate", "detail": "No exact static ASIN destination was found to unlink."}
+    if not dry_run:
+        article.write_text(content, encoding="utf-8")
+        standardize = _run([sys.executable, "scripts/standardize-guide-commerce.py"], site.repo, timeout=120)
+        if standardize.returncode:
+            return {"status": "escalate", "detail": (standardize.stdout + standardize.stderr)[-2000:]}
+    return _commit_and_push(site, [article], f"fix: unlink unverified Amazon ASIN {asin}", dry_run)
+
+
+def remediate_product_finding(site: Site, finding: dict[str, Any], dry_run: bool) -> dict[str, Any]:
+    """Apply strict data-first handling to a detailed weekly validator failure."""
+    issue = str(finding.get("issue", "")).lower()
+    category = classify_failure(str(finding.get("issue", ""))).get("category")
+    normalized = {**finding, "category": category, "asin": str(finding.get("asin", "")).upper()}
+    if category == "asin_title_mismatch":
+        # A high-confidence same-product rename is handled first.  Any different or
+        # ambiguous SKU is unlinked rather than guessed; static pages are safe to edit
+        # exactly because the validator identifies the affected article.
+        update = remediate_asin_title_mismatch(site, normalized, dry_run)
+        if update.get("status") != "escalate":
+            return update
+        if Path(str(normalized.get("article", ""))).suffix == ".html":
+            return _unlink_static_article_product(site, normalized, dry_run)
+        return update
+    if category == "dead_or_unavailable_asin":
+        if Path(str(normalized.get("article", ""))).suffix == ".html":
+            return _unlink_static_article_product(site, normalized, dry_run)
+        return remediate_dead_asin(site, normalized, dry_run)
+    if "no current offer" in issue:
+        return remediate_catalog_sync(site, dry_run)
+    return {"status": "escalate", "detail": "Weekly finding is not an approved automatic-remediation category."}
+
+
 def remediate_dead_asin(site: Site, finding: dict[str, Any], dry_run: bool) -> dict[str, Any]:
     asin = str(finding.get("asin", "")).upper()
-    if not asin or not site.product_file.exists() or site.product_file.suffix != ".ts":
+    if not asin or not site.product_file.exists() or site.product_file.suffix not in {".ts", ".js"}:
         return {"status": "escalate", "detail": "Unable to safely identify a single product record for this unavailable ASIN."}
     source = site.product_file.read_text(encoding="utf-8")
     updated, changed = _remove_react_asin_record(source, asin)

@@ -40,7 +40,7 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-from deploy_confirmation_remediation import concise_email, reconcile_all
+from deploy_confirmation_remediation import SITES as DEPLOY_SITES, concise_email, reconcile_all, remediate_product_finding
 from urllib.parse import parse_qs, urlparse
 
 REPORT_RECIPIENT = "kamilano1@gmail.com"
@@ -412,6 +412,30 @@ def run_trail_context_mapping() -> dict:
 # ─────────────────────────────────────────────────────────────────────────────
 # Optional Creators API price/image refresh
 # ─────────────────────────────────────────────────────────────────────────────
+def run_weekly_finding_remediation(site_reports: list[dict], dry_run: bool) -> list[dict]:
+    """Route explicit validator failures through the same strict remediation engine.
+
+    The weekly job never lowers a threshold.  It can only apply the engine's approved
+    data fixes, capped separately at two attempted actions per site; all other cases
+    are recorded for escalation in the concise email report.
+    """
+    engine_sites = {site.name: site for site in DEPLOY_SITES}
+    actions: list[dict] = []
+    per_site_attempts: dict[str, int] = {}
+    for report in site_reports:
+        engine_site = engine_sites.get(report["site"])
+        if not engine_site:
+            continue
+        for failure in report.get("failures", []):
+            if per_site_attempts.get(report["site"], 0) >= 2:
+                actions.append({"site": report["site"], "product": failure.get("product"), "status": "escalate", "detail": "Two-attempt cap reached; gate remains intact."})
+                continue
+            action = remediate_product_finding(engine_site, failure, dry_run)
+            per_site_attempts[report["site"]] = per_site_attempts.get(report["site"], 0) + 1
+            actions.append({"site": report["site"], "product": failure.get("product"), "asin": failure.get("asin"), **action})
+    return actions
+
+
 def run_catalog_sync(site: dict) -> dict:
     """Run a site's existing Creators API GetItems price/image script when requested."""
     child_env = os.environ.copy()
@@ -435,7 +459,7 @@ def run_catalog_sync(site: dict) -> dict:
 # ─────────────────────────────────────────────────────────────────────────────
 # Reporting
 # ─────────────────────────────────────────────────────────────────────────────
-def _plain_report(site_reports: list[dict], context_mapping: dict, sync_reports: list[dict], deploy_reconciliation: dict, run_date: str) -> str:
+def _plain_report(site_reports: list[dict], context_mapping: dict, sync_reports: list[dict], remediation_actions: list[dict], deploy_reconciliation: dict, run_date: str) -> str:
     total = sum(report["total"] for report in site_reports)
     passed = sum(report["passed"] for report in site_reports)
     failed = sum(report["failed"] for report in site_reports)
@@ -480,6 +504,14 @@ def _plain_report(site_reports: list[dict], context_mapping: dict, sync_reports:
         lines.append("--- Optional Creators API price/image sync ---")
         for sync in sync_reports:
             lines.append(f"{sync['site']}: {sync['status']} (exit {sync['exit_code']})")
+        lines.append("")
+    if remediation_actions:
+        lines.append("--- Strict data remediation actions ---")
+        for action in remediation_actions:
+            lines.append(
+                f"{action['site']}: {action.get('product', 'product')} | {action.get('status', 'unknown')} | "
+                f"{action.get('detail', action.get('sha', 'no detail'))}"
+            )
         lines.append("")
     lines.append("--- Deploy confirmation reconciliation ---")
     for deploy in deploy_reconciliation.get("sites", []):
@@ -529,12 +561,15 @@ def main() -> int:
         }]
     else:
         sync_reports = []
+    # First route explicit ASIN/data findings into the shared strict remediation engine.
+    # Only enumerated safe actions are attempted; all ambiguity remains an escalation.
+    remediation_actions = run_weekly_finding_remediation(site_reports, dry_run=args.dry_run)
     # Canonical weekly deployment reconcile. This catches manual/third-party Netlify
     # deploys by comparing each live version.txt marker to origin/main and preserves
     # strict gates: only approved safe fixes can be attempted by the shared engine.
     deploy_reconciliation = reconcile_all(auto_remediate=True, dry_run=args.dry_run)
     deploy_subject, deploy_body = concise_email(deploy_reconciliation)
-    plain = _plain_report(site_reports, context_mapping, sync_reports, deploy_reconciliation, run_date)
+    plain = _plain_report(site_reports, context_mapping, sync_reports, remediation_actions, deploy_reconciliation, run_date)
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "recipient": REPORT_RECIPIENT,
@@ -543,6 +578,7 @@ def main() -> int:
         "sites": site_reports,
         "trail_context_mapping": context_mapping,
         "catalog_sync": sync_reports,
+        "strict_remediation_actions": remediation_actions,
         "deploy_confirmation": deploy_reconciliation,
         "deploy_confirmation_email": {"to": REPORT_RECIPIENT, "subject": deploy_subject, "body": deploy_body},
         "summary": {
