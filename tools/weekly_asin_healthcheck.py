@@ -39,6 +39,8 @@ import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+
+from deploy_confirmation_remediation import concise_email, reconcile_all
 from urllib.parse import parse_qs, urlparse
 
 REPORT_RECIPIENT = "kamilano1@gmail.com"
@@ -433,7 +435,7 @@ def run_catalog_sync(site: dict) -> dict:
 # ─────────────────────────────────────────────────────────────────────────────
 # Reporting
 # ─────────────────────────────────────────────────────────────────────────────
-def _plain_report(site_reports: list[dict], context_mapping: dict, sync_reports: list[dict], run_date: str) -> str:
+def _plain_report(site_reports: list[dict], context_mapping: dict, sync_reports: list[dict], deploy_reconciliation: dict, run_date: str) -> str:
     total = sum(report["total"] for report in site_reports)
     passed = sum(report["passed"] for report in site_reports)
     failed = sum(report["failed"] for report in site_reports)
@@ -479,6 +481,16 @@ def _plain_report(site_reports: list[dict], context_mapping: dict, sync_reports:
         for sync in sync_reports:
             lines.append(f"{sync['site']}: {sync['status']} (exit {sync['exit_code']})")
         lines.append("")
+    lines.append("--- Deploy confirmation reconciliation ---")
+    for deploy in deploy_reconciliation.get("sites", []):
+        actions = deploy.get("auto_attempts") or []
+        action_summary = ", ".join(action.get("status", "") for action in actions) or "none"
+        lines.append(
+            f"{deploy['site']}: {deploy['status']} | expected {deploy['expected_sha'][:10]} | "
+            f"live {deploy['live_marker'][:10] if deploy.get('live_marker') else '<unavailable>'} | "
+            f"auto-fixed: {action_summary} | escalated: {'yes' if deploy.get('escalated') else 'no'}"
+        )
+    lines.append("")
     lines.extend([
         "Notes:",
         "- Amazon bot-check/rate-limit responses are reported as inconclusive, not as delistings.",
@@ -517,7 +529,12 @@ def main() -> int:
         }]
     else:
         sync_reports = []
-    plain = _plain_report(site_reports, context_mapping, sync_reports, run_date)
+    # Canonical weekly deployment reconcile. This catches manual/third-party Netlify
+    # deploys by comparing each live version.txt marker to origin/main and preserves
+    # strict gates: only approved safe fixes can be attempted by the shared engine.
+    deploy_reconciliation = reconcile_all(auto_remediate=True, dry_run=args.dry_run)
+    deploy_subject, deploy_body = concise_email(deploy_reconciliation)
+    plain = _plain_report(site_reports, context_mapping, sync_reports, deploy_reconciliation, run_date)
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "recipient": REPORT_RECIPIENT,
@@ -526,6 +543,8 @@ def main() -> int:
         "sites": site_reports,
         "trail_context_mapping": context_mapping,
         "catalog_sync": sync_reports,
+        "deploy_confirmation": deploy_reconciliation,
+        "deploy_confirmation_email": {"to": REPORT_RECIPIENT, "subject": deploy_subject, "body": deploy_body},
         "summary": {
             "total_products": sum(report["total"] for report in site_reports),
             "passed": sum(report["passed"] for report in site_reports),
