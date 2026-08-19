@@ -18,7 +18,7 @@ const https = require('https');
 // ── Config ──────────────────────────────────────────────────────────────────
 const ASSOCIATE_TAG  = process.env.AMAZON_ASSOCIATE_TAG || 'trailbuiltove-20';
 const GROQ_API_KEY   = process.env.GROQ_API_KEY;
-const GROQ_MODEL     = 'llama-3.3-70b-versatile';
+const GROQ_MODEL     = 'openai/gpt-oss-120b';
 // ARTICLES_DIR can be overridden via env (used by tests to point at a temp
 // directory); defaults to the repo's articles/ folder so behavior is unchanged.
 const ARTICLES_DIR   = process.env.ARTICLES_DIR || path.join(__dirname, '..', 'articles');

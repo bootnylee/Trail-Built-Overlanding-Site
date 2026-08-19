@@ -33,6 +33,7 @@ jobs:
     steps:
       # ── 1. Checkout ──────────────────────────────────────────────────────────
       - name: Checkout repository
+        id: checkout
         uses: actions/checkout@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -65,57 +66,83 @@ jobs:
 
       # ── 2. Setup runtimes ────────────────────────────────────────────────────
       - name: Set up Node.js
+        id: setup_node
         if: steps.check_published.outputs.skip != 'true'
         uses: actions/setup-node@v7
         with:
           node-version: '24'
 
       - name: Set up Python
+        id: setup_python
         if: steps.check_published.outputs.skip != 'true'
         uses: actions/setup-python@v6
         with:
           python-version: '3.11'
 
       - name: Install Python dependencies
+        id: install_python_dependencies
         if: steps.check_published.outputs.skip != 'true'
-        run: pip install requests python-dateutil
+        run: |
+          set -o pipefail
+          mkdir -p "$RUNNER_TEMP/weekly-content-logs"
+          pip install requests python-dateutil 2>&1 | tee "$RUNNER_TEMP/weekly-content-logs/install-python-dependencies.log"
 
       # ── 3. Verify tests before generating (no secrets passed) ───────────────
       - name: Verify topic pool and overwrite guard
+        id: verify_topic_pool
         if: steps.check_published.outputs.skip != 'true'
-        run: node scripts/verify-topic-pool.js && node scripts/test-overwrite-guard.js
+        run: |
+          set -o pipefail
+          mkdir -p "$RUNNER_TEMP/weekly-content-logs"
+          node scripts/verify-topic-pool.js && node scripts/test-overwrite-guard.js 2>&1 | tee "$RUNNER_TEMP/weekly-content-logs/verify-topic-pool-and-overwrite-guard.log"
 
       # ── 4. Generate article ──────────────────────────────────────────────────
       - name: Generate new article
+        id: generate_article
         if: steps.check_published.outputs.skip != 'true'
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           AMAZON_ASSOCIATE_TAG: ${{ secrets.AMAZON_ASSOCIATE_TAG }}
         run: |
+          set -o pipefail
+          mkdir -p "$RUNNER_TEMP/weekly-content-logs"
           TOPIC="${{ github.event.inputs.topic }}"
           if [ -n "$TOPIC" ]; then
-            node scripts/generate-article.js --topic "$TOPIC"
+            node scripts/generate-article.js --topic "$TOPIC" 2>&1 | tee "$RUNNER_TEMP/weekly-content-logs/generate-new-article.log"
           else
-            node scripts/generate-article.js
+            node scripts/generate-article.js 2>&1 | tee "$RUNNER_TEMP/weekly-content-logs/generate-new-article.log"
           fi
 
       # ── 4. Sanitize generated articles ───────────────────────────────────────
       - name: Sanitize generated articles
+        id: sanitize_articles
         if: steps.check_published.outputs.skip != 'true'
-        run: node scripts/sanitize-articles.mjs
+        run: |
+          set -o pipefail
+          mkdir -p "$RUNNER_TEMP/weekly-content-logs"
+          node scripts/sanitize-articles.mjs 2>&1 | tee "$RUNNER_TEMP/weekly-content-logs/sanitize-generated-articles.log"
 
       # ── 5. Regenerate sitemap ────────────────────────────────────────────────
       - name: Regenerate sitemap
+        id: regenerate_sitemap
         if: steps.check_published.outputs.skip != 'true'
-        run: node scripts/generate-sitemap.mjs
+        run: |
+          set -o pipefail
+          mkdir -p "$RUNNER_TEMP/weekly-content-logs"
+          node scripts/generate-sitemap.mjs 2>&1 | tee "$RUNNER_TEMP/weekly-content-logs/regenerate-sitemap.log"
 
       # ── 6. SEO audit ─────────────────────────────────────────────────────────
       - name: Run SEO audit
+        id: seo_audit
         if: steps.check_published.outputs.skip != 'true'
-        run: node scripts/seo-audit.mjs
+        run: |
+          set -o pipefail
+          mkdir -p "$RUNNER_TEMP/weekly-content-logs"
+          node scripts/seo-audit.mjs 2>&1 | tee "$RUNNER_TEMP/weekly-content-logs/run-seo-audit.log"
 
       # ── 7. Upload SEO audit as artifact ─────────────────────────────────────
       - name: Upload SEO audit report
+        id: upload_seo_audit
         uses: actions/upload-artifact@v7
         if: always() && steps.check_published.outputs.skip != 'true'
         with:
@@ -125,8 +152,12 @@ jobs:
 
       # ── 8. Commit & push (skip on dry run) ──────────────────────────────────
       - name: Commit new article and updated files
+        id: commit_article
         if: ${{ github.event.inputs.dry_run != 'true' && steps.check_published.outputs.skip != 'true' }}
         run: |
+          set -o pipefail
+          mkdir -p "$RUNNER_TEMP/weekly-content-logs"
+          exec > >(tee "$RUNNER_TEMP/weekly-content-logs/commit-new-article-and-updated-files.log") 2>&1
           git config user.name  "Trail Built Bot"
           git config user.email "bot@trailbuiltoverland.com"
           git add articles/ index.html sitemap.xml seo-audit-report.json
@@ -139,8 +170,12 @@ jobs:
           fi
 
       - name: Push changes to main
+        id: push_changes
         if: ${{ github.event.inputs.dry_run != 'true' && steps.check_published.outputs.skip != 'true' }}
-        run: git push origin main
+        run: |
+          set -o pipefail
+          mkdir -p "$RUNNER_TEMP/weekly-content-logs"
+          git push origin main 2>&1 | tee "$RUNNER_TEMP/weekly-content-logs/push-changes-to-main.log"
 
       # ── 9. Trigger Netlify deploy (optional build hook) ──────────────────────
       - name: Trigger Netlify deploy
@@ -165,6 +200,7 @@ jobs:
 
       # ── 11. GitHub Actions job summary ───────────────────────────────────────
       - name: Write job summary
+        id: write_summary
         if: always() && steps.check_published.outputs.skip != 'true'
         run: |
           echo "## Trail Built Weekly Content Update" >> $GITHUB_STEP_SUMMARY
@@ -188,3 +224,82 @@ jobs:
           else
             echo "- SEO audit report not found" >> $GITHUB_STEP_SUMMARY
           fi
+
+      # ── 12. Report the actual failure (only when this workflow fails) ─────────
+      - name: Report actual weekly publish failure
+        if: failure() && steps.check_published.outputs.skip != 'true'
+        uses: actions/github-script@v7
+        env:
+          CHECKOUT_OUTCOME: ${{ steps.checkout.outcome }}
+          SETUP_NODE_OUTCOME: ${{ steps.setup_node.outcome }}
+          SETUP_PYTHON_OUTCOME: ${{ steps.setup_python.outcome }}
+          INSTALL_PYTHON_DEPENDENCIES_OUTCOME: ${{ steps.install_python_dependencies.outcome }}
+          VERIFY_TOPIC_POOL_OUTCOME: ${{ steps.verify_topic_pool.outcome }}
+          GENERATE_ARTICLE_OUTCOME: ${{ steps.generate_article.outcome }}
+          SANITIZE_ARTICLES_OUTCOME: ${{ steps.sanitize_articles.outcome }}
+          REGENERATE_SITEMAP_OUTCOME: ${{ steps.regenerate_sitemap.outcome }}
+          SEO_AUDIT_OUTCOME: ${{ steps.seo_audit.outcome }}
+          UPLOAD_SEO_AUDIT_OUTCOME: ${{ steps.upload_seo_audit.outcome }}
+          COMMIT_ARTICLE_OUTCOME: ${{ steps.commit_article.outcome }}
+          PUSH_CHANGES_OUTCOME: ${{ steps.push_changes.outcome }}
+          WRITE_SUMMARY_OUTCOME: ${{ steps.write_summary.outcome }}
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const candidates = [
+              ['Checkout repository', process.env.CHECKOUT_OUTCOME],
+              ['Set up Node.js', process.env.SETUP_NODE_OUTCOME],
+              ['Set up Python', process.env.SETUP_PYTHON_OUTCOME],
+              ['Install Python dependencies', process.env.INSTALL_PYTHON_DEPENDENCIES_OUTCOME, 'install-python-dependencies.log'],
+              ['Verify topic pool and overwrite guard', process.env.VERIFY_TOPIC_POOL_OUTCOME, 'verify-topic-pool-and-overwrite-guard.log'],
+              ['Generate new article', process.env.GENERATE_ARTICLE_OUTCOME, 'generate-new-article.log'],
+              ['Sanitize generated articles', process.env.SANITIZE_ARTICLES_OUTCOME, 'sanitize-generated-articles.log'],
+              ['Regenerate sitemap', process.env.REGENERATE_SITEMAP_OUTCOME, 'regenerate-sitemap.log'],
+              ['Run SEO audit', process.env.SEO_AUDIT_OUTCOME, 'run-seo-audit.log'],
+              ['Upload SEO audit report', process.env.UPLOAD_SEO_AUDIT_OUTCOME],
+              ['Commit new article and updated files', process.env.COMMIT_ARTICLE_OUTCOME, 'commit-new-article-and-updated-files.log'],
+              ['Push changes to main', process.env.PUSH_CHANGES_OUTCOME, 'push-changes-to-main.log'],
+              ['Write job summary', process.env.WRITE_SUMMARY_OUTCOME],
+            ];
+            const failed = candidates.filter(([, outcome]) => outcome === 'failure');
+            const [failingStep = 'Unclassified workflow step', , logFile] = failed[0] || [];
+            let logExcerpt = 'No captured command output is available for this action-managed step. See the workflow run logs for the platform error.';
+            if (logFile) {
+              const logPath = path.join(process.env.RUNNER_TEMP, 'weekly-content-logs', logFile);
+              if (fs.existsSync(logPath)) {
+                logExcerpt = fs.readFileSync(logPath, 'utf8').slice(-12000)
+                  .replace(/(Bearer\s+)[^\s]+/gi, '$1[REDACTED]');
+              } else {
+                logExcerpt = `Expected captured log file was not found: ${logFile}`;
+              }
+            }
+            const allFailed = failed.length
+              ? failed.map(([name]) => `- ${name}`).join('\n')
+              : '- Unclassified workflow failure; inspect the run logs.';
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const title = `WEEKLY PUBLISH FAILED: ${failingStep}`;
+            const body = [
+              '## Weekly publish failure',
+              '',
+              `**Actual failing step:** ${failingStep}`,
+              `**Workflow run:** ${runUrl}`,
+              `**Trigger:** ${context.eventName}`,
+              '',
+              '### Failed step(s)',
+              allFailed,
+              '',
+              '### Relevant error output',
+              '```text',
+              logExcerpt,
+              '```',
+              '',
+              'Dead-link language is reserved for a failed link-health check; this issue reports the step that actually failed.',
+            ].join('\n');
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body,
+              labels: ['automation'],
+            });
