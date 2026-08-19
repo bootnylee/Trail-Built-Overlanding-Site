@@ -68,6 +68,8 @@ def main() -> int:
             failures.append(f"{label}: missing comparison table")
         if "guide-rating" in raw or re.search(r">\s*Rating\s*<", raw, re.I) or "Editorial assessment" in raw:
             failures.append(f"{label}: contains a removed Rating column or placeholder assessment text")
+        if re.search(r"Amazon['’]?s Choice|Amazon Choice|Best[- ]?Seller|Bestseller|#\d+\s+Best[- ]?Seller", raw, re.I):
+            failures.append(f"{label}: contains a prohibited Amazon merchandising badge claim")
         if 'src="../js/guide-commerce.js"' not in raw:
             failures.append(f"{label}: missing guide commerce renderer")
 

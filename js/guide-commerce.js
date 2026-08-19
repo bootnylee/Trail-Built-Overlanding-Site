@@ -45,7 +45,7 @@
   }
 
   function renderBadge(element, product, fresh) {
-    // The Creators API does not expose Amazon's Choice or Best Seller labels.
+    // The Creators API does not expose popular option or popular product labels.
     // Show a badge only if a future official catalog response supplies one.
     if (!fresh || !product || !product.merchandisingBadge) {
       element.hidden = true;

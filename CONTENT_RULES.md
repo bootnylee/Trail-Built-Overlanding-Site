@@ -139,3 +139,11 @@ Without Creators API credentials, validation falls back to public Amazon page sc
 ### Prerequisite
 Your Associates account must have ≥10 qualifying sales in the trailing 30 days to
 access the Creators API. This is an ongoing requirement.
+
+## Rule 6: Customer Ratings and Amazon Merchandising Claims
+
+**Do not display, publish, or place in structured data any numeric Amazon star rating or Amazon review count unless the exact value was retrieved from a supported current catalog response and stored with its retrieval timestamp.** Static source values, estimates, copied listing text, and manually entered values are not acceptable sources. When a current verifiable source is unavailable, omit the rating rather than approximating it. Genuine, approved first-party user reviews remain eligible for `AggregateRating` only under the existing feature-flag and moderation rules.
+
+**Never claim or imply Amazon merchandising designations**, including `Amazon's Choice`, `Amazon Choice`, `Best Seller`, `Best-Seller`, `Bestseller`, or numbered variants such as `#1 Best Seller`. The Amazon Creators API catalog response does not provide these badges as an approved content source. Do not scrape them, infer them, or restate them in body copy, pros/cons, product cards, metadata, or structured data. Use neutral, independently supportable editorial language instead.
+
+The pre-publish validation gates enforce these restrictions. A prohibited badge phrase or static card-rating renderer is a blocking deployment error.
