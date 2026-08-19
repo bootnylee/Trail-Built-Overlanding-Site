@@ -23,7 +23,7 @@ import time
 import urllib.error
 import urllib.request
 
-from asin_lookup import verify_asin
+from asin_lookup import search_catalog_items, verify_asin
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -335,6 +335,62 @@ def _replace_record_name(site: Site, asin: str, new_name: str, dry_run: bool) ->
     return _commit_and_push(site, [site.product_file], f"fix: align product label with verified catalog title for {asin}", dry_run)
 
 
+def _candidate_title(item: dict) -> str:
+    return str((((item.get("itemInfo") or {}).get("title") or {}).get("displayValue")) or "")
+
+
+def _find_exact_replacement_asin(expected: str) -> tuple[str, str] | None:
+    """Return exactly one high-confidence official catalog candidate, or None.
+
+    SearchItems is used only with Creators API credentials.  Multiple plausible
+    candidates, absent titles, or weak identity overlap are intentionally ambiguous.
+    """
+    candidates: list[tuple[str, str]] = []
+    for item in search_catalog_items(expected, 10):
+        asin = str(item.get("asin") or "").upper()
+        title = _candidate_title(item)
+        if re.fullmatch(r"[A-Z0-9]{10}", asin or "") and title and _strict_same_product(expected, title):
+            candidates.append((asin, title))
+    unique = {(asin, title) for asin, title in candidates}
+    return next(iter(unique)) if len(unique) == 1 else None
+
+
+def _replace_record_asin(site: Site, old_asin: str, new_asin: str, new_title: str, dry_run: bool) -> dict[str, Any]:
+    if not site.product_file.exists() or site.product_file.suffix not in {".ts", ".js"}:
+        return {"status": "escalate", "detail": "No bounded dynamic product record is available for exact ASIN replacement."}
+    content = site.product_file.read_text(encoding="utf-8")
+    pattern = re.compile(r"(\{[^{}]{0,3000}?\basin\s*:\s*['\"]" + re.escape(old_asin) + r"['\"][^{}]{0,5000}?\})", re.S)
+    match = pattern.search(content)
+    if not match:
+        return {"status": "escalate", "detail": "No exact eligible product record was found for ASIN replacement."}
+    record = match.group(1)
+    revised = re.sub(r"(\basin\s*:\s*['\"])" + re.escape(old_asin) + r"(['\"])", r"\g<1>" + new_asin + r"\2", record, count=1)
+    safe_title = new_title.replace("\\", "\\\\").replace("'", "\\'")
+    revised = re.sub(r"(\bname\s*:\s*['\"])([^'\"]+)(['\"])", lambda item: item.group(1) + safe_title + item.group(3), revised, count=1)
+    if revised == record:
+        return {"status": "escalate", "detail": "Bounded record edit did not produce one exact ASIN replacement."}
+    if not dry_run:
+        site.product_file.write_text(content[:match.start()] + revised + content[match.end():], encoding="utf-8")
+    return _commit_and_push(site, [site.product_file], f"fix: relink verified exact Amazon ASIN {new_asin}", dry_run)
+
+
+def _replace_static_article_asin(site: Site, finding: dict[str, Any], new_asin: str, dry_run: bool) -> dict[str, Any]:
+    old_asin = str(finding.get("asin", "")).upper()
+    article = site.repo / str(finding.get("article", "")).lstrip("/")
+    if not old_asin or not article.exists() or article.suffix != ".html":
+        return {"status": "escalate", "detail": "Could not identify one static guide product for exact ASIN replacement."}
+    content = article.read_text(encoding="utf-8")
+    revised = content.replace(old_asin, new_asin)
+    if revised == content:
+        return {"status": "escalate", "detail": "No exact static ASIN reference was found for replacement."}
+    if not dry_run:
+        article.write_text(revised, encoding="utf-8")
+        standardize = _run([sys.executable, "scripts/standardize-guide-commerce.py"], site.repo, timeout=120)
+        if standardize.returncode:
+            return {"status": "escalate", "detail": (standardize.stdout + standardize.stderr)[-2000:]}
+    return _commit_and_push(site, [article], f"fix: relink verified exact Amazon ASIN {new_asin}", dry_run)
+
+
 def remediate_asin_title_mismatch(site: Site, finding: dict[str, Any], dry_run: bool) -> dict[str, Any]:
     asin = str(finding.get("asin", "")).upper()
     expected = _record_name_for_asin(site, asin)
@@ -343,9 +399,15 @@ def remediate_asin_title_mismatch(site: Site, finding: dict[str, Any], dry_run: 
     verified = verify_asin(asin, expected)
     if not verified.resolves or not verified.amazon_title:
         return {"status": "escalate", "detail": f"Official catalog could not resolve the ASIN: {verified.error or 'no title returned'}."}
-    if not _strict_same_product(expected, verified.amazon_title):
-        return {"status": "escalate", "detail": "Catalog title does not meet the required brand/line/form/size identity threshold; no SKU swap or label update was made."}
-    return _replace_record_name(site, asin, verified.amazon_title, dry_run)
+    if _strict_same_product(expected, verified.amazon_title):
+        return _replace_record_name(site, asin, verified.amazon_title, dry_run)
+    replacement = _find_exact_replacement_asin(expected)
+    if not replacement:
+        return {"status": "escalate", "detail": "No unique high-confidence Creators API SearchItems result matched brand, line, form, and size."}
+    replacement_asin, replacement_title = replacement
+    if Path(str(finding.get("article", ""))).suffix == ".html":
+        return _replace_static_article_asin(site, finding, replacement_asin, dry_run)
+    return _replace_record_asin(site, asin, replacement_asin, replacement_title, dry_run)
 
 
 def remediate_catalog_sync(site: Site, dry_run: bool) -> dict[str, Any]:

@@ -52,6 +52,7 @@ CREATORS_API_COGNITO_TOKEN_URL = "https://creatorsapi.auth.us-east-1.amazoncogni
 # Creators API base URL (global)
 CREATORS_API_BASE_URL  = "https://creatorsapi.amazon"
 CREATORS_API_GETITEMS  = f"{CREATORS_API_BASE_URL}/catalog/v1/getItems"
+CREATORS_API_SEARCHITEMS = f"{CREATORS_API_BASE_URL}/catalog/v1/searchItems"
 
 # Fuzzy-match threshold: Amazon title must share this fraction of words with expected name
 MATCH_THRESHOLD = 0.35   # intentionally lenient — catches completely wrong products
@@ -279,6 +280,48 @@ def _creators_api_lookup(asin: str) -> dict:
             _last_api_call = time.time()
 
     raise RuntimeError("Creators API retry loop ended without a response")
+
+
+def search_catalog_items(query: str, item_count: int = 10) -> list[dict]:
+    """Search the official Amazon catalog for exact-SKU remediation candidates.
+
+    This is intentionally unavailable without Creators API credentials.  The caller
+    must apply its own strict brand/line/form/size identity check before any relink.
+    No scraped search result is ever used to choose a replacement ASIN.
+    """
+    if not (CREATORS_API_CLIENT_ID and CREATORS_API_CLIENT_SECRET) or not query.strip():
+        return []
+    global _last_api_call
+    elapsed = time.time() - _last_api_call
+    if elapsed < API_RATE_LIMIT_SECONDS:
+        time.sleep(API_RATE_LIMIT_SECONDS - elapsed)
+    token = _get_access_token()
+    payload = json.dumps({
+        "keywords": query.strip(),
+        "itemCount": max(1, min(int(item_count), 10)),
+        "searchIndex": "All",
+        "availability": "IncludeOutOfStock",
+        "marketplace": CREATORS_API_MARKETPLACE,
+        "partnerTag": CREATORS_API_PARTNER_TAG,
+        "resources": ["itemInfo.title", "itemInfo.features", "itemInfo.productInfo"],
+    }).encode("utf-8")
+    req = urllib.request.Request(
+        CREATORS_API_SEARCHITEMS,
+        data=payload,
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json",
+            "x-marketplace": CREATORS_API_MARKETPLACE,
+        },
+        method="POST",
+    )
+    _last_api_call = time.time()
+    try:
+        with urllib.request.urlopen(req, timeout=12) as response:
+            data = json.loads(response.read().decode("utf-8"))
+    except Exception:
+        return []
+    return list((data.get("searchResult") or {}).get("items") or [])
 
 
 # ─────────────────────────────────────────────────────────────────────────────
