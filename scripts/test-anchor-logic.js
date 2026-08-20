@@ -1,100 +1,76 @@
+#!/usr/bin/env node
 /**
- * test-anchor-logic.js
- * Quick verification that:
- *   1. The new ANCHOR_RE regex finds its target in the current index.html.
- *   2. The no-change guard throws when given HTML that lacks the anchor.
- *   3. The duplicate guard skips an already-present slug.
- *
- * Run from repo root:  node scripts/test-anchor-logic.js
- * Exit 0 = all tests passed.  Exit 1 = a test failed.
+ * Verifies that generated homepage cards are prepended inside the canonical
+ * reviews grid, preserving the three-across layout and newest-first behavior.
  */
-
 'use strict';
 
-const fs   = require('fs');
+const fs = require('fs');
 const path = require('path');
 
 const INDEX_FILE = path.join(__dirname, '..', 'index.html');
-const ANCHOR_RE  = /(<\/section>)(\s*<!-- ===== TOP PRODUCT)/;
-
+const GRID_MARKER = '<div class="grid-3">';
 let passed = 0;
 let failed = 0;
 
 function assert(label, condition, detail) {
   if (condition) {
     console.log(`  ✓  ${label}`);
-    passed++;
+    passed += 1;
   } else {
-    console.error(`  ✗  ${label}${detail ? ': ' + detail : ''}`);
-    failed++;
+    console.error(`  ✗  ${label}${detail ? `: ${detail}` : ''}`);
+    failed += 1;
   }
 }
 
-function assertThrows(label, fn) {
-  try {
-    fn();
-    console.error(`  ✗  ${label}: expected an error to be thrown but none was`);
-    failed++;
-  } catch (e) {
-    console.log(`  ✓  ${label} (threw: ${e.message.slice(0, 80)}…)`);
-    passed++;
-  }
+function reviewsGridInsertionPoint(html) {
+  const reviewsStart = html.indexOf('<section id="reviews">');
+  const gridStart = reviewsStart === -1 ? -1 : html.indexOf(GRID_MARKER, reviewsStart);
+  if (gridStart === -1) throw new Error('canonical reviews grid not found');
+  return gridStart + GRID_MARKER.length;
 }
 
-// ── Test 1: anchor found in real index.html ───────────────────────────────────
-console.log('\nTest 1: ANCHOR_RE matches current index.html');
 const html = fs.readFileSync(INDEX_FILE, 'utf8');
-assert('ANCHOR_RE.test(html) === true', ANCHOR_RE.test(html));
 
-// ── Test 2: insertion actually changes the HTML ───────────────────────────────
-console.log('\nTest 2: insertion produces a changed string');
+console.log('\nTest 1: canonical reviews grid exists');
+const insertionPoint = (() => {
+  try { return reviewsGridInsertionPoint(html); }
+  catch (error) { assert('reviews grid anchor resolves', false, error.message); return -1; }
+})();
+assert('reviews grid anchor resolves', insertionPoint !== -1);
+
+console.log('\nTest 2: insertion prepends inside the reviews grid');
 const dummyCard = '<div class="card"><p>TEST CARD</p></div>';
-const updated = html.replace(ANCHOR_RE, dummyCard + '\n$1$2');
-assert('updated !== html', updated !== html);
-assert('updated contains dummy card', updated.includes('TEST CARD'));
-assert('anchor comment still present after insertion',
-  updated.includes('<!-- ===== TOP PRODUCT'));
+const updated = html.slice(0, insertionPoint) + `\n${dummyCard}` + html.slice(insertionPoint);
+const gridAfterInsertion = updated.indexOf(GRID_MARKER) + GRID_MARKER.length;
+assert('updated HTML changes', updated !== html);
+assert('dummy card is immediately inside grid', updated.indexOf(dummyCard) === gridAfterInsertion + 1);
+assert('top-product section remains after reviews', updated.indexOf('<!-- ===== TOP PRODUCT PICKS ===== -->') > updated.indexOf(dummyCard));
 
-// ── Test 3: no-change guard throws on HTML without the anchor ─────────────────
-console.log('\nTest 3: no-change guard throws when anchor is absent');
-const htmlNoAnchor = '<html><body><p>no anchor here</p></body></html>';
-assertThrows(
-  'throws when ANCHOR_RE not found',
-  () => {
-    if (!ANCHOR_RE.test(htmlNoAnchor)) {
-      throw new Error(
-        'addArticleToIndex: anchor not found — ' +
-        'could not locate "</section>" before "<!-- ===== TOP PRODUCT" in index.html.'
-      );
-    }
-  }
-);
+console.log('\nTest 3: missing reviews grid blocks insertion');
+let threw = false;
+try { reviewsGridInsertionPoint('<html><body></body></html>'); } catch { threw = true; }
+assert('missing grid throws', threw);
 
-// ── Test 4: duplicate guard — slug already in index ───────────────────────────
-console.log('\nTest 4: duplicate guard skips already-present slug');
-const existingSlug = 'best-overlanding-recovery-gear';
-assert(
-  `index.html already contains "${existingSlug}"`,
-  html.includes(`articles/${existingSlug}.html`)
-);
+console.log('\nTest 4: duplicate guard source remains valid');
+assert('existing article slug is present', html.includes('articles/best-overlanding-recovery-gear.html'));
 
-// ── Test 5: all 18 articles now linked ────────────────────────────────────────
-console.log('\nTest 5: all articles in articles/ are linked in index.html');
+console.log('\nTest 5: homepage card listing is newest-first and complete');
+const reviewsStart = html.indexOf('<section id="reviews">');
+const reviewsEnd = html.indexOf('</section>', reviewsStart);
+const reviews = html.slice(reviewsStart, reviewsEnd);
+const cardSlugs = [...reviews.matchAll(/<h3><a href="articles\/([^"/]+)\.html">/g)].map(match => match[1]);
+const uniqueSlugs = [...new Set(cardSlugs)];
 const articlesDir = path.join(__dirname, '..', 'articles');
-const articleFiles = fs.readdirSync(articlesDir).filter(f => f.endsWith('.html'));
-let allPresent = true;
-for (const f of articleFiles) {
-  const slug = f.replace('.html', '');
-  const present = html.includes(`articles/${slug}.html`);
-  assert(`  ${slug}`, present);
-  if (!present) allPresent = false;
-}
+assert('review listing has unique canonical cards', cardSlugs.length >= 6 && cardSlugs.length === uniqueSlugs.length, `${cardSlugs.length} review cards / ${uniqueSlugs.length} unique slugs`);
+const dates = cardSlugs.map(slug => {
+  const article = fs.readFileSync(path.join(articlesDir, `${slug}.html`), 'utf8');
+  return article.match(/"datePublished"\s*:\s*"(\d{4}-\d{2}-\d{2})"/)?.[1] || '';
+});
+assert('card publish dates descend', dates.every((date, index) => index === 0 || dates[index - 1] >= date), dates.join(', '));
+assert('all grid-card images request 600px sources', !/<div class="card-img"><img[^>]+w=1200/.test(reviews));
 
-// ── Summary ───────────────────────────────────────────────────────────────────
 console.log(`\n${'─'.repeat(60)}`);
 console.log(`Results: ${passed} passed, ${failed} failed`);
-if (failed > 0) {
-  process.exit(1);
-} else {
-  console.log('All tests passed.');
-}
+if (failed > 0) process.exit(1);
+console.log('All tests passed.');

@@ -28,6 +28,7 @@ const INDEX_FILE     = path.join(__dirname, '..', 'index.html');
 const SITE_URL       = 'https://trailbuiltoverland.com';
 const PRODUCT_IMAGES_DIR = process.env.PRODUCT_IMAGES_DIR || path.join(__dirname, '..', 'assets', 'product-images');
 const PRODUCT_IMAGES_REPO_PREFIX = 'assets/product-images/';
+const HERO_IMAGES_FILE = path.join(__dirname, '..', 'data', 'hero-images.json');
 const MIN_PRODUCT_BOXES = 5;
 
 // ── Topic pool — cycles automatically; add more to extend coverage ──────────
@@ -75,18 +76,61 @@ const TOPIC_POOL = [
   'best overlanding dash cams and trail cameras',
 ];
 
-// ── Curated Unsplash fallback pool (all verified 200 OK as of 2026-07) ────────
-// Never include photo-1534536297917 — deleted by Unsplash.
-const UNSPLASH_FALLBACKS = [
-  'https://images.unsplash.com/photo-1533591380348-14193f1de18f?w=1200&q=80', // off-road truck trail
-  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80', // mountain road
-  'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=1200&q=80', // jeep trail
-  'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1200&q=80', // camping sunset
-  'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&q=80', // mountain landscape
-  'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1200&q=80', // forest road
-  'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1200&q=80', // desert off-road
-  'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1200&q=80', // camping fire
-];
+// ── Curated hero library ───────────────────────────────────────────────────
+// Hero choices are source-controlled, visually reviewed, and selected by topic.
+// The generator never accepts a model-guessed photo ID as an article hero.
+function loadHeroLibrary(file = HERO_IMAGES_FILE) {
+  const parsed = JSON.parse(fs.readFileSync(file, 'utf8'));
+  const categories = parsed?.categories;
+  if (!categories || typeof categories !== 'object') {
+    throw new Error(`[hero-images] Missing categories object in ${file}`);
+  }
+  for (const [name, category] of Object.entries(categories)) {
+    if (!Array.isArray(category?.keywords) || category.keywords.length === 0) {
+      throw new Error(`[hero-images] ${name} is missing keyword matches`);
+    }
+    if (!Array.isArray(category?.images) || category.images.length < 3 || category.images.length > 5) {
+      throw new Error(`[hero-images] ${name} must provide 3–5 image URLs`);
+    }
+    for (const image of category.images) {
+      if (typeof image !== 'string' || !/^https:\/\/images\.pexels\.com\//.test(image)) {
+        throw new Error(`[hero-images] ${name} contains an invalid curated image URL`);
+      }
+    }
+  }
+  if (!categories['general-overlanding']) {
+    throw new Error('[hero-images] A general-overlanding fallback category is required');
+  }
+  return categories;
+}
+
+const HERO_LIBRARY = loadHeroLibrary();
+
+function selectHeroImage(topic, library = HERO_LIBRARY) {
+  const normalizedTopic = String(topic || '').toLowerCase();
+  const entries = Object.entries(library);
+  const specificMatches = entries
+    .filter(([name]) => name !== 'general-overlanding')
+    .map(([name, category]) => ({
+      name,
+      category,
+      score: category.keywords.filter(keyword => normalizedTopic.includes(keyword)).length,
+    }))
+    .filter(match => match.score > 0)
+    .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
+  const selected = specificMatches[0] || {
+    name: 'general-overlanding',
+    category: library['general-overlanding'],
+  };
+  const digest = crypto.createHash('sha256').update(`${selected.name}\u0000${normalizedTopic}`).digest();
+  const index = digest.readUInt32BE(0) % selected.category.images.length;
+  const orderedImages = [
+    selected.category.images[index],
+    ...selected.category.images.filter((_, candidateIndex) => candidateIndex !== index),
+    ...library['general-overlanding'].images.filter(image => image !== selected.category.images[index]),
+  ];
+  return { category: selected.name, primary: orderedImages[0], fallbacks: orderedImages.slice(1) };
+}
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 /**
@@ -118,31 +162,32 @@ function validateImageUrl(url) {
 }
 
 /**
- * Validate a candidate image URL; on failure, retry up to maxRetries times
- * by cycling through the UNSPLASH_FALLBACKS pool.
- * Throws if no valid URL can be found after all retries.
+ * Validate a selected curated image URL; on failure, retry deterministically
+ * through other images from the same curated topic category and then the general
+ * overlanding library. Throws if no curated image URL is live.
  */
-async function resolveValidImageUrl(candidateUrl, maxRetries = 3) {
-  // First try the candidate
-  const candidateOk = await validateImageUrl(candidateUrl);
-  if (candidateOk) return candidateUrl;
-  console.warn(`[image-validate] DEAD URL rejected: ${candidateUrl}`);
-
-  // Cycle through fallbacks
-  for (let i = 0; i < Math.min(maxRetries, UNSPLASH_FALLBACKS.length); i++) {
-    const fallback = UNSPLASH_FALLBACKS[i];
-    console.warn(`[image-validate] Trying fallback ${i + 1}/${maxRetries}: ${fallback}`);
-    const ok = await validateImageUrl(fallback);
+async function resolveValidImageUrl(candidateUrl, fallbackUrls = []) {
+  const candidates = [candidateUrl, ...fallbackUrls].filter((url, index, values) => values.indexOf(url) === index);
+  for (let i = 0; i < candidates.length; i++) {
+    const url = candidates[i];
+    const ok = await validateImageUrl(url);
     if (ok) {
-      console.log(`[image-validate] Fallback accepted: ${fallback}`);
-      return fallback;
+      if (i > 0) console.log(`[image-validate] Curated fallback accepted: ${url}`);
+      return url;
     }
-    console.warn(`[image-validate] Fallback also dead: ${fallback}`);
+    console.warn(`[image-validate] Curated URL unavailable: ${url}`);
   }
-  throw new Error(
-    `[image-validate] All ${maxRetries} fallback image URLs failed. ` +
-    'Update UNSPLASH_FALLBACKS in generate-article.js with verified live URLs.'
-  );
+  throw new Error('[image-validate] No curated hero image URL passed liveness validation. Update data/hero-images.json.');
+}
+
+function cardImageUrl(url) {
+  try {
+    const parsed = new URL(url);
+    parsed.searchParams.set('w', '600');
+    return parsed.toString();
+  } catch {
+    return String(url).replace(/([?&])w=\d+/, '$1w=600');
+  }
 }
 
 function slugify(text) {
@@ -798,10 +843,9 @@ async function generateMeta(topic) {
   const prompt = `For an overlanding affiliate article about "${topic}", write:
 1. A title tag (max 65 chars, include "2026")
 2. A meta description (min 100 chars, max 155 chars, mention testing, year 2026, and specific product types)
-3. An og:image Unsplash URL for a high-quality overlanding/off-road photo.
-   Use format: https://images.unsplash.com/photo-PHOTOID?w=1200&q=80
-   Pick a relevant Unsplash photo ID for overlanding/off-road content.
-Return as JSON: {"title": "...", "description": "...", "ogImage": "..."}`;
+
+Do not provide image URLs; article heroes are selected deterministically from the curated local hero library.
+Return as JSON: {"title": "...", "description": "..."}`;
 
   const raw = await groqRequest([
     { role: 'system', content: 'Return only valid JSON, no markdown.' },
@@ -814,15 +858,11 @@ Return as JSON: {"title": "...", "description": "...", "ogImage": "..."}`;
       parsed.description = parsed.description + ` Our team tested the top-rated options in the field to find the best picks for every budget and overlanding build style in 2026.`;
       if (parsed.description.length > 155) parsed.description = parsed.description.substring(0, 152) + '...';
     }
-    if (!parsed.ogImage) {
-      parsed.ogImage = 'https://images.unsplash.com/photo-1533591380348-14193f1de18f?w=1200&q=80';
-    }
     return parsed;
   } catch {
     return {
       title: `Best ${topic} 2026 — Trail Built`,
       description: `Expert overlanding gear reviews for ${topic} in 2026. Our team tested the top-rated options in the field to find the best picks for every budget and build.`,
-      ogImage: 'https://images.unsplash.com/photo-1533591380348-14193f1de18f?w=1200&q=80',
     };
   }
 }
@@ -860,7 +900,7 @@ function buildHTML({ slug, title, description, ogImage, topic, bodyHTML, date, d
   <meta name="twitter:description" content="${escapeHtml(description)}" />
   <meta name="twitter:image" content="${escapeHtml(ogImage)}" />
   <link rel="icon" type="image/svg+xml" href="../images/favicon.svg" />
-  <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+  <link rel="preconnect" href="https://images.pexels.com" crossorigin />
   <link rel="preconnect" href="https://m.media-amazon.com" crossorigin />
   <link rel="stylesheet" href="../css/style.css" />
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="j9FlobP0cqeKUsyYo3HRlw" async></script>
@@ -1066,18 +1106,18 @@ function addArticleToIndex(slug, title, description, date, ogImage) {
   }
 
   const cleanTitle = title.replace(' - Trail Built', '').replace(' — Trail Built', '');
-  // Match the card format used by the SEO-reformatted index.html (no extra
-  // indentation; self-closing img tag without trailing space before />).
+  // Canonical three-across review-card markup: local structural classes and
+  // 600px source sizing are intentionally stable for all future insertions.
   const card =
 `<div class="card">
-<div class="card-img"><img src="${ogImage}" alt="${cleanTitle.replace(/"/g, '&quot;')}" loading="lazy" decoding="async"/></div>
+<div class="card-img"><img alt="${escapeHtml(cleanTitle)}" decoding="async" loading="lazy" src="${escapeHtml(cardImageUrl(ogImage))}"/></div>
 <div class="card-body">
 <div class="card-meta">
 <span class="badge">Gear Guide</span>
-<span class="card-date">${date}</span>
+<span class="card-date">${escapeHtml(date)}</span>
 </div>
-<h3><a href="articles/${slug}.html">${cleanTitle}</a></h3>
-<p>${description}</p>
+<h3><a href="articles/${slug}.html">${escapeHtml(cleanTitle)}</a></h3>
+<p>${escapeHtml(description)}</p>
 <div class="card-footer">
 <a class="read-link" href="articles/${slug}.html">Read More &rarr;</a>
 <span class="read-time">12 min</span>
@@ -1085,20 +1125,19 @@ function addArticleToIndex(slug, title, description, date, ogImage) {
 </div>
 </div>`;
 
-  // ── Anchor: </section>\n<!-- ===== TOP PRODUCT ────────────────────────────
-  // We look for the </section> immediately before the TOP PRODUCT comment
-  // (any amount of whitespace between them) and insert the new card before
-  // that </section>.  Using a regex makes this whitespace-insensitive.
-  const ANCHOR_RE = /(<\/section>)(\s*<!-- ===== TOP PRODUCT)/;
-  if (!ANCHOR_RE.test(html)) {
+  // Insert immediately inside the canonical reviews grid, so a new article is
+  // at the top of the homepage and remains a child of the three-across layout.
+  const reviewsStart = html.indexOf('<section id="reviews">');
+  const gridMarker = '<div class="grid-3">';
+  const gridStart = reviewsStart === -1 ? -1 : html.indexOf(gridMarker, reviewsStart);
+  if (gridStart === -1) {
     throw new Error(
-      'addArticleToIndex: anchor not found — ' +
-      'could not locate "</section>" before "<!-- ===== TOP PRODUCT" in index.html. ' +
-      'The homepage was NOT updated. Fix the anchor in scripts/generate-article.js.'
+      'addArticleToIndex: canonical reviews grid not found in index.html. ' +
+      'The homepage was NOT updated. Fix the reviews grid before generating articles.'
     );
   }
-
-  const updated = html.replace(ANCHOR_RE, card + '\n$1$2');
+  const insertionPoint = gridStart + gridMarker.length;
+  const updated = html.slice(0, insertionPoint) + `\n${card}` + html.slice(insertionPoint);
 
   // ── No-change guard ───────────────────────────────────────────────────────
   if (updated === html) {
@@ -1141,9 +1180,11 @@ async function main() {
   const slug      = topicToSlug(topic);
   const date      = todayISO();
   const dateHuman = todayHuman();
+  const heroSelection = selectHeroImage(topic);
 
   console.log(`Topic: ${topic}`);
   console.log(`Slug:  ${slug}`);
+  console.log(`[hero-select] ${heroSelection.category}: ${heroSelection.primary}`);
 
   // Overwrite guard: refuse to clobber an existing article unless --force was
   // explicitly passed. Checked here — immediately after slug is known — so that
@@ -1170,6 +1211,7 @@ async function main() {
       generateArticleContent(topic, verifiedPool, excludedImageAsins),
       attempt === 1 ? generateMeta(topic) : Promise.resolve(meta), // reuse meta on retries
     ]);
+    meta.ogImage = heroSelection.primary;
     const { ok, failed } = await validateBodyAsins(bodyHTML, verifiedPool);
     if (failed.length > 0) {
       console.warn(`[asin-precheck] ⚠️  Attempt ${attempt}: ${failed.join('; ')}`);
@@ -1197,7 +1239,7 @@ async function main() {
   // Validate hero image URL — reject dead URLs before writing the article file.
   // This prevents the link-check gate from failing in CI.
   console.log(`[image-validate] Checking hero image: ${meta.ogImage}`);
-  meta.ogImage = await resolveValidImageUrl(meta.ogImage);
+  meta.ogImage = await resolveValidImageUrl(meta.ogImage, heroSelection.fallbacks);
   console.log(`[image-validate] Hero image OK: ${meta.ogImage}`);
   const products = extractProductSchemaRecords(bodyHTML, verifiedPool);
   const html = buildHTML({
@@ -1240,4 +1282,8 @@ module.exports = {
   extractFaqSchemaPairs,
   buildCommerceSchemas,
   buildHTML,
+  loadHeroLibrary,
+  selectHeroImage,
+  resolveValidImageUrl,
+  cardImageUrl,
 };

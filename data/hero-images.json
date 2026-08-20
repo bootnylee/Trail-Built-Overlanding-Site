@@ -1,0 +1,113 @@
+{
+  "source": "Curated from public Pexels search results and visually reviewed for topical relevance; see repository asset-selection evidence.",
+  "categories": {
+    "navigation": {
+      "keywords": ["navigation", "gps", "maps", "mapping", "route", "drivesmart", "onx"],
+      "images": [
+        "https://images.pexels.com/photos/30954662/pexels-photo-30954662/free-photo-of-smartphone-gps-navigation-on-car-dashboard.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/7856880/pexels-photo-7856880.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/15828798/pexels-photo-15828798/free-photo-of-navigation-touchscreen-in-car.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/6044782/pexels-photo-6044782.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      ]
+    },
+    "power-electrical": {
+      "keywords": ["power", "solar", "battery", "electrical", "generator", "inverter", "charging", "dual battery"],
+      "images": [
+        "https://images.pexels.com/photos/35647780/pexels-photo-35647780/free-photo-of-mobile-solar-panel-trailer-in-urban-setting.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/9799709/pexels-photo-9799709.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/9799714/pexels-photo-9799714.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/9875439/pexels-photo-9875439.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      ]
+    },
+    "recovery": {
+      "keywords": ["recovery", "winch", "traction", "tow", "rope", "snatch", "shackle", "jack", "mud"],
+      "images": [
+        "https://images.pexels.com/photos/38492446/pexels-photo-38492446/free-photo-of-off-road-vehicle-recovery-during-mud-race-event.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/8648642/pexels-photo-8648642.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/34511847/pexels-photo-34511847/free-photo-of-off-road-adventure-in-veneto-forest.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/14973885/pexels-photo-14973885/free-photo-of-jeep-in-puddle.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/30788741/pexels-photo-30788741/free-photo-of-off-road-adventure-in-muddy-forest-terrain.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      ]
+    },
+    "camp-kitchen": {
+      "keywords": ["kitchen", "cooking", "cook", "stove", "fridge", "cooler", "food", "camp table", "coffee"],
+      "images": [
+        "https://images.pexels.com/photos/8985295/pexels-photo-8985295.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/15671373/pexels-photo-15671373.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/28224323/pexels-photo-28224323.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/18936008/pexels-photo-18936008.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/35757208/pexels-photo-35757208.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      ]
+    },
+    "shelter-tents": {
+      "keywords": ["tent", "tents", "shelter", "rooftop", "awning", "shade", "sleeping", "camping"],
+      "images": [
+        "https://images.pexels.com/photos/5851336/pexels-photo-5851336.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/37934195/pexels-photo-37934195/free-photo-of-suv-with-rooftop-tent-camping-at-sunset.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/9711129/pexels-photo-9711129.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/6271306/pexels-photo-6271306.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/8280466/pexels-photo-8280466.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      ]
+    },
+    "water": {
+      "keywords": ["water", "filter", "filtration", "hydration", "shower", "hygiene", "container", "purifier"],
+      "images": [
+        "https://images.pexels.com/photos/9212888/pexels-photo-9212888.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/6324193/pexels-photo-6324193.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/9551323/pexels-photo-9551323.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/10772023/pexels-photo-10772023.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/5993948/pexels-photo-5993948.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      ]
+    },
+    "comms": {
+      "keywords": ["communication", "comms", "radio", "cb", "satellite", "messenger", "walkie", "phone"],
+      "images": [
+        "https://images.pexels.com/photos/10349987/pexels-photo-10349987.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/10363552/pexels-photo-10363552.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/9629953/pexels-photo-9629953.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/15440100/pexels-photo-15440100/free-photo-of-man-talking-on-a-handheld-transceiver.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/37486109/pexels-photo-37486109/free-photo-of-hand-holding-two-way-radio-in-rugged-mountain-landscape.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      ]
+    },
+    "tires-wheels": {
+      "keywords": ["tire", "tires", "tyre", "wheel", "wheels", "rubber", "traction"],
+      "images": [
+        "https://images.pexels.com/photos/12956027/pexels-photo-12956027.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/14508845/pexels-photo-14508845.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/13016070/pexels-photo-13016070.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/8659504/pexels-photo-8659504.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/15716746/pexels-photo-15716746.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      ]
+    },
+    "storage": {
+      "keywords": ["storage", "cargo", "rack", "roof rack", "organization", "packing", "drawer", "bed platform"],
+      "images": [
+        "https://images.pexels.com/photos/9582574/pexels-photo-9582574.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/4391630/pexels-photo-4391630.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/29807888/pexels-photo-29807888/free-photo-of-sleek-car-with-rooftop-cargo-under-pink-sky.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/6196228/pexels-photo-6196228.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/18031901/pexels-photo-18031901/free-photo-of-van-with-equipment-in-parking-lot.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      ]
+    },
+    "lighting": {
+      "keywords": ["light", "lights", "lighting", "headlamp", "lantern", "light bar", "night"],
+      "images": [
+        "https://images.pexels.com/photos/35493424/pexels-photo-35493424/free-photo-of-close-up-of-off-road-vehicle-at-night.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/29708644/pexels-photo-29708644/free-photo-of-off-road-vehicle-in-dubai-desert-sunset.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/29708648/pexels-photo-29708648/free-photo-of-off-road-adventure-in-dubai-desert-at-night.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/30788716/pexels-photo-30788716/free-photo-of-off-road-jeep-adventure-in-mud.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/13524609/pexels-photo-13524609.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      ]
+    },
+    "general-overlanding": {
+      "keywords": ["overlanding", "overland", "off-road", "offroad", "4x4", "truck", "vehicle", "adventure", "trail"],
+      "images": [
+        "https://images.pexels.com/photos/34511847/pexels-photo-34511847/free-photo-of-off-road-adventure-in-veneto-forest.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/31205721/pexels-photo-31205721/free-photo-of-land-rover-defender-on-a-scenic-road-trip.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/38492464/pexels-photo-38492464/free-photo-of-offroad-vehicle-navigating-rocky-terrain.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/28794392/pexels-photo-28794392/free-photo-of-off-road-adventure-in-pasig-mud-trail.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        "https://images.pexels.com/photos/18207346/pexels-photo-18207346/free-photo-of-view-of-a-mitsubishi-pajero-driving-on-a-dirt-road.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      ]
+    }
+  }
+}

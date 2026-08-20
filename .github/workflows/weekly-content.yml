@@ -1,10 +1,12 @@
 name: Weekly AI Content + Deploy
 
 on:
-  # Runs every Monday at 9:00 AM UTC (5:00 AM ET) and 1:00 PM UTC (9:00 AM ET)
+  # Fallback only: a Manus authoring task publishes Monday mornings (~7:00 AM PT)
+  # with the standard "chore: auto-publish" commit. The idempotency guard makes
+  # these runs green no-ops after that publish, and generates only if it did not land.
   schedule:
-    - cron: '0 9 * * 1'
-    - cron: '0 13 * * 1'
+    - cron: '0 17 * * 1'
+    - cron: '0 20 * * 1'
   # Manual trigger from GitHub Actions tab
   workflow_dispatch:
     inputs:

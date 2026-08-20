@@ -132,6 +132,41 @@ for (const article of productBoxValidationArticles) {
   }
 }
 
+// Local article image paths must exist before a current-run article can publish.
+// Legacy pages are still scanned and reported, but only explicitly scoped current
+// articles block the run. This mirrors the established product-box scoping rule.
+const localImageResults = [];
+const allArticleFiles = htmlFiles.filter(file =>
+  path.relative(root, file).split(path.sep).join('/').startsWith('articles/'),
+);
+for (const articleFile of allArticleFiles) {
+  const article = path.relative(root, articleFile).split(path.sep).join('/');
+  const text = fs.readFileSync(articleFile, 'utf8');
+  const localSources = [...text.matchAll(/<img\b[^>]*\bsrc=["']([^"']+)["']/gi)]
+    .map(match => match[1].trim())
+    .filter(src => src && !/^(?:[a-z][a-z0-9+.-]*:|\/\/|#|data:)/i.test(src));
+  const missing = [];
+  for (const src of localSources) {
+    const assetPath = src.split(/[?#]/, 1)[0];
+    const resolvedAsset = path.resolve(path.dirname(articleFile), assetPath);
+    const insideRepository = resolvedAsset === root || resolvedAsset.startsWith(`${root}${path.sep}`);
+    if (!insideRepository || !fs.existsSync(resolvedAsset)) missing.push(src);
+  }
+  const isStrictTarget = strictMinProductBoxArticles.includes(article);
+  const result = {
+    article,
+    local_image_count: localSources.length,
+    missing_local_images: missing,
+    enforcement: isStrictTarget ? 'blocking' : 'report-only',
+  };
+  localImageResults.push(result);
+  if (missing.length > 0) {
+    const message = `${article}: ${missing.length} local image src reference(s) do not resolve to repository files (${missing.join(', ')})`;
+    if (isStrictTarget) errors.push(message);
+    else warnings.push(`Legacy local-image defect (report-only): ${message}`);
+  }
+}
+
 const css = fs.readFileSync(path.join(root, 'css/style.css'), 'utf8');
 for (const selector of ['.grid-3 > .card', '.card-footer', '.review-card', '.comparison-card', '.guide-card', '.product-box-image']) {
   if (!css.includes(selector)) errors.push(`css/style.css: missing ${selector} quality-layout rule`);
@@ -151,6 +186,7 @@ const report = {
   scoped_run: scopedRun,
   strict_min_product_box_articles: strictMinProductBoxArticles,
   min_product_box_results: minProductBoxResults,
+  local_image_results: localImageResults,
   errors,
   warnings,
 };
@@ -177,4 +213,7 @@ const scopeLabel = scopedRun
 console.log(`Quality check passed: ${htmlFiles.length} HTML files scanned; ${scopeLabel}.`);
 for (const result of minProductBoxResults) {
   console.log(`- ${result.article}: ${result.boxes} product boxes (${result.enforcement})`);
+}
+for (const result of localImageResults) {
+  console.log(`- ${result.article}: ${result.local_image_count} local image reference(s), ${result.missing_local_images.length} missing (${result.enforcement})`);
 }
