@@ -248,9 +248,9 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### SEO Audit" >> $GITHUB_STEP_SUMMARY
           if [ -f seo-audit-report.json ]; then
-            ISSUES=$(python3 -c "import json; d=json.load(open('seo-audit-report.json')); print(d.get('issues',0))" 2>/dev/null || echo "N/A")
-            WARNINGS=$(python3 -c "import json; d=json.load(open('seo-audit-report.json')); print(d.get('warnings',0))" 2>/dev/null || echo "N/A")
-            CHECKS=$(python3 -c "import json; d=json.load(open('seo-audit-report.json')); print(d.get('checks_passed',0))" 2>/dev/null || echo "N/A")
+            ISSUES=$(python3 -c "import json; d=json.load(open('seo-audit-report.json')); print(d.get('summary', {}).get('issues', 0))" 2>/dev/null || echo "N/A")
+            WARNINGS=$(python3 -c "import json; d=json.load(open('seo-audit-report.json')); print(d.get('summary', {}).get('warnings', 0))" 2>/dev/null || echo "N/A")
+            CHECKS=$(python3 -c "import json; d=json.load(open('seo-audit-report.json')); print(d.get('summary', {}).get('passed', 0))" 2>/dev/null || echo "N/A")
             echo "- Issues: **${ISSUES}**" >> $GITHUB_STEP_SUMMARY
             echo "- Warnings: **${WARNINGS}**" >> $GITHUB_STEP_SUMMARY
             echo "- Checks passed: **${CHECKS}**" >> $GITHUB_STEP_SUMMARY
@@ -262,26 +262,26 @@ jobs:
           QUALITY_REPORT="$RUNNER_TEMP/weekly-content-logs/product-box-quality-report.json"
           if [ -f "$QUALITY_REPORT" ]; then
             python3 - "$QUALITY_REPORT" >> $GITHUB_STEP_SUMMARY <<'PY'
-            import json
-            import sys
+          import json
+          import sys
 
-            report = json.load(open(sys.argv[1], encoding='utf-8'))
-            results = report.get('min_product_box_results', [])
-            legacy = [r for r in results if r.get('enforcement') == 'report-only' and r.get('boxes', 0) < 5]
-            current = [r for r in results if r.get('enforcement') == 'blocking']
-            if current:
-                print('- Current-run article checks (blocking):')
-                for item in current:
-                    print(f"  - `{item['article']}`: {item['boxes']} product boxes")
-            else:
-                print('- No changed article files detected for this run.')
-            if legacy:
-                print('- Legacy shortfalls (report-only):')
-                for item in legacy:
-                    print(f"  - `{item['article']}`: {item['boxes']} product boxes")
-            else:
-                print('- No legacy product-box shortfalls detected.')
-            PY
+          report = json.load(open(sys.argv[1], encoding='utf-8'))
+          results = report.get('min_product_box_results', [])
+          legacy = [r for r in results if r.get('enforcement') == 'report-only' and r.get('boxes', 0) < 5]
+          current = [r for r in results if r.get('enforcement') == 'blocking']
+          if current:
+              print('- Current-run article checks (blocking):')
+              for item in current:
+                  print(f"  - `{item['article']}`: {item['boxes']} product boxes")
+          else:
+              print('- No changed article files detected for this run.')
+          if legacy:
+              print('- Legacy shortfalls (report-only):')
+              for item in legacy:
+                  print(f"  - `{item['article']}`: {item['boxes']} product boxes")
+          else:
+              print('- No legacy product-box shortfalls detected.')
+          PY
           else
             echo "- Product-box quality report not found" >> $GITHUB_STEP_SUMMARY
           fi
