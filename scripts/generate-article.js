@@ -14,6 +14,7 @@
 const fs   = require('fs');
 const path = require('path');
 const https = require('https');
+const { createAsinVerifier } = require('./asin-verification');
 
 // ── Config ──────────────────────────────────────────────────────────────────
 const ASSOCIATE_TAG  = process.env.AMAZON_ASSOCIATE_TAG || 'trailbuiltove-20';
@@ -183,46 +184,62 @@ function pickTopic() {
 }
 
 // ── ASIN pre-validation ─────────────────────────────────────────────────────
-/**
- * Check whether an Amazon ASIN is live (HTTP 200) before the article is written.
- * Treats bot-block (403/503) as INCONCLUSIVE (pass); only 404 is DEAD.
- * Retries up to maxRetries times with exponential back-off.
- */
-async function checkAsinLive(asin, maxRetries = 3) {
-  const url = `https://www.amazon.com/dp/${asin}`;
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    const result = await new Promise((resolve) => {
-      try {
-        const req = https.request(
-          {
-            hostname: 'www.amazon.com',
-            path: `/dp/${asin}`,
-            method: 'HEAD',
-            timeout: 10000,
-            headers: { 'User-Agent': 'Mozilla/5.0 (compatible; TrailBuiltBot/1.0)' },
-          },
-          (res) => {
-            if (res.statusCode === 404) resolve('DEAD');
-            else if (res.statusCode === 301 || res.statusCode === 302) resolve('OK'); // redirect = exists
-            else if (res.statusCode === 200) resolve('OK');
-            else resolve('INCONCLUSIVE'); // 403/503 = bot-block, treat as pass
-          }
-        );
-        req.on('error', () => resolve('INCONCLUSIVE'));
-        req.on('timeout', () => { req.destroy(); resolve('INCONCLUSIVE'); });
-        req.end();
-      } catch { resolve('INCONCLUSIVE'); }
-    });
-    if (result !== 'INCONCLUSIVE' || attempt === maxRetries) return result;
-    // Back-off before retry
-    await new Promise(r => setTimeout(r, attempt * 2000));
+const VERIFIED_POOL_FILE = path.join(__dirname, '..', 'data', 'verified-products.json');
+const MIN_RELEVANT_POOL_PRODUCTS = 3;
+const MAX_POOL_PROMPT_PRODUCTS = 12;
+const POOL_STOP_WORDS = new Set([
+  'a', 'an', 'and', 'best', 'for', 'guide', 'how', 'in', 'of', 'or', 'overlanding',
+  'the', 'to', 'vs', 'with', 'your', 'setup', 'comparison', 'complete', 'gear',
+]);
+
+function loadVerifiedPool(poolFile = VERIFIED_POOL_FILE, requireVerifiedStatus = process.env.REQUIRE_POOL_VERIFICATION === 'true') {
+  const parsed = JSON.parse(fs.readFileSync(poolFile, 'utf8'));
+  const products = Array.isArray(parsed) ? parsed : parsed.products;
+  if (!Array.isArray(products) || products.length === 0) {
+    throw new Error(`[asin-precheck] Verified product pool is empty: ${poolFile}`);
   }
-  return 'INCONCLUSIVE';
+  const pool = new Map();
+  for (const product of products) {
+    if (requireVerifiedStatus && product.verification_status !== 'verified') continue;
+    if (!/^[A-Z0-9]{10}$/.test(product.asin || '')) {
+      throw new Error(`[asin-precheck] Invalid pool ASIN: ${product.asin || '(missing)'}`);
+    }
+    if (!product.name || !Array.isArray(product.tags)) {
+      throw new Error(`[asin-precheck] Pool entry ${product.asin} is missing a name or tags array`);
+    }
+    if (pool.has(product.asin)) {
+      throw new Error(`[asin-precheck] Duplicate pool ASIN: ${product.asin}`);
+    }
+    pool.set(product.asin, product);
+  }
+  if (pool.size === 0) {
+    const state = requireVerifiedStatus ? 'runtime-verified' : 'seed';
+    throw new Error(`[asin-precheck] No ${state} product entries are available in ${poolFile}`);
+  }
+  return pool;
+}
+
+function topicWords(topic) {
+  return new Set(String(topic).toLowerCase().match(/[a-z0-9]+/g)?.filter(word => !POOL_STOP_WORDS.has(word)) || []);
+}
+
+function filterPoolForTopic(pool, topic) {
+  const words = topicWords(topic);
+  const scored = [...pool.values()].map(product => {
+    const searchable = `${product.name} ${(product.tags || []).join(' ')}`.toLowerCase();
+    const score = [...words].reduce((total, word) => total + (searchable.includes(word) ? 1 : 0), 0);
+    return { product, score };
+  }).filter(({ score }) => score > 0)
+    .sort((a, b) => b.score - a.score || a.product.name.localeCompare(b.product.name));
+  return scored.slice(0, MAX_POOL_PROMPT_PRODUCTS).map(({ product }) => product);
+}
+
+function formatPoolForPrompt(products) {
+  return products.map(product => `- ${product.name} | ASIN: ${product.asin} | tags: ${product.tags.join(', ')}`).join('\n');
 }
 
 /**
- * Extract all ASINs from generated HTML body.
- * Returns array of unique ASIN strings.
+ * Extract all ASINs from generated HTML body. Returns unique ASIN strings.
  */
 function extractAsins(html) {
   const dataAsins = [...html.matchAll(/data-asin="([A-Z0-9]{10})"/g)].map(m => m[1]);
@@ -231,21 +248,29 @@ function extractAsins(html) {
 }
 
 /**
- * Validate all ASINs in bodyHTML. Returns { ok: string[], dead: string[] }.
+ * Enforce direct links, verified-pool membership, and live Creators API evidence.
+ * INCONCLUSIVE API evidence remains blocking, preserving the publish gate.
  */
-async function validateBodyAsins(bodyHTML) {
+async function validateBodyAsins(bodyHTML, pool, verifier = createAsinVerifier()) {
   if (/amazon\.com\/s\?/i.test(bodyHTML)) {
     return { ok: [], failed: ['Amazon search URLs are prohibited'] };
   }
   const asins = extractAsins(bodyHTML);
   console.log(`[asin-precheck] Found ${asins.length} ASIN(s): ${asins.join(', ')}`);
   if (asins.length === 0) return { ok: [], failed: ['No direct Amazon ASINs were supplied'] };
-  const ok = [], failed = [];
+
+  const ok = [];
+  const failed = [];
   for (const asin of asins) {
-    const status = await checkAsinLive(asin);
-    console.log(`[asin-precheck] ${asin}: ${status}`);
-    if (status === 'OK') ok.push(asin);
-    else failed.push(`${asin}: ${status}`);
+    if (!pool.has(asin)) {
+      failed.push(`${asin}: not in verified product pool`);
+      console.log(`[asin-precheck] ${asin}: NOT_IN_POOL`);
+      continue;
+    }
+    const result = await verifier.verifyAsin(asin);
+    console.log(`[asin-precheck] ${asin}: ${result.status} via ${result.source}${result.reason ? ` (${result.reason})` : ''}`);
+    if (result.status === 'LIVE') ok.push(asin);
+    else failed.push(`${asin}: ${result.status}${result.reason ? ` (${result.reason})` : ''}`);
   }
   return { ok, failed };
 }
@@ -438,21 +463,27 @@ function groqRequest(messages) {
 }
 
 // ── Article generation ───────────────────────────────────────────────────────
-async function generateArticleContent(topic) {
+async function generateArticleContent(topic, pool = loadVerifiedPool()) {
   console.log(`Generating article for: "${topic}"`);
+  const relevantProducts = filterPoolForTopic(pool, topic);
+  const productPool = formatPoolForPrompt(relevantProducts);
+  const productCountInstruction = relevantProducts.length >= MIN_RELEVANT_POOL_PRODUCTS
+    ? `Use up to ${relevantProducts.length} relevant product recommendations from the approved pool.`
+    : `The approved pool has only ${relevantProducts.length} relevant product(s), so use no more than those ${relevantProducts.length}; do not pad the article with unrelated or invented products.`;
+
   const systemPrompt = `You are an expert overlanding writer for TrailBuiltOverland.com, an affiliate review site.
 Write in a confident, practical, first-person-plural voice ("we tested", "we ran it for 3 months").
 Every article must include:
 - A compelling intro paragraph
-- 4-6 specific product recommendations with realistic prices in USD
+- ${productCountInstruction}
 - Amazon affiliate links formatted only as: https://www.amazon.com/dp/ASIN?tag=${ASSOCIATE_TAG}
-  Use a real, valid, direct 10-character Amazon ASIN (e.g. B07SJHVQTJ) for every product. Never use an Amazon search URL, shortened URL, product family URL, placeholder, or guessed ASIN. If you cannot provide an exact direct ASIN, omit that product recommendation entirely. Each product MUST have a UNIQUE ASIN.
-- Pros/cons or "why we like it" for each product
+- Product recommendations ONLY when their exact name and ASIN appear in the approved product pool below. Never guess, transform, or introduce any ASIN. Do not use an Amazon search URL, shortened URL, product family URL, or placeholder. Each product MUST have a UNIQUE ASIN.
+- Pros/cons or "why we like it" for each included product
 - At least one FAQ section with 3 questions
 - An affiliate disclosure reminder in the footer note
 Write clean HTML fragments only (no <html>/<head>/<body> tags).
 Use <h2>, <h3>, <p>, <ul>, <li>, <strong> tags only.
-For each product recommendation, wrap in this exact structure:
+For each included product recommendation, wrap in this exact structure:
 <div class="product-box" data-product="PRODUCT NAME" data-asin="ASIN">
   <div class="product-box-header">
     <div class="product-box-icon">EMOJI</div>
@@ -469,9 +500,13 @@ For each product recommendation, wrap in this exact structure:
 </div>`;
 
   const userPrompt = `Write a comprehensive buyer's guide article titled "Best ${topic.charAt(0).toUpperCase() + topic.slice(1)} 2026".
-Include 4-5 product picks across budget, mid-range, and premium tiers.
+${productCountInstruction}
 Make it around 1,200-1,500 words. Be specific with product names, prices, and real-world testing details.
-Each product MUST have a unique, exact direct Amazon ASIN. Replace DIRECT_TAGGED_AMAZON_PRODUCT_URL with the concrete https://www.amazon.com/dp/{10-character ASIN}?tag=${ASSOCIATE_TAG} destination. Do NOT reuse ASINs, create Amazon search links, leave a placeholder URL, or include a product when you cannot supply a direct /dp/ ASIN.
+Each product MUST use the exact corresponding name and ASIN from the approved pool. Replace DIRECT_TAGGED_AMAZON_PRODUCT_URL with the concrete https://www.amazon.com/dp/{exact approved ASIN}?tag=${ASSOCIATE_TAG} destination. Do NOT create Amazon search links, reuse ASINs, leave placeholders, recommend a product outside the pool, or include a product when no relevant approved entry exists.
+
+Approved topic-relevant product pool (the complete allowed list for this article):
+${productPool || '(No relevant pool products are available. Write the guide without product boxes or Amazon links.)'}
+
 End with a 3-question FAQ section using <h2 id="faq">FAQ</h2> and <h3> for each question.`;
 
   return groqRequest([
@@ -838,17 +873,19 @@ async function main() {
     );
   }
 
-    // Generate article with ASIN pre-validation and retry (up to 3 attempts)
+    // Generate article with ASIN pre-validation and retry (up to 3 attempts).
+  // The pool must load before any paid generation request so a malformed seed fails safely.
+  const verifiedPool = loadVerifiedPool();
   const MAX_ASIN_RETRIES = 3;
   let bodyHTML, meta;
   let asinCheckPassed = false;
   for (let attempt = 1; attempt <= MAX_ASIN_RETRIES; attempt++) {
     console.log(`\n[asin-precheck] Generation attempt ${attempt}/${MAX_ASIN_RETRIES}`);
     [bodyHTML, meta] = await Promise.all([
-      generateArticleContent(topic),
+      generateArticleContent(topic, verifiedPool),
       attempt === 1 ? generateMeta(topic) : Promise.resolve(meta), // reuse meta on retries
     ]);
-    const { ok, failed } = await validateBodyAsins(bodyHTML);
+    const { ok, failed } = await validateBodyAsins(bodyHTML, verifiedPool);
     if (failed.length === 0) {
       console.log(`[asin-precheck] ✅ All ${ok.length} direct ASIN(s) verified live.`);
       asinCheckPassed = true;
@@ -891,4 +928,12 @@ if (require.main === module) {
   main().catch(err => { console.error(err); process.exit(1); });
 }
 
-module.exports = { topicToSlug, createGroqClient, createGroqHttpError };
+module.exports = {
+  topicToSlug,
+  createGroqClient,
+  createGroqHttpError,
+  extractAsins,
+  loadVerifiedPool,
+  filterPoolForTopic,
+  validateBodyAsins,
+};
