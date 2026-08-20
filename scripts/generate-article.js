@@ -251,41 +251,190 @@ async function validateBodyAsins(bodyHTML) {
 }
 
 // ── Groq API ─────────────────────────────────────────────────────────────────
-function groqRequest(messages) {
-  return new Promise((resolve, reject) => {
-    const body = JSON.stringify({
-      model: GROQ_MODEL,
-      messages,
-      temperature: 0.7,
-      max_tokens: 4096,
-    });
-    const options = {
-      hostname: 'api.groq.com',
-      path: '/openai/v1/chat/completions',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${GROQ_API_KEY}`,
-        'Content-Length': Buffer.byteLength(body),
-      },
-    };
-    const req = https.request(options, (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => {
-        try {
-          const json = JSON.parse(data);
-          if (json.error) return reject(new Error(json.error.message));
-          resolve(json.choices[0].message.content);
-        } catch (e) {
-          reject(new Error('Failed to parse Groq response: ' + data.slice(0, 200)));
-        }
+// Keep the primary model unchanged. The fallback is used only after the primary
+// model has exhausted its 429 retries.
+const GROQ_FALLBACK_MODEL = 'openai/gpt-oss-20b';
+const GROQ_MAX_429_ATTEMPTS = 5;
+const GROQ_MAX_TOKENS = 4096;
+const GROQ_TOKEN_WINDOW_MS = 60 * 1000;
+const GROQ_TOKEN_WINDOW_BUDGET = 7000;
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function createGroqHttpError(statusCode, message, headers = {}) {
+  const error = new Error(message || `Groq request failed with HTTP ${statusCode}`);
+  error.statusCode = statusCode;
+  error.headers = headers;
+  return error;
+}
+
+function isRateLimitError(error) {
+  return error && error.statusCode === 429;
+}
+
+function retryDelayMs(error, attempt) {
+  const retryAfter = error.headers && (error.headers['retry-after'] || error.headers['Retry-After']);
+  if (retryAfter !== undefined) {
+    const seconds = Number(retryAfter);
+    if (Number.isFinite(seconds) && seconds >= 0) return Math.round(seconds * 1000) + 2000;
+
+    const retryDate = Date.parse(retryAfter);
+    if (Number.isFinite(retryDate)) return Math.max(0, retryDate - Date.now()) + 2000;
+  }
+
+  const messageMatch = String(error.message || '').match(/try again in\s+([\d.]+)\s*s/i);
+  if (messageMatch) return Math.round(Number(messageMatch[1]) * 1000) + 2000;
+
+  // Groq did not provide a wait hint: use 15s, 30s, 60s, 120s exponential backoff.
+  return 15000 * (2 ** (attempt - 1));
+}
+
+function estimateMessageTokens(messages) {
+  const characters = messages.reduce((total, message) => {
+    const content = typeof message.content === 'string' ? message.content : JSON.stringify(message.content || '');
+    return total + content.length;
+  }, 0);
+  return Math.max(1, Math.ceil(characters / 4));
+}
+
+function usageTokens(usage, messages, content) {
+  if (usage && Number.isFinite(usage.total_tokens)) return usage.total_tokens;
+  if (usage && Number.isFinite(usage.prompt_tokens) && Number.isFinite(usage.completion_tokens)) {
+    return usage.prompt_tokens + usage.completion_tokens;
+  }
+  return estimateMessageTokens(messages) + Math.max(1, Math.ceil(String(content || '').length / 4));
+}
+
+/**
+ * Creates a serialized Groq requester. Serialization prevents the article and
+ * metadata calls from racing each other inside Groq's 60-second TPM window.
+ * Optional dependencies make the retry and pacing behavior locally testable
+ * without network access or real delays.
+ */
+function createGroqClient({
+  apiKey = GROQ_API_KEY,
+  request: requestOverride,
+  sleepFn = sleep,
+  now = () => Date.now(),
+  logger = console,
+} = {}) {
+  let tokenWindowStartedAt = now();
+  let tokenWindowUsed = 0;
+  let requestChain = Promise.resolve();
+
+  function resetTokenWindowIfNeeded() {
+    const elapsed = now() - tokenWindowStartedAt;
+    if (elapsed >= GROQ_TOKEN_WINDOW_MS) {
+      tokenWindowStartedAt = now();
+      tokenWindowUsed = 0;
+    }
+  }
+
+  async function paceForTokenWindow(messages, model) {
+    resetTokenWindowIfNeeded();
+    // Forecast the configured completion cap before the request; on success,
+    // actual Groq usage is recorded for the current 60-second window.
+    const estimatedRequestTokens = estimateMessageTokens(messages) + GROQ_MAX_TOKENS;
+    if (tokenWindowUsed + estimatedRequestTokens <= GROQ_TOKEN_WINDOW_BUDGET) return;
+
+    const waitMs = Math.max(0, GROQ_TOKEN_WINDOW_MS - (now() - tokenWindowStartedAt));
+    logger.log(`[groq-pace] Waiting ${Math.ceil(waitMs / 1000)}s before ${model} to stay below ~${GROQ_TOKEN_WINDOW_BUDGET} TPM.`);
+    if (waitMs > 0) await sleepFn(waitMs);
+    tokenWindowStartedAt = now();
+    tokenWindowUsed = 0;
+  }
+
+  function sendRequest(messages, model) {
+    if (requestOverride) {
+      return requestOverride({ model, messages, temperature: 0.7, maxTokens: GROQ_MAX_TOKENS });
+    }
+
+    return new Promise((resolve, reject) => {
+      const body = JSON.stringify({
+        model,
+        messages,
+        temperature: 0.7,
+        max_tokens: GROQ_MAX_TOKENS,
       });
+      const options = {
+        hostname: 'api.groq.com',
+        path: '/openai/v1/chat/completions',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Length': Buffer.byteLength(body),
+        },
+      };
+      const req = https.request(options, (res) => {
+        let data = '';
+        res.on('data', chunk => data += chunk);
+        res.on('end', () => {
+          try {
+            const json = JSON.parse(data);
+            if (res.statusCode >= 400 || json.error) {
+              return reject(createGroqHttpError(res.statusCode, json.error && json.error.message, res.headers));
+            }
+            resolve({ content: json.choices[0].message.content, usage: json.usage });
+          } catch {
+            reject(new Error('Failed to parse Groq response: ' + data.slice(0, 200)));
+          }
+        });
+      });
+      req.on('error', reject);
+      req.write(body);
+      req.end();
     });
-    req.on('error', reject);
-    req.write(body);
-    req.end();
-  });
+  }
+
+  async function requestWith429Retries(messages, model) {
+    for (let attempt = 1; attempt <= GROQ_MAX_429_ATTEMPTS; attempt++) {
+      await paceForTokenWindow(messages, model);
+      try {
+        const response = await sendRequest(messages, model);
+        tokenWindowUsed += usageTokens(response.usage, messages, response.content);
+        return response.content;
+      } catch (error) {
+        if (!isRateLimitError(error)) throw error;
+        if (attempt === GROQ_MAX_429_ATTEMPTS) {
+          error.groqRateLimitExhausted = true;
+          throw error;
+        }
+
+        const waitMs = retryDelayMs(error, attempt);
+        logger.warn(`[groq-429] ${model} attempt ${attempt}/${GROQ_MAX_429_ATTEMPTS} rate-limited; waiting ${Math.ceil(waitMs / 1000)}s before retrying the same request.`);
+        await sleepFn(waitMs);
+      }
+    }
+  }
+
+  async function requestWithFallback(messages) {
+    try {
+      return await requestWith429Retries(messages, GROQ_MODEL);
+    } catch (error) {
+      if (!error.groqRateLimitExhausted) throw error;
+
+      logger.error(`[groq-fallback] ${GROQ_MODEL} exhausted ${GROQ_MAX_429_ATTEMPTS} consecutive 429 retries; retrying this request once with ${GROQ_FALLBACK_MODEL}.`);
+      return requestWith429Retries(messages, GROQ_FALLBACK_MODEL);
+    }
+  }
+
+  function groqRequest(messages) {
+    const scheduledRequest = requestChain.then(() => requestWithFallback(messages));
+    // Keep the queue alive after a failed request so later generation attempts
+    // preserve the same serialized, paced behavior.
+    requestChain = scheduledRequest.catch(() => {});
+    return scheduledRequest;
+  }
+
+  return { groqRequest };
+}
+
+const groqClient = createGroqClient();
+function groqRequest(messages) {
+  return groqClient.groqRequest(messages);
 }
 
 // ── Article generation ───────────────────────────────────────────────────────
@@ -742,4 +891,4 @@ if (require.main === module) {
   main().catch(err => { console.error(err); process.exit(1); });
 }
 
-module.exports = { topicToSlug };
+module.exports = { topicToSlug, createGroqClient, createGroqHttpError };
