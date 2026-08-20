@@ -1,0 +1,2573 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-20T00:44:45.037Z",
+  "source": "tools/validate_asins.py --static-only site-wide direct-ASIN extraction",
+  "verification_mode": "pending verification; weekly precheck verifies at runtime",
+  "products": [
+    {
+      "asin": "B00004VXNI",
+      "name": "Uniden PRO520XL CB Radio",
+      "category": "tools safety",
+      "tags": [
+        "uniden",
+        "pro520xl",
+        "cb",
+        "radio",
+        "tools",
+        "safety"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B00004VXNI?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/tools-safety.html"
+      ]
+    },
+    {
+      "asin": "B00042KG3A",
+      "name": "Hi-Lift Jack 48 HL-484",
+      "category": "best hi lift jack alternatives",
+      "tags": [
+        "hi",
+        "lift",
+        "jack",
+        "48",
+        "hl",
+        "484",
+        "alternatives",
+        "recovery",
+        "tools",
+        "safety"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B00042KG3A?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-hi-lift-jack-alternatives.html",
+        "categories/recovery-gear.html",
+        "categories/tools-safety.html"
+      ]
+    },
+    {
+      "asin": "B00042KQ58",
+      "name": "Hi-Lift Jack Off-Road Kit",
+      "category": "tools safety",
+      "tags": [
+        "hi",
+        "lift",
+        "jack",
+        "off",
+        "road",
+        "tools",
+        "safety"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B00042KQ58?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/tools-safety.html"
+      ]
+    },
+    {
+      "asin": "B000J2Q0T4",
+      "name": "Advanced Elements",
+      "category": "best overlanding shower and hygiene solutions",
+      "tags": [
+        "advanced",
+        "elements",
+        "shower",
+        "hygiene",
+        "solutions"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B000J2Q0T4?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-shower-and-hygiene-solutions.html"
+      ]
+    },
+    {
+      "asin": "B000WZCSTO",
+      "name": "Gerber Gorge Folding Shovel",
+      "category": "tools safety",
+      "tags": [
+        "gerber",
+        "gorge",
+        "folding",
+        "shovel",
+        "tools",
+        "safety"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B000WZCSTO?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/tools-safety.html"
+      ]
+    },
+    {
+      "asin": "B0017T7WGS",
+      "name": "Hi-Lift Jack 42-inch All-Cast Jack HL-425",
+      "category": "best hi lift jack alternatives",
+      "tags": [
+        "hi",
+        "lift",
+        "jack",
+        "42",
+        "inch",
+        "cast",
+        "hl",
+        "425",
+        "alternatives"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0017T7WGS?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-hi-lift-jack-alternatives.html"
+      ]
+    },
+    {
+      "asin": "B001CF3JFA",
+      "name": "Smittybilt Trail Jack 54-inch SB2722",
+      "category": "best hi lift jack alternatives",
+      "tags": [
+        "smittybilt",
+        "jack",
+        "54",
+        "inch",
+        "sb2722",
+        "hi",
+        "lift",
+        "alternatives"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B001CF3JFA?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-hi-lift-jack-alternatives.html"
+      ]
+    },
+    {
+      "asin": "B001DZX7C4",
+      "name": "SOG Power Assist Multi-Plier",
+      "category": "tools safety",
+      "tags": [
+        "sog",
+        "power",
+        "assist",
+        "multi",
+        "plier",
+        "tools",
+        "safety"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B001DZX7C4?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/tools-safety.html"
+      ]
+    },
+    {
+      "asin": "B004ETQ2LO",
+      "name": "RotoPaX RX-2W 2-Gallon Water Pack",
+      "category": "best overlanding water storage and filtration",
+      "tags": [
+        "rotopax",
+        "rx",
+        "2w",
+        "gallon",
+        "water",
+        "pack",
+        "storage",
+        "filtration"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B004ETQ2LO?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-water-storage-and-filtration.html"
+      ]
+    },
+    {
+      "asin": "B004M3BAQE",
+      "name": "Fiskars X27 Super Splitting Axe",
+      "category": "tools safety",
+      "tags": [
+        "fiskars",
+        "x27",
+        "super",
+        "splitting",
+        "axe",
+        "tools",
+        "safety"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B004M3BAQE?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/tools-safety.html"
+      ]
+    },
+    {
+      "asin": "B004P9C5H8",
+      "name": "ARB ARB710LB 30-foot Recovery Snatch Strap",
+      "category": "recovery gear",
+      "tags": [
+        "arb",
+        "arb710lb",
+        "30",
+        "foot",
+        "recovery",
+        "snatch",
+        "strap"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B004P9C5H8?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/recovery-gear.html"
+      ]
+    },
+    {
+      "asin": "B0050DI9YQ",
+      "name": "Check ARB Twin Compressor on Amazon ↗",
+      "category": "4runner 5th gen overland build guide",
+      "tags": [
+        "arb",
+        "twin",
+        "compressor",
+        "amazon",
+        "4runner",
+        "5th",
+        "gen",
+        "overland",
+        "build",
+        "jeep"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0050DI9YQ?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/4runner-5th-gen-overland-build-guide.html",
+        "articles/jeep-wrangler-overland-build-guide.html",
+        "categories/water-power.html"
+      ]
+    },
+    {
+      "asin": "B006ERS6OU",
+      "name": "GSI Outdoors Pinnacle Camper Cookset",
+      "category": "sleeping camp",
+      "tags": [
+        "gsi",
+        "outdoors",
+        "pinnacle",
+        "camper",
+        "cookset",
+        "sleeping",
+        "camp"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B006ERS6OU?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/sleeping-camp.html"
+      ]
+    },
+    {
+      "asin": "B006QF3TW4",
+      "name": "LifeStraw Personal Water Filter",
+      "category": "best overlanding water storage and filtration",
+      "tags": [
+        "lifestraw",
+        "personal",
+        "water",
+        "filter",
+        "storage",
+        "filtration"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B006QF3TW4?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-water-storage-and-filtration.html"
+      ]
+    },
+    {
+      "asin": "B007HYR85W",
+      "name": "Bubba Rope 30-foot Power Stretch Recovery Rope",
+      "category": "recovery gear",
+      "tags": [
+        "bubba",
+        "rope",
+        "30",
+        "foot",
+        "power",
+        "stretch",
+        "recovery"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B007HYR85W?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/recovery-gear.html"
+      ]
+    },
+    {
+      "asin": "B007NKVDJC",
+      "name": "Rigid Industries SR-Series 50",
+      "category": "best off road light bars",
+      "tags": [
+        "rigid",
+        "industries",
+        "sr",
+        "series",
+        "50",
+        "off",
+        "road",
+        "light",
+        "bars",
+        "lighting"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B007NKVDJC?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-off-road-light-bars.html",
+        "categories/lighting.html"
+      ]
+    },
+    {
+      "asin": "B007ZGOWZQ",
+      "name": "Helinox Chair One",
+      "category": "sleeping camp",
+      "tags": [
+        "helinox",
+        "chair",
+        "one",
+        "sleeping",
+        "camp"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B007ZGOWZQ?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/sleeping-camp.html"
+      ]
+    },
+    {
+      "asin": "B009F49NP0",
+      "name": "Check ARB Air Lockers on Amazon ↗",
+      "category": "jeep wrangler overland build guide",
+      "tags": [
+        "arb",
+        "air",
+        "lockers",
+        "amazon",
+        "jeep",
+        "wrangler",
+        "overland",
+        "build",
+        "toyota",
+        "tacoma"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B009F49NP0?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/jeep-wrangler-overland-build-guide.html",
+        "articles/toyota-tacoma-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B009FQYNRG",
+      "name": "Fab Fours Black Steel Rear Bumper",
+      "category": "bumpers armor",
+      "tags": [
+        "fab",
+        "fours",
+        "black",
+        "steel",
+        "rear",
+        "bumper",
+        "bumpers",
+        "armor"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B009FQYNRG?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/bumpers-armor.html"
+      ]
+    },
+    {
+      "asin": "B00A960IMU",
+      "name": "Check BFG KM3 37\" Tires on Amazon ↗",
+      "category": "jeep wrangler overland build guide",
+      "tags": [
+        "bfg",
+        "km3",
+        "37",
+        "tires",
+        "amazon",
+        "jeep",
+        "wrangler",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B00A960IMU?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/jeep-wrangler-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B00C0W9AJS",
+      "name": "Rough Country 2 Inch Budget Lift Kit",
+      "category": "suspension lift",
+      "tags": [
+        "rough",
+        "country",
+        "inch",
+        "budget",
+        "lift",
+        "suspension"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B00C0W9AJS?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/suspension-lift.html"
+      ]
+    },
+    {
+      "asin": "B00C7B2NV4",
+      "name": "Ram X-Grip Phone Mount",
+      "category": "navigation",
+      "tags": [
+        "ram",
+        "grip",
+        "phone",
+        "mount",
+        "navigation"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B00C7B2NV4?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/navigation.html"
+      ]
+    },
+    {
+      "asin": "B00HYCVSW6",
+      "name": "MaxTrax MKII",
+      "category": "overlanding gear",
+      "tags": [
+        "maxtrax",
+        "mkii"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B00HYCVSW6?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "index.html"
+      ]
+    },
+    {
+      "asin": "B00K150VAI",
+      "name": "Smittybilt X2O 10000",
+      "category": "best overlanding winches",
+      "tags": [
+        "smittybilt",
+        "x2o",
+        "10000",
+        "winches",
+        "toyota",
+        "4runner"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B00K150VAI?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-winches.html",
+        "articles/best-winches-for-toyota-4runner.html"
+      ]
+    },
+    {
+      "asin": "B00TOX6UM6",
+      "name": "Sawyer Products MINI Water Filter",
+      "category": "water power",
+      "tags": [
+        "sawyer",
+        "products",
+        "mini",
+        "water",
+        "filter",
+        "power"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B00TOX6UM6?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/water-power.html"
+      ]
+    },
+    {
+      "asin": "B00XWAP2SU",
+      "name": "LifeStraw Mission 12L Water Purifier",
+      "category": "water power",
+      "tags": [
+        "lifestraw",
+        "mission",
+        "12l",
+        "water",
+        "purifier",
+        "power"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B00XWAP2SU?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/water-power.html"
+      ]
+    },
+    {
+      "asin": "B011TRLUS8",
+      "name": "Mr. Heater BOSS-XW18 Basecamp Battery Operated Shower System",
+      "category": "best overlanding shower and hygiene solutions",
+      "tags": [
+        "mr",
+        "heater",
+        "boss",
+        "xw18",
+        "basecamp",
+        "battery",
+        "operated",
+        "shower",
+        "system",
+        "hygiene"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B011TRLUS8?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-shower-and-hygiene-solutions.html"
+      ]
+    },
+    {
+      "asin": "B015J7NRVW",
+      "name": "WARN Epic 9-Ton Snatch Block",
+      "category": "recovery gear",
+      "tags": [
+        "warn",
+        "epic",
+        "ton",
+        "snatch",
+        "block",
+        "recovery"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B015J7NRVW?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/recovery-gear.html"
+      ]
+    },
+    {
+      "asin": "B015OL55VS",
+      "name": "Leatherman Signal Multi-Tool",
+      "category": "tools safety",
+      "tags": [
+        "leatherman",
+        "signal",
+        "multi",
+        "tool",
+        "tools",
+        "safety"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B015OL55VS?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/tools-safety.html"
+      ]
+    },
+    {
+      "asin": "B017XTU10O",
+      "name": "Check Cooper STT Pro on Amazon ↗",
+      "category": "4runner 5th gen overland build guide",
+      "tags": [
+        "cooper",
+        "stt",
+        "pro",
+        "amazon",
+        "4runner",
+        "5th",
+        "gen",
+        "overland",
+        "build",
+        "toyota"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B017XTU10O?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/4runner-5th-gen-overland-build-guide.html",
+        "articles/toyota-tacoma-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B018LC0SMI",
+      "name": "Westin HDX Winch Bumper",
+      "category": "bumpers armor",
+      "tags": [
+        "westin",
+        "hdx",
+        "winch",
+        "bumper",
+        "bumpers",
+        "armor"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B018LC0SMI?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/bumpers-armor.html"
+      ]
+    },
+    {
+      "asin": "B018XJYI1G",
+      "name": "Snow Peak Table",
+      "category": "best overlanding camp chairs and tables",
+      "tags": [
+        "snow",
+        "peak",
+        "table",
+        "camp",
+        "chairs",
+        "tables"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B018XJYI1G?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-camp-chairs-and-tables.html"
+      ]
+    },
+    {
+      "asin": "B01BNFWA1W",
+      "name": "ARB 4x4 Accessories 5421110 Skid Plate",
+      "category": "best skid plates for off road trucks",
+      "tags": [
+        "arb",
+        "4x4",
+        "accessories",
+        "5421110",
+        "skid",
+        "plate",
+        "plates",
+        "off",
+        "road",
+        "trucks"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B01BNFWA1W?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-skid-plates-for-off-road-trucks.html"
+      ]
+    },
+    {
+      "asin": "B01DJXIT7U",
+      "name": "BFG KO2 265/75R16 Set",
+      "category": "toyota tacoma overland build guide",
+      "tags": [
+        "bfg",
+        "ko2",
+        "265",
+        "75r16",
+        "set",
+        "toyota",
+        "tacoma",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B01DJXIT7U?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/toyota-tacoma-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B01K2AH3F2",
+      "name": "Bubba Rope 3/4 Kinetic Rope",
+      "category": "best overlanding recovery gear",
+      "tags": [
+        "bubba",
+        "rope",
+        "kinetic",
+        "recovery"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B01K2AH3F2?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-recovery-gear.html",
+        "categories/recovery-gear.html"
+      ]
+    },
+    {
+      "asin": "B01N7GC9Z6",
+      "name": "MSR TrailShot Pocket-Sized Water Filter",
+      "category": "best overlanding water storage and filtration",
+      "tags": [
+        "msr",
+        "trailshot",
+        "pocket",
+        "sized",
+        "water",
+        "filter",
+        "storage",
+        "filtration"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B01N7GC9Z6?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-water-storage-and-filtration.html"
+      ]
+    },
+    {
+      "asin": "B06XKQNPND",
+      "name": "North American Rescue Eagle IFAK Kit",
+      "category": "best overlanding first aid kit essentials",
+      "tags": [
+        "north",
+        "american",
+        "rescue",
+        "eagle",
+        "ifak",
+        "first",
+        "aid",
+        "essentials"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B06XKQNPND?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-first-aid-kit-essentials.html"
+      ]
+    },
+    {
+      "asin": "B06XS8PXJB",
+      "name": "Western Mountaineering MegaLite",
+      "category": "sleeping camp",
+      "tags": [
+        "western",
+        "mountaineering",
+        "megalite",
+        "sleeping",
+        "camp"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B06XS8PXJB?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/sleeping-camp.html"
+      ]
+    },
+    {
+      "asin": "B073PLJ59J",
+      "name": "Shop BFG KO2 35s on Amazon ↗",
+      "category": "ford bronco overland build guide",
+      "tags": [
+        "shop",
+        "bfg",
+        "ko2",
+        "35s",
+        "amazon",
+        "ford",
+        "bronco",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B073PLJ59J?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/ford-bronco-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B073RSMKBS",
+      "name": "ARB Under Vehicle Protection Tacoma 5423010",
+      "category": "best skid plates for off road trucks",
+      "tags": [
+        "arb",
+        "under",
+        "vehicle",
+        "protection",
+        "tacoma",
+        "5423010",
+        "skid",
+        "plates",
+        "off",
+        "road"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B073RSMKBS?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-skid-plates-for-off-road-trucks.html"
+      ]
+    },
+    {
+      "asin": "B073V6WK74",
+      "name": "Baja Designs Squadron Pro LED Light Pods",
+      "category": "4runner 5th gen overland build guide",
+      "tags": [
+        "baja",
+        "designs",
+        "squadron",
+        "pro",
+        "led",
+        "light",
+        "pods",
+        "4runner",
+        "5th",
+        "gen"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B073V6WK74?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/4runner-5th-gen-overland-build-guide.html",
+        "categories/lighting.html"
+      ]
+    },
+    {
+      "asin": "B074KS63SC",
+      "name": "Shop Falken Wildpeak MT01 on Amazon ↗",
+      "category": "ford bronco overland build guide",
+      "tags": [
+        "shop",
+        "falken",
+        "wildpeak",
+        "mt01",
+        "amazon",
+        "ford",
+        "bronco",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B074KS63SC?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/ford-bronco-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B079JC6XVC",
+      "name": "Goal Zero Lighthouse 600 Lantern",
+      "category": "lighting",
+      "tags": [
+        "goal",
+        "zero",
+        "lighthouse",
+        "600",
+        "lantern",
+        "lighting"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B079JC6XVC?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/lighting.html"
+      ]
+    },
+    {
+      "asin": "B079Z172HS",
+      "name": "Nitecore NU25 360 Lumen Rechargeable Headlamp",
+      "category": "best overlanding headlamps and lanterns",
+      "tags": [
+        "nitecore",
+        "nu25",
+        "360",
+        "lumen",
+        "rechargeable",
+        "headlamp",
+        "headlamps",
+        "lanterns"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B079Z172HS?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-headlamps-and-lanterns.html"
+      ]
+    },
+    {
+      "asin": "B07B3NS8Z7",
+      "name": "Check Smittybilt XRC Bumper on Amazon ↗",
+      "category": "jeep wrangler overland build guide",
+      "tags": [
+        "smittybilt",
+        "xrc",
+        "bumper",
+        "amazon",
+        "jeep",
+        "wrangler",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B07B3NS8Z7?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/jeep-wrangler-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B07CZZ8C5W",
+      "name": "Cooper AT3 XLT 285/70R17",
+      "category": "4runner 5th gen overland build guide",
+      "tags": [
+        "cooper",
+        "at3",
+        "xlt",
+        "285",
+        "70r17",
+        "4runner",
+        "5th",
+        "gen",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B07CZZ8C5W?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/4runner-5th-gen-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B07F6ZTV6J",
+      "name": "Check 285/70R17 KO2 on Amazon ↗",
+      "category": "jeep wrangler overland build guide",
+      "tags": [
+        "285",
+        "70r17",
+        "ko2",
+        "amazon",
+        "jeep",
+        "wrangler",
+        "overland",
+        "build",
+        "toyota",
+        "tacoma"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B07F6ZTV6J?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/jeep-wrangler-overland-build-guide.html",
+        "articles/toyota-tacoma-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B07FN2FBML",
+      "name": "Midland MXT275 MicroMobile GMRS Radio",
+      "category": "best vehicle communication gear for overlanding",
+      "tags": [
+        "midland",
+        "mxt275",
+        "micromobile",
+        "gmrs",
+        "radio",
+        "vehicle",
+        "communication"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B07FN2FBML?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-vehicle-communication-gear-for-overlanding.html"
+      ]
+    },
+    {
+      "asin": "B07G3VVZ5K",
+      "name": "Rancho RS62116 Front Dana 44 Glide Plate",
+      "category": "best skid plates for off road trucks",
+      "tags": [
+        "rancho",
+        "rs62116",
+        "front",
+        "dana",
+        "44",
+        "glide",
+        "plate",
+        "skid",
+        "plates",
+        "off"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B07G3VVZ5K?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-skid-plates-for-off-road-trucks.html"
+      ]
+    },
+    {
+      "asin": "B07JCD9CMN",
+      "name": "4Runner skid plate set",
+      "category": "4runner 5th gen overland build guide",
+      "tags": [
+        "4runner",
+        "skid",
+        "plate",
+        "set",
+        "5th",
+        "gen",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B07JCD9CMN?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/4runner-5th-gen-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B07JQWGTV7",
+      "name": "TeraFlex JL 2-Door 2.5-inch Spacer Lift with Shock Extensions",
+      "category": "jeep wrangler overland build guide",
+      "tags": [
+        "teraflex",
+        "jl",
+        "door",
+        "inch",
+        "spacer",
+        "lift",
+        "shock",
+        "extensions",
+        "jeep",
+        "wrangler"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B07JQWGTV7?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/jeep-wrangler-overland-build-guide.html",
+        "categories/suspension-lift.html"
+      ]
+    },
+    {
+      "asin": "B07KCSPVWC",
+      "name": "TRED Pro 1100 Recovery Boards",
+      "category": "4runner 5th gen overland build guide",
+      "tags": [
+        "tred",
+        "pro",
+        "1100",
+        "recovery",
+        "boards",
+        "4runner",
+        "5th",
+        "gen",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B07KCSPVWC?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/4runner-5th-gen-overland-build-guide.html",
+        "articles/best-overlanding-recovery-gear.html",
+        "categories/recovery-gear.html"
+      ]
+    },
+    {
+      "asin": "B07KQLX46Q",
+      "name": "Addictive Desert Designs Stealth Front Bumper",
+      "category": "bumpers armor",
+      "tags": [
+        "addictive",
+        "desert",
+        "designs",
+        "stealth",
+        "front",
+        "bumper",
+        "bumpers",
+        "armor",
+        "ford",
+        "bronco"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B07KQLX46Q?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/ford-bronco-overland-build-guide.html",
+        "categories/bumpers-armor.html"
+      ]
+    },
+    {
+      "asin": "B07PCSXHQ4",
+      "name": "Falken Wildpeak MT01 285/70R17",
+      "category": "jeep wrangler overland build guide",
+      "tags": [
+        "falken",
+        "wildpeak",
+        "mt01",
+        "285",
+        "70r17",
+        "jeep",
+        "wrangler",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B07PCSXHQ4?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/jeep-wrangler-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B07PF4GZVR",
+      "name": "Rugged Ridge Trekker Winch 10000 lb Synthetic Rope IP68",
+      "category": "best overlanding winches",
+      "tags": [
+        "rugged",
+        "ridge",
+        "trekker",
+        "winch",
+        "10000",
+        "lb",
+        "synthetic",
+        "rope",
+        "ip68",
+        "winches"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B07PF4GZVR?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-winches.html",
+        "articles/best-winches-for-toyota-4runner.html"
+      ]
+    },
+    {
+      "asin": "B07PKDRD8Q",
+      "name": "OVS HD Nomadic 3 Extended RTT",
+      "category": "toyota tacoma overland build guide",
+      "tags": [
+        "ovs",
+        "hd",
+        "nomadic",
+        "extended",
+        "rtt",
+        "toyota",
+        "tacoma",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B07PKDRD8Q?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/toyota-tacoma-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B07RJ2GJGB",
+      "name": "Icon Stage 2 Suspension System",
+      "category": "suspension lift",
+      "tags": [
+        "icon",
+        "stage",
+        "suspension",
+        "system",
+        "lift"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B07RJ2GJGB?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/suspension-lift.html"
+      ]
+    },
+    {
+      "asin": "B07S5GK8NL",
+      "name": "Garmin GPSMAP 66i",
+      "category": "navigation",
+      "tags": [
+        "garmin",
+        "gpsmap",
+        "66i",
+        "navigation"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B07S5GK8NL?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/navigation.html"
+      ]
+    },
+    {
+      "asin": "B07SGG78NH",
+      "name": "WARN VR EVO 12 Electric 12V DC Winch with Steel Cable",
+      "category": "best overlanding winches",
+      "tags": [
+        "warn",
+        "vr",
+        "evo",
+        "12",
+        "electric",
+        "12v",
+        "dc",
+        "winch",
+        "steel",
+        "cable"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B07SGG78NH?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-winches.html",
+        "articles/best-winches-for-toyota-4runner.html"
+      ]
+    },
+    {
+      "asin": "B07SM5HBK1",
+      "name": "Jackery Explorer 500",
+      "category": "best portable power stations for overlanding",
+      "tags": [
+        "jackery",
+        "explorer",
+        "500",
+        "portable",
+        "power",
+        "stations"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B07SM5HBK1?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-portable-power-stations-for-overlanding.html"
+      ]
+    },
+    {
+      "asin": "B07T7GDV9B",
+      "name": "Factor 55 Extreme Duty Soft Shackle",
+      "category": "recovery gear",
+      "tags": [
+        "factor",
+        "55",
+        "extreme",
+        "duty",
+        "soft",
+        "shackle",
+        "recovery"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B07T7GDV9B?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/recovery-gear.html"
+      ]
+    },
+    {
+      "asin": "B07TJ35L3V",
+      "name": "ICECO GO20 Dual Zone Portable Refrigerator",
+      "category": "best overlanding fridges",
+      "tags": [
+        "iceco",
+        "go20",
+        "dual",
+        "zone",
+        "portable",
+        "refrigerator",
+        "fridges"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B07TJ35L3V?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-fridges.html"
+      ]
+    },
+    {
+      "asin": "B081HVLFQ3",
+      "name": "Black Oak 30 Dual Row LED Bar",
+      "category": "lighting",
+      "tags": [
+        "black",
+        "oak",
+        "30",
+        "dual",
+        "row",
+        "led",
+        "bar",
+        "lighting"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B081HVLFQ3?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/lighting.html"
+      ]
+    },
+    {
+      "asin": "B082T13CGL",
+      "name": "Dometic CFX3 35 Bronco fridge",
+      "category": "ford bronco overland build guide",
+      "tags": [
+        "dometic",
+        "cfx3",
+        "35",
+        "bronco",
+        "fridge",
+        "ford",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B082T13CGL?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/ford-bronco-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B083G3NBNZ",
+      "name": "Dometic CFX3 55 Portable Compressor Fridge",
+      "category": "best overlanding fridges",
+      "tags": [
+        "dometic",
+        "cfx3",
+        "55",
+        "portable",
+        "compressor",
+        "fridge",
+        "fridges",
+        "jeep",
+        "wrangler",
+        "overland"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B083G3NBNZ?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-fridges.html",
+        "articles/jeep-wrangler-overland-build-guide.html",
+        "categories/water-power.html"
+      ]
+    },
+    {
+      "asin": "B085J32BZV",
+      "name": "onX Offroad App",
+      "category": "navigation",
+      "tags": [
+        "onx",
+        "offroad",
+        "app",
+        "navigation"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B085J32BZV?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/navigation.html"
+      ]
+    },
+    {
+      "asin": "B085MM9B2D",
+      "name": "Dometic CFX3 35 Portable Compressor Fridge",
+      "category": "best overlanding fridges",
+      "tags": [
+        "dometic",
+        "cfx3",
+        "35",
+        "portable",
+        "compressor",
+        "fridge",
+        "fridges",
+        "water",
+        "power"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B085MM9B2D?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-fridges.html",
+        "categories/water-power.html"
+      ]
+    },
+    {
+      "asin": "B088BZPNCW",
+      "name": "ARB Awning 2500",
+      "category": "sleeping camp",
+      "tags": [
+        "arb",
+        "awning",
+        "2500",
+        "sleeping",
+        "camp"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B088BZPNCW?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/sleeping-camp.html"
+      ]
+    },
+    {
+      "asin": "B088QSHW1X",
+      "name": "Cali Raised LED Low Profile Ditch Light Kit for Toyota Tacoma 2016–2023",
+      "category": "lighting",
+      "tags": [
+        "cali",
+        "raised",
+        "led",
+        "low",
+        "profile",
+        "ditch",
+        "light",
+        "toyota",
+        "tacoma",
+        "2016"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B088QSHW1X?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/lighting.html"
+      ]
+    },
+    {
+      "asin": "B088QSP3RD",
+      "name": "Shop Cali Raised Ditch Lights on Amazon ↗",
+      "category": "4runner 5th gen overland build guide",
+      "tags": [
+        "shop",
+        "cali",
+        "raised",
+        "ditch",
+        "lights",
+        "amazon",
+        "4runner",
+        "5th",
+        "gen",
+        "overland"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B088QSP3RD?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/4runner-5th-gen-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B08BWVTP5X",
+      "name": "OME Heavy Duty Rear Leaf Springs",
+      "category": "suspension lift",
+      "tags": [
+        "ome",
+        "heavy",
+        "duty",
+        "rear",
+        "leaf",
+        "springs",
+        "suspension",
+        "lift"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B08BWVTP5X?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/suspension-lift.html"
+      ]
+    },
+    {
+      "asin": "B08CRJYJ22",
+      "name": "Shop Renogy Solar Panels on Amazon ↗",
+      "category": "4runner 5th gen overland build guide",
+      "tags": [
+        "shop",
+        "renogy",
+        "solar",
+        "panels",
+        "amazon",
+        "4runner",
+        "5th",
+        "gen",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B08CRJYJ22?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/4runner-5th-gen-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B08CS1JXH6",
+      "name": "Garmin Montana 750i",
+      "category": "navigation",
+      "tags": [
+        "garmin",
+        "montana",
+        "750i",
+        "navigation"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B08CS1JXH6?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/navigation.html"
+      ]
+    },
+    {
+      "asin": "B08F998MFH",
+      "name": "SPOT Gen4",
+      "category": "navigation",
+      "tags": [
+        "spot",
+        "gen4",
+        "navigation"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B08F998MFH?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/navigation.html"
+      ]
+    },
+    {
+      "asin": "B08FX3S5LF",
+      "name": "Goal Zero Yeti 1500X Power Station",
+      "category": "water power",
+      "tags": [
+        "goal",
+        "zero",
+        "yeti",
+        "1500x",
+        "power",
+        "station",
+        "water"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B08FX3S5LF?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/water-power.html"
+      ]
+    },
+    {
+      "asin": "B08KGXD666",
+      "name": "Fox 2.0 Performance Series Shocks",
+      "category": "suspension lift",
+      "tags": [
+        "fox",
+        "performance",
+        "series",
+        "shocks",
+        "suspension",
+        "lift"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B08KGXD666?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/suspension-lift.html"
+      ]
+    },
+    {
+      "asin": "B08ZJWK7HT",
+      "name": "Shop Kinetic Ropes on Amazon ↗",
+      "category": "4runner 5th gen overland build guide",
+      "tags": [
+        "shop",
+        "kinetic",
+        "ropes",
+        "amazon",
+        "4runner",
+        "5th",
+        "gen",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B08ZJWK7HT?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/4runner-5th-gen-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B093BB5JKF",
+      "name": "Renogy Smart 50A DC-DC MPPT Battery Charger",
+      "category": "best overlanding solar and power",
+      "tags": [
+        "renogy",
+        "smart",
+        "50a",
+        "dc",
+        "mppt",
+        "battery",
+        "charger",
+        "solar",
+        "power"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B093BB5JKF?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-solar-and-power.html"
+      ]
+    },
+    {
+      "asin": "B096ST3VMS",
+      "name": "Goal Zero Yeti 1000X power station",
+      "category": "ford bronco overland build guide",
+      "tags": [
+        "goal",
+        "zero",
+        "yeti",
+        "1000x",
+        "power",
+        "station",
+        "ford",
+        "bronco",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B096ST3VMS?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/ford-bronco-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B0988916ZK",
+      "name": "Goal Zero Yeti 1000",
+      "category": "best portable power stations for overlanding",
+      "tags": [
+        "goal",
+        "zero",
+        "yeti",
+        "1000",
+        "portable",
+        "power",
+        "stations"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0988916ZK?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-portable-power-stations-for-overlanding.html"
+      ]
+    },
+    {
+      "asin": "B09D5PW315",
+      "name": "Garmin DriveSmart 76",
+      "category": "navigation",
+      "tags": [
+        "garmin",
+        "drivesmart",
+        "76",
+        "navigation"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B09D5PW315?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/navigation.html"
+      ]
+    },
+    {
+      "asin": "B09HC85Y46",
+      "name": "Shop Yakima TimberLine Bars on Amazon ↗",
+      "category": "ford bronco overland build guide",
+      "tags": [
+        "shop",
+        "yakima",
+        "timberline",
+        "bars",
+        "amazon",
+        "ford",
+        "bronco",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B09HC85Y46?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/ford-bronco-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B09HZDWRLH",
+      "name": "Bestop Trektop NX Bronco",
+      "category": "ford bronco overland build guide",
+      "tags": [
+        "bestop",
+        "trektop",
+        "nx",
+        "bronco",
+        "ford",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B09HZDWRLH?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/ford-bronco-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B09NQK2581",
+      "name": "Black Diamond Spot 400 Headlamp",
+      "category": "best overlanding headlamps and lanterns",
+      "tags": [
+        "black",
+        "diamond",
+        "spot",
+        "400",
+        "headlamp",
+        "headlamps",
+        "lanterns"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B09NQK2581?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-headlamps-and-lanterns.html"
+      ]
+    },
+    {
+      "asin": "B09PF9KCKH",
+      "name": "Midland MXT575 MicroMobile GMRS Radio",
+      "category": "best vehicle communication gear for overlanding",
+      "tags": [
+        "midland",
+        "mxt575",
+        "micromobile",
+        "gmrs",
+        "radio",
+        "vehicle",
+        "communication"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B09PF9KCKH?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-vehicle-communication-gear-for-overlanding.html"
+      ]
+    },
+    {
+      "asin": "B09PSKG7C3",
+      "name": "Garmin inReach Mini 2 Satellite Communicator",
+      "category": "best vehicle communication gear for overlanding",
+      "tags": [
+        "garmin",
+        "inreach",
+        "mini",
+        "satellite",
+        "communicator",
+        "vehicle",
+        "communication"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B09PSKG7C3?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-vehicle-communication-gear-for-overlanding.html"
+      ]
+    },
+    {
+      "asin": "B09PSSSFPF",
+      "name": "Garmin inReach Mini 2",
+      "category": "navigation",
+      "tags": [
+        "garmin",
+        "inreach",
+        "mini",
+        "navigation"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B09PSSSFPF?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/navigation.html"
+      ]
+    },
+    {
+      "asin": "B09QS1BC5N",
+      "name": "Addictive Desert Designs Stealth Fighter Bronco",
+      "category": "ford bronco overland build guide",
+      "tags": [
+        "addictive",
+        "desert",
+        "designs",
+        "stealth",
+        "fighter",
+        "bronco",
+        "ford",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B09QS1BC5N?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/ford-bronco-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B09V8B5662",
+      "name": "Baja Designs Squadron Pro Bronco ditch lights",
+      "category": "ford bronco overland build guide",
+      "tags": [
+        "baja",
+        "designs",
+        "squadron",
+        "pro",
+        "bronco",
+        "ditch",
+        "lights",
+        "ford",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B09V8B5662?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/ford-bronco-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B09Y27LDF8",
+      "name": "Rough Country Rock Sliders",
+      "category": "bumpers armor",
+      "tags": [
+        "rough",
+        "country",
+        "rock",
+        "sliders",
+        "bumpers",
+        "armor"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B09Y27LDF8?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/bumpers-armor.html"
+      ]
+    },
+    {
+      "asin": "B0B4V6H9C2",
+      "name": "Bubba Rope Off-Road Truck Recovery Gear Set",
+      "category": "best overlanding recovery gear",
+      "tags": [
+        "bubba",
+        "rope",
+        "off",
+        "road",
+        "truck",
+        "recovery",
+        "set"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0B4V6H9C2?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-recovery-gear.html"
+      ]
+    },
+    {
+      "asin": "B0B5BC5HV6",
+      "name": "Check AEV Bumpers on Amazon ↗",
+      "category": "jeep wrangler overland build guide",
+      "tags": [
+        "aev",
+        "bumpers",
+        "amazon",
+        "jeep",
+        "wrangler",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0B5BC5HV6?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/jeep-wrangler-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B0B9XB57XM",
+      "name": "EF ECOFLOW Portable Power Station DELTA 2 1024Wh",
+      "category": "best portable power stations for overlanding",
+      "tags": [
+        "ef",
+        "ecoflow",
+        "portable",
+        "power",
+        "station",
+        "delta",
+        "1024wh",
+        "stations"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0B9XB57XM?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-portable-power-stations-for-overlanding.html"
+      ]
+    },
+    {
+      "asin": "B0BBWM9RMV",
+      "name": "Factor 55 Cronus",
+      "category": "best overlanding recovery gear",
+      "tags": [
+        "factor",
+        "55",
+        "cronus",
+        "recovery"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0BBWM9RMV?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-recovery-gear.html"
+      ]
+    },
+    {
+      "asin": "B0BFVGJP8J",
+      "name": "ARB 2021 Ford Bronco Summit Winch Bumper",
+      "category": "bumpers armor",
+      "tags": [
+        "arb",
+        "2021",
+        "ford",
+        "bronco",
+        "summit",
+        "winch",
+        "bumper",
+        "bumpers",
+        "armor"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0BFVGJP8J?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/bumpers-armor.html"
+      ]
+    },
+    {
+      "asin": "B0BJJKD3QZ",
+      "name": "Westin XTS front bumper Bronco",
+      "category": "ford bronco overland build guide",
+      "tags": [
+        "westin",
+        "xts",
+        "front",
+        "bumper",
+        "bronco",
+        "ford",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0BJJKD3QZ?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/ford-bronco-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B0BKTSX6NC",
+      "name": "Old Man Emu BP-51 4Runner (2010–2023) 2–3-inch Lift Kit",
+      "category": "4runner 5th gen overland build guide",
+      "tags": [
+        "old",
+        "man",
+        "emu",
+        "bp",
+        "51",
+        "4runner",
+        "2010",
+        "2023",
+        "inch",
+        "lift"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0BKTSX6NC?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/4runner-5th-gen-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B0BTBHQF8R",
+      "name": "Tuff Stuff Alpha Series 55 RTT",
+      "category": "rooftop tent buying guide",
+      "tags": [
+        "tuff",
+        "stuff",
+        "alpha",
+        "series",
+        "55",
+        "rtt",
+        "rooftop",
+        "tent",
+        "buying",
+        "sleeping"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0BTBHQF8R?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/rooftop-tent-buying-guide.html",
+        "articles/toyota-tacoma-overland-build-guide.html",
+        "categories/sleeping-camp.html"
+      ]
+    },
+    {
+      "asin": "B0BTMWT1C1",
+      "name": "Teraflex Bronco lift kit",
+      "category": "ford bronco overland build guide",
+      "tags": [
+        "teraflex",
+        "bronco",
+        "lift",
+        "ford",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0BTMWT1C1?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/ford-bronco-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B0BZ6HDCQ1",
+      "name": "Fox 2.5 Performance Elite Coilovers",
+      "category": "ford bronco overland build guide",
+      "tags": [
+        "fox",
+        "performance",
+        "elite",
+        "coilovers",
+        "ford",
+        "bronco",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0BZ6HDCQ1?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/ford-bronco-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B0C2F3GNFD",
+      "name": "Rigid Industries Radiance 20",
+      "category": "lighting",
+      "tags": [
+        "rigid",
+        "industries",
+        "radiance",
+        "20",
+        "lighting"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0C2F3GNFD?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/lighting.html"
+      ]
+    },
+    {
+      "asin": "B0C6JYK3K1",
+      "name": "Sanhima Hotham Hard Shell Rooftop Tent",
+      "category": "rooftop tent buying guide",
+      "tags": [
+        "sanhima",
+        "hotham",
+        "hard",
+        "shell",
+        "rooftop",
+        "tent",
+        "buying"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0C6JYK3K1?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/rooftop-tent-buying-guide.html"
+      ]
+    },
+    {
+      "asin": "B0C6WMYFS2",
+      "name": "Check Yankum Ropes on Amazon ↗",
+      "category": "best overlanding recovery gear",
+      "tags": [
+        "yankum",
+        "ropes",
+        "amazon",
+        "recovery"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0C6WMYFS2?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-recovery-gear.html"
+      ]
+    },
+    {
+      "asin": "B0CKKBZH85",
+      "name": "Adventure Medical Kits Mountain Series Hiker",
+      "category": "best overlanding first aid kit essentials",
+      "tags": [
+        "adventure",
+        "medical",
+        "kits",
+        "mountain",
+        "series",
+        "hiker",
+        "first",
+        "aid",
+        "essentials",
+        "tools"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0CKKBZH85?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-first-aid-kit-essentials.html",
+        "categories/tools-safety.html"
+      ]
+    },
+    {
+      "asin": "B0CLGZB3L6",
+      "name": "BLUETTI AC200L Portable Power Station 2048Wh",
+      "category": "best portable power stations for overlanding",
+      "tags": [
+        "bluetti",
+        "ac200l",
+        "portable",
+        "power",
+        "station",
+        "2048wh",
+        "stations"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0CLGZB3L6?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-portable-power-stations-for-overlanding.html"
+      ]
+    },
+    {
+      "asin": "B0CLMHTZTF",
+      "name": "Check Decked Bed System on Amazon ↗",
+      "category": "toyota tacoma overland build guide",
+      "tags": [
+        "decked",
+        "bed",
+        "system",
+        "amazon",
+        "toyota",
+        "tacoma",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0CLMHTZTF?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/toyota-tacoma-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B0CPDRYBPX",
+      "name": "Broaddict Bronco skid plate set",
+      "category": "ford bronco overland build guide",
+      "tags": [
+        "broaddict",
+        "bronco",
+        "skid",
+        "plate",
+        "set",
+        "ford",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0CPDRYBPX?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/ford-bronco-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B0CRCVKNHR",
+      "name": "Shop Goal Zero Solar Panels on Amazon ↗",
+      "category": "ford bronco overland build guide",
+      "tags": [
+        "shop",
+        "goal",
+        "zero",
+        "solar",
+        "panels",
+        "amazon",
+        "ford",
+        "bronco",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0CRCVKNHR?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/ford-bronco-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B0D173XGG9",
+      "name": "Hooke Road Full Length Roof Rack Bronco",
+      "category": "ford bronco overland build guide",
+      "tags": [
+        "hooke",
+        "road",
+        "full",
+        "length",
+        "roof",
+        "rack",
+        "bronco",
+        "ford",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0D173XGG9?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/ford-bronco-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B0D7PPG25F",
+      "name": "Jackery Explorer 1000 v2 Portable Power Station",
+      "category": "best overlanding solar and power",
+      "tags": [
+        "jackery",
+        "explorer",
+        "1000",
+        "v2",
+        "portable",
+        "power",
+        "station",
+        "solar"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0D7PPG25F?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-solar-and-power.html"
+      ]
+    },
+    {
+      "asin": "B0DB3S6NNZ",
+      "name": "Platypus GravityWorks 4.0L Water Filter System",
+      "category": "best overlanding water storage and filtration",
+      "tags": [
+        "platypus",
+        "gravityworks",
+        "0l",
+        "water",
+        "filter",
+        "system",
+        "storage",
+        "filtration"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0DB3S6NNZ?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-water-storage-and-filtration.html"
+      ]
+    },
+    {
+      "asin": "B0DGR1Z85Q",
+      "name": "Rugged Radios GMR2 Plus GMRS Handheld Radio",
+      "category": "best vehicle communication gear for overlanding",
+      "tags": [
+        "rugged",
+        "radios",
+        "gmr2",
+        "plus",
+        "gmrs",
+        "handheld",
+        "radio",
+        "vehicle",
+        "communication"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0DGR1Z85Q?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-vehicle-communication-gear-for-overlanding.html"
+      ]
+    },
+    {
+      "asin": "B0DK7PWLXN",
+      "name": "Nemo Helio",
+      "category": "best overlanding shower and hygiene solutions",
+      "tags": [
+        "nemo",
+        "helio",
+        "shower",
+        "hygiene",
+        "solutions"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0DK7PWLXN?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-shower-and-hygiene-solutions.html"
+      ]
+    },
+    {
+      "asin": "B0DK7QHNV6",
+      "name": "NEMO Stargaze Chair",
+      "category": "best overlanding camp chairs and tables",
+      "tags": [
+        "nemo",
+        "stargaze",
+        "chair",
+        "camp",
+        "chairs",
+        "tables"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0DK7QHNV6?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-camp-chairs-and-tables.html"
+      ]
+    },
+    {
+      "asin": "B0DNZ1GDX6",
+      "name": "Naturnest Sirius 1 Hardshell Rooftop Tent",
+      "category": "sleeping camp",
+      "tags": [
+        "naturnest",
+        "sirius",
+        "hardshell",
+        "rooftop",
+        "tent",
+        "sleeping",
+        "camp"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0DNZ1GDX6?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/sleeping-camp.html"
+      ]
+    },
+    {
+      "asin": "B0DT9W7CYY",
+      "name": "Big Agnes Copper Spur HV UL2",
+      "category": "sleeping camp",
+      "tags": [
+        "big",
+        "agnes",
+        "copper",
+        "spur",
+        "hv",
+        "ul2",
+        "sleeping",
+        "camp"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0DT9W7CYY?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/sleeping-camp.html"
+      ]
+    },
+    {
+      "asin": "B0DVH55V81",
+      "name": "Sawyer Products MINI Water Filtration System",
+      "category": "best overlanding water storage and filtration",
+      "tags": [
+        "sawyer",
+        "products",
+        "mini",
+        "water",
+        "filtration",
+        "system",
+        "storage"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0DVH55V81?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-water-storage-and-filtration.html"
+      ]
+    },
+    {
+      "asin": "B0F39T4YNZ",
+      "name": "Check Tacoma Skid Plates on Amazon ↗",
+      "category": "bumpers armor",
+      "tags": [
+        "tacoma",
+        "skid",
+        "plates",
+        "amazon",
+        "bumpers",
+        "armor",
+        "toyota",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0F39T4YNZ?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/toyota-tacoma-overland-build-guide.html",
+        "categories/bumpers-armor.html"
+      ]
+    },
+    {
+      "asin": "B0F55VMN66",
+      "name": "Check Warn ZEON 10-S on Amazon ↗",
+      "category": "4runner 5th gen overland build guide",
+      "tags": [
+        "warn",
+        "zeon",
+        "10",
+        "amazon",
+        "4runner",
+        "5th",
+        "gen",
+        "overland",
+        "build",
+        "winches"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0F55VMN66?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/4runner-5th-gen-overland-build-guide.html",
+        "articles/best-overlanding-winches.html",
+        "articles/ford-bronco-overland-build-guide.html",
+        "articles/jeep-wrangler-overland-build-guide.html",
+        "articles/toyota-tacoma-overland-build-guide.html",
+        "categories/bumpers-armor.html",
+        "categories/recovery-gear.html",
+        "index.html"
+      ]
+    },
+    {
+      "asin": "B0FBQHNWGG",
+      "name": "Icon Stage 6 4Runner suspension",
+      "category": "4runner 5th gen overland build guide",
+      "tags": [
+        "icon",
+        "stage",
+        "4runner",
+        "suspension",
+        "5th",
+        "gen",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0FBQHNWGG?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/4runner-5th-gen-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B0FHJRVP3T",
+      "name": "Petzl ACTIK CORE Rechargeable Headlamp 650 Lumens",
+      "category": "best overlanding headlamps and lanterns",
+      "tags": [
+        "petzl",
+        "actik",
+        "core",
+        "rechargeable",
+        "headlamp",
+        "650",
+        "lumens",
+        "headlamps",
+        "lanterns"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0FHJRVP3T?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-headlamps-and-lanterns.html"
+      ]
+    },
+    {
+      "asin": "B0G7M8YFB2",
+      "name": "Rough Country Front & Belly Skid Plate Kit",
+      "category": "4runner 5th gen overland build guide",
+      "tags": [
+        "rough",
+        "country",
+        "front",
+        "belly",
+        "skid",
+        "plate",
+        "4runner",
+        "5th",
+        "gen",
+        "overland"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0G7M8YFB2?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/4runner-5th-gen-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B0GF9XC4HC",
+      "name": "Bilstein B8 5100 2010–2024 4Runner Front and Rear Shocks",
+      "category": "4runner 5th gen overland build guide",
+      "tags": [
+        "bilstein",
+        "b8",
+        "5100",
+        "2010",
+        "2024",
+        "4runner",
+        "front",
+        "rear",
+        "shocks",
+        "5th"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0GF9XC4HC?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/4runner-5th-gen-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B0GGRFVB3B",
+      "name": "Helinox Camp Table",
+      "category": "best overlanding camp chairs and tables",
+      "tags": [
+        "helinox",
+        "camp",
+        "table",
+        "chairs",
+        "tables"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0GGRFVB3B?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-camp-chairs-and-tables.html"
+      ]
+    },
+    {
+      "asin": "B0GJT58T5C",
+      "name": "Black Diamond Moji+ Lantern 200 Lumens",
+      "category": "best overlanding headlamps and lanterns",
+      "tags": [
+        "black",
+        "diamond",
+        "moji",
+        "lantern",
+        "200",
+        "lumens",
+        "headlamps",
+        "lanterns"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0GJT58T5C?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/best-overlanding-headlamps-and-lanterns.html"
+      ]
+    },
+    {
+      "asin": "B0GP98KPRH",
+      "name": "Baja Designs Ditch Lights",
+      "category": "ford bronco overland build guide",
+      "tags": [
+        "baja",
+        "designs",
+        "ditch",
+        "lights",
+        "ford",
+        "bronco",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0GP98KPRH?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/ford-bronco-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B0GQJXQYXJ",
+      "name": "Bilstein 5100 Shock Set",
+      "category": "toyota tacoma overland build guide",
+      "tags": [
+        "bilstein",
+        "5100",
+        "shock",
+        "set",
+        "toyota",
+        "tacoma",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0GQJXQYXJ?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/toyota-tacoma-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B0H3CD1ZTX",
+      "name": "Dobinsons MRR Coilovers Tacoma",
+      "category": "toyota tacoma overland build guide",
+      "tags": [
+        "dobinsons",
+        "mrr",
+        "coilovers",
+        "tacoma",
+        "toyota",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0H3CD1ZTX?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/toyota-tacoma-overland-build-guide.html"
+      ]
+    },
+    {
+      "asin": "B0H3CLZPR7",
+      "name": "Dobinsons MRR 3-Way Adjustable Monotube Reservoir Strut for Toyota 4Runner",
+      "category": "suspension lift",
+      "tags": [
+        "dobinsons",
+        "mrr",
+        "way",
+        "adjustable",
+        "monotube",
+        "reservoir",
+        "strut",
+        "toyota",
+        "4runner",
+        "suspension"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B0H3CLZPR7?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "categories/suspension-lift.html"
+      ]
+    }
+  ]
+}
