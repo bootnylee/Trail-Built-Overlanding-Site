@@ -24,20 +24,80 @@ def attr_value(attrs: str, name: str) -> str:
 
 
 def json_ld(raw: str) -> list[dict]:
-    parsed = []
+    """Parse JSON-LD objects and @graph entries without assuming their shape."""
+    parsed: list[dict] = []
     pattern = re.compile(
         r"<script\b(?P<attrs>[^>]*)>(?P<body>.*?)</script>", re.I | re.S
     )
-    for node in pattern.finditer(raw):
+    for node_number, node in enumerate(pattern.finditer(raw), 1):
         if attr_value(node.group("attrs"), "type").lower() != "application/ld+json":
             continue
         try:
             data = json.loads(node.group("body").strip())
         except json.JSONDecodeError as exc:
-            raise ValueError(f"invalid JSON-LD: {exc}") from exc
-        if isinstance(data, dict):
-            parsed.append(data)
+            raise ValueError(f"invalid JSON-LD in script {node_number}: {exc.msg}") from exc
+
+        documents = data if isinstance(data, list) else [data]
+        for document in documents:
+            if not isinstance(document, dict):
+                raise ValueError(
+                    f"invalid JSON-LD in script {node_number}: expected an object, array of objects, or @graph object"
+                )
+            graph = document.get("@graph")
+            if graph is None:
+                parsed.append(document)
+                continue
+            if not isinstance(graph, list):
+                raise ValueError(f"invalid JSON-LD @graph in script {node_number}: expected an array")
+            for graph_index, schema in enumerate(graph, 1):
+                if not isinstance(schema, dict):
+                    raise ValueError(
+                        f"invalid JSON-LD @graph entry {graph_index} in script {node_number}: expected an object"
+                    )
+                parsed.append(schema)
     return parsed
+
+
+def validate_itemlists(label: str, itemlists: list[dict], failures: list[str]) -> None:
+    """Append named ItemList failures without assuming nested JSON-LD shapes."""
+    if not itemlists:
+        failures.append(f"{label}: missing ItemList JSON-LD")
+        return
+
+    for itemlist_number, itemlist in enumerate(itemlists, 1):
+        elements = itemlist.get("itemListElement")
+        if not isinstance(elements, list):
+            failures.append(
+                f"{label}: ItemList {itemlist_number} missing itemListElement array"
+            )
+            continue
+        if not elements:
+            failures.append(f"{label}: ItemList {itemlist_number} has an empty itemListElement array")
+            continue
+
+        for item_number, list_item in enumerate(elements, 1):
+            if not isinstance(list_item, dict):
+                failures.append(
+                    f"{label}: ItemList {itemlist_number} entry {item_number} is not an object"
+                )
+                continue
+            product = list_item.get("item")
+            if not isinstance(product, dict):
+                failures.append(
+                    f"{label}: ItemList {itemlist_number} entry {item_number} missing Product item"
+                )
+                continue
+            if product.get("@type") != "Product" or not product.get("name"):
+                failures.append(f"{label}: ItemList contains a non-Product item")
+            review = product.get("review")
+            if not isinstance(review, dict) or review.get("@type") != "Review":
+                failures.append(
+                    f"{label}: Product '{product.get('name', 'unknown')}' missing editorial Review schema"
+                )
+            # AggregateRating requires genuine review inputs and is emitted
+            # only by the dormant user-review component when activated.
+            if "aggregateRating" in product:
+                failures.append(f"{label}: Product '{product.get('name', 'unknown')}' has static aggregateRating")
 
 
 def amazon_anchors(raw: str):
@@ -84,19 +144,8 @@ def main() -> int:
                 failures.append(f"{label}: missing {required} JSON-LD")
 
         itemlists = [schema for schema in parsed_schemas if schema.get("@type") == "ItemList"]
-        if label not in CONCEPT_GUIDES and not itemlists:
-            failures.append(f"{label}: missing ItemList JSON-LD")
         if label not in CONCEPT_GUIDES:
-            for list_item in itemlists[0].get("itemListElement", []):
-                product = list_item.get("item", {})
-                if product.get("@type") != "Product" or not product.get("name"):
-                    failures.append(f"{label}: ItemList contains a non-Product item")
-                if product.get("review", {}).get("@type") != "Review":
-                    failures.append(f"{label}: Product '{product.get('name', 'unknown')}' missing editorial Review schema")
-                # AggregateRating requires genuine review inputs and is emitted
-                # only by the dormant user-review component when activated.
-                if "aggregateRating" in product:
-                    failures.append(f"{label}: Product '{product.get('name', 'unknown')}' has static aggregateRating")
+            validate_itemlists(label, itemlists, failures)
 
         if label not in CONCEPT_GUIDES and "data-guide-sticky=" not in raw:
             failures.append(f"{label}: missing mobile sticky CTA")
