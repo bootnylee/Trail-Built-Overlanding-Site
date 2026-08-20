@@ -160,7 +160,7 @@ function createAsinVerifier({
         marketplace: MARKETPLACE,
         partnerTag: credentials.partnerTag,
         partnerType: 'Associates',
-        resources: ['itemInfo.title'],
+        resources: ['itemInfo.title', 'images.primary.large'],
       })
     );
     const payload = parseJson(response.body);
@@ -170,6 +170,7 @@ function createAsinVerifier({
         status: 'LIVE',
         source: 'creators_api',
         title: items[0]?.itemInfo?.title?.displayValue || '',
+        image_url: items[0]?.images?.primary?.large?.url || '',
         reason: '',
       };
     }
@@ -177,19 +178,20 @@ function createAsinVerifier({
       status: 'INCONCLUSIVE',
       source: 'creators_api',
       title: '',
+      image_url: '',
       reason: response.status === 429 ? 'Creators API throttled the lookup' : (items.length === 0 ? 'No items returned' : apiReason(response)),
     };
   }
 
   async function verifyAsin(asin) {
     if (!/^[A-Z0-9]{10}$/.test(asin || '')) {
-      return { status: 'INCONCLUSIVE', source: 'input', title: '', reason: 'Invalid ASIN format' };
+      return { status: 'INCONCLUSIVE', source: 'input', title: '', image_url: '', reason: 'Invalid ASIN format' };
     }
     if (!credentials.clientId || !credentials.clientSecret || !credentials.partnerTag) {
-      return { status: 'INCONCLUSIVE', source: 'creators_api', title: '', reason: 'Creators API credentials are unavailable' };
+      return { status: 'INCONCLUSIVE', source: 'creators_api', title: '', image_url: '', reason: 'Creators API credentials are unavailable' };
     }
 
-    let lastResult = { status: 'INCONCLUSIVE', source: 'creators_api', title: '', reason: 'Creators API lookup unavailable' };
+    let lastResult = { status: 'INCONCLUSIVE', source: 'creators_api', title: '', image_url: '', reason: 'Creators API lookup unavailable' };
     for (let attempt = 1; attempt <= lookupAttempts; attempt++) {
       try {
         lastResult = await lookupOnce(asin);
@@ -199,6 +201,7 @@ function createAsinVerifier({
           status: 'INCONCLUSIVE',
           source: 'creators_api',
           title: '',
+          image_url: '',
           reason: `Creators API request failed: ${error.message}`,
         };
       }

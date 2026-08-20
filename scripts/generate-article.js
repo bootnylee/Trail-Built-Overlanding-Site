@@ -14,6 +14,7 @@
 const fs   = require('fs');
 const path = require('path');
 const https = require('https');
+const crypto = require('crypto');
 const { createAsinVerifier } = require('./asin-verification');
 
 // ── Config ──────────────────────────────────────────────────────────────────
@@ -25,6 +26,9 @@ const GROQ_MODEL     = 'openai/gpt-oss-120b';
 const ARTICLES_DIR   = process.env.ARTICLES_DIR || path.join(__dirname, '..', 'articles');
 const INDEX_FILE     = path.join(__dirname, '..', 'index.html');
 const SITE_URL       = 'https://trailbuiltoverland.com';
+const PRODUCT_IMAGES_DIR = process.env.PRODUCT_IMAGES_DIR || path.join(__dirname, '..', 'assets', 'product-images');
+const PRODUCT_IMAGES_REPO_PREFIX = 'assets/product-images/';
+const MIN_PRODUCT_BOXES = 5;
 
 // ── Topic pool — cycles automatically; add more to extend coverage ──────────
 const TOPIC_POOL = [
@@ -185,7 +189,7 @@ function pickTopic() {
 
 // ── ASIN pre-validation ─────────────────────────────────────────────────────
 const VERIFIED_POOL_FILE = path.join(__dirname, '..', 'data', 'verified-products.json');
-const MIN_RELEVANT_POOL_PRODUCTS = 3;
+const MIN_RELEVANT_POOL_PRODUCTS = MIN_PRODUCT_BOXES;
 const MAX_POOL_PROMPT_PRODUCTS = 12;
 const POOL_STOP_WORDS = new Set([
   'a', 'an', 'and', 'best', 'for', 'guide', 'how', 'in', 'of', 'or', 'overlanding',
@@ -269,10 +273,213 @@ async function validateBodyAsins(bodyHTML, pool, verifier = createAsinVerifier()
     }
     const result = await verifier.verifyAsin(asin);
     console.log(`[asin-precheck] ${asin}: ${result.status} via ${result.source}${result.reason ? ` (${result.reason})` : ''}`);
-    if (result.status === 'LIVE') ok.push(asin);
-    else failed.push(`${asin}: ${result.status}${result.reason ? ` (${result.reason})` : ''}`);
+    const product = pool.get(asin);
+    const hasExistingLocalImage = Boolean(product && findExistingLocalProductImage(product));
+    if (result.status === 'LIVE' && (result.image_url || hasExistingLocalImage)) {
+      // Reuse the image URL returned by the same runtime Creators API lookup;
+      // no second catalog lookup is made solely for image acquisition. A known
+      // local asset for the same ASIN is also valid and avoids a redundant download.
+      if (result.image_url) product.image_url = result.image_url;
+      ok.push(asin);
+    } else if (result.status === 'LIVE') {
+      failed.push(`${asin}: LIVE listing returned without a primary product image or reusable local asset`);
+    } else {
+      failed.push(`${asin}: ${result.status}${result.reason ? ` (${result.reason})` : ''}`);
+    }
   }
   return { ok, failed };
+}
+
+// ── Product-card image conformance ───────────────────────────────────────────
+const PRODUCT_BOX_RE = /<div class="product-box"[\s\S]*?(?=<div class="product-box"|<h2 id="faq"|<p>We ran|<p>When choosing|<\/article>|$)/g;
+
+function imageExtension(url) {
+  try {
+    const extension = path.extname(new URL(url).pathname).toLowerCase();
+    return ['.avif', '.gif', '.jpeg', '.jpg', '.png', '.webp'].includes(extension) ? extension : '.jpg';
+  } catch {
+    return '.jpg';
+  }
+}
+
+function productImageFilename(slug, product, extension = '.jpg') {
+  const prefix = slugify(`${slug}-${product.name}`).slice(0, 104) || product.asin.toLowerCase();
+  const fingerprint = crypto.createHash('sha256').update(product.asin).digest('hex').slice(0, 8);
+  return `${prefix}-${fingerprint}${extension}`;
+}
+
+function repoImagePathFromMetadata(localPath) {
+  if (typeof localPath !== 'string' || !localPath.startsWith(PRODUCT_IMAGES_REPO_PREFIX)) return null;
+  const resolved = path.resolve(__dirname, '..', localPath);
+  const allowedRoot = path.resolve(PRODUCT_IMAGES_DIR) + path.sep;
+  return resolved.startsWith(allowedRoot) ? resolved : null;
+}
+
+function findExistingLocalProductImage(asin) {
+  const metadataPath = repoImagePathFromMetadata(asin.image_local_path);
+  if (metadataPath && fs.existsSync(metadataPath)) {
+    return { filePath: metadataPath, localPath: asin.image_local_path };
+  }
+
+  // Earlier articles did not record image metadata in the pool. Reuse their local
+  // assets when the same ASIN already appears in a product card.
+  const articlesDir = path.join(__dirname, '..', 'articles');
+  for (const file of fs.readdirSync(articlesDir).filter(name => name.endsWith('.html'))) {
+    const article = fs.readFileSync(path.join(articlesDir, file), 'utf8');
+    const card = article.match(new RegExp(`<div class="product-box"[^>]*data-asin="${asin.asin}"[\\s\\S]*?(?=<div class="product-box"|<h2 id="faq"|<\\/article>)`));
+    const source = card && card[0].match(/<img [^>]*src="(\.\.\/assets\/product-images\/[^\"]+)"/);
+    if (!source) continue;
+    const localPath = source[1].replace(/^\.\.\//, '');
+    const filePath = repoImagePathFromMetadata(localPath);
+    if (filePath && fs.existsSync(filePath)) return { filePath, localPath };
+  }
+  return null;
+}
+
+function downloadProductImage(imageUrl, destination) {
+  return new Promise((resolve, reject) => {
+    let parsed;
+    try {
+      parsed = new URL(imageUrl);
+    } catch {
+      reject(new Error('Creators API returned an invalid product image URL'));
+      return;
+    }
+    if (parsed.protocol !== 'https:') {
+      reject(new Error('Creators API product image URL must use HTTPS'));
+      return;
+    }
+    const request = https.get(parsed, { timeout: 15000, headers: { 'User-Agent': 'TrailBuiltProductImageSync/1.0' } }, response => {
+      if ([301, 302, 307, 308].includes(response.statusCode) && response.headers.location) {
+        response.resume();
+        downloadProductImage(new URL(response.headers.location, imageUrl).toString(), destination).then(resolve, reject);
+        return;
+      }
+      if (response.statusCode !== 200) {
+        response.resume();
+        reject(new Error(`Product image download returned HTTP ${response.statusCode}`));
+        return;
+      }
+      if (!String(response.headers['content-type'] || '').startsWith('image/')) {
+        response.resume();
+        reject(new Error('Product image download did not return an image content type'));
+        return;
+      }
+      const chunks = [];
+      let total = 0;
+      response.on('data', chunk => {
+        total += chunk.length;
+        if (total > 8 * 1024 * 1024) {
+          response.destroy(new Error('Product image exceeds the 8 MiB download limit'));
+          return;
+        }
+        chunks.push(chunk);
+      });
+      response.on('error', reject);
+      response.on('end', () => {
+        if (total < 128) {
+          reject(new Error('Product image download was unexpectedly small'));
+          return;
+        }
+        fs.mkdirSync(path.dirname(destination), { recursive: true });
+        fs.writeFileSync(destination, Buffer.concat(chunks));
+        resolve();
+      });
+    });
+    request.on('timeout', () => request.destroy(new Error('Product image download timed out')));
+    request.on('error', reject);
+  });
+}
+
+async function ensureProductImage(slug, product, downloader = downloadProductImage) {
+  try {
+    const existing = findExistingLocalProductImage(product);
+    if (existing) return { ...existing, created: false };
+    if (!product.image_url) throw new Error('Creators API did not return a primary product image URL');
+
+    const filename = productImageFilename(slug, product, imageExtension(product.image_url));
+    const filePath = path.join(PRODUCT_IMAGES_DIR, filename);
+    const localPath = `${PRODUCT_IMAGES_REPO_PREFIX}${filename}`;
+    if (fs.existsSync(filePath)) return { filePath, localPath, created: false };
+    await downloader(product.image_url, filePath);
+    return { filePath, localPath, created: true };
+  } catch (cause) {
+    const error = new Error(`[product-images] ${product.asin}: ${cause.message}`);
+    error.asin = product.asin;
+    throw error;
+  }
+}
+
+function plainText(value) {
+  return String(value || '')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function canonicalProductBox(box, product, imageLocalPath) {
+  const heading = product.name;
+  const description = plainText(box.match(/<p[^>]*>([\s\S]*?)<\/p>/i)?.[1]) || `${product.name} is a practical overlanding gear option.`;
+  const listItems = [...box.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)]
+    .map(match => plainText(match[1]))
+    .filter(Boolean)
+    .slice(0, 3);
+  const reasons = listItems.length >= 2
+    ? listItems
+    : [`${product.name} is selected from the runtime-verified product pool.`, 'Its practical format suits vehicle-based travel and camp use.'];
+  const asin = product.asin;
+  const alt = `${product.name} overlanding gear`;
+  const amazonUrl = `https://www.amazon.com/dp/${asin}?tag=${ASSOCIATE_TAG}`;
+
+  return `<div class="product-box" data-asin="${asin}" data-product="${escapeHtml(product.name)}"><div class="product-box-header"><div class="product-box-image"><img alt="${escapeHtml(alt)}" decoding="async" height="140" loading="lazy" src="../${imageLocalPath}" width="180"/></div><div class="product-box-info"><h4>${escapeHtml(heading)}</h4><p class="product-summary">${escapeHtml(description)}</p></div></div><div class="guide-product-meta"><span class="price" data-asin="${asin}" data-catalog-price="" hidden=""></span><span class="guide-availability" data-asin="${asin}" data-catalog-availability="" hidden=""></span><span class="guide-catalog-badge" data-asin="${asin}" data-catalog-badge="" hidden=""></span></div><div class="product-box-pros"><h5>Why We Like It</h5><ul>${reasons.map(reason => `<li>${escapeHtml(reason)}</li>`).join('')}</ul></div><a class="btn-amazon" data-asin="${asin}" href="${amazonUrl}" rel="sponsored nofollow noopener" target="_blank">Check Price on Amazon</a></div>`;
+}
+
+async function conformProductBoxes(bodyHTML, pool, slug, downloader = downloadProductImage) {
+  const boxes = [...bodyHTML.matchAll(PRODUCT_BOX_RE)];
+  if (boxes.length < MIN_PRODUCT_BOXES) {
+    throw new Error(`[product-images] Blocking publish: generated article has ${boxes.length} product boxes; the quality gate requires at least ${MIN_PRODUCT_BOXES}.`);
+  }
+
+  const usedAsins = extractAsins(bodyHTML);
+  const images = new Map();
+  const createdPaths = [];
+  try {
+    for (const asin of usedAsins) {
+      const product = pool.get(asin);
+      if (!product) throw new Error(`${asin}: product is not in the verified pool`);
+      const image = await ensureProductImage(slug, product, downloader);
+      if (image.created) createdPaths.push(image.filePath);
+      images.set(asin, image.localPath);
+    }
+
+    const conforming = bodyHTML.replace(PRODUCT_BOX_RE, box => {
+      const asin = box.match(/data-asin="([A-Z0-9]{10})"/i)?.[1] || extractAsins(box)[0];
+      const product = asin && pool.get(asin);
+      const imageLocalPath = asin && images.get(asin);
+      if (!product || !imageLocalPath) throw new Error(`[product-images] ${asin || 'unknown ASIN'} has no verified local product image`);
+      return canonicalProductBox(box, product, imageLocalPath);
+    });
+
+    return { bodyHTML: conforming, imageMetadata: Object.fromEntries([...images].map(([asin, localPath]) => [asin, { image_local_path: localPath }])) };
+  } catch (error) {
+    for (const createdPath of createdPaths) fs.rmSync(createdPath, { force: true });
+    throw error;
+  }
+}
+
+function updatePoolImageMetadata(poolFile, imageMetadata) {
+  const document = JSON.parse(fs.readFileSync(poolFile, 'utf8'));
+  const products = Array.isArray(document) ? document : document.products;
+  let changed = false;
+  for (const product of products) {
+    const metadata = imageMetadata[product.asin];
+    if (!metadata) continue;
+    if (product.image_local_path !== metadata.image_local_path) {
+      product.image_local_path = metadata.image_local_path;
+      changed = true;
+    }
+  }
+  if (changed) fs.writeFileSync(poolFile, `${JSON.stringify(document, null, 2)}\n`);
 }
 
 // ── Groq API ─────────────────────────────────────────────────────────────────
@@ -463,13 +670,16 @@ function groqRequest(messages) {
 }
 
 // ── Article generation ───────────────────────────────────────────────────────
-async function generateArticleContent(topic, pool = loadVerifiedPool()) {
+async function generateArticleContent(topic, pool = loadVerifiedPool(), excludedAsins = new Set()) {
   console.log(`Generating article for: "${topic}"`);
-  const relevantProducts = filterPoolForTopic(pool, topic);
+  const relevantProducts = filterPoolForTopic(pool, topic).filter(product => !excludedAsins.has(product.asin));
+  if (relevantProducts.length < MIN_RELEVANT_POOL_PRODUCTS) {
+    throw new Error(`[asin-precheck] Blocking publish: topic has only ${relevantProducts.length} eligible product(s); the quality gate requires ${MIN_PRODUCT_BOXES}.`);
+  }
   const productPool = formatPoolForPrompt(relevantProducts);
   const productCountInstruction = relevantProducts.length >= MIN_RELEVANT_POOL_PRODUCTS
-    ? `Use up to ${relevantProducts.length} relevant product recommendations from the approved pool.`
-    : `The approved pool has only ${relevantProducts.length} relevant product(s), so use no more than those ${relevantProducts.length}; do not pad the article with unrelated or invented products.`;
+    ? `Use at least ${MIN_PRODUCT_BOXES} and up to ${relevantProducts.length} relevant product recommendations from the approved pool.`
+    : `The approved pool has only ${relevantProducts.length} relevant product(s), so do not generate this article: its topic does not have the ${MIN_PRODUCT_BOXES} qualified products required by the publish quality gate.`;
 
   const systemPrompt = `You are an expert overlanding writer for TrailBuiltOverland.com, an affiliate review site.
 Write in a confident, practical, first-person-plural voice ("we tested", "we ran it for 3 months").
@@ -482,27 +692,13 @@ Every article must include:
 - At least one FAQ section with 3 questions
 - An affiliate disclosure reminder in the footer note
 Write clean HTML fragments only (no <html>/<head>/<body> tags).
-Use <h2>, <h3>, <p>, <ul>, <li>, <strong> tags only.
-For each included product recommendation, wrap in this exact structure:
-<div class="product-box" data-product="PRODUCT NAME" data-asin="ASIN">
-  <div class="product-box-header">
-    <div class="product-box-icon">EMOJI</div>
-    <div class="product-box-info">
-      <h4>PRODUCT FULL NAME</h4>
-      <div class="price">~$PRICE on Amazon</div>
-    </div>
-  </div>
-  <div class="product-box-pros">
-    <h5>Why We Like It</h5>
-    <ul><li>...</li></ul>
-  </div>
-  <a href="DIRECT_TAGGED_AMAZON_PRODUCT_URL" class="btn-amazon" rel="nofollow sponsored noopener" target="_blank">Check Price on Amazon ↗</a>
-</div>`;
+Use <h2>, <h3>, <p>, <ul>, <li>, <strong> tags only outside of product boxes.
+For each included product recommendation, wrap in a <div class="product-box" data-product="PRODUCT NAME" data-asin="ASIN"> containing an <h4>, one descriptive <p>, a <ul> with 2–3 <li> points, and the direct tagged Amazon product link. Do NOT emit <img>, prices, image wrappers, product metadata spans, emoji, or any other product-card presentation markup: the generator supplies the site-standard local-image product card after validation.`;
 
   const userPrompt = `Write a comprehensive buyer's guide article titled "Best ${topic.charAt(0).toUpperCase() + topic.slice(1)} 2026".
 ${productCountInstruction}
 Make it around 1,200-1,500 words. Be specific with product names, prices, and real-world testing details.
-Each product MUST use the exact corresponding name and ASIN from the approved pool. Replace DIRECT_TAGGED_AMAZON_PRODUCT_URL with the concrete https://www.amazon.com/dp/{exact approved ASIN}?tag=${ASSOCIATE_TAG} destination. Do NOT create Amazon search links, reuse ASINs, leave placeholders, recommend a product outside the pool, or include a product when no relevant approved entry exists.
+Each product MUST use the exact corresponding name and ASIN from the approved pool. Use the concrete https://www.amazon.com/dp/{exact approved ASIN}?tag=${ASSOCIATE_TAG} destination. Do NOT create Amazon search links, reuse ASINs, leave placeholders, recommend a product outside the pool, or include a product when no relevant approved entry exists. Do not add any product image or price markup; the generator will inject the canonical local-image card layout after validation.
 
 Approved topic-relevant product pool (the complete allowed list for this article):
 ${productPool || '(No relevant pool products are available. Write the guide without product boxes or Amazon links.)'}
@@ -877,28 +1073,39 @@ async function main() {
   // The pool must load before any paid generation request so a malformed seed fails safely.
   const verifiedPool = loadVerifiedPool();
   const MAX_ASIN_RETRIES = 3;
-  let bodyHTML, meta;
-  let asinCheckPassed = false;
+  const excludedImageAsins = new Set();
+  let bodyHTML, meta, productCards;
+  let generationPassed = false;
   for (let attempt = 1; attempt <= MAX_ASIN_RETRIES; attempt++) {
     console.log(`\n[asin-precheck] Generation attempt ${attempt}/${MAX_ASIN_RETRIES}`);
     [bodyHTML, meta] = await Promise.all([
-      generateArticleContent(topic, verifiedPool),
+      generateArticleContent(topic, verifiedPool, excludedImageAsins),
       attempt === 1 ? generateMeta(topic) : Promise.resolve(meta), // reuse meta on retries
     ]);
     const { ok, failed } = await validateBodyAsins(bodyHTML, verifiedPool);
-    if (failed.length === 0) {
-      console.log(`[asin-precheck] ✅ All ${ok.length} direct ASIN(s) verified live.`);
-      asinCheckPassed = true;
+    if (failed.length > 0) {
+      console.warn(`[asin-precheck] ⚠️  Attempt ${attempt}: ${failed.join('; ')}`);
+      continue;
+    }
+
+    try {
+      productCards = await conformProductBoxes(bodyHTML, verifiedPool, slug);
+      bodyHTML = productCards.bodyHTML;
+      console.log(`[asin-precheck] ✅ All ${ok.length} direct ASIN(s) verified live with local product images.`);
+      generationPassed = true;
       break;
-    }
-    console.warn(`[asin-precheck] ⚠️  Attempt ${attempt}: ${failed.join('; ')}`);
-    if (attempt < MAX_ASIN_RETRIES) {
-      console.log('[asin-precheck] Retrying generation without unverified or search-link products...');
+    } catch (error) {
+      if (error.asin) excludedImageAsins.add(error.asin);
+      console.warn(`[product-images] ⚠️  Attempt ${attempt}: ${error.message}`);
+      if (!error.asin) break;
+      console.log(`[product-images] Retrying generation with ${error.asin} excluded so another verified pool product can be selected.`);
     }
   }
-  if (!asinCheckPassed) {
-    throw new Error(`[asin-precheck] Blocking publish: no generated draft passed direct-ASIN validation after ${MAX_ASIN_RETRIES} attempts.`);
+  if (!generationPassed) {
+    throw new Error(`[asin-precheck] Blocking publish: no generated draft passed ASIN and local-product-image validation after ${MAX_ASIN_RETRIES} attempts.`);
   }
+  updatePoolImageMetadata(VERIFIED_POOL_FILE, productCards.imageMetadata);
+
   // Validate hero image URL — reject dead URLs before writing the article file.
   // This prevents the link-check gate from failing in CI.
   console.log(`[image-validate] Checking hero image: ${meta.ogImage}`);
@@ -936,4 +1143,7 @@ module.exports = {
   loadVerifiedPool,
   filterPoolForTopic,
   validateBodyAsins,
+  conformProductBoxes,
+  productImageFilename,
+  canonicalProductBox,
 };

@@ -46,13 +46,16 @@ async function run() {
       return {
         status: 200,
         body: JSON.stringify({
-          itemResults: { items: [{ asin: 'B07SJHVQTJ', itemInfo: { title: { displayValue: 'Verified Test Product' } } }] },
+          itemResults: { items: [{ asin: 'B07SJHVQTJ', itemInfo: { title: { displayValue: 'Verified Test Product' } }, images: { primary: { large: { url: 'https://example.invalid/verified-test-product.jpg' } } } }] },
         }),
       };
     },
   });
   const live = await liveVerifier.verifyAsin('B07SJHVQTJ');
   assert.strictEqual(live.status, 'LIVE');
+  assert.strictEqual(live.image_url, 'https://example.invalid/verified-test-product.jpg');
+  const catalogRequest = JSON.parse(requests[1].body);
+  assert.deepStrictEqual(catalogRequest.resources, ['itemInfo.title', 'images.primary.large']);
   assert.deepStrictEqual(requests.map(request => request.hostname), ['api.amazon.com', 'creatorsapi.amazon']);
 
   const emptyVerifier = createAsinVerifier({

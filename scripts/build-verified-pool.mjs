@@ -105,6 +105,7 @@ async function verifyProducts(products) {
     product.verification_status = result.status === 'LIVE' ? 'verified' : 'pending-verification';
     product.verification_source = result.source;
     if (result.title) product.amazon_title = result.title;
+    if (result.image_url) product.image_url = result.image_url;
     if (result.status !== 'LIVE') product.verification_note = result.reason || 'Creators API result was inconclusive';
     console.log(`[verified-pool] ${index + 1}/${products.length} ${product.asin}: ${product.verification_status}`);
   }

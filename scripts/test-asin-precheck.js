@@ -27,7 +27,7 @@ async function run() {
   const liveVerifier = {
     verifyAsin: async asin => {
       calls.push(asin);
-      return { status: 'LIVE', source: 'creators_api', reason: '' };
+      return { status: 'LIVE', source: 'creators_api', image_url: `https://example.invalid/${asin}.jpg`, reason: '' };
     },
   };
 
