@@ -1,13 +1,15 @@
 {
-  "generated": "2026-08-10T20:40:29.263Z",
+  "generated": "2026-08-20T01:58:57.470Z",
   "summary": {
-    "pages": 34,
+    "pages": 35,
     "issues": 0,
-    "warnings": 0,
-    "passed": 369
+    "warnings": 1,
+    "passed": 379
   },
   "issues": [],
-  "warnings": [],
+  "warnings": [
+    "[/articles/best-overlanding-gps-and-navigation-devices.html] Title too long (69 chars): \"2026 Best Overlanding GPS &amp; Navigation Devices – Top Pic...\""
+  ],
   "passed": [
     "[/index.html] Title OK (57 chars)",
     "[/index.html] Meta description OK (147 chars)",
@@ -17,7 +19,7 @@
     "[/index.html] og:image present",
     "[/index.html] robots meta present",
     "[/index.html] Single H1 tag",
-    "[/index.html] All 4 Amazon links have affiliate tag",
+    "[/index.html] All 2 Amazon links have affiliate tag",
     "[/index.html] No placeholder href='#' links",
     "[/index.html] JSON-LD structured data present",
     "[/reviews.html] Title OK (43 chars)",
@@ -68,7 +70,7 @@
     "[/categories/bumpers-armor.html] og:image present",
     "[/categories/bumpers-armor.html] robots meta present",
     "[/categories/bumpers-armor.html] Single H1 tag",
-    "[/categories/bumpers-armor.html] All 5 Amazon links have affiliate tag",
+    "[/categories/bumpers-armor.html] All 7 Amazon links have affiliate tag",
     "[/categories/bumpers-armor.html] No placeholder href='#' links",
     "[/categories/bumpers-armor.html] JSON-LD structured data present",
     "[/categories/lighting.html] Title OK (55 chars)",
@@ -79,7 +81,7 @@
     "[/categories/lighting.html] og:image present",
     "[/categories/lighting.html] robots meta present",
     "[/categories/lighting.html] Single H1 tag",
-    "[/categories/lighting.html] All 7 Amazon links have affiliate tag",
+    "[/categories/lighting.html] All 6 Amazon links have affiliate tag",
     "[/categories/lighting.html] No placeholder href='#' links",
     "[/categories/lighting.html] JSON-LD structured data present",
     "[/categories/navigation.html] Title OK (58 chars)",
@@ -101,7 +103,7 @@
     "[/categories/recovery-gear.html] og:image present",
     "[/categories/recovery-gear.html] robots meta present",
     "[/categories/recovery-gear.html] Single H1 tag",
-    "[/categories/recovery-gear.html] All 7 Amazon links have affiliate tag",
+    "[/categories/recovery-gear.html] All 8 Amazon links have affiliate tag",
     "[/categories/recovery-gear.html] No placeholder href='#' links",
     "[/categories/recovery-gear.html] JSON-LD structured data present",
     "[/categories/sleeping-camp.html] Title OK (60 chars)",
@@ -123,7 +125,7 @@
     "[/categories/suspension-lift.html] og:image present",
     "[/categories/suspension-lift.html] robots meta present",
     "[/categories/suspension-lift.html] Single H1 tag",
-    "[/categories/suspension-lift.html] All 8 Amazon links have affiliate tag",
+    "[/categories/suspension-lift.html] All 6 Amazon links have affiliate tag",
     "[/categories/suspension-lift.html] No placeholder href='#' links",
     "[/categories/suspension-lift.html] JSON-LD structured data present",
     "[/categories/tools-safety.html] Title OK (49 chars)",
@@ -145,7 +147,7 @@
     "[/categories/water-power.html] og:image present",
     "[/categories/water-power.html] robots meta present",
     "[/categories/water-power.html] Single H1 tag",
-    "[/categories/water-power.html] All 7 Amazon links have affiliate tag",
+    "[/categories/water-power.html] All 6 Amazon links have affiliate tag",
     "[/categories/water-power.html] No placeholder href='#' links",
     "[/categories/water-power.html] JSON-LD structured data present",
     "[/articles/4runner-5th-gen-overland-build-guide.html] Title OK (57 chars)",
@@ -156,7 +158,7 @@
     "[/articles/4runner-5th-gen-overland-build-guide.html] og:image present",
     "[/articles/4runner-5th-gen-overland-build-guide.html] robots meta present",
     "[/articles/4runner-5th-gen-overland-build-guide.html] Single H1 tag",
-    "[/articles/4runner-5th-gen-overland-build-guide.html] All 31 Amazon links have affiliate tag",
+    "[/articles/4runner-5th-gen-overland-build-guide.html] All 14 Amazon links have affiliate tag",
     "[/articles/4runner-5th-gen-overland-build-guide.html] No placeholder href='#' links",
     "[/articles/4runner-5th-gen-overland-build-guide.html] JSON-LD structured data present",
     "[/articles/best-diesel-vs-gasoline-for-overlanding.html] Title OK (48 chars)",
@@ -177,7 +179,7 @@
     "[/articles/best-hi-lift-jack-alternatives.html] og:image present",
     "[/articles/best-hi-lift-jack-alternatives.html] robots meta present",
     "[/articles/best-hi-lift-jack-alternatives.html] Single H1 tag",
-    "[/articles/best-hi-lift-jack-alternatives.html] All 3 Amazon links have affiliate tag",
+    "[/articles/best-hi-lift-jack-alternatives.html] All 10 Amazon links have affiliate tag",
     "[/articles/best-hi-lift-jack-alternatives.html] No placeholder href='#' links",
     "[/articles/best-hi-lift-jack-alternatives.html] JSON-LD structured data present",
     "[/articles/best-off-road-light-bars.html] Title OK (63 chars)",
@@ -188,7 +190,7 @@
     "[/articles/best-off-road-light-bars.html] og:image present",
     "[/articles/best-off-road-light-bars.html] robots meta present",
     "[/articles/best-off-road-light-bars.html] Single H1 tag",
-    "[/articles/best-off-road-light-bars.html] All 6 Amazon links have affiliate tag",
+    "[/articles/best-off-road-light-bars.html] All 5 Amazon links have affiliate tag",
     "[/articles/best-off-road-light-bars.html] No placeholder href='#' links",
     "[/articles/best-off-road-light-bars.html] JSON-LD structured data present",
     "[/articles/best-overlanding-camp-chairs-and-tables.html] Title OK (21 chars)",
@@ -199,7 +201,7 @@
     "[/articles/best-overlanding-camp-chairs-and-tables.html] og:image present",
     "[/articles/best-overlanding-camp-chairs-and-tables.html] robots meta present",
     "[/articles/best-overlanding-camp-chairs-and-tables.html] Single H1 tag",
-    "[/articles/best-overlanding-camp-chairs-and-tables.html] All 4 Amazon links have affiliate tag",
+    "[/articles/best-overlanding-camp-chairs-and-tables.html] All 10 Amazon links have affiliate tag",
     "[/articles/best-overlanding-camp-chairs-and-tables.html] No placeholder href='#' links",
     "[/articles/best-overlanding-camp-chairs-and-tables.html] JSON-LD structured data present",
     "[/articles/best-overlanding-first-aid-kit-essentials.html] Title OK (26 chars)",
@@ -210,7 +212,7 @@
     "[/articles/best-overlanding-first-aid-kit-essentials.html] og:image present",
     "[/articles/best-overlanding-first-aid-kit-essentials.html] robots meta present",
     "[/articles/best-overlanding-first-aid-kit-essentials.html] Single H1 tag",
-    "[/articles/best-overlanding-first-aid-kit-essentials.html] All 5 Amazon links have affiliate tag",
+    "[/articles/best-overlanding-first-aid-kit-essentials.html] All 10 Amazon links have affiliate tag",
     "[/articles/best-overlanding-first-aid-kit-essentials.html] No placeholder href='#' links",
     "[/articles/best-overlanding-first-aid-kit-essentials.html] JSON-LD structured data present",
     "[/articles/best-overlanding-fridges.html] Title OK (57 chars)",
@@ -221,9 +223,19 @@
     "[/articles/best-overlanding-fridges.html] og:image present",
     "[/articles/best-overlanding-fridges.html] robots meta present",
     "[/articles/best-overlanding-fridges.html] Single H1 tag",
-    "[/articles/best-overlanding-fridges.html] All 6 Amazon links have affiliate tag",
+    "[/articles/best-overlanding-fridges.html] All 10 Amazon links have affiliate tag",
     "[/articles/best-overlanding-fridges.html] No placeholder href='#' links",
     "[/articles/best-overlanding-fridges.html] JSON-LD structured data present",
+    "[/articles/best-overlanding-gps-and-navigation-devices.html] Meta description OK (155 chars)",
+    "[/articles/best-overlanding-gps-and-navigation-devices.html] Canonical URL present and correct",
+    "[/articles/best-overlanding-gps-and-navigation-devices.html] og:title present",
+    "[/articles/best-overlanding-gps-and-navigation-devices.html] og:description present",
+    "[/articles/best-overlanding-gps-and-navigation-devices.html] og:image present",
+    "[/articles/best-overlanding-gps-and-navigation-devices.html] robots meta present",
+    "[/articles/best-overlanding-gps-and-navigation-devices.html] Single H1 tag",
+    "[/articles/best-overlanding-gps-and-navigation-devices.html] All 7 Amazon links have affiliate tag",
+    "[/articles/best-overlanding-gps-and-navigation-devices.html] No placeholder href='#' links",
+    "[/articles/best-overlanding-gps-and-navigation-devices.html] JSON-LD structured data present",
     "[/articles/best-overlanding-headlamps-and-lanterns.html] Title OK (58 chars)",
     "[/articles/best-overlanding-headlamps-and-lanterns.html] Meta description OK (134 chars)",
     "[/articles/best-overlanding-headlamps-and-lanterns.html] Canonical URL present and correct",
@@ -232,7 +244,7 @@
     "[/articles/best-overlanding-headlamps-and-lanterns.html] og:image present",
     "[/articles/best-overlanding-headlamps-and-lanterns.html] robots meta present",
     "[/articles/best-overlanding-headlamps-and-lanterns.html] Single H1 tag",
-    "[/articles/best-overlanding-headlamps-and-lanterns.html] All 6 Amazon links have affiliate tag",
+    "[/articles/best-overlanding-headlamps-and-lanterns.html] All 13 Amazon links have affiliate tag",
     "[/articles/best-overlanding-headlamps-and-lanterns.html] No placeholder href='#' links",
     "[/articles/best-overlanding-headlamps-and-lanterns.html] JSON-LD structured data present",
     "[/articles/best-overlanding-recovery-gear.html] Title OK (50 chars)",
@@ -243,7 +255,7 @@
     "[/articles/best-overlanding-recovery-gear.html] og:image present",
     "[/articles/best-overlanding-recovery-gear.html] robots meta present",
     "[/articles/best-overlanding-recovery-gear.html] Single H1 tag",
-    "[/articles/best-overlanding-recovery-gear.html] All 9 Amazon links have affiliate tag",
+    "[/articles/best-overlanding-recovery-gear.html] All 16 Amazon links have affiliate tag",
     "[/articles/best-overlanding-recovery-gear.html] No placeholder href='#' links",
     "[/articles/best-overlanding-recovery-gear.html] JSON-LD structured data present",
     "[/articles/best-overlanding-shower-and-hygiene-solutions.html] Title OK (24 chars)",
@@ -254,7 +266,7 @@
     "[/articles/best-overlanding-shower-and-hygiene-solutions.html] og:image present",
     "[/articles/best-overlanding-shower-and-hygiene-solutions.html] robots meta present",
     "[/articles/best-overlanding-shower-and-hygiene-solutions.html] Single H1 tag",
-    "[/articles/best-overlanding-shower-and-hygiene-solutions.html] All 2 Amazon links have affiliate tag",
+    "[/articles/best-overlanding-shower-and-hygiene-solutions.html] All 10 Amazon links have affiliate tag",
     "[/articles/best-overlanding-shower-and-hygiene-solutions.html] No placeholder href='#' links",
     "[/articles/best-overlanding-shower-and-hygiene-solutions.html] JSON-LD structured data present",
     "[/articles/best-overlanding-solar-and-power.html] Title OK (61 chars)",
@@ -265,7 +277,7 @@
     "[/articles/best-overlanding-solar-and-power.html] og:image present",
     "[/articles/best-overlanding-solar-and-power.html] robots meta present",
     "[/articles/best-overlanding-solar-and-power.html] Single H1 tag",
-    "[/articles/best-overlanding-solar-and-power.html] All 6 Amazon links have affiliate tag",
+    "[/articles/best-overlanding-solar-and-power.html] All 8 Amazon links have affiliate tag",
     "[/articles/best-overlanding-solar-and-power.html] No placeholder href='#' links",
     "[/articles/best-overlanding-solar-and-power.html] JSON-LD structured data present",
     "[/articles/best-overlanding-water-storage-and-filtration.html] Title OK (62 chars)",
@@ -276,7 +288,7 @@
     "[/articles/best-overlanding-water-storage-and-filtration.html] og:image present",
     "[/articles/best-overlanding-water-storage-and-filtration.html] robots meta present",
     "[/articles/best-overlanding-water-storage-and-filtration.html] Single H1 tag",
-    "[/articles/best-overlanding-water-storage-and-filtration.html] All 5 Amazon links have affiliate tag",
+    "[/articles/best-overlanding-water-storage-and-filtration.html] All 16 Amazon links have affiliate tag",
     "[/articles/best-overlanding-water-storage-and-filtration.html] No placeholder href='#' links",
     "[/articles/best-overlanding-water-storage-and-filtration.html] JSON-LD structured data present",
     "[/articles/best-overlanding-winches.html] Title OK (64 chars)",
@@ -287,7 +299,7 @@
     "[/articles/best-overlanding-winches.html] og:image present",
     "[/articles/best-overlanding-winches.html] robots meta present",
     "[/articles/best-overlanding-winches.html] Single H1 tag",
-    "[/articles/best-overlanding-winches.html] All 8 Amazon links have affiliate tag",
+    "[/articles/best-overlanding-winches.html] All 15 Amazon links have affiliate tag",
     "[/articles/best-overlanding-winches.html] No placeholder href='#' links",
     "[/articles/best-overlanding-winches.html] JSON-LD structured data present",
     "[/articles/best-portable-power-stations-for-overlanding.html] Title OK (49 chars)",
@@ -298,7 +310,7 @@
     "[/articles/best-portable-power-stations-for-overlanding.html] og:image present",
     "[/articles/best-portable-power-stations-for-overlanding.html] robots meta present",
     "[/articles/best-portable-power-stations-for-overlanding.html] Single H1 tag",
-    "[/articles/best-portable-power-stations-for-overlanding.html] All 5 Amazon links have affiliate tag",
+    "[/articles/best-portable-power-stations-for-overlanding.html] All 13 Amazon links have affiliate tag",
     "[/articles/best-portable-power-stations-for-overlanding.html] No placeholder href='#' links",
     "[/articles/best-portable-power-stations-for-overlanding.html] JSON-LD structured data present",
     "[/articles/best-skid-plates-for-off-road-trucks.html] Title OK (21 chars)",
@@ -309,7 +321,7 @@
     "[/articles/best-skid-plates-for-off-road-trucks.html] og:image present",
     "[/articles/best-skid-plates-for-off-road-trucks.html] robots meta present",
     "[/articles/best-skid-plates-for-off-road-trucks.html] Single H1 tag",
-    "[/articles/best-skid-plates-for-off-road-trucks.html] All 3 Amazon links have affiliate tag",
+    "[/articles/best-skid-plates-for-off-road-trucks.html] All 13 Amazon links have affiliate tag",
     "[/articles/best-skid-plates-for-off-road-trucks.html] No placeholder href='#' links",
     "[/articles/best-skid-plates-for-off-road-trucks.html] JSON-LD structured data present",
     "[/articles/best-vehicle-communication-gear-for-overlanding.html] Title OK (22 chars)",
@@ -320,7 +332,7 @@
     "[/articles/best-vehicle-communication-gear-for-overlanding.html] og:image present",
     "[/articles/best-vehicle-communication-gear-for-overlanding.html] robots meta present",
     "[/articles/best-vehicle-communication-gear-for-overlanding.html] Single H1 tag",
-    "[/articles/best-vehicle-communication-gear-for-overlanding.html] All 5 Amazon links have affiliate tag",
+    "[/articles/best-vehicle-communication-gear-for-overlanding.html] All 14 Amazon links have affiliate tag",
     "[/articles/best-vehicle-communication-gear-for-overlanding.html] No placeholder href='#' links",
     "[/articles/best-vehicle-communication-gear-for-overlanding.html] JSON-LD structured data present",
     "[/articles/best-winches-for-toyota-4runner.html] Title OK (25 chars)",
@@ -331,7 +343,7 @@
     "[/articles/best-winches-for-toyota-4runner.html] og:image present",
     "[/articles/best-winches-for-toyota-4runner.html] robots meta present",
     "[/articles/best-winches-for-toyota-4runner.html] Single H1 tag",
-    "[/articles/best-winches-for-toyota-4runner.html] All 3 Amazon links have affiliate tag",
+    "[/articles/best-winches-for-toyota-4runner.html] All 10 Amazon links have affiliate tag",
     "[/articles/best-winches-for-toyota-4runner.html] No placeholder href='#' links",
     "[/articles/best-winches-for-toyota-4runner.html] JSON-LD structured data present",
     "[/articles/ford-bronco-overland-build-guide.html] Title OK (49 chars)",
@@ -342,7 +354,7 @@
     "[/articles/ford-bronco-overland-build-guide.html] og:image present",
     "[/articles/ford-bronco-overland-build-guide.html] robots meta present",
     "[/articles/ford-bronco-overland-build-guide.html] Single H1 tag",
-    "[/articles/ford-bronco-overland-build-guide.html] All 26 Amazon links have affiliate tag",
+    "[/articles/ford-bronco-overland-build-guide.html] All 18 Amazon links have affiliate tag",
     "[/articles/ford-bronco-overland-build-guide.html] No placeholder href='#' links",
     "[/articles/ford-bronco-overland-build-guide.html] JSON-LD structured data present",
     "[/articles/jeep-wrangler-overland-build-guide.html] Title OK (52 chars)",
@@ -353,7 +365,7 @@
     "[/articles/jeep-wrangler-overland-build-guide.html] og:image present",
     "[/articles/jeep-wrangler-overland-build-guide.html] robots meta present",
     "[/articles/jeep-wrangler-overland-build-guide.html] Single H1 tag",
-    "[/articles/jeep-wrangler-overland-build-guide.html] All 16 Amazon links have affiliate tag",
+    "[/articles/jeep-wrangler-overland-build-guide.html] All 14 Amazon links have affiliate tag",
     "[/articles/jeep-wrangler-overland-build-guide.html] No placeholder href='#' links",
     "[/articles/jeep-wrangler-overland-build-guide.html] JSON-LD structured data present",
     "[/articles/rooftop-tent-buying-guide.html] Title OK (64 chars)",
@@ -375,11 +387,11 @@
     "[/articles/toyota-tacoma-overland-build-guide.html] og:image present",
     "[/articles/toyota-tacoma-overland-build-guide.html] robots meta present",
     "[/articles/toyota-tacoma-overland-build-guide.html] Single H1 tag",
-    "[/articles/toyota-tacoma-overland-build-guide.html] All 18 Amazon links have affiliate tag",
+    "[/articles/toyota-tacoma-overland-build-guide.html] All 16 Amazon links have affiliate tag",
     "[/articles/toyota-tacoma-overland-build-guide.html] No placeholder href='#' links",
     "[/articles/toyota-tacoma-overland-build-guide.html] JSON-LD structured data present",
     "robots.txt references sitemap",
-    "sitemap.xml has 34 URLs with correct domain"
+    "sitemap.xml has 35 URLs with correct domain"
   ],
   "pages": [
     {
@@ -396,7 +408,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 4 Amazon links have affiliate tag",
+        "All 2 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -487,7 +499,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 5 Amazon links have affiliate tag",
+        "All 7 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -506,7 +518,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 7 Amazon links have affiliate tag",
+        "All 6 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -544,7 +556,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 7 Amazon links have affiliate tag",
+        "All 8 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -582,7 +594,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 8 Amazon links have affiliate tag",
+        "All 6 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -620,7 +632,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 7 Amazon links have affiliate tag",
+        "All 6 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -639,7 +651,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 31 Amazon links have affiliate tag",
+        "All 14 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -676,7 +688,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 3 Amazon links have affiliate tag",
+        "All 10 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -695,7 +707,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 6 Amazon links have affiliate tag",
+        "All 5 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -714,7 +726,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 4 Amazon links have affiliate tag",
+        "All 10 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -733,7 +745,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 5 Amazon links have affiliate tag",
+        "All 10 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -752,7 +764,27 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 6 Amazon links have affiliate tag",
+        "All 10 Amazon links have affiliate tag",
+        "No placeholder href='#' links",
+        "JSON-LD structured data present"
+      ]
+    },
+    {
+      "url": "/articles/best-overlanding-gps-and-navigation-devices.html",
+      "type": "article",
+      "issues": [],
+      "warnings": [
+        "Title too long (69 chars): \"2026 Best Overlanding GPS &amp; Navigation Devices – Top Pic...\""
+      ],
+      "passed": [
+        "Meta description OK (155 chars)",
+        "Canonical URL present and correct",
+        "og:title present",
+        "og:description present",
+        "og:image present",
+        "robots meta present",
+        "Single H1 tag",
+        "All 7 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -771,7 +803,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 6 Amazon links have affiliate tag",
+        "All 13 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -790,7 +822,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 9 Amazon links have affiliate tag",
+        "All 16 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -809,7 +841,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 2 Amazon links have affiliate tag",
+        "All 10 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -828,7 +860,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 6 Amazon links have affiliate tag",
+        "All 8 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -847,7 +879,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 5 Amazon links have affiliate tag",
+        "All 16 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -866,7 +898,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 8 Amazon links have affiliate tag",
+        "All 15 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -885,7 +917,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 5 Amazon links have affiliate tag",
+        "All 13 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -904,7 +936,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 3 Amazon links have affiliate tag",
+        "All 13 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -923,7 +955,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 5 Amazon links have affiliate tag",
+        "All 14 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -942,7 +974,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 3 Amazon links have affiliate tag",
+        "All 10 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -961,7 +993,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 26 Amazon links have affiliate tag",
+        "All 18 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -980,7 +1012,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 16 Amazon links have affiliate tag",
+        "All 14 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -1018,7 +1050,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 18 Amazon links have affiliate tag",
+        "All 16 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
