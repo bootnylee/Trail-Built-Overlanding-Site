@@ -96,6 +96,20 @@ jobs:
           mkdir -p "$RUNNER_TEMP/weekly-content-logs"
           node scripts/verify-topic-pool.js && node scripts/test-overwrite-guard.js 2>&1 | tee "$RUNNER_TEMP/weekly-content-logs/verify-topic-pool-and-overwrite-guard.log"
 
+      # ── 3b. Build runtime-verified product pool ───────────────────────────────
+      - name: Build runtime-verified product pool
+        id: build_verified_product_pool
+        if: steps.check_published.outputs.skip != 'true'
+        env:
+          CREATORS_API_CLIENT_ID: ${{ secrets.CREATORS_CREDENTIAL_ID }}
+          CREATORS_API_CLIENT_SECRET: ${{ secrets.CREATORS_CREDENTIAL_SECRET }}
+          CREATORS_API_PARTNER_TAG: ${{ secrets.AMAZON_ASSOCIATE_TAG }}
+          AMAZON_ASSOCIATE_TAG: ${{ secrets.AMAZON_ASSOCIATE_TAG }}
+        run: |
+          set -o pipefail
+          mkdir -p "$RUNNER_TEMP/weekly-content-logs"
+          node scripts/build-verified-pool.mjs --verify 2>&1 | tee "$RUNNER_TEMP/weekly-content-logs/build-verified-product-pool.log"
+
       # ── 4. Generate article ──────────────────────────────────────────────────
       - name: Generate new article
         id: generate_article
@@ -103,6 +117,10 @@ jobs:
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           AMAZON_ASSOCIATE_TAG: ${{ secrets.AMAZON_ASSOCIATE_TAG }}
+          CREATORS_API_CLIENT_ID: ${{ secrets.CREATORS_CREDENTIAL_ID }}
+          CREATORS_API_CLIENT_SECRET: ${{ secrets.CREATORS_CREDENTIAL_SECRET }}
+          CREATORS_API_PARTNER_TAG: ${{ secrets.AMAZON_ASSOCIATE_TAG }}
+          REQUIRE_POOL_VERIFICATION: 'true'
         run: |
           set -o pipefail
           mkdir -p "$RUNNER_TEMP/weekly-content-logs"
