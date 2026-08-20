@@ -467,6 +467,89 @@ async function conformProductBoxes(bodyHTML, pool, slug, downloader = downloadPr
   }
 }
 
+function extractProductSchemaRecords(bodyHTML, pool) {
+  const boxes = [...bodyHTML.matchAll(PRODUCT_BOX_RE)];
+  const seenAsins = new Set();
+  return boxes.map((match, index) => {
+    const box = match[0];
+    const asin = box.match(/data-asin="([A-Z0-9]{10})"/i)?.[1];
+    const product = asin && pool.get(asin);
+    if (!asin || !product) {
+      throw new Error(`[commerce-schema] Product box ${index + 1} does not resolve to a verified pool product.`);
+    }
+    if (seenAsins.has(asin)) {
+      throw new Error(`[commerce-schema] Duplicate product ASIN in generated article: ${asin}`);
+    }
+    seenAsins.add(asin);
+    const reviewBody = plainText(box.match(/<p\b[^>]*class=(['"])\s*product-summary\s*\1[^>]*>([\s\S]*?)<\/p>/i)?.[2]);
+    if (!reviewBody) {
+      throw new Error(`[commerce-schema] Product ${asin} is missing a canonical product summary for its editorial Review schema.`);
+    }
+    return { asin, name: product.name, reviewBody };
+  });
+}
+
+function extractFaqSchemaPairs(bodyHTML) {
+  const faqStart = bodyHTML.search(/<h2\b[^>]*\bid=(['"])faq\1[^>]*>/i);
+  if (faqStart === -1) return [];
+  const followingMarkup = bodyHTML.slice(faqStart).replace(/^[\s\S]*?<\/h2>/i, '');
+  const faqMarkup = followingMarkup.split(/<h2\b/i)[0];
+  return [...faqMarkup.matchAll(/<h3\b[^>]*>([\s\S]*?)<\/h3>\s*<p\b[^>]*>([\s\S]*?)<\/p>/gi)]
+    .map(([, question, answer]) => ({ question: plainText(question), answer: plainText(answer) }))
+    .filter(({ question, answer }) => question && answer);
+}
+
+function buildCommerceSchemas({ title, articleUrl, bodyHTML, products }) {
+  if (products.length < MIN_PRODUCT_BOXES) {
+    throw new Error(`[commerce-schema] Generated article has ${products.length} schema product(s); ${MIN_PRODUCT_BOXES} are required.`);
+  }
+  const faqPairs = extractFaqSchemaPairs(bodyHTML);
+  if (faqPairs.length === 0) {
+    throw new Error('[commerce-schema] Generated article is missing FAQ question-and-answer pairs for FAQPage JSON-LD.');
+  }
+  const itemList = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `Top Picks — ${title}`,
+    url: articleUrl,
+    numberOfItems: products.length,
+    itemListElement: products.map((product, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Product',
+        name: product.name,
+        sku: product.asin,
+        url: `https://www.amazon.com/dp/${product.asin}?tag=${ASSOCIATE_TAG}`,
+        review: {
+          '@type': 'Review',
+          name: 'Trail Built editorial review',
+          author: { '@type': 'Person', name: 'Trail Built Staff' },
+          reviewBody: product.reviewBody,
+        },
+      },
+    })),
+  };
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqPairs.map(({ question, answer }) => ({
+      '@type': 'Question',
+      name: question,
+      acceptedAnswer: { '@type': 'Answer', text: answer },
+    })),
+  };
+  return [itemList, faq];
+}
+
+function buildComparisonTable(products) {
+  return `<section class="guide-comparison" data-guide-generated="true"><div class="guide-comparison-header"><h2>Compare the Top Picks</h2><p class="guide-comparison-note">Review each product section for current Amazon availability and offer details.</p></div><div class="guide-table-wrap"><table class="guide-comparison-table"><thead><tr><th>Product</th><th>Key spec(s)</th><th>Review</th></tr></thead><tbody>${products.map(product => `<tr><td>${escapeHtml(product.name)}</td><td>${escapeHtml(product.reviewBody)}</td><td><a href="#top-picks">See pick</a></td></tr>`).join('')}</tbody></table></div></section>`;
+}
+
+function buildMobileStickyCta() {
+  return '<div class="guide-mobile-sticky" data-guide-sticky="true"><a class="btn btn-primary" href="#top-picks">View top picks</a></div>';
+}
+
 function updatePoolImageMetadata(poolFile, imageMetadata) {
   const document = JSON.parse(fs.readFileSync(poolFile, 'utf8'));
   const products = Array.isArray(document) ? document : document.products;
@@ -745,9 +828,10 @@ Return as JSON: {"title": "...", "description": "...", "ogImage": "..."}`;
 }
 
 // ── HTML template ─────────────────────────────────────────────────────────────
-function buildHTML({ slug, title, description, ogImage, topic, bodyHTML, date, dateHuman }) {
+function buildHTML({ slug, title, description, ogImage, topic, bodyHTML, date, dateHuman, products }) {
   const articleUrl = `${SITE_URL}/articles/${slug}.html`;
   const cleanTitle = title.replace(' - Trail Built', '').replace(' — Trail Built', '');
+  const commerceSchemas = buildCommerceSchemas({ title, articleUrl, bodyHTML, products });
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -811,6 +895,7 @@ function buildHTML({ slug, title, description, ogImage, topic, bodyHTML, date, d
     ]
   }
   <\/script>
+  ${commerceSchemas.map(schema => `<script data-guide-commerce-schema="true" type="application/ld+json">${JSON.stringify(schema)}</script>`).join('\n  ')}
 </head>
 <body>
 
@@ -871,7 +956,8 @@ function buildHTML({ slug, title, description, ogImage, topic, bodyHTML, date, d
         <button class="share-btn share-copy" onclick="navigator.clipboard.writeText('${articleUrl}').then(function(){this.textContent='Copied!';var btn=this;setTimeout(function(){btn.textContent='&#128279;'},2000)}.bind(this))" aria-label="Copy link">&#128279;</button>
       </div>
 
-      ${bodyHTML}
+      ${buildComparisonTable(products)}
+      ${bodyHTML.replace(/<h2(\b[^>]*)>\s*Our Top Picks\s*<\/h2>/i, '<h2$1 id="top-picks">Our Top Picks</h2>')}
     </article>
 
     <aside class="article-sidebar">
@@ -950,6 +1036,8 @@ function buildHTML({ slug, title, description, ogImage, topic, bodyHTML, date, d
 <script src="../js/main.js"><\/script>
 <script src="../js/amazon.js"><\/script>
 <script src="../js/price-history.js"><\/script>
+<script src="../js/guide-commerce.js"><\/script>
+${buildMobileStickyCta()}
 </body>
 </html>`;
 }
@@ -1111,6 +1199,7 @@ async function main() {
   console.log(`[image-validate] Checking hero image: ${meta.ogImage}`);
   meta.ogImage = await resolveValidImageUrl(meta.ogImage);
   console.log(`[image-validate] Hero image OK: ${meta.ogImage}`);
+  const products = extractProductSchemaRecords(bodyHTML, verifiedPool);
   const html = buildHTML({
     slug,
     title: meta.title,
@@ -1120,6 +1209,7 @@ async function main() {
     bodyHTML,
     date,
     dateHuman,
+    products,
   });
 
   fs.writeFileSync(outPath, html);
@@ -1146,4 +1236,8 @@ module.exports = {
   conformProductBoxes,
   productImageFilename,
   canonicalProductBox,
+  extractProductSchemaRecords,
+  extractFaqSchemaPairs,
+  buildCommerceSchemas,
+  buildHTML,
 };
