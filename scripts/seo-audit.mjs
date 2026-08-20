@@ -230,8 +230,13 @@ console.log(`📄 Full report saved to: ${REPORT_FILE}\n`);
 // This script is already run by the scheduled GitHub workflow. Invoking the
 // dedicated quality gate here ensures malformed product cards, missing local
 // product images, broken affiliate links, uneven homepage card layouts, and stray
-// encoded share text fail future automated builds before publication.
-const qualityCheck = spawnSync(process.execPath, [resolve(__dirname, "quality-check.mjs")], {
+// encoded share text fail future automated builds before publication. Workflow
+// callers may pass --scoped-run and --article values for the files changed by the
+// current generation; only those article paths block on the five-product minimum.
+const qualityCheck = spawnSync(process.execPath, [
+  resolve(__dirname, "quality-check.mjs"),
+  ...process.argv.slice(2),
+], {
   cwd: ROOT,
   stdio: "inherit",
 });

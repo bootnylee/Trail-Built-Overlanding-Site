@@ -149,14 +149,29 @@ jobs:
           mkdir -p "$RUNNER_TEMP/weekly-content-logs"
           node scripts/generate-sitemap.mjs 2>&1 | tee "$RUNNER_TEMP/weekly-content-logs/regenerate-sitemap.log"
 
-      # ── 6. SEO audit ─────────────────────────────────────────────────────────
-      - name: Run SEO audit
+      # ── 6. SEO audit and scoped product-box quality gate ───────────────────────
+      - name: Run SEO audit and quality gate for changed articles
         id: seo_audit
         if: steps.check_published.outputs.skip != 'true'
         run: |
           set -o pipefail
           mkdir -p "$RUNNER_TEMP/weekly-content-logs"
-          node scripts/seo-audit.mjs 2>&1 | tee "$RUNNER_TEMP/weekly-content-logs/run-seo-audit.log"
+          QUALITY_REPORT="$RUNNER_TEMP/weekly-content-logs/product-box-quality-report.json"
+          QUALITY_ARGS=(--scoped-run --report "$QUALITY_REPORT")
+
+          # The current run may create or update one or more articles. Those files
+          # must meet the five-product minimum; unrelated legacy shortfalls remain
+          # visible in the report without blocking this week's publish.
+          while IFS= read -r ARTICLE; do
+            [ -n "$ARTICLE" ] && QUALITY_ARGS+=(--article "$ARTICLE")
+          done < <(
+            {
+              git diff --name-only HEAD -- articles/*.html
+              git ls-files --others --exclude-standard -- articles/*.html
+            } | sort -u
+          )
+
+          node scripts/seo-audit.mjs "${QUALITY_ARGS[@]}" 2>&1 | tee "$RUNNER_TEMP/weekly-content-logs/run-seo-audit.log"
 
       # ── 7. Upload SEO audit as artifact ─────────────────────────────────────
       - name: Upload SEO audit report
@@ -242,6 +257,34 @@ jobs:
           else
             echo "- SEO audit report not found" >> $GITHUB_STEP_SUMMARY
           fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Product-box Quality Gate" >> $GITHUB_STEP_SUMMARY
+          QUALITY_REPORT="$RUNNER_TEMP/weekly-content-logs/product-box-quality-report.json"
+          if [ -f "$QUALITY_REPORT" ]; then
+            python3 - "$QUALITY_REPORT" >> $GITHUB_STEP_SUMMARY <<'PY'
+            import json
+            import sys
+
+            report = json.load(open(sys.argv[1], encoding='utf-8'))
+            results = report.get('min_product_box_results', [])
+            legacy = [r for r in results if r.get('enforcement') == 'report-only' and r.get('boxes', 0) < 5]
+            current = [r for r in results if r.get('enforcement') == 'blocking']
+            if current:
+                print('- Current-run article checks (blocking):')
+                for item in current:
+                    print(f"  - `{item['article']}`: {item['boxes']} product boxes")
+            else:
+                print('- No changed article files detected for this run.')
+            if legacy:
+                print('- Legacy shortfalls (report-only):')
+                for item in legacy:
+                    print(f"  - `{item['article']}`: {item['boxes']} product boxes")
+            else:
+                print('- No legacy product-box shortfalls detected.')
+            PY
+          else
+            echo "- Product-box quality report not found" >> $GITHUB_STEP_SUMMARY
+          fi
 
       # ── 12. Report the actual failure (only when this workflow fails) ─────────
       - name: Report actual weekly publish failure
@@ -274,7 +317,7 @@ jobs:
               ['Generate new article', process.env.GENERATE_ARTICLE_OUTCOME, 'generate-new-article.log'],
               ['Sanitize generated articles', process.env.SANITIZE_ARTICLES_OUTCOME, 'sanitize-generated-articles.log'],
               ['Regenerate sitemap', process.env.REGENERATE_SITEMAP_OUTCOME, 'regenerate-sitemap.log'],
-              ['Run SEO audit', process.env.SEO_AUDIT_OUTCOME, 'run-seo-audit.log'],
+              ['Run SEO audit and quality gate for changed articles', process.env.SEO_AUDIT_OUTCOME, 'run-seo-audit.log'],
               ['Upload SEO audit report', process.env.UPLOAD_SEO_AUDIT_OUTCOME],
               ['Commit new article and updated files', process.env.COMMIT_ARTICLE_OUTCOME, 'commit-new-article-and-updated-files.log'],
               ['Push changes to main', process.env.PUSH_CHANGES_OUTCOME, 'push-changes-to-main.log'],
