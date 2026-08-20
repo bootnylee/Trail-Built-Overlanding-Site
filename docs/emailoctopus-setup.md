@@ -24,8 +24,8 @@ This guide covers the complete EmailOctopus configuration for trailbuiltoverland
 2. Fields: Email (required), First Name (optional)
 3. Hidden field: `VehicleType` (pre-populated by the quiz via URL param)
 4. Success message: "You're in! Check your inbox for your personalized gear list."
-5. Copy the **Form ID** from the embed code (format: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`)
-6. Replace `REPLACE_WITH_YOUR_FORM_ID` in `index.html` (line ~481) with this ID.
+5. Copy the **Form ID** from the embed code (format: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`).
+6. The homepage embed is configured with the Trail Built Newsletter form ID `03cf66a4-9cc4-11f1-8f8e-c1b53f5eaf9a`; replace it only when the hosted form is intentionally changed.
 
 ---
 

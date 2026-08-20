@@ -378,6 +378,7 @@
                     </button>
                   </div>
                 </div>
+                <p id="qz-email-error" role="status" aria-live="polite" style="display:none;margin-top:8px;color:#ff9b8a;font-size:0.82rem;"></p>
                 <p class="newsletter-fine" style="margin-top:8px;">
                   No spam. Unsubscribe anytime.
                   Your checklist downloads automatically after signup.
@@ -470,7 +471,6 @@
 <script>
 // ── Trail Built Vehicle Quiz ──────────────────────────────────────────────────
 const QUIZ_KEY = "trailbuilt_vehicle_type";
-const EMAILOCTOPUS_FORM_ID = "REPLACE_WITH_YOUR_FORM_ID"; // TODO: replace with real EO form ID
 
 const QUESTIONS = [
   {
@@ -762,8 +762,7 @@ function showResult(vehicleType) {
     </a>
   `).join("");
 
-  // Email widget is now handled by js/email-capture.js
-  // Configure TBO_EMAIL_CONFIG.provider in that file to activate a real provider.
+  // Quiz email capture uses the function-backed TBOEmailCapture module.
 
   setState("result");
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -778,11 +777,20 @@ async function handleQuizEmailSubmit(e) {
   const submitBtn   = document.getElementById("qz-email-submit-btn");
   const successDiv  = document.getElementById("qz-email-success");
   const manualLink  = document.getElementById("qz-email-manual-link");
+  const errorDiv    = document.getElementById("qz-email-error");
 
   const email = (emailInput?.value || "").trim();
   if (!email || !email.includes("@")) {
+    if (errorDiv) {
+      errorDiv.textContent = "Please enter a valid email address.";
+      errorDiv.style.display = "block";
+    }
     emailInput?.focus();
     return;
+  }
+  if (errorDiv) {
+    errorDiv.textContent = "";
+    errorDiv.style.display = "none";
   }
 
   // Get the current rig style from quiz answers or localStorage
@@ -793,13 +801,28 @@ async function handleQuizEmailSubmit(e) {
   // Disable button while submitting
   if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Sending…"; }
 
-  // Submit via the email capture module
-  let result = { ok: true };
-  if (window.TBOEmailCapture?.submitEmailSignup) {
-    result = await window.TBOEmailCapture.submitEmailSignup(email, style, "quiz");
+  // Submit through the existing function-backed email capture module.
+  try {
+    if (!window.TBOEmailCapture?.submitEmailSignup) {
+      throw new Error("Subscription is temporarily unavailable. Please try again shortly.");
+    }
+    const result = await window.TBOEmailCapture.submitEmailSignup(email, style, "quiz");
+    if (!result?.ok) {
+      throw new Error(result?.error || "Subscription failed. Please try again.");
+    }
+  } catch (error) {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Get My Gear List →";
+    }
+    if (errorDiv) {
+      errorDiv.textContent = error?.message || "Subscription failed. Please try again.";
+      errorDiv.style.display = "block";
+    }
+    return;
   }
 
-  // Trigger lead magnet download
+  // Trigger the lead-magnet download only after a successful subscription.
   if (window.TBOEmailCapture?.triggerLeadMagnetDownload) {
     window.TBOEmailCapture.triggerLeadMagnetDownload(style);
   }

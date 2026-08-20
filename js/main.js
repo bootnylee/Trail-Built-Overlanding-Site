@@ -94,27 +94,62 @@ if (searchInput && searchResults) {
   });
 }
 
-// ── Newsletter form ───────────────────────────────────────────────────────────
+// ── Newsletter fallback form ──────────────────────────────────────────────────
 async function handleNewsletterSubmit(e) {
   e.preventDefault();
-  const form  = e.target;
-  const btn   = form.querySelector('button[type="submit"]');
+  const form = e.target;
+  const btn = form.querySelector('button[type="submit"]');
   const emailInput = form.querySelector('input[type="email"]');
   const email = (emailInput?.value || '').trim();
-  if (!email) return;
+  const originalLabel = btn?.dataset.originalLabel || btn?.textContent || 'Subscribe Free →';
 
-  btn.disabled = true;
-  btn.textContent = 'Sending\u2026';
-
-  // Use persisted rig style from quiz if available, otherwise generic
-  const style = window.TBOEmailCapture?.getPersistedRigStyle?.() || 'suv';
-
-  if (window.TBOEmailCapture?.submitEmailSignup) {
-    await window.TBOEmailCapture.submitEmailSignup(email, style, 'homepage');
+  let status = form.querySelector('[data-newsletter-status]');
+  if (!status) {
+    status = document.createElement('p');
+    status.setAttribute('data-newsletter-status', 'true');
+    status.setAttribute('role', 'status');
+    status.setAttribute('aria-live', 'polite');
+    status.style.cssText = 'font-size:0.72rem;margin:8px 0 0;color:rgba(240,236,228,0.75);';
+    form.appendChild(status);
   }
 
-  btn.textContent = 'Thanks! Check your inbox';
-  btn.style.background = 'var(--green)';
+  if (!email) {
+    status.textContent = 'Please enter a valid email address.';
+    status.style.color = '#ff9b8a';
+    emailInput?.focus();
+    return;
+  }
+
+  if (!btn || !window.TBOEmailCapture?.submitEmailSignup) {
+    status.textContent = 'Subscription is temporarily unavailable. Please try again shortly.';
+    status.style.color = '#ff9b8a';
+    return;
+  }
+
+  btn.dataset.originalLabel = originalLabel;
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  status.textContent = '';
+
+  // Use persisted rig style from quiz if available, otherwise generic.
+  const style = window.TBOEmailCapture.getPersistedRigStyle?.() || 'suv';
+
+  try {
+    const result = await window.TBOEmailCapture.submitEmailSignup(email, style, 'homepage');
+    if (!result?.ok) {
+      throw new Error(result?.error || 'Subscription failed. Please try again.');
+    }
+
+    btn.textContent = 'You’re subscribed';
+    btn.style.background = 'var(--green)';
+    status.textContent = 'Thanks — you’re on the TrailBuilt Weekly.';
+    status.style.color = 'var(--green)';
+  } catch (error) {
+    btn.disabled = false;
+    btn.textContent = originalLabel;
+    status.textContent = error?.message || 'Subscription failed. Please try again.';
+    status.style.color = '#ff9b8a';
+  }
 }
 
 // ── Social sharing ────────────────────────────────────────────────────────────
