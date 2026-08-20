@@ -29,6 +29,7 @@ const SITE_URL       = 'https://trailbuiltoverland.com';
 const PRODUCT_IMAGES_DIR = process.env.PRODUCT_IMAGES_DIR || path.join(__dirname, '..', 'assets', 'product-images');
 const PRODUCT_IMAGES_REPO_PREFIX = 'assets/product-images/';
 const HERO_IMAGES_FILE = path.join(__dirname, '..', 'data', 'hero-images.json');
+const HERO_USED_IMAGES_FILE = path.join(__dirname, '..', 'data', 'used-hero-images.json');
 const MIN_PRODUCT_BOXES = 5;
 
 // ── Topic pool — cycles automatically; add more to extend coverage ──────────
@@ -104,9 +105,56 @@ function loadHeroLibrary(file = HERO_IMAGES_FILE) {
   return categories;
 }
 
+function heroImageKey(url) {
+  const value = String(url || '');
+  const pexels = value.match(/images\.pexels\.com\/photos\/(\d+)/i);
+  if (pexels) return `pexels:${pexels[1]}`;
+  const unsplash = value.match(/images\.unsplash\.com\/(photo-[^?&#/]+)/i);
+  if (unsplash) return `unsplash:${unsplash[1]}`;
+  return value.replace(/[?#].*$/, '');
+}
+
+function scanCurrentEditorialImageKeys() {
+  const keys = new Set();
+  const scanFiles = [INDEX_FILE];
+  for (const directory of [ARTICLES_DIR, path.join(__dirname, '..', 'categories')]) {
+    if (!fs.existsSync(directory)) continue;
+    for (const file of fs.readdirSync(directory)) {
+      if (file.endsWith('.html')) scanFiles.push(path.join(directory, file));
+    }
+  }
+  for (const file of scanFiles) {
+    if (!fs.existsSync(file)) continue;
+    const source = fs.readFileSync(file, 'utf8');
+    for (const match of source.matchAll(/https:\/\/images\.(?:pexels|unsplash)\.com\/[^\"'<>\s)]+/g)) {
+      keys.add(heroImageKey(match[0].replace(/&amp;/g, '&')));
+    }
+  }
+  return keys;
+}
+
+function loadUsedHeroImageKeys(file = HERO_USED_IMAGES_FILE) {
+  const keys = scanCurrentEditorialImageKeys();
+  if (!fs.existsSync(file)) return keys;
+  const parsed = JSON.parse(fs.readFileSync(file, 'utf8'));
+  for (const url of Object.values(parsed.assignments || {})) keys.add(heroImageKey(url));
+  for (const url of Object.values(parsed.generatedArticleAssignments || {})) keys.add(heroImageKey(url));
+  for (const key of parsed.crossSiteEditorialImageKeys || []) keys.add(String(key));
+  return keys;
+}
+
+function recordUsedHeroImage(slug, url, file = HERO_USED_IMAGES_FILE) {
+  const parsed = fs.existsSync(file)
+    ? JSON.parse(fs.readFileSync(file, 'utf8'))
+    : { version: 1, assignments: {}, generatedArticleAssignments: {}, crossSiteEditorialImageKeys: [] };
+  parsed.generatedArticleAssignments = parsed.generatedArticleAssignments || {};
+  parsed.generatedArticleAssignments[`articles/${slug}.html`] = url;
+  fs.writeFileSync(file, JSON.stringify(parsed, null, 2) + '\n');
+}
+
 const HERO_LIBRARY = loadHeroLibrary();
 
-function selectHeroImage(topic, library = HERO_LIBRARY) {
+function selectHeroImage(topic, library = HERO_LIBRARY, usedImageKeys = loadUsedHeroImageKeys()) {
   const normalizedTopic = String(topic || '').toLowerCase();
   const entries = Object.entries(library);
   const specificMatches = entries
@@ -122,13 +170,14 @@ function selectHeroImage(topic, library = HERO_LIBRARY) {
     name: 'general-overlanding',
     category: library['general-overlanding'],
   };
+  const candidates = selected.category.images
+    .filter((url, index, values) => values.indexOf(url) === index && !usedImageKeys.has(heroImageKey(url)));
+  if (candidates.length === 0) {
+    throw new Error(`[hero-images] No unused reviewed candidate is available for ${selected.name}; curate more unique images before publishing.`);
+  }
   const digest = crypto.createHash('sha256').update(`${selected.name}\u0000${normalizedTopic}`).digest();
-  const index = digest.readUInt32BE(0) % selected.category.images.length;
-  const orderedImages = [
-    selected.category.images[index],
-    ...selected.category.images.filter((_, candidateIndex) => candidateIndex !== index),
-    ...library['general-overlanding'].images.filter(image => image !== selected.category.images[index]),
-  ];
+  const index = digest.readUInt32BE(0) % candidates.length;
+  const orderedImages = [candidates[index], ...candidates.filter((_, candidateIndex) => candidateIndex !== index)];
   return { category: selected.name, primary: orderedImages[0], fallbacks: orderedImages.slice(1) };
 }
 
@@ -1180,7 +1229,8 @@ async function main() {
   const slug      = topicToSlug(topic);
   const date      = todayISO();
   const dateHuman = todayHuman();
-  const heroSelection = selectHeroImage(topic);
+  const usedHeroImageKeys = loadUsedHeroImageKeys();
+  const heroSelection = selectHeroImage(topic, HERO_LIBRARY, usedHeroImageKeys);
 
   console.log(`Topic: ${topic}`);
   console.log(`Slug:  ${slug}`);
@@ -1255,6 +1305,7 @@ async function main() {
   });
 
   fs.writeFileSync(outPath, html);
+  recordUsedHeroImage(slug, meta.ogImage);
   console.log(`Article written: ${outPath}`);
 
   addArticleToIndex(slug, meta.title, meta.description, dateHuman, meta.ogImage);
@@ -1283,6 +1334,10 @@ module.exports = {
   buildCommerceSchemas,
   buildHTML,
   loadHeroLibrary,
+  heroImageKey,
+  scanCurrentEditorialImageKeys,
+  loadUsedHeroImageKeys,
+  recordUsedHeroImage,
   selectHeroImage,
   resolveValidImageUrl,
   cardImageUrl,
