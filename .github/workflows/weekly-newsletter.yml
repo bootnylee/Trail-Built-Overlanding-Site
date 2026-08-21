@@ -1,0 +1,101 @@
+name: Prepare Weekly Newsletter
+
+on:
+  schedule:
+    - cron: "0 16 * * 2"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  prepare-newsletter:
+    name: Stage newsletter for human review
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prepare weekly newsletter files
+        id: prepare
+        env:
+          NEWSLETTER_COMMIT: "true"
+        run: node scripts/prepare-weekly-newsletter.mjs
+
+      - name: Open newsletter-ready issue
+        if: ${{ success() && steps.prepare.outputs.newsletter_prepared == 'true' }}
+        env:
+          NEWSLETTER_META_PATH: ${{ steps.prepare.outputs.newsletter_meta_path }}
+          NEWSLETTER_HTML_PATH: ${{ steps.prepare.outputs.newsletter_html_path }}
+          NEWSLETTER_COMMIT_SHA: ${{ steps.prepare.outputs.newsletter_commit_sha }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const metadata = JSON.parse(fs.readFileSync(process.env.NEWSLETTER_META_PATH, 'utf8'));
+            const htmlUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/blob/${process.env.NEWSLETTER_COMMIT_SHA || context.sha}/${process.env.NEWSLETTER_HTML_PATH}`;
+            const title = `Newsletter ready: ${metadata.articleTitle} (${metadata.publishedDate})`;
+            const body = [
+              '## Weekly newsletter staged for human review',
+              '',
+              `- **Suggested subject:** ${metadata.suggestedSubject}`,
+              `- **Preview text:** ${metadata.previewText}`,
+              `- **From:** ${metadata.fromName} <${metadata.fromAddress}>`,
+              `- **Article:** ${metadata.articleUrl}`,
+              `- **Ready-to-paste HTML:** ${htmlUrl}`,
+              '',
+              'Create this campaign as a draft in the EmailOctopus dashboard, review it, and send only after approval.',
+            ].join('\n');
+            const label = 'newsletter-ready';
+            try {
+              await github.rest.issues.getLabel({ ...context.repo, name: label });
+            } catch (error) {
+              if (error.status !== 404) throw error;
+              await github.rest.issues.createLabel({ ...context.repo, name: label, color: '0e8a16', description: 'Newsletter HTML staged for human review' });
+            }
+            const existing = await github.paginate(github.rest.issues.listForRepo, { ...context.repo, state: 'open', labels: label, per_page: 100 });
+            const prior = existing.find((issue) => issue.title === title);
+            if (prior) {
+              await github.rest.issues.update({ ...context.repo, issue_number: prior.number, body });
+            } else {
+              await github.rest.issues.create({ ...context.repo, title, body, labels: [label] });
+            }
+
+      - name: Open failure issue
+        if: ${{ failure() }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const label = 'newsletter-failure';
+            try {
+              await github.rest.issues.getLabel({ ...context.repo, name: label });
+            } catch (error) {
+              if (error.status !== 404) throw error;
+              await github.rest.issues.createLabel({ ...context.repo, name: label, color: 'b60205', description: 'Weekly newsletter preparation failed' });
+            }
+            const date = new Date().toISOString().slice(0, 10);
+            const title = `NEWSLETTER PREP FAILED: Trail Built ${date}`;
+            const body = [
+              '## Weekly newsletter preparation failed',
+              '',
+              `- **Workflow run:** ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+              `- **Commit:** ${context.sha}`,
+              '',
+              'Inspect the failed step named `NEWSLETTER_PREP_FAILED` in the workflow log. No email campaign was created or sent by this workflow.',
+            ].join('\n');
+            const existing = await github.paginate(github.rest.issues.listForRepo, { ...context.repo, state: 'open', labels: label, per_page: 100 });
+            const prior = existing.find((issue) => issue.title === title);
+            if (prior) {
+              await github.rest.issues.update({ ...context.repo, issue_number: prior.number, body });
+            } else {
+              await github.rest.issues.create({ ...context.repo, title, body, labels: [label] });
+            }
