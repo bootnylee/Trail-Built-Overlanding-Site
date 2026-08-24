@@ -1,14 +1,18 @@
 {
-  "generated": "2026-08-20T01:58:57.470Z",
+  "generated": "2026-08-24T17:32:09.390Z",
   "summary": {
-    "pages": 35,
+    "pages": 36,
     "issues": 0,
-    "warnings": 1,
-    "passed": 379
+    "warnings": 5,
+    "passed": 386
   },
   "issues": [],
   "warnings": [
-    "[/articles/best-overlanding-gps-and-navigation-devices.html] Title too long (69 chars): \"2026 Best Overlanding GPS &amp; Navigation Devices – Top Pic...\""
+    "[/articles/best-overlanding-gps-and-navigation-devices.html] Title too long (87 chars): \"Best Overlanding GPS & Navigation Devices 2026: Top Picks Te...\"",
+    "[/articles/best-overlanding-shower-and-hygiene-solutions.html] Title too long (72 chars): \"Best Overlanding Showers & Hygiene Solutions 2026 | Trail Bu...\"",
+    "[/articles/best-overlanding-solar-generators-and-power-banks.html] Title too long (69 chars): \"2026 Guide to the Best Overlanding Solar Generators &amp; Po...\"",
+    "[/articles/best-overlanding-water-storage-and-filtration.html] Title too long (71 chars): \"Best Overlanding Water Storage & Filtration 2026 | Trail Bui...\"",
+    "[/articles/best-vehicle-communication-gear-for-overlanding.html] Title too long (75 chars): \"Best Vehicle Communication Gear for Overlanding 2026 | Trail...\""
   ],
   "passed": [
     "[/index.html] Title OK (57 chars)",
@@ -171,7 +175,7 @@
     "[/articles/best-diesel-vs-gasoline-for-overlanding.html] Single H1 tag",
     "[/articles/best-diesel-vs-gasoline-for-overlanding.html] No placeholder href='#' links",
     "[/articles/best-diesel-vs-gasoline-for-overlanding.html] JSON-LD structured data present",
-    "[/articles/best-hi-lift-jack-alternatives.html] Title OK (25 chars)",
+    "[/articles/best-hi-lift-jack-alternatives.html] Title OK (58 chars)",
     "[/articles/best-hi-lift-jack-alternatives.html] Meta description OK (149 chars)",
     "[/articles/best-hi-lift-jack-alternatives.html] Canonical URL present and correct",
     "[/articles/best-hi-lift-jack-alternatives.html] og:title present",
@@ -193,7 +197,7 @@
     "[/articles/best-off-road-light-bars.html] All 5 Amazon links have affiliate tag",
     "[/articles/best-off-road-light-bars.html] No placeholder href='#' links",
     "[/articles/best-off-road-light-bars.html] JSON-LD structured data present",
-    "[/articles/best-overlanding-camp-chairs-and-tables.html] Title OK (21 chars)",
+    "[/articles/best-overlanding-camp-chairs-and-tables.html] Title OK (65 chars)",
     "[/articles/best-overlanding-camp-chairs-and-tables.html] Meta description OK (144 chars)",
     "[/articles/best-overlanding-camp-chairs-and-tables.html] Canonical URL present and correct",
     "[/articles/best-overlanding-camp-chairs-and-tables.html] og:title present",
@@ -204,7 +208,7 @@
     "[/articles/best-overlanding-camp-chairs-and-tables.html] All 10 Amazon links have affiliate tag",
     "[/articles/best-overlanding-camp-chairs-and-tables.html] No placeholder href='#' links",
     "[/articles/best-overlanding-camp-chairs-and-tables.html] JSON-LD structured data present",
-    "[/articles/best-overlanding-first-aid-kit-essentials.html] Title OK (26 chars)",
+    "[/articles/best-overlanding-first-aid-kit-essentials.html] Title OK (59 chars)",
     "[/articles/best-overlanding-first-aid-kit-essentials.html] Meta description OK (87 chars)",
     "[/articles/best-overlanding-first-aid-kit-essentials.html] Canonical URL present and correct",
     "[/articles/best-overlanding-first-aid-kit-essentials.html] og:title present",
@@ -233,7 +237,7 @@
     "[/articles/best-overlanding-gps-and-navigation-devices.html] og:image present",
     "[/articles/best-overlanding-gps-and-navigation-devices.html] robots meta present",
     "[/articles/best-overlanding-gps-and-navigation-devices.html] Single H1 tag",
-    "[/articles/best-overlanding-gps-and-navigation-devices.html] All 7 Amazon links have affiliate tag",
+    "[/articles/best-overlanding-gps-and-navigation-devices.html] All 14 Amazon links have affiliate tag",
     "[/articles/best-overlanding-gps-and-navigation-devices.html] No placeholder href='#' links",
     "[/articles/best-overlanding-gps-and-navigation-devices.html] JSON-LD structured data present",
     "[/articles/best-overlanding-headlamps-and-lanterns.html] Title OK (58 chars)",
@@ -258,7 +262,6 @@
     "[/articles/best-overlanding-recovery-gear.html] All 16 Amazon links have affiliate tag",
     "[/articles/best-overlanding-recovery-gear.html] No placeholder href='#' links",
     "[/articles/best-overlanding-recovery-gear.html] JSON-LD structured data present",
-    "[/articles/best-overlanding-shower-and-hygiene-solutions.html] Title OK (24 chars)",
     "[/articles/best-overlanding-shower-and-hygiene-solutions.html] Meta description OK (160 chars)",
     "[/articles/best-overlanding-shower-and-hygiene-solutions.html] Canonical URL present and correct",
     "[/articles/best-overlanding-shower-and-hygiene-solutions.html] og:title present",
@@ -269,7 +272,7 @@
     "[/articles/best-overlanding-shower-and-hygiene-solutions.html] All 10 Amazon links have affiliate tag",
     "[/articles/best-overlanding-shower-and-hygiene-solutions.html] No placeholder href='#' links",
     "[/articles/best-overlanding-shower-and-hygiene-solutions.html] JSON-LD structured data present",
-    "[/articles/best-overlanding-solar-and-power.html] Title OK (61 chars)",
+    "[/articles/best-overlanding-solar-and-power.html] Title OK (64 chars)",
     "[/articles/best-overlanding-solar-and-power.html] Meta description OK (144 chars)",
     "[/articles/best-overlanding-solar-and-power.html] Canonical URL present and correct",
     "[/articles/best-overlanding-solar-and-power.html] og:title present",
@@ -280,7 +283,16 @@
     "[/articles/best-overlanding-solar-and-power.html] All 8 Amazon links have affiliate tag",
     "[/articles/best-overlanding-solar-and-power.html] No placeholder href='#' links",
     "[/articles/best-overlanding-solar-and-power.html] JSON-LD structured data present",
-    "[/articles/best-overlanding-water-storage-and-filtration.html] Title OK (62 chars)",
+    "[/articles/best-overlanding-solar-generators-and-power-banks.html] Meta description OK (124 chars)",
+    "[/articles/best-overlanding-solar-generators-and-power-banks.html] Canonical URL present and correct",
+    "[/articles/best-overlanding-solar-generators-and-power-banks.html] og:title present",
+    "[/articles/best-overlanding-solar-generators-and-power-banks.html] og:description present",
+    "[/articles/best-overlanding-solar-generators-and-power-banks.html] og:image present",
+    "[/articles/best-overlanding-solar-generators-and-power-banks.html] robots meta present",
+    "[/articles/best-overlanding-solar-generators-and-power-banks.html] Single H1 tag",
+    "[/articles/best-overlanding-solar-generators-and-power-banks.html] All 14 Amazon links have affiliate tag",
+    "[/articles/best-overlanding-solar-generators-and-power-banks.html] No placeholder href='#' links",
+    "[/articles/best-overlanding-solar-generators-and-power-banks.html] JSON-LD structured data present",
     "[/articles/best-overlanding-water-storage-and-filtration.html] Meta description OK (98 chars)",
     "[/articles/best-overlanding-water-storage-and-filtration.html] Canonical URL present and correct",
     "[/articles/best-overlanding-water-storage-and-filtration.html] og:title present",
@@ -302,7 +314,7 @@
     "[/articles/best-overlanding-winches.html] All 15 Amazon links have affiliate tag",
     "[/articles/best-overlanding-winches.html] No placeholder href='#' links",
     "[/articles/best-overlanding-winches.html] JSON-LD structured data present",
-    "[/articles/best-portable-power-stations-for-overlanding.html] Title OK (49 chars)",
+    "[/articles/best-portable-power-stations-for-overlanding.html] Title OK (56 chars)",
     "[/articles/best-portable-power-stations-for-overlanding.html] Meta description OK (138 chars)",
     "[/articles/best-portable-power-stations-for-overlanding.html] Canonical URL present and correct",
     "[/articles/best-portable-power-stations-for-overlanding.html] og:title present",
@@ -313,7 +325,7 @@
     "[/articles/best-portable-power-stations-for-overlanding.html] All 13 Amazon links have affiliate tag",
     "[/articles/best-portable-power-stations-for-overlanding.html] No placeholder href='#' links",
     "[/articles/best-portable-power-stations-for-overlanding.html] JSON-LD structured data present",
-    "[/articles/best-skid-plates-for-off-road-trucks.html] Title OK (21 chars)",
+    "[/articles/best-skid-plates-for-off-road-trucks.html] Title OK (64 chars)",
     "[/articles/best-skid-plates-for-off-road-trucks.html] Meta description OK (141 chars)",
     "[/articles/best-skid-plates-for-off-road-trucks.html] Canonical URL present and correct",
     "[/articles/best-skid-plates-for-off-road-trucks.html] og:title present",
@@ -324,7 +336,6 @@
     "[/articles/best-skid-plates-for-off-road-trucks.html] All 13 Amazon links have affiliate tag",
     "[/articles/best-skid-plates-for-off-road-trucks.html] No placeholder href='#' links",
     "[/articles/best-skid-plates-for-off-road-trucks.html] JSON-LD structured data present",
-    "[/articles/best-vehicle-communication-gear-for-overlanding.html] Title OK (22 chars)",
     "[/articles/best-vehicle-communication-gear-for-overlanding.html] Meta description OK (149 chars)",
     "[/articles/best-vehicle-communication-gear-for-overlanding.html] Canonical URL present and correct",
     "[/articles/best-vehicle-communication-gear-for-overlanding.html] og:title present",
@@ -391,7 +402,7 @@
     "[/articles/toyota-tacoma-overland-build-guide.html] No placeholder href='#' links",
     "[/articles/toyota-tacoma-overland-build-guide.html] JSON-LD structured data present",
     "robots.txt references sitemap",
-    "sitemap.xml has 35 URLs with correct domain"
+    "sitemap.xml has 36 URLs with correct domain"
   ],
   "pages": [
     {
@@ -680,7 +691,7 @@
       "issues": [],
       "warnings": [],
       "passed": [
-        "Title OK (25 chars)",
+        "Title OK (58 chars)",
         "Meta description OK (149 chars)",
         "Canonical URL present and correct",
         "og:title present",
@@ -718,7 +729,7 @@
       "issues": [],
       "warnings": [],
       "passed": [
-        "Title OK (21 chars)",
+        "Title OK (65 chars)",
         "Meta description OK (144 chars)",
         "Canonical URL present and correct",
         "og:title present",
@@ -737,7 +748,7 @@
       "issues": [],
       "warnings": [],
       "passed": [
-        "Title OK (26 chars)",
+        "Title OK (59 chars)",
         "Meta description OK (87 chars)",
         "Canonical URL present and correct",
         "og:title present",
@@ -774,7 +785,7 @@
       "type": "article",
       "issues": [],
       "warnings": [
-        "Title too long (69 chars): \"2026 Best Overlanding GPS &amp; Navigation Devices – Top Pic...\""
+        "Title too long (87 chars): \"Best Overlanding GPS & Navigation Devices 2026: Top Picks Te...\""
       ],
       "passed": [
         "Meta description OK (155 chars)",
@@ -784,7 +795,7 @@
         "og:image present",
         "robots meta present",
         "Single H1 tag",
-        "All 7 Amazon links have affiliate tag",
+        "All 14 Amazon links have affiliate tag",
         "No placeholder href='#' links",
         "JSON-LD structured data present"
       ]
@@ -831,9 +842,10 @@
       "url": "/articles/best-overlanding-shower-and-hygiene-solutions.html",
       "type": "article",
       "issues": [],
-      "warnings": [],
+      "warnings": [
+        "Title too long (72 chars): \"Best Overlanding Showers & Hygiene Solutions 2026 | Trail Bu...\""
+      ],
       "passed": [
-        "Title OK (24 chars)",
         "Meta description OK (160 chars)",
         "Canonical URL present and correct",
         "og:title present",
@@ -852,7 +864,7 @@
       "issues": [],
       "warnings": [],
       "passed": [
-        "Title OK (61 chars)",
+        "Title OK (64 chars)",
         "Meta description OK (144 chars)",
         "Canonical URL present and correct",
         "og:title present",
@@ -866,12 +878,33 @@
       ]
     },
     {
+      "url": "/articles/best-overlanding-solar-generators-and-power-banks.html",
+      "type": "article",
+      "issues": [],
+      "warnings": [
+        "Title too long (69 chars): \"2026 Guide to the Best Overlanding Solar Generators &amp; Po...\""
+      ],
+      "passed": [
+        "Meta description OK (124 chars)",
+        "Canonical URL present and correct",
+        "og:title present",
+        "og:description present",
+        "og:image present",
+        "robots meta present",
+        "Single H1 tag",
+        "All 14 Amazon links have affiliate tag",
+        "No placeholder href='#' links",
+        "JSON-LD structured data present"
+      ]
+    },
+    {
       "url": "/articles/best-overlanding-water-storage-and-filtration.html",
       "type": "article",
       "issues": [],
-      "warnings": [],
+      "warnings": [
+        "Title too long (71 chars): \"Best Overlanding Water Storage & Filtration 2026 | Trail Bui...\""
+      ],
       "passed": [
-        "Title OK (62 chars)",
         "Meta description OK (98 chars)",
         "Canonical URL present and correct",
         "og:title present",
@@ -909,7 +942,7 @@
       "issues": [],
       "warnings": [],
       "passed": [
-        "Title OK (49 chars)",
+        "Title OK (56 chars)",
         "Meta description OK (138 chars)",
         "Canonical URL present and correct",
         "og:title present",
@@ -928,7 +961,7 @@
       "issues": [],
       "warnings": [],
       "passed": [
-        "Title OK (21 chars)",
+        "Title OK (64 chars)",
         "Meta description OK (141 chars)",
         "Canonical URL present and correct",
         "og:title present",
@@ -945,9 +978,10 @@
       "url": "/articles/best-vehicle-communication-gear-for-overlanding.html",
       "type": "article",
       "issues": [],
-      "warnings": [],
+      "warnings": [
+        "Title too long (75 chars): \"Best Vehicle Communication Gear for Overlanding 2026 | Trail...\""
+      ],
       "passed": [
-        "Title OK (22 chars)",
         "Meta description OK (149 chars)",
         "Canonical URL present and correct",
         "og:title present",
