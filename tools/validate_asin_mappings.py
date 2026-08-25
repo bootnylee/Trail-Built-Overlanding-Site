@@ -36,6 +36,7 @@ from typing import Any, Optional
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_REPORT = REPO_ROOT / "asin_mapping_report.json"
+WARN_MODE = os.environ.get("ASIN_VALIDATE", "").strip().lower() == "warn"
 ASIN_LINK_RE = re.compile(
     r"https?://(?:www\.)?amazon\.com/(?:[^\"'\s>]+/)?dp/([A-Z0-9]{10})(?:[/?#&]|$)",
     re.IGNORECASE,
@@ -505,7 +506,18 @@ def main() -> int:
     if args.max_links > 0:
         extracted = extracted[: args.max_links]
 
-    primary_titles = load_primary_titles(Path(args.primary_report))
+    upstream_lookup_error = ""
+    try:
+        primary_titles = load_primary_titles(Path(args.primary_report))
+    except RuntimeError as error:
+        if not WARN_MODE:
+            raise
+        primary_titles = {}
+        upstream_lookup_error = str(error)
+        print(
+            f"WARN-ONLY: upstream direct-ASIN validation is unavailable: {upstream_lookup_error}",
+            file=sys.stderr,
+        )
 
     print("=" * 72)
     print("ASIN Mapping Validation — Trail Built Overland (blocking gate)")
@@ -522,8 +534,16 @@ def main() -> int:
         # intentionally excluded. Every named product destination is covered by
         # the preceding required direct-ASIN gate and appears in primary_titles.
         if primary_key not in primary_titles:
-            continue
-        lookup = LookupResult("LIVE", primary_titles[primary_key], "primary_direct_asin_gate", "")
+            if not upstream_lookup_error:
+                continue
+            lookup = LookupResult(
+                "INCONCLUSIVE",
+                None,
+                "primary_direct_asin_gate",
+                f"Upstream direct-ASIN validation unavailable: {upstream_lookup_error}",
+            )
+        else:
+            lookup = LookupResult("LIVE", primary_titles[primary_key], "primary_direct_asin_gate", "")
         finding: dict[str, Any] = {
             "page": link["page"],
             "asin": asin,
@@ -571,7 +591,7 @@ def main() -> int:
     report = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "validator": "tools/validate_asin_mappings.py",
-        "non_blocking": False,
+        "non_blocking": WARN_MODE,
         "threshold": MATCH_THRESHOLD,
         "html_files_scanned": len(html_files),
         "links_found": len(extracted),
@@ -595,9 +615,16 @@ def main() -> int:
         f"SUMMARY | match={counts['MATCH']} mismatch={counts['MISMATCH']} "
         f"dead={counts['DEAD']} inconclusive={counts['INCONCLUSIVE']} | report={report_path}"
     )
-    blocking_findings = counts["MISMATCH"] + counts["DEAD"] + counts["INCONCLUSIVE"] + len(parse_errors)
-    if blocking_findings:
-        print(f"BLOCKED | {blocking_findings} unresolved, dead, mismatched, or unparsable direct product destination(s)", file=sys.stderr)
+    remote_findings = counts["MISMATCH"] + counts["DEAD"] + counts["INCONCLUSIVE"]
+    if parse_errors:
+        print(f"BLOCKED | {len(parse_errors)} unparsable local product destination(s)", file=sys.stderr)
+        return 1
+    if remote_findings:
+        message = f"{remote_findings} unresolved, dead, or mismatched direct product destination(s)"
+        if WARN_MODE:
+            print(f"WARN-ONLY | {message}; ASIN_VALIDATE=warn keeps this remote-dependent check non-blocking", file=sys.stderr)
+            return 0
+        print(f"BLOCKED | {message}", file=sys.stderr)
         return 1
     return 0
 

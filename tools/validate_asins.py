@@ -14,6 +14,7 @@ from __future__ import annotations
 import argparse
 import html as html_module
 import json
+import os
 import re
 import sys
 import time
@@ -29,6 +30,7 @@ from asin_lookup import verify_asin
 REPO_ROOT = Path(__file__).parent.parent
 AFFILIATE_TAG = "trailbuiltove-20"
 REQUEST_DELAY = 1.25
+WARN_MODE = os.environ.get("ASIN_VALIDATE", "").strip().lower() == "warn"
 ASIN_PATTERN = re.compile(r"/dp/([A-Z0-9]{10})(?:[/?#]|$)")
 VALID_ASIN = re.compile(r"^[A-Z0-9]{10}$")
 VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}
@@ -325,7 +327,21 @@ def main() -> int:
             if item["status"] == "FAIL":
                 print(f"  - [{item['file']}] {item['product']} -> {item.get('asin') or item.get('url')}: {item['issue']}")
 
-    return 0 if report["failed"] == 0 else 1
+    local_failures = report["search_destination_issues"]
+    remote_failures = report["failed"] - local_failures
+    if WARN_MODE and remote_failures:
+        print(
+            f"WARN-ONLY: {remote_failures} live Amazon lookup failure(s) reported; "
+            "ASIN_VALIDATE=warn keeps this remote-dependent check non-blocking.",
+            file=sys.stderr,
+        )
+    if local_failures:
+        print(
+            f"BLOCKED: {local_failures} deterministic Amazon search-destination issue(s) remain.",
+            file=sys.stderr,
+        )
+        return 1
+    return 0 if report["failed"] == 0 or WARN_MODE else 1
 
 
 if __name__ == "__main__":

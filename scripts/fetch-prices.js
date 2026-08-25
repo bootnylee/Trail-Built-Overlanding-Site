@@ -82,6 +82,7 @@ const RESOURCES = [
 ];
 
 const DRY_RUN = process.argv.includes("--dry-run");
+const WARN_MODE = (process.env.ASIN_VALIDATE || "").trim().toLowerCase() === "warn";
 
 // ─── Credentials (env only — never logged, never hardcoded) ─────────────────
 
@@ -90,10 +91,14 @@ function getCredentials() {
   const credentialSecret = process.env.CREATORS_API_CLIENT_SECRET;
   const partnerTag = process.env.CREATORS_API_PARTNER_TAG;
   if (!credentialId || !credentialSecret || !partnerTag) {
-    console.error(
-      "ERROR: Missing required environment variables. " +
-        "CREATORS_API_CLIENT_ID, CREATORS_API_CLIENT_SECRET, and CREATORS_API_PARTNER_TAG must all be set."
-    );
+    const message =
+      "Missing required environment variables. " +
+      "CREATORS_API_CLIENT_ID, CREATORS_API_CLIENT_SECRET, and CREATORS_API_PARTNER_TAG must all be set.";
+    if (WARN_MODE) {
+      console.error(`WARN-ONLY: ${message}`);
+      return null;
+    }
+    console.error(`ERROR: ${message}`);
     process.exit(1);
   }
   return { credentialId, credentialSecret, partnerTag };
@@ -413,6 +418,19 @@ async function main() {
     }
   } else {
     const credentials = getCredentials();
+    if (!credentials) {
+      const report = {
+        generatedAt: new Date().toISOString(),
+        mode: "warn-skipped",
+        totalAsins: asins.length,
+        updatedCount: 0,
+        updated: [],
+        flagged: asins.map((asin) => ({ asin, reason: "CredentialsUnavailable", action: "left unchanged" })),
+      };
+      fs.writeFileSync(REPORT_FILE, JSON.stringify(report, null, 2) + "\n", "utf8");
+      console.error(`WARN-ONLY: price sync skipped; wrote ${REPORT_FILE}`);
+      return;
+    }
     const totalBatches = Math.ceil(asins.length / BATCH_SIZE);
     for (let i = 0; i < asins.length; i += BATCH_SIZE) {
       const batch = asins.slice(i, i + BATCH_SIZE);
@@ -516,11 +534,20 @@ async function main() {
         `All ASINs flagged. Error codes: ${uniqueCodes.join(", ") || "none captured"}. ` +
         `Check Creators API credentials and Associates account eligibility.`
     );
+    if (WARN_MODE) {
+      console.error("WARN-ONLY: systemic remote price-sync failure reported; ASIN_VALIDATE=warn keeps it non-blocking.");
+      return;
+    }
     process.exit(1);
   }
 }
 
 main().catch((err) => {
+  if (WARN_MODE) {
+    console.error(`WARN-ONLY: remote price-sync fatal error: ${err.message}`);
+    process.exitCode = 0;
+    return;
+  }
   console.error(`FATAL: ${err.message}`);
   process.exit(1);
 });

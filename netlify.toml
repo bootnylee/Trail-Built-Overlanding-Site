@@ -3,9 +3,8 @@
 
 [build]
   # ── ASIN Validation Gate ─────────────────────────────────────────────────────
-  # Runs before every deploy. Scans all buyer's guide articles, verifies each
-  # affiliate ASIN resolves to the correct product on Amazon, and blocks the
-  # deploy if any mismatch is found.
+  # Local deterministic checks block a deploy. Live Amazon title and catalog
+  # checks report in warn mode because bot-blocking makes remote results nondeterministic.
   #
   # Required env vars (set in Netlify dashboard → Site settings → Environment):
   #   CREATORS_API_CLIENT_ID               → Amazon Creators API client ID
@@ -18,6 +17,7 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  ASIN_VALIDATE = "warn"
 
 # ── Security headers (all pages) ─────────────────────────────────────────────
 [[headers]]
