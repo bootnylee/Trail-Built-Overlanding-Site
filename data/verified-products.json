@@ -565,6 +565,31 @@
       ]
     },
     {
+      "asin": "B016UQNGFS",
+      "name": "Goal Zero Nomad 100 Watt Monocrystalline Portable Solar Panel",
+      "category": "ford bronco overland build guide",
+      "tags": [
+        "goal",
+        "zero",
+        "nomad",
+        "100",
+        "watt",
+        "monocrystalline",
+        "portable",
+        "solar",
+        "panel",
+        "ford",
+        "bronco",
+        "overland",
+        "build"
+      ],
+      "affiliate_url": "https://www.amazon.com/dp/B016UQNGFS?tag=trailbuiltove-20",
+      "verification_status": "pending-verification",
+      "sources": [
+        "articles/ford-bronco-overland-build-guide.html"
+      ]
+    },
+    {
       "asin": "B017XTU10O",
       "name": "Check Cooper STT Pro on Amazon ↗",
       "category": "4runner 5th gen overland build guide",
@@ -742,14 +767,14 @@
     },
     {
       "asin": "B073PLJ59J",
-      "name": "Shop BFG KO2 35s on Amazon ↗",
+      "name": "BFGoodrich All Terrain T/A KO2 35x12.50R17/E",
       "category": "ford bronco overland build guide",
       "tags": [
-        "shop",
-        "bfg",
+        "bfgoodrich",
+        "all",
+        "terrain",
         "ko2",
-        "35s",
-        "amazon",
+        "35x12.50r17",
         "ford",
         "bronco",
         "overland",
@@ -808,14 +833,14 @@
     },
     {
       "asin": "B074KS63SC",
-      "name": "Shop Falken Wildpeak MT01 on Amazon ↗",
+      "name": "Falken Wildpeak MT01 LT285/70R17",
       "category": "ford bronco overland build guide",
       "tags": [
-        "shop",
         "falken",
         "wildpeak",
         "mt01",
-        "amazon",
+        "lt285",
+        "70r17",
         "ford",
         "bronco",
         "overland",
@@ -1202,13 +1227,15 @@
     },
     {
       "asin": "B07T7GDV9B",
-      "name": "Factor 55 Extreme Duty Soft Shackle",
+      "name": "Factor 55 Extreme Duty 3/8 x 10 Soft Shackle",
       "category": "recovery gear",
       "tags": [
         "factor",
         "55",
         "extreme",
         "duty",
+        "3/8",
+        "10",
         "soft",
         "shackle",
         "recovery"
@@ -1216,6 +1243,7 @@
       "affiliate_url": "https://www.amazon.com/dp/B07T7GDV9B?tag=trailbuiltove-20",
       "verification_status": "pending-verification",
       "sources": [
+        "articles/best-overlanding-recovery-gear.html",
         "categories/recovery-gear.html"
       ]
     },
@@ -1843,22 +1871,6 @@
       ]
     },
     {
-      "asin": "B0BBWM9RMV",
-      "name": "Factor 55 Cronus",
-      "category": "best overlanding recovery gear",
-      "tags": [
-        "factor",
-        "55",
-        "cronus",
-        "recovery"
-      ],
-      "affiliate_url": "https://www.amazon.com/dp/B0BBWM9RMV?tag=trailbuiltove-20",
-      "verification_status": "pending-verification",
-      "sources": [
-        "articles/best-overlanding-recovery-gear.html"
-      ]
-    },
-    {
       "asin": "B0BFVGJP8J",
       "name": "ARB 2021 Ford Bronco Summit Winch Bumper",
       "category": "bumpers armor",
@@ -2118,28 +2130,6 @@
       ]
     },
     {
-      "asin": "B0CRCVKNHR",
-      "name": "Shop Goal Zero Solar Panels on Amazon ↗",
-      "category": "ford bronco overland build guide",
-      "tags": [
-        "shop",
-        "goal",
-        "zero",
-        "solar",
-        "panels",
-        "amazon",
-        "ford",
-        "bronco",
-        "overland",
-        "build"
-      ],
-      "affiliate_url": "https://www.amazon.com/dp/B0CRCVKNHR?tag=trailbuiltove-20",
-      "verification_status": "pending-verification",
-      "sources": [
-        "articles/ford-bronco-overland-build-guide.html"
-      ]
-    },
-    {
       "asin": "B0D173XGG9",
       "name": "Hooke Road Full Length Roof Rack Bronco",
       "category": "ford bronco overland build guide",
@@ -2339,19 +2329,17 @@
     },
     {
       "asin": "B0F55VMN66",
-      "name": "Check Warn ZEON 10-S on Amazon ↗",
+      "name": "WARN ZEON 10-S Winch",
       "category": "4runner 5th gen overland build guide",
       "tags": [
         "warn",
         "zeon",
-        "10",
-        "amazon",
-        "4runner",
-        "5th",
-        "gen",
-        "overland",
-        "build",
-        "winches"
+        "10-s",
+        "winch",
+        "synthetic",
+        "rope",
+        "recovery",
+        "overland"
       ],
       "affiliate_url": "https://www.amazon.com/dp/B0F55VMN66?tag=trailbuiltove-20",
       "verification_status": "pending-verification",

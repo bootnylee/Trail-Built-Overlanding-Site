@@ -242,7 +242,7 @@ window.TrailBuiltProducts = {
   },
   "B07KCSPVWC": {
     asin: "B07KCSPVWC",
-    name: "Factor 55 Cronus Soft Shackle",
+    name: "TRED Pro 1100 Recovery Boards (Pair)",
     price: 359.95,
     priceDisplay: "$359.95"
   },
@@ -284,9 +284,9 @@ window.TrailBuiltProducts = {
   },
   "B0F55VMN66": {
     asin: "B0F55VMN66",
-    name: "Warn ZEON 10-S Platinum 12V Winch with Synthetic Rope",
-    price: 790.22,
-    priceDisplay: "$790.22"
+    name: "Warn Zeon 10-S 12V Electrical Utility Winch 10,000 lbs for Trucks & SUVs",
+    price: 0.00,
+    priceDisplay: "Check price on Amazon"
   },
 
   "B09PSKG7C3": {
