@@ -109,12 +109,8 @@
   force = true
 
 # ── Canonical article extension: extensionless → .html (sitemap form) ───────
-# Force the canonical redirect before Netlify Pretty URLs can serve the matching .html asset.
-[[redirects]]
-  from = "/articles/:slug"
-  to = "/articles/:slug.html"
-  status = 301
-  force = true
+# netlify/edge-functions/articles-html-canonical.ts runs before Pretty URLs asset
+# serving and redirects only non-.html article paths, preventing redirect loops.
 
 # ── Affiliate link redirect shortener ────────────────────────────────────────
 # Clean URLs: /go/B07SJHVQTJ → Amazon product page with affiliate tag
