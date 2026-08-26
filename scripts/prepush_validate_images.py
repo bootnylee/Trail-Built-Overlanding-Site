@@ -38,6 +38,33 @@ GENERIC_REMOTE_HOSTS = {
 }
 MIN_ALT_WORDS = 3
 
+# These verified recommendations have no product-specific committed asset or image path
+# in data/verified-products.json. They remain intentionally image-less until one exists.
+IMAGELESS_PRODUCT_EXCEPTIONS = {
+    ("articles/4runner-5th-gen-overland-build-guide.html", "Rough Country Front & Belly Skid Plate Kit for Toyota 4Runner (2010–2024)"),
+    ("articles/best-hi-lift-jack-alternatives.html", "Hi-Lift Jack 42-inch All-Cast Jack HL-425"),
+    ("articles/best-overlanding-camp-chairs-and-tables.html", "Helinox Camp Table"),
+    ("articles/best-overlanding-camp-chairs-and-tables.html", "NEMO Stargaze Chair"),
+    ("articles/best-overlanding-camp-chairs-and-tables.html", "Snow Peak Table"),
+    ("articles/best-overlanding-headlamps-and-lanterns.html", "Black Diamond Spot 400 Headlamp"),
+    ("articles/best-overlanding-headlamps-and-lanterns.html", "Petzl ACTIK CORE Rechargeable Headlamp 650 Lumens"),
+    ("articles/best-overlanding-headlamps-and-lanterns.html", "Black Diamond Moji+ Lantern 200 Lumens"),
+    ("articles/best-overlanding-headlamps-and-lanterns.html", "Nitecore NU25 360 Lumen Rechargeable Headlamp"),
+    ("articles/best-overlanding-solar-and-power.html", "Jackery Explorer 1000 v2 Portable Power Station"),
+    ("articles/best-overlanding-solar-generators-and-power-banks.html", "Jackery Explorer 1000 v2 Portable Power Station"),
+    ("categories/bumpers-armor.html", "ARB 2021 Ford Bronco Summit Winch Bumper"),
+    ("categories/sleeping-camp.html", "Naturnest Sirius 1 Hardshell Rooftop Tent"),
+    ("articles/best-skid-plates-for-off-road-trucks.html", "ARB 4x4 Accessories 5421110 Skid Plate"),
+    ("articles/best-skid-plates-for-off-road-trucks.html", "ARB Under Vehicle Protection Tacoma 5423010"),
+    ("articles/best-skid-plates-for-off-road-trucks.html", "Rancho RS62116 Front Dana 44 Glide Plate"),
+    ("articles/ford-bronco-overland-build-guide.html", "Broaddict Front & Engine Skid Plate Kit for Ford Bronco"),
+    ("articles/ford-bronco-overland-build-guide.html", "Westin XTS Front Bumper for 2021–2026 Bronco"),
+    ("articles/ford-bronco-overland-build-guide.html", "Baja Designs Squadron Pro A-Pillar LED Light Kit for Ford Bronco 2021–2024"),
+    ("articles/ford-bronco-overland-build-guide.html", "Hooke Road Full Length Roof Rack for 2021–2026 Ford Bronco 4-Door Hardtop"),
+    ("articles/rooftop-tent-buying-guide.html", "Sanhima Hotham Hard Shell Rooftop Tent"),
+    ("articles/toyota-tacoma-overland-build-guide.html", "Overland Vehicle Systems HD Nomadic 3 Extended Soft Shell Roof Top Tent"),
+}
+
 
 def rel(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
@@ -107,8 +134,6 @@ def extract_product_rows() -> list[dict[str, str]]:
                 if "category-card" in (card.get("class") or []):
                     continue
                 img = card.find("img")
-                if not img:
-                    continue
                 href = ""
                 link = card.find("a", href=True)
                 if link:
@@ -122,8 +147,8 @@ def extract_product_rows() -> list[dict[str, str]]:
                     "selector": selector,
                     "asin": asin,
                     "title": get_card_title(card),
-                    "alt": img.get("alt", "").strip(),
-                    "src": img.get("src", "").strip(),
+                    "alt": img.get("alt", "").strip() if img else "",
+                    "src": img.get("src", "").strip() if img else "",
                 }
                 key = (row["file"], row["selector"], row["title"], row["src"])
                 if key in seen:
@@ -172,6 +197,12 @@ def main() -> int:
         src = row["src"]
         context = f"{row['file']} :: {row['title']}"
         if not src:
+            if (row["file"], row["title"]) in IMAGELESS_PRODUCT_EXCEPTIONS:
+                warnings.append({**row, "issue": "deferred: no product-specific committed asset or verified image path"})
+                continue
+            if not row["asin"]:
+                warnings.append({**row, "issue": "unlinked product card omitted from image gate"})
+                continue
             failures.append({**row, "issue": "missing product image src"})
             continue
         parsed = urlparse(src)

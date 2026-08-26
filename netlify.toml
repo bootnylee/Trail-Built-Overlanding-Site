@@ -109,11 +109,12 @@
   force = true
 
 # ── Canonical article extension: extensionless → .html (sitemap form) ───────
-# Existing .html files take precedence because this rule is intentionally not forced.
+# Force the canonical redirect before Netlify Pretty URLs can serve the matching .html asset.
 [[redirects]]
   from = "/articles/:slug"
   to = "/articles/:slug.html"
   status = 301
+  force = true
 
 # ── Affiliate link redirect shortener ────────────────────────────────────────
 # Clean URLs: /go/B07SJHVQTJ → Amazon product page with affiliate tag

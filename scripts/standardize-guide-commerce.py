@@ -31,6 +31,22 @@ FRIDGE_PRODUCTS = [
     {"name": "ARB Elements Fridge 60L", "asin": "", "spec": "60 L, single zone"},
 ]
 
+# Generated cards may use only product-specific assets already committed to the site.
+FRIDGE_PRODUCT_IMAGES = {
+    "Dometic CFX3 55 Portable Compressor Fridge": {
+        "src": "../assets/product-images/best-overlanding-fridges-dometic-cfx3-55-compressor-fridge-b5110572.png",
+        "alt": "Dometic CFX3 55 portable compressor fridge",
+    },
+    "Dometic CFX3 35 Portable Compressor Fridge": {
+        "src": "../assets/product-images/best-overlanding-fridges-dometic-cfx3-35-compressor-fridge-30424462.jpg",
+        "alt": "Dometic CFX3 35 portable compressor fridge",
+    },
+    "ICECO GO20 Dual Zone Portable Refrigerator": {
+        "src": "../assets/product-images/best-overlanding-fridges-iceco-go20-dual-zone-portable-refrigerator-7873ef75.jpg",
+        "alt": "ICECO GO20 dual-zone portable refrigerator",
+    },
+}
+
 
 def amazon_asin(url: str) -> tuple[str, bool]:
     match = re.search(r"amazon\.com/dp/([A-Z0-9]{10})", url or "", re.I)
@@ -143,6 +159,16 @@ def generated_fridge_cards(soup: BeautifulSoup, records: list[dict]) -> Tag:
         box["data-product"] = record["name"]
         if record["asin"]:
             box["data-asin"] = record["asin"]
+        image = FRIDGE_PRODUCT_IMAGES.get(record["name"])
+        if image:
+            image_wrap = soup.new_tag("div", attrs={"class": "product-box-image"})
+            image_tag = soup.new_tag("img", src=image["src"], alt=image["alt"])
+            image_tag["width"] = "180"
+            image_tag["height"] = "140"
+            image_tag["loading"] = "lazy"
+            image_tag["decoding"] = "async"
+            image_wrap.append(image_tag)
+            box.append(image_wrap)
         h4 = soup.new_tag("h4")
         h4.string = record["name"]
         detail = soup.new_tag("p", attrs={"class": "guide-comparison-spec"})
