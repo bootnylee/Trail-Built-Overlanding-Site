@@ -11,7 +11,7 @@
   #   CREATORS_API_CLIENT_SECRET           → Amazon Creators API client secret
   #   CREATORS_API_PARTNER_TAG             → affiliate tag (default: trailbuiltove-20)
   #   Credentials: https://affiliate-program.amazon.com/creatorsapi
-  command = "python3 scripts/validate-guide-commerce.py && python3 scripts/sync-guide-catalog.py && if [ -n \"$CREATORS_API_CLIENT_ID\" ] && [ -n \"$CREATORS_API_CLIENT_SECRET\" ] && [ -n \"$CREATORS_API_PARTNER_TAG\" ]; then node scripts/fetch-prices.js; else echo 'Creators API credentials unavailable; browser layer will hide stale catalog data.'; fi && python3 tools/validate_asins.py && python3 tools/validate_asin_mappings.py --output /tmp/asin_mapping_report.json && python3 tools/validate_rendered_amazon_anchors.py && echo ${COMMIT_REF:-local} > version.txt"
+  command = "node scripts/sync-homepage-latest.js && node scripts/validate-editorial-images.js && python3 scripts/validate-guide-commerce.py && python3 scripts/sync-guide-catalog.py && if [ -n \"$CREATORS_API_CLIENT_ID\" ] && [ -n \"$CREATORS_API_CLIENT_SECRET\" ] && [ -n \"$CREATORS_API_PARTNER_TAG\" ]; then node scripts/fetch-prices.js; else echo 'Creators API credentials unavailable; browser layer will hide stale catalog data.'; fi && python3 tools/validate_asins.py && python3 tools/validate_asin_mappings.py --output /tmp/asin_mapping_report.json && python3 tools/validate_rendered_amazon_anchors.py && echo ${COMMIT_REF:-local} > version.txt"
   publish = "."
   functions = "netlify/functions"
 

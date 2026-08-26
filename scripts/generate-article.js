@@ -15,6 +15,7 @@ const fs   = require('fs');
 const path = require('path');
 const https = require('https');
 const crypto = require('crypto');
+const { execFileSync } = require('child_process');
 const { createAsinVerifier } = require('./asin-verification');
 
 // ── Config ──────────────────────────────────────────────────────────────────
@@ -1140,6 +1141,10 @@ function escapeHtml(str) {
 }
 
 // ── Index updater ─────────────────────────────────────────────────────────────
+function synchronizeHomepageLatest() {
+  execFileSync(process.execPath, [path.join(__dirname, 'sync-homepage-latest.js')], { stdio: 'inherit' });
+}
+
 // ANCHOR: we locate the insertion point by finding the stable
 // '<!-- ===== TOP PRODUCT' comment and inserting the new card immediately
 // before the </section> that precedes it.  This is whitespace-insensitive
@@ -1150,7 +1155,8 @@ function addArticleToIndex(slug, title, description, date, ogImage) {
 
   // ── Duplicate guard ──────────────────────────────────────────────────────
   if (html.includes(`articles/${slug}.html`)) {
-    console.log(`Index already contains a link to ${slug} — skipping.`);
+    console.log(`Index already contains a link to ${slug} — synchronizing existing cards.`);
+    synchronizeHomepageLatest();
     return;
   }
 
@@ -1198,7 +1204,8 @@ function addArticleToIndex(slug, title, description, date, ogImage) {
   }
 
   fs.writeFileSync(INDEX_FILE, updated);
-  console.log(`Index updated: inserted card for "${slug}".`);
+  synchronizeHomepageLatest();
+  console.log(`Index updated and synchronized newest-first for "${slug}".`);
 }
 
 // ── Sitemap updater ───────────────────────────────────────────────────────────
