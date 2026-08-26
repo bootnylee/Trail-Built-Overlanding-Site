@@ -12,6 +12,10 @@ const ROOT = resolve(__dirname, "..");
 const SITEMAP_FILE = resolve(ROOT, "sitemap.xml");
 const BASE_URL = "https://trailbuiltoverland.com";
 const TODAY = new Date().toISOString().split("T")[0];
+const REDIRECTED_ARTICLES = new Set([
+  "best-overlanding-solar-and-power.html",
+  "best-portable-power-stations-for-overlanding.html",
+]);
 
 // ── Static pages ──────────────────────────────────────────────────────────────
 const staticPages = [
@@ -36,7 +40,7 @@ const categoryPages = existsSync(resolve(ROOT, "categories"))
 // ── Article pages ──────────────────────────────────────────────────────────────
 const articlePages = existsSync(resolve(ROOT, "articles"))
   ? readdirSync(resolve(ROOT, "articles"))
-      .filter(f => f.endsWith(".html"))
+      .filter(f => f.endsWith(".html") && !REDIRECTED_ARTICLES.has(f))
       .map(f => ({
         url: `/articles/${f}`,
         priority: "0.7",
