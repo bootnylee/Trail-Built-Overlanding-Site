@@ -55,6 +55,8 @@ const FIXTURE_FILE = path.join(__dirname, "fixtures", "creators-api-getitems-moc
 const CREATORS_API_BASE = "https://creatorsapi.amazon";
 const GETITEMS_PATH = "/catalog/v1/getItems";
 const MARKETPLACE = "www.amazon.com";
+// Creators API app is registered to this store; site affiliate links keep their own tags.
+const API_PARTNER_TAG = "trailbuiltove-20";
 
 // v3.x LwA token endpoint (try first — new credentials issued as v3.x)
 const LWA_TOKEN_URL = "https://api.amazon.com/auth/o2/token";
@@ -73,13 +75,7 @@ const TOKEN_EXPIRY_BUFFER_MS = 60_000; // 60s buffer before expiry
 // Request images.primary.large for completeness even though Trail-Built
 // doesn't store image URLs in products-data.js (images are managed via
 // data-amazon-img attributes and image-code URLs in the frontend).
-const RESOURCES = [
-  "itemInfo.title",
-  "offersV2.listings.price",
-  "offersV2.listings.availability",
-  "offersV2.listings.isBuyBoxWinner",
-  "images.primary.large",
-];
+const RESOURCES = ["offersV2.listings.price", "images.primary.large"];
 
 const DRY_RUN = process.argv.includes("--dry-run");
 const WARN_MODE = (process.env.ASIN_VALIDATE || "").trim().toLowerCase() === "warn";
@@ -89,11 +85,11 @@ const WARN_MODE = (process.env.ASIN_VALIDATE || "").trim().toLowerCase() === "wa
 function getCredentials() {
   const credentialId = process.env.CREATORS_API_CLIENT_ID;
   const credentialSecret = process.env.CREATORS_API_CLIENT_SECRET;
-  const partnerTag = process.env.CREATORS_API_PARTNER_TAG;
-  if (!credentialId || !credentialSecret || !partnerTag) {
+  const configuredPartnerTag = process.env.CREATORS_API_PARTNER_TAG;
+  if (!credentialId || !credentialSecret) {
     const message =
       "Missing required environment variables. " +
-      "CREATORS_API_CLIENT_ID, CREATORS_API_CLIENT_SECRET, and CREATORS_API_PARTNER_TAG must all be set.";
+      "CREATORS_API_CLIENT_ID and CREATORS_API_CLIENT_SECRET must both be set.";
     if (WARN_MODE) {
       console.error(`WARN-ONLY: ${message}`);
       return null;
@@ -101,7 +97,12 @@ function getCredentials() {
     console.error(`ERROR: ${message}`);
     process.exit(1);
   }
-  return { credentialId, credentialSecret, partnerTag };
+  if (configuredPartnerTag && configuredPartnerTag !== API_PARTNER_TAG) {
+    console.warn(
+      "WARNING: configured Creators API partner tag differs from the app registration; using trailbuiltove-20 for API requests."
+    );
+  }
+  return { credentialId, credentialSecret };
 }
 
 // ─── OAuth2 token cache ───────────────────────────────────────────────────────
@@ -202,6 +203,14 @@ async function fetchToken_v2(credentials) {
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+function sanitizeErrorBody(body) {
+  const raw = typeof body === "string" ? body : JSON.stringify(body ?? {});
+  return (raw || "")
+    .replace(/Bearer\s+[A-Za-z0-9._~+/=-]+/gi, "Bearer [REDACTED]")
+    .replace(/(["']?(?:client[_-]?id|client[_-]?secret|access[_-]?token|refresh[_-]?token)["']?\s*[:=]\s*["']?)[^"',\s}]+/gi, "$1[REDACTED]")
+    .slice(0, 500);
+}
+
 /**
  * Returns { body, httpStatus, errorCodes } where:
  *   body        — parsed JSON response (may contain itemsResult and/or errors)
@@ -215,7 +224,7 @@ async function getItems(credentials, asins) {
     itemIds: asins,
     itemIdType: "ASIN",
     marketplace: MARKETPLACE,
-    partnerTag: credentials.partnerTag,
+    partnerTag: API_PARTNER_TAG,
     resources: RESOURCES,
   });
 
@@ -260,7 +269,8 @@ async function getItems(credentials, asins) {
       }
       if (errorCodes.length === 0) errorCodes.push(`HTTP_${httpStatus}`);
       console.error(
-        `  Creators API HTTP ${httpStatus} — error codes: ${errorCodes.join(", ")}`
+        `  Creators API HTTP ${httpStatus} — error codes: ${errorCodes.join(", ")}; ` +
+          `response body: ${sanitizeErrorBody(body)}`
       );
     } else if (Array.isArray(body.errors) && body.errors.length > 0) {
       // Partial per-item errors within a 200 response
@@ -312,17 +322,15 @@ function indexResponse(response, priceMap, errorMap) {
     const listing = item.offersV2?.listings?.[0];
     const money = listing?.price?.money;
     const image = item.images?.primary?.large?.url ?? null;
-    const maxOrderQuantity = listing?.availability?.maxOrderQuantity ?? 0;
     if (money?.amount != null && money?.displayAmount) {
       priceMap.set(asin, {
         amount: money.amount,
         display: money.displayAmount,
-        availability: maxOrderQuantity > 0 ? "Available" : "",
-        isBuyBoxWinner: listing?.isBuyBoxWinner === true,
         image, // captured but not written to products-data.js for Trail-Built
       });
     } else {
       errorMap.set(asin, "NoOffer");
+      priceMap.set(asin, { amount: 0, display: "", image });
     }
   }
 }
@@ -348,7 +356,7 @@ function updateProductBlocks(source, priceMap) {
     const asin = m[1];
     const data = priceMap.get(asin);
     if (!data) continue;
-    if (data.amount == null || !data.display) continue;
+    if (data.amount == null) continue;
 
     // Find the enclosing object block
     const asinPos = m.index;
@@ -376,13 +384,9 @@ function updateProductBlocks(source, priceMap) {
     // Strip the outer quotes since the regex replacement keeps them via capture groups.
     const displayInner = safeDisplay.slice(1, -1);
 
-    const safeAvailability = JSON.stringify(data.availability || "");
     const nb = block
-      .replace(/\n\s*availability:\s*"[^"]*",?/g, "")
-      .replace(/\n\s*isBuyBoxWinner:\s*(?:true|false),?/g, "")
       .replace(/(\bprice:\s*)[0-9]+(?:\.[0-9]+)?(,)/, (_, p1, p2) => `${p1}${numStr}${p2}`)
-      .replace(/(\bpriceDisplay:\s*")[^"]*(")/,  (_, p1, p2) => `${p1}${displayInner}${p2}`)
-      .replace(/(\bpriceDisplay:\s*"[^"]*")/, `$1,\n    availability: ${safeAvailability},\n    isBuyBoxWinner: ${data.isBuyBoxWinner}`);
+      .replace(/(\bpriceDisplay:\s*")[^"]*(")/,  (_, p1, p2) => `${p1}${displayInner}${p2}`);
 
     if (nb !== block) {
       result += source.slice(cursor, open) + nb;

@@ -37,6 +37,8 @@ from typing import Any, Optional
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_REPORT = REPO_ROOT / "asin_mapping_report.json"
 WARN_MODE = os.environ.get("ASIN_VALIDATE", "").strip().lower() == "warn"
+# Creators API app is registered to this store; site affiliate links keep their own tags.
+API_PARTNER_TAG = "trailbuiltove-20"
 ASIN_LINK_RE = re.compile(
     r"https?://(?:www\.)?amazon\.com/(?:[^\"'\s>]+/)?dp/([A-Z0-9]{10})(?:[/?#&]|$)",
     re.IGNORECASE,
@@ -299,7 +301,13 @@ class CreatorsClient:
     def __init__(self, credential_id: str, credential_secret: str, partner_tag: str) -> None:
         self.credential_id = credential_id
         self.credential_secret = credential_secret
-        self.partner_tag = partner_tag
+        if partner_tag and partner_tag != API_PARTNER_TAG:
+            print(
+                "WARNING: configured Creators API partner tag differs from the app registration; "
+                "using trailbuiltove-20 for API requests.",
+                file=sys.stderr,
+            )
+        self.partner_tag = API_PARTNER_TAG
         self.token: Optional[str] = None
         self.token_expiry = 0.0
 

@@ -41,7 +41,9 @@ from typing import Optional
 # silently reactivate a deprecated integration.
 CREATORS_API_CLIENT_ID = os.environ.get("CREATORS_API_CLIENT_ID", "")
 CREATORS_API_CLIENT_SECRET = os.environ.get("CREATORS_API_CLIENT_SECRET", "")
-CREATORS_API_PARTNER_TAG = os.environ.get("CREATORS_API_PARTNER_TAG", "trailbuiltove-20")
+# Creators API app is registered to this store; site affiliate links keep their own tags.
+API_PARTNER_TAG = "trailbuiltove-20"
+CONFIGURED_PARTNER_TAG = os.environ.get("CREATORS_API_PARTNER_TAG", "")
 CREATORS_API_MARKETPLACE   = os.environ.get("CREATORS_API_MARKETPLACE", "www.amazon.com")
 
 # OAuth 2.0 token endpoints. New Creators API credentials use v3 LwA;
@@ -62,6 +64,7 @@ _token_cache: dict = {"token": None, "expires_at": 0.0}
 
 # Rate limiting: be polite to both the API and the scrape fallback
 _last_api_call = 0.0
+_partner_tag_warning_emitted = False
 API_RATE_LIMIT_SECONDS = 1.1
 # A full-site validation can temporarily reach Amazon's per-client request quota.
 # Retry only HTTP 429 responses after a conservative server cooldown; all other
@@ -159,6 +162,18 @@ def _title_matches(expected: str, amazon_title: str,
 # ─────────────────────────────────────────────────────────────────────────────
 # Creators API — OAuth 2.0 token management
 # ─────────────────────────────────────────────────────────────────────────────
+def _warn_partner_tag_mismatch() -> None:
+    """Warn once without exposing any configured environment value."""
+    global _partner_tag_warning_emitted
+    if not _partner_tag_warning_emitted and CONFIGURED_PARTNER_TAG and CONFIGURED_PARTNER_TAG != API_PARTNER_TAG:
+        print(
+            "WARNING: configured Creators API partner tag differs from the app registration; "
+            "using trailbuiltove-20 for API requests.",
+            file=sys.stderr,
+        )
+        _partner_tag_warning_emitted = True
+
+
 def _oauth_error_detail(error: Exception) -> str:
     """Return the exact OAuth status/body without ever including submitted credentials."""
     if isinstance(error, urllib.error.HTTPError):
@@ -232,6 +247,7 @@ def _creators_api_lookup(asin: str) -> dict:
     Docs: https://affiliate-program.amazon.com/creatorsapi/docs/en-us/get-started/using-curl
     """
     global _last_api_call
+    _warn_partner_tag_mismatch()
 
     # Rate limiting
     elapsed = time.time() - _last_api_call
@@ -244,7 +260,7 @@ def _creators_api_lookup(asin: str) -> dict:
         "itemIds": [asin],
         "itemIdType": "ASIN",
         "marketplace": CREATORS_API_MARKETPLACE,
-        "partnerTag": CREATORS_API_PARTNER_TAG,
+        "partnerTag": API_PARTNER_TAG,
         "resources": [
             "itemInfo.title",
             "images.primary.large",
@@ -292,6 +308,7 @@ def search_catalog_items(query: str, item_count: int = 10) -> list[dict]:
     if not (CREATORS_API_CLIENT_ID and CREATORS_API_CLIENT_SECRET) or not query.strip():
         return []
     global _last_api_call
+    _warn_partner_tag_mismatch()
     elapsed = time.time() - _last_api_call
     if elapsed < API_RATE_LIMIT_SECONDS:
         time.sleep(API_RATE_LIMIT_SECONDS - elapsed)
@@ -302,7 +319,7 @@ def search_catalog_items(query: str, item_count: int = 10) -> list[dict]:
         "searchIndex": "All",
         "availability": "IncludeOutOfStock",
         "marketplace": CREATORS_API_MARKETPLACE,
-        "partnerTag": CREATORS_API_PARTNER_TAG,
+        "partnerTag": API_PARTNER_TAG,
         "resources": ["itemInfo.title", "itemInfo.features", "itemInfo.productInfo"],
     }).encode("utf-8")
     req = urllib.request.Request(
