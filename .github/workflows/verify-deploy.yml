@@ -6,6 +6,10 @@ on:
     paths-ignore:
       - '.github/**'
 
+permissions:
+  contents: read
+  issues: write
+
 jobs:
   verify:
     name: Poll version.txt until live
