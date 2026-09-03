@@ -1,0 +1,62 @@
+name: Daily Creators API Price Sync
+
+on:
+  schedule:
+    - cron: "0 10 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: daily-price-sync
+  cancel-in-progress: false
+
+jobs:
+  price-sync:
+    name: Sync prices and images without blocking deploys
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Run price and image sync
+        id: sync
+        continue-on-error: true
+        env:
+          CREATORS_API_CLIENT_ID: ${{ secrets.CREATORS_API_CLIENT_ID }}
+          CREATORS_API_CLIENT_SECRET: ${{ secrets.CREATORS_API_CLIENT_SECRET }}
+        run: node scripts/fetch-prices.js
+
+      - name: Record advisory sync incident
+        if: steps.sync.outcome == 'failure'
+        run: echo "::warning::Daily Creators API sync failed; the report is retained and the browser freshness gate will hide stale catalog data."
+
+      - name: Create advisory sync issue
+        if: steps.sync.outcome == 'failure'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "Daily Creators API price sync needs attention" \
+            --body "The daily price sync failed in run ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}. The workflow remained non-blocking; its report will cause the browser freshness gate to hide stale catalog data."
+
+      - name: Commit report and successful catalog updates
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add js/products-data.js price-sync-report.json
+          if git diff --cached --quiet; then
+            echo "No price, image, or report changes — nothing to commit."
+          else
+            git commit -m "chore: daily Creators API price/image sync"
+            git push
+          fi
