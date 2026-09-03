@@ -1004,6 +1004,7 @@ function buildHTML({ slug, title, description, ogImage, topic, bodyHTML, date, d
   </div>
 </header>
 
+<main id="main-content">
 <div class="article-header">
   <div class="container">
     <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -1078,6 +1079,7 @@ function buildHTML({ slug, title, description, ogImage, topic, bodyHTML, date, d
     </aside>
   </div>
 </div>
+</main>
 
 <button class="back-to-top" aria-label="Back to top" title="Back to top">&#8679;</button>
 
