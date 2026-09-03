@@ -52,6 +52,10 @@ IMAGELESS_PRODUCT_EXCEPTIONS = {
     ("articles/best-overlanding-headlamps-and-lanterns.html", "Nitecore NU25 360 Lumen Rechargeable Headlamp"),
     ("articles/best-overlanding-solar-and-power.html", "Jackery Explorer 1000 v2 Portable Power Station"),
     ("articles/best-overlanding-solar-generators-and-power-banks.html", "Jackery Explorer 1000 v2 Portable Power Station"),
+    # Approved 2026-09-03 solar-guide deferrals: live verified products awaiting exact Creators-API images.
+    ("articles/best-overlanding-solar-power-setup-guide.html", "Goal Zero Nomad 100 Watt Monocrystalline Portable Solar Panel"),
+    ("articles/best-overlanding-solar-power-setup-guide.html", "Jackery Explorer 1000 v2 Portable Power Station"),
+    ("articles/best-overlanding-solar-power-setup-guide.html", "Renogy Solar Panels 200 Watt, N-Type Solar Panel"),
     ("categories/bumpers-armor.html", "ARB 2021 Ford Bronco Summit Winch Bumper"),
     ("categories/sleeping-camp.html", "Naturnest Sirius 1 Hardshell Rooftop Tent"),
     ("articles/best-skid-plates-for-off-road-trucks.html", "ARB 4x4 Accessories 5421110 Skid Plate"),

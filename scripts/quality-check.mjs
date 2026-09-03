@@ -8,6 +8,14 @@ const LEGACY_MIN_PRODUCT_BOX_ARTICLES = [
   'articles/best-vehicle-communication-gear-for-overlanding.html',
 ];
 
+// Live verified products may be text-first only when an article-title pair is explicitly
+// approved for image deferral. All unlisted cards must keep the canonical local-image markup.
+const IMAGELESS_PRODUCT_EXCEPTIONS = new Set([
+  'articles/best-overlanding-solar-power-setup-guide.html::Goal Zero Nomad 100 Watt Monocrystalline Portable Solar Panel',
+  'articles/best-overlanding-solar-power-setup-guide.html::Jackery Explorer 1000 v2 Portable Power Station',
+  'articles/best-overlanding-solar-power-setup-guide.html::Renogy Solar Panels 200 Watt, N-Type Solar Panel',
+]);
+
 function printUsage() {
   console.log('Usage: node scripts/quality-check.mjs [--scoped-run] [--article <articles/file.html>]... [--report <path>]');
   console.log('Without --scoped-run or --article, all legacy min-product-box targets are validated strictly (local full check).');
@@ -124,9 +132,12 @@ for (const article of productBoxValidationArticles) {
   // remain a content defect worth surfacing.
   for (const [i, match] of boxes.entries()) {
     const box = match[0];
-    if (!/class="product-box-image"/.test(box)) errors.push(`${article}: product box ${i + 1} missing product image wrapper`);
-    if (!/<img [^>]*src="\.\.\/assets\/product-images\//.test(box)) errors.push(`${article}: product box ${i + 1} missing local product image src`);
-    if (!/<img [^>]*alt="[^"]{12,}"/.test(box)) errors.push(`${article}: product box ${i + 1} missing descriptive image alt text`);
+    const title = box.match(/<h4[^>]*>([\s\S]*?)<\/h4>/i)?.[1].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim() || '';
+    const isApprovedTextFirst = IMAGELESS_PRODUCT_EXCEPTIONS.has(`${article}::${title}`);
+    if (!isApprovedTextFirst && !/class="product-box-image"/.test(box)) errors.push(`${article}: product box ${i + 1} missing product image wrapper`);
+    if (!isApprovedTextFirst && !/<img [^>]*src="\.\.\/assets\/product-images\//.test(box)) errors.push(`${article}: product box ${i + 1} missing local product image src`);
+    if (!isApprovedTextFirst && !/<img [^>]*alt="[^"]{12,}"/.test(box)) errors.push(`${article}: product box ${i + 1} missing descriptive image alt text`);
+    if (isApprovedTextFirst && /<img\b/i.test(box)) errors.push(`${article}: deferred product box ${i + 1} must remain image-free`);
     if (!/href="https:\/\/www\.amazon\.com\/dp\/[A-Z0-9]{10}\?tag=trailbuiltove-20"/.test(box)) errors.push(`${article}: product box ${i + 1} missing direct tagged Amazon dp link`);
     if (/amazon\.com\/s\?k=/.test(box)) errors.push(`${article}: product box ${i + 1} still uses generic Amazon search link`);
   }
