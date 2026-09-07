@@ -139,6 +139,15 @@ exports.handler = async function (event) {
   }
 
   if (klaviyoResponse.ok) {
+    // Consume the upstream response before ending the serverless invocation.
+    // This prevents Netlify from finalizing the invocation before serializing
+    // the client-facing, byte-compatible JSON success body.
+    try {
+      await klaviyoResponse.arrayBuffer();
+    } catch {
+      // A successful subscription remains successful even if an empty upstream
+      // acknowledgement body cannot be read.
+    }
     return {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
