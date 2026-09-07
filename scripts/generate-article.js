@@ -927,6 +927,7 @@ function buildHTML({ slug, title, description, ogImage, topic, bodyHTML, date, d
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="google-site-verification" content="-SPOBgw4SJuET6ls2todjugd59xdelE3YnaputXr6ps" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-GX99D9KWL0"></script>
