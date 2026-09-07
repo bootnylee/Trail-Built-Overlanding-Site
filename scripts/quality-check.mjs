@@ -14,6 +14,11 @@ const IMAGELESS_PRODUCT_EXCEPTIONS = new Set([
   'articles/best-overlanding-solar-power-setup-guide.html::Goal Zero Nomad 100 Watt Monocrystalline Portable Solar Panel',
   'articles/best-overlanding-solar-power-setup-guide.html::Jackery Explorer 1000 v2 Portable Power Station',
   'articles/best-overlanding-solar-power-setup-guide.html::Renogy Solar Panels 200 Watt, N-Type Solar Panel',
+  'articles/best-overlanding-air-compressors.html::VIAIR 400P EF Enhanced Flow - 40143 Tire Inflator Portable Offroad Air Compressor for Truck & SUV | 12V On/Off Road Tire Pump Air Compressor | 150 PSI (SAE, Alligator Clips)',
+  'articles/best-overlanding-air-compressors.html::VIAIR 450P-RV Automatic Portable Air Compressor Kit for RV, Truck and SUV Tires | VIAIR RV Winterization Kit',
+  'articles/best-overlanding-air-compressors.html::VIAIR 400P - 40045, Automatic Function Portable Compressor Kit, Tire Pump, Truck/SUV Tire Inflator, Silver, For up to 35 Inch Tires',
+  'articles/best-overlanding-air-compressors.html::VIAIR 400P - 40043 Portable Compressor Kit. Tire Pump, Truck/SUV Tire Inflator, For Up to 35 Inch Tires',
+  'articles/best-overlanding-air-compressors.html::VIAIR 300P - 30033 Tire Inflator Portable Offroad Air Compressor for Truck & SUV, 12V On/Off Road Tire Pump Air Compressor Portable Heavy Duty 150 PSI',
 ]);
 
 function printUsage() {
