@@ -154,8 +154,9 @@ function renderHtml(article) {
           <div style="margin:0;color:${palette.heading};font-size:27px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">Trail <span style="color:${palette.accent};">Built</span></div>
           <div style="margin-top:7px;color:${palette.muted};font-size:13px;letter-spacing:.5px;">${escapeHtml(config.tagline)}</div>
         </td></tr>
-        <tr><td>
-          <img src="${escapeHtml(article.heroImage)}" alt="${escapeHtml(article.title)}" width="600" style="display:block;width:100%;height:auto;border:0;">
+        <tr><td align="center" style="background:${palette.card};border-bottom:1px solid ${palette.accent};padding:18px 28px;">
+          <div style="color:${palette.accent};font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;">Trail Built Dispatch</div>
+          <div style="margin-top:6px;color:${palette.muted};font-size:13px;line-height:1.5;">Practical guides for the road beyond the pavement.</div>
         </td></tr>
         <tr><td style="padding:32px 34px 18px;color:${palette.body};font-size:16px;line-height:1.7;">
           <div style="color:${palette.accent};font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;margin:0 0 12px;">New from Trail Built</div>

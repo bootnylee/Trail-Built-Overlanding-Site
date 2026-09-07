@@ -1,23 +1,59 @@
 /**
  * Netlify Function: subscribe
  *
- * Adds a subscriber to the Trail Built Overlanding EmailOctopus list.
- * Uses the EmailOctopus API v2 (https://api.emailoctopus.com).
+ * Adds a subscriber to the Trail Built Klaviyo list.
  * Credentials are read exclusively from Netlify environment variables —
  * they are never committed, logged, or returned in any response.
  *
  * Required env vars (set in Netlify dashboard → Site configuration → Env vars):
- *   EMAILOCTOPUS_API_KEY   — your EmailOctopus v2 API key
- *   EMAILOCTOPUS_LIST_ID   — the target list ID (UUID format)
+ *   KLAVIYO_API_KEY — a private Klaviyo API key with profile, list, and subscription write scopes
+ *
+ * EmailOctopus configuration remains available for rollback and is deliberately
+ * not used by this live handler.
  *
  * Request:  POST /.netlify/functions/subscribe
  *           Content-Type: application/json
  *           Body: { "email": "subscriber@example.com" }
  *
  * Response 200: { "ok": true }
- * Response 400: { "ok": false, "error": "<friendly message or EO error code>" }
+ * Response 400: { "ok": false, "error": "<friendly message or service error code>" }
  * Response 500: { "ok": false, "error": "configuration-missing" }
  */
+
+const KLAVIYO_API_BASE = "https://a.klaviyo.com/api";
+const KLAVIYO_REVISION = "2026-07-15";
+const KLAVIYO_LIST_ID = "RG559L";
+
+// Retained for the documented EmailOctopus rollback path. Do not remove these
+// environment-variable reads without an approved rollback-plan change.
+const EMAILOCTOPUS_API_KEY = process.env.EMAILOCTOPUS_API_KEY;
+const EMAILOCTOPUS_LIST_ID = process.env.EMAILOCTOPUS_LIST_ID;
+const EMAILOCTOPUS_API_BASE = "https://api.emailoctopus.com";
+
+function klaviyoHeaders(apiKey) {
+  return {
+    Accept: "application/vnd.api+json",
+    "Content-Type": "application/vnd.api+json",
+    Authorization: `Klaviyo-API-Key ${apiKey}`,
+    revision: KLAVIYO_REVISION,
+  };
+}
+
+async function responseData(response) {
+  try {
+    return await response.json();
+  } catch {
+    return {};
+  }
+}
+
+function errorCode(response, data) {
+  return (
+    (typeof data?.errors?.[0]?.code === "string" && data.errors[0].code) ||
+    (typeof data?.errors?.[0]?.title === "string" && data.errors[0].title) ||
+    String(response.status)
+  );
+}
 
 exports.handler = async function (event) {
   // Only accept POST
@@ -26,18 +62,6 @@ exports.handler = async function (event) {
       statusCode: 405,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ok: false, error: "Method not allowed" }),
-    };
-  }
-
-  // Validate env vars — return a clean error, never crash
-  const apiKey = process.env.EMAILOCTOPUS_API_KEY;
-  const listId = process.env.EMAILOCTOPUS_LIST_ID;
-  if (!apiKey || !listId) {
-    console.error("[subscribe] Missing EMAILOCTOPUS_API_KEY or EMAILOCTOPUS_LIST_ID env vars");
-    return {
-      statusCode: 500,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ok: false, error: "configuration-missing" }),
     };
   }
 
@@ -62,27 +86,51 @@ exports.handler = async function (event) {
     };
   }
 
-  // Call EmailOctopus API v2
-  // Docs: https://emailoctopus.com/api-documentation/v2#tag/Contact/operation/postListsListIdContacts
-  // Auth: Bearer token in Authorization header — API key is never placed in the request body
-  const eoUrl = `https://api.emailoctopus.com/lists/${listId}/contacts`;
+  const apiKey = process.env.KLAVIYO_API_KEY;
+  if (!apiKey) {
+    console.error("[subscribe] KLAVIYO_API_KEY is not configured");
+    return {
+      statusCode: 500,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ok: false, error: "configuration-missing" }),
+    };
+  }
 
-  let eoRes, eoData;
+  let klaviyoResponse;
   try {
-    eoRes = await fetch(eoUrl, {
+    klaviyoResponse = await fetch(`${KLAVIYO_API_BASE}/profile-subscription-bulk-create-jobs/`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${apiKey}`,
-      },
+      headers: klaviyoHeaders(apiKey),
       body: JSON.stringify({
-        email_address: email,
-        status: "subscribed",
+        data: {
+          type: "profile-subscription-bulk-create-job",
+          attributes: {
+            profiles: {
+              data: [
+                {
+                  type: "profile",
+                  attributes: {
+                    email,
+                    subscriptions: {
+                      email: {
+                        marketing: { consent: "SUBSCRIBED" },
+                      },
+                    },
+                  },
+                },
+              ],
+            },
+          },
+          relationships: {
+            list: {
+              data: { type: "list", id: KLAVIYO_LIST_ID },
+            },
+          },
+        },
       }),
     });
-    eoData = await eoRes.json();
   } catch (err) {
-    console.error("[subscribe] EmailOctopus network error:", err.message);
+    console.error("[subscribe] Klaviyo network error:", err.message);
     return {
       statusCode: 502,
       headers: { "Content-Type": "application/json" },
@@ -90,8 +138,7 @@ exports.handler = async function (event) {
     };
   }
 
-  // 2xx → success
-  if (eoRes.ok) {
+  if (klaviyoResponse.ok) {
     return {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
@@ -99,30 +146,12 @@ exports.handler = async function (event) {
     };
   }
 
-  // 409 already-exists → treat as success (idempotent subscribe)
-  if (
-    eoRes.status === 409 &&
-    typeof eoData?.type === "string" &&
-    eoData.type.includes("already-exists")
-  ) {
-    return {
-      statusCode: 200,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ok: true }),
-    };
-  }
-
-  // All other non-2xx responses → surface the HTTP status and EO error type
-  // Never log or return the API key, list ID, or request body
-  const errorCode =
-    (typeof eoData?.type === "string"
-      ? eoData.type.split("/").pop()
-      : null) ||
-    String(eoRes.status);
-  console.error("[subscribe] EmailOctopus error status:", eoRes.status, "type:", errorCode);
+  const klaviyoData = await responseData(klaviyoResponse);
+  const serviceErrorCode = errorCode(klaviyoResponse, klaviyoData);
+  console.error("[subscribe] Klaviyo error status:", klaviyoResponse.status, "code:", serviceErrorCode);
   return {
-    statusCode: eoRes.status >= 400 && eoRes.status < 500 ? 400 : 502,
+    statusCode: klaviyoResponse.status >= 400 && klaviyoResponse.status < 500 ? 400 : 502,
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ ok: false, error: errorCode }),
+    body: JSON.stringify({ ok: false, error: serviceErrorCode }),
   };
 };
