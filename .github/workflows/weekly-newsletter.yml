@@ -2,7 +2,7 @@ name: Prepare Weekly Newsletter
 
 on:
   schedule:
-    - cron: "0 16 * * 2"
+    - cron: "0 13 * * 2"
   workflow_dispatch:
 
 permissions:
