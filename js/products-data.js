@@ -650,6 +650,13 @@ window.TrailBuiltProducts = {
     name: "ICECO GO20 Dual Zone Portable Refrigerator",
     price: 0.00,
     priceDisplay: ""
+  },
+
+  "B0DVM1G8VM": {
+    asin: "B0DVM1G8VM",
+    name: "Dometic CFX5 35L Electric Cooler",
+    price: 0.00,
+    priceDisplay: ""
   }
 };
 /**
