@@ -31,6 +31,7 @@ REPO_ROOT = Path(__file__).parent.parent
 AFFILIATE_TAG = "trailbuiltove-20"
 REQUEST_DELAY = 1.25
 WARN_MODE = os.environ.get("ASIN_VALIDATE", "").strip().lower() == "warn"
+PRICE_SYNC_REPORT = REPO_ROOT / "price-sync-report.json"
 ASIN_PATTERN = re.compile(r"/dp/([A-Z0-9]{10})(?:[/?#]|$)")
 VALID_ASIN = re.compile(r"^[A-Z0-9]{10}$")
 VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}
@@ -232,7 +233,22 @@ def validate_search(record: dict) -> tuple[bool, str, str]:
     return True, "targeted Amazon search query matches visible product label", target
 
 
-def validate_records(records: list[dict], static_only: bool) -> dict:
+def account_is_ineligible() -> bool:
+    """Return true only when the preceding price sync confirmed account-level ineligibility."""
+    try:
+        payload = json.loads(PRICE_SYNC_REPORT.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return False
+    eligibility = payload.get("accountEligibility") or {}
+    return (
+        payload.get("mode") == "account-ineligible"
+        and eligibility.get("status") == "ineligible"
+        and eligibility.get("reason") == "AssociateNotEligible"
+        and eligibility.get("skipDownstreamAsinLookups") is True
+    )
+
+
+def validate_records(records: list[dict], static_only: bool, remote_lookups_disabled: bool = False) -> dict:
     report = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "scope": "site-wide HTML product cards, sidebars, and named promotional links",
@@ -260,8 +276,10 @@ def validate_records(records: list[dict], static_only: bool) -> dict:
             report["products"].append(result)
             continue
 
-        if static_only:
+        if static_only or remote_lookups_disabled:
             result.update({"status": "UNVERIFIED", "issue": "static-only run: Amazon title not requested"})
+            if remote_lookups_disabled:
+                result["issue"] = "live Amazon lookup skipped after account-level Creators API ineligibility"
             report["unverified_live_checks"] += 1
             report["products"].append(result)
             continue
@@ -299,8 +317,19 @@ def main() -> int:
 
     files = source_files(args.article)
     records = [record for source_file in files for record in extract_from_html(source_file)]
-    report = validate_records(records, static_only=args.static_only)
+    remote_lookups_disabled = not args.static_only and account_is_ineligible()
+    report = validate_records(
+        records,
+        static_only=args.static_only,
+        remote_lookups_disabled=remote_lookups_disabled,
+    )
     report["files_checked"] = [str(path.relative_to(REPO_ROOT)) for path in files]
+    if remote_lookups_disabled:
+        report["remote_validation"] = {
+            "status": "skipped",
+            "reason": "AssociateNotEligible",
+            "source": "price-sync-report.json",
+        }
 
     output = Path(args.output)
     if not output.is_absolute():

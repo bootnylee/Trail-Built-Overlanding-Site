@@ -79,6 +79,8 @@ const RESOURCES = ["offersV2.listings.price", "images.primary.large"];
 
 const DRY_RUN = process.argv.includes("--dry-run");
 const WARN_MODE = (process.env.ASIN_VALIDATE || "").trim().toLowerCase() === "warn";
+const ASSOCIATE_NOT_ELIGIBLE_LOG_LINE =
+  "Amazon price and ASIN validation are unavailable because the Associates account is not currently eligible; eligibility requires 10 qualified sales in the trailing 30 days. The site is unaffected because prices are not displayed.";
 
 // ─── Credentials (env only — never logged, never hardcoded) ─────────────────
 
@@ -158,7 +160,6 @@ async function fetchToken_v3(credentials) {
 
   const expiresIn = (data.expires_in ?? 3600) - TOKEN_EXPIRY_BUFFER_MS / 1000;
   _tokenCache = { accessToken: data.access_token, expiresAt: Date.now() + expiresIn * 1000 };
-  console.log("  OAuth2 token acquired (v3.x LwA)");
   return data.access_token;
 }
 
@@ -195,7 +196,6 @@ async function fetchToken_v2(credentials) {
 
   const expiresIn = (data.expires_in ?? 3600) - TOKEN_EXPIRY_BUFFER_MS / 1000;
   _tokenCache = { accessToken: data.access_token, expiresAt: Date.now() + expiresIn * 1000 };
-  console.log("  OAuth2 token acquired (v2.x Cognito)");
   return data.access_token;
 }
 
@@ -211,11 +211,27 @@ function sanitizeErrorBody(body) {
     .slice(0, 500);
 }
 
+function isAssociateNotEligibleResponse(httpStatus, body, errorCodes = []) {
+  if (httpStatus !== 403) return false;
+  const candidates = [
+    ...errorCodes,
+    body?.reason,
+    body?.code,
+    body?.error,
+    body?.__type,
+    ...(Array.isArray(body?.errors)
+      ? body.errors.flatMap((error) => [error?.reason, error?.code, error?.type])
+      : []),
+  ];
+  return candidates.some((value) => String(value ?? "").toLowerCase() === "associatenoteligible");
+}
+
 /**
- * Returns { body, httpStatus, errorCodes } where:
+ * Returns { body, httpStatus, errorCodes, accountIneligible } where:
  *   body        — parsed JSON response (may contain itemsResult and/or errors)
  *   httpStatus  — numeric HTTP status code (always captured)
  *   errorCodes  — array of error code strings from the response (never credential material)
+ *   accountIneligible — true only for the account-wide AssociateNotEligible response
  */
 async function getItems(credentials, asins) {
   const accessToken = await getAccessToken(credentials);
@@ -265,13 +281,19 @@ async function getItems(credentials, asins) {
       if (Array.isArray(body.errors)) {
         for (const e of body.errors) {
           if (e.code) errorCodes.push(e.code);
+          if (e.reason) errorCodes.push(e.reason);
         }
       }
+      if (body.reason) errorCodes.push(body.reason);
       if (errorCodes.length === 0) errorCodes.push(`HTTP_${httpStatus}`);
-      console.error(
-        `  Creators API HTTP ${httpStatus} — error codes: ${errorCodes.join(", ")}; ` +
-          `response body: ${sanitizeErrorBody(body)}`
-      );
+      const accountIneligible = isAssociateNotEligibleResponse(httpStatus, body, errorCodes);
+      if (!accountIneligible) {
+        console.error(
+          `  Creators API HTTP ${httpStatus} — error codes: ${errorCodes.join(", ")}; ` +
+            `response body: ${sanitizeErrorBody(body)}`
+        );
+      }
+      return { body, httpStatus, errorCodes, accountIneligible };
     } else if (Array.isArray(body.errors) && body.errors.length > 0) {
       // Partial per-item errors within a 200 response
       for (const e of body.errors) {
@@ -279,7 +301,7 @@ async function getItems(credentials, asins) {
       }
     }
 
-    return { body, httpStatus, errorCodes };
+    return { body, httpStatus, errorCodes, accountIneligible: false };
   }
 }
 
@@ -406,8 +428,6 @@ async function main() {
   // Query all direct product ASINs, including entries currently priced at zero.
   // A zero-price record may simply be an older unavailable snapshot; GetItems is
   // the only authoritative way to determine whether a current offer exists.
-  console.log(`Found ${asins.length} direct product ASINs in products-data.js`);
-
   const priceMap = new Map();
   const errorMap = new Map();
   // batchErrors captures per-batch HTTP status and error codes for the report.
@@ -439,9 +459,33 @@ async function main() {
     for (let i = 0; i < asins.length; i += BATCH_SIZE) {
       const batch = asins.slice(i, i + BATCH_SIZE);
       const batchNum = i / BATCH_SIZE + 1;
-      console.log(`Fetching batch ${batchNum}/${totalBatches} (${batch.length} ASINs)`);
       try {
-        const { body, httpStatus, errorCodes } = await getItems(credentials, batch);
+        const { body, httpStatus, errorCodes, accountIneligible } = await getItems(credentials, batch);
+
+        if (accountIneligible) {
+          const report = {
+            generatedAt: new Date().toISOString(),
+            mode: "account-ineligible",
+            totalAsins: asins.length,
+            updatedCount: 0,
+            updated: [],
+            flagged: [],
+            batchErrors: [{ batchNum, httpStatus, errorCodes: ["AssociateNotEligible"] }],
+            accountEligibility: {
+              status: "ineligible",
+              reason: "AssociateNotEligible",
+              skipDownstreamAsinLookups: true,
+            },
+          };
+          fs.writeFileSync(REPORT_FILE, JSON.stringify(report, null, 2) + "\n", "utf8");
+          console.error(ASSOCIATE_NOT_ELIGIBLE_LOG_LINE);
+          // The production build uses ASIN_VALIDATE=warn. Preserve the existing
+          // strict-mode gate for callers that deliberately opt out of warn mode.
+          if (!WARN_MODE) process.exit(1);
+          return;
+        }
+
+        console.log(`Fetching batch ${batchNum}/${totalBatches} (${batch.length} ASINs)`);
 
         if (httpStatus !== 200 && errorCodes.length > 0) {
           batchErrors.push({ batchNum, httpStatus, errorCodes });
@@ -546,12 +590,16 @@ async function main() {
   }
 }
 
-main().catch((err) => {
-  if (WARN_MODE) {
-    console.error(`WARN-ONLY: remote price-sync fatal error: ${err.message}`);
-    process.exitCode = 0;
-    return;
-  }
-  console.error(`FATAL: ${err.message}`);
-  process.exit(1);
-});
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main().catch((err) => {
+    if (WARN_MODE) {
+      console.error(`WARN-ONLY: remote price-sync fatal error: ${err.message}`);
+      process.exitCode = 0;
+      return;
+    }
+    console.error(`FATAL: ${err.message}`);
+    process.exit(1);
+  });
+}
+
+export { ASSOCIATE_NOT_ELIGIBLE_LOG_LINE, isAssociateNotEligibleResponse, main };

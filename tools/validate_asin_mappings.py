@@ -485,6 +485,19 @@ def load_primary_titles(report_path: Path) -> dict[tuple[str, str], str]:
     return titles
 
 
+def primary_report_confirms_account_ineligibility(report_path: Path) -> bool:
+    """Detect the price-sync signal that makes all live ASIN checks unavailable."""
+    try:
+        payload = json.loads(report_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return False
+    remote_validation = payload.get("remote_validation") or {}
+    return (
+        remote_validation.get("status") == "skipped"
+        and remote_validation.get("reason") == "AssociateNotEligible"
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Validate Amazon ASIN mappings against visible HTML product context")
     parser.add_argument("--output", default=str(DEFAULT_REPORT), help="JSON report path")
@@ -515,6 +528,7 @@ def main() -> int:
         extracted = extracted[: args.max_links]
 
     upstream_lookup_error = ""
+    account_ineligible = False
     try:
         primary_titles = load_primary_titles(Path(args.primary_report))
     except RuntimeError as error:
@@ -522,10 +536,12 @@ def main() -> int:
             raise
         primary_titles = {}
         upstream_lookup_error = str(error)
-        print(
-            f"WARN-ONLY: upstream direct-ASIN validation is unavailable: {upstream_lookup_error}",
-            file=sys.stderr,
-        )
+        account_ineligible = primary_report_confirms_account_ineligibility(Path(args.primary_report))
+        if not account_ineligible:
+            print(
+                f"WARN-ONLY: upstream direct-ASIN validation is unavailable: {upstream_lookup_error}",
+                file=sys.stderr,
+            )
 
     print("=" * 72)
     print("ASIN Mapping Validation — Trail Built Overland (blocking gate)")
@@ -534,7 +550,7 @@ def main() -> int:
     print("Lookup source: required authenticated direct-ASIN validation report")
 
     findings: list[dict[str, Any]] = []
-    for link in extracted:
+    for link in ([] if account_ineligible else extracted):
         asin = link["asin"]
         context_name = link["context_name"]
         primary_key = (link["page"], asin)
@@ -604,7 +620,11 @@ def main() -> int:
         "html_files_scanned": len(html_files),
         "links_found": len(extracted),
         "unique_asins": len({item["asin"] for item in findings}),
-        "lookup_mode": "authenticated_primary_direct_asin_report",
+        "lookup_mode": (
+            "skipped_account_ineligible"
+            if account_ineligible
+            else "authenticated_primary_direct_asin_report"
+        ),
         "summary": {
             **counts,
             "parse_errors": len(parse_errors),
