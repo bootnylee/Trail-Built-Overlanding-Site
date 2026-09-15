@@ -191,13 +191,16 @@ def comparison_table(soup: BeautifulSoup, records: list[dict]) -> Tag:
     heading = soup.new_tag("h2")
     heading.string = "Compare the Top Picks"
     note = soup.new_tag("p", attrs={"class": "guide-comparison-note"})
-    note.string = "Prices and offer details appear only after a fresh Amazon catalog refresh."
+    note.string = "Review each product section for current Amazon availability and offer details."
     header.extend([heading, note])
     wrap = soup.new_tag("div", attrs={"class": "guide-table-wrap"})
     table = soup.new_tag("table", attrs={"class": "guide-comparison-table"})
     thead = soup.new_tag("thead")
     tr = soup.new_tag("tr")
-    for label in ("Product", "Key spec(s)", "Price", "Buy"):
+    # Amazon offer data is volatile. Do not declare a Price column unless the
+    # same render pass supplies a current official catalog value for every row.
+    # Static guide HTML has no such payload, so the table intentionally omits it.
+    for label in ("Product", "Key spec(s)", "Buy"):
         th = soup.new_tag("th")
         th.string = label
         tr.append(th)
@@ -209,20 +212,12 @@ def comparison_table(soup: BeautifulSoup, records: list[dict]) -> Tag:
         name.string = record["display_name"]
         spec = soup.new_tag("td", attrs={"class": "guide-comparison-spec"})
         spec.string = record["spec"]
-        price_cell = soup.new_tag("td")
         buy = soup.new_tag("td")
         if record["asin"]:
-            price = soup.new_tag("span", attrs={"class": "guide-price", "data-asin": record["asin"], "data-catalog-price": "", "hidden": ""})
-            availability = soup.new_tag("span", attrs={"class": "guide-availability", "data-asin": record["asin"], "data-catalog-availability": "", "hidden": ""})
-            badge = soup.new_tag("span", attrs={"class": "guide-catalog-badge", "data-asin": record["asin"], "data-catalog-badge": "", "hidden": ""})
-            price_cell.extend([price, availability, badge])
             buy.append(cta(f"https://www.amazon.com/dp/{record['asin']}?tag={TAG}"))
         else:
-            unavailable = soup.new_tag("span", attrs={"class": "guide-unavailable"})
-            unavailable.string = "Not linked"
-            price_cell.append(unavailable)
             buy.append(BeautifulSoup("<span class='guide-unavailable'>No verified link</span>", "html.parser"))
-        row.extend([name, spec, price_cell, buy])
+        row.extend([name, spec, buy])
         tbody.append(row)
     table.extend([thead, tbody])
     wrap.append(table)

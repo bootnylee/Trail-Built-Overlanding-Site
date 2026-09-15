@@ -8,3 +8,5 @@ printf 'Running TrailBuiltOverland product/category image validation before push
 python3.11 scripts/prepush_validate_images.py
 printf 'Running TrailBuiltOverland content-repair validation before push...\n'
 python3.11 scripts/validate-content-repairs.py
+printf 'Running TrailBuiltOverland article chrome validation before push...\n'
+python3.11 scripts/normalize-article-chrome.py --check

@@ -43,6 +43,9 @@ try {
   assert.match(html, /"@type":"ItemList"/);
   assert.match(html, /"numberOfItems":5/);
   assert.match(html, /"@type":"FAQPage"/);
+  assert.doesNotMatch(html, /<th>Price<\/th>/);
+  assert.match(html, /href="\.\.\/about\.html#privacy"/);
+  assert.match(html, /href="\.\.\/about\.html#affiliate"/);
   const output = execFileSync('python3', ['scripts/validate-guide-commerce.py'], {
     cwd: root,
     encoding: 'utf8',

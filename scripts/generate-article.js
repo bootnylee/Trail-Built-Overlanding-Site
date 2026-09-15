@@ -31,6 +31,7 @@ const PRODUCT_IMAGES_DIR = process.env.PRODUCT_IMAGES_DIR || path.join(__dirname
 const PRODUCT_IMAGES_REPO_PREFIX = 'assets/product-images/';
 const HERO_IMAGES_FILE = path.join(__dirname, '..', 'data', 'hero-images.json');
 const HERO_USED_IMAGES_FILE = path.join(__dirname, '..', 'data', 'used-hero-images.json');
+const ARTICLE_FOOTER_FILE = path.join(__dirname, '..', 'templates', 'article-footer.html');
 const MIN_PRODUCT_BOXES = 5;
 
 // ── Topic pool — cycles automatically; add more to extend coverage ──────────
@@ -641,6 +642,14 @@ function buildComparisonTable(products) {
   return `<section class="guide-comparison" data-guide-generated="true"><div class="guide-comparison-header"><h2>Compare the Top Picks</h2><p class="guide-comparison-note">Review each product section for current Amazon availability and offer details.</p></div><div class="guide-table-wrap"><table class="guide-comparison-table"><thead><tr><th>Product</th><th>Key spec(s)</th><th>Review</th></tr></thead><tbody>${products.map(product => `<tr><td>${escapeHtml(product.name)}</td><td>${escapeHtml(product.reviewBody)}</td><td><a href="#top-picks">See pick</a></td></tr>`).join('')}</tbody></table></div></section>`;
 }
 
+function loadArticleFooter() {
+  const template = fs.readFileSync(ARTICLE_FOOTER_FILE, 'utf8');
+  if (!template.includes('{{CURRENT_YEAR}}')) {
+    throw new Error(`Article footer template is missing the CURRENT_YEAR placeholder: ${ARTICLE_FOOTER_FILE}`);
+  }
+  return template.replace('{{CURRENT_YEAR}}', String(new Date().getFullYear())).trim();
+}
+
 function buildMobileStickyCta() {
   return '<div class="guide-mobile-sticky" data-guide-sticky="true"><a class="btn btn-primary" href="#top-picks">View top picks</a></div>';
 }
@@ -922,6 +931,7 @@ function buildHTML({ slug, title, description, ogImage, topic, bodyHTML, date, d
   const articleUrl = `${SITE_URL}/articles/${slug}.html`;
   const cleanTitle = title.replace(' - Trail Built', '').replace(' — Trail Built', '');
   const commerceSchemas = buildCommerceSchemas({ title, articleUrl, bodyHTML, products });
+  const articleFooter = loadArticleFooter();
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -1084,47 +1094,7 @@ function buildHTML({ slug, title, description, ogImage, topic, bodyHTML, date, d
 
 <button class="back-to-top" aria-label="Back to top" title="Back to top">&#8679;</button>
 
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="logo">Trail<span>Built</span></div>
-        <p>Honest overlanding gear reviews. We test everything ourselves.</p>
-        <div class="affiliate-notice"><strong>Affiliate Disclosure:</strong> TrailBuilt earns commissions from qualifying Amazon purchases. This never affects our recommendations.</div>
-        <div class="footer-social">
-          <a href="https://www.instagram.com/trailbuiltoverland" rel="noopener" target="_blank" aria-label="Instagram">&#128247;</a>
-          <a href="https://www.youtube.com/@trailbuiltoverland" rel="noopener" target="_blank" aria-label="YouTube">&#9654;</a>
-          <a href="https://www.pinterest.com/trailbuiltoverland" rel="noopener" target="_blank" aria-label="Pinterest">&#128204;</a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>Reviews</h4>
-        <a href="best-overlanding-recovery-gear.html">Recovery Gear</a>
-        <a href="best-off-road-light-bars.html">Light Bars</a>
-        <a href="rooftop-tent-buying-guide.html">Rooftop Tents</a>
-        <a href="best-overlanding-fridges.html">Fridges &amp; Coolers</a>
-        <a href="../reviews.html">All Reviews</a>
-      </div>
-      <div class="footer-col">
-        <h4>Build Guides</h4>
-        <a href="../articles/4runner-5th-gen-overland-build-guide.html">Toyota 4Runner</a>
-        <a href="../articles/ford-bronco-overland-build-guide.html">Ford Bronco</a>
-        <a href="../articles/toyota-tacoma-overland-build-guide.html">Toyota Tacoma</a>
-        <a href="../articles/jeep-wrangler-overland-build-guide.html">Jeep Wrangler</a>
-        <a href="../build-guides.html">All Build Guides</a>
-      </div>
-      <div class="footer-col">
-        <h4>Site</h4>
-        <a href="../about.html">About</a>
-        <a href="../quiz.html">Rig Quiz</a>
-        <a href="../about.html#privacy">Privacy Policy</a>
-        <a href="../about.html#affiliate">Affiliate Disclosure</a>
-        <a href="../sitemap.xml">Sitemap</a>
-      </div>
-    </div>
-    <div class="footer-bottom"><p>&copy; ${new Date().getFullYear()} Trail Built. All rights reserved.</p></div>
-  </div>
-</footer>
+${articleFooter}
 
 <script src="../js/main.js"><\/script>
 <script src="../js/amazon.js"><\/script>

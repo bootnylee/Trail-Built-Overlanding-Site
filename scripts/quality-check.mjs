@@ -91,6 +91,9 @@ for (const file of htmlFiles) {
   if (/<td\b[^>]*>\s*undefined\s*<\/td>/i.test(text)) {
     errors.push(`${rel}: unresolved comparison-table value 'undefined' found`);
   }
+  if (/<th\b[^>]*>\s*Price\s*<\/th>/i.test(text)) {
+    errors.push(`${rel}: static comparison Price column found without a current catalog-render payload`);
+  }
 }
 
 const scopedRun = scopedRunFlag || normalisedRequestedArticles.length > 0;
