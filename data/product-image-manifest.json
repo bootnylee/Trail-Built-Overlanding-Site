@@ -1,0 +1,281 @@
+{
+  "version": 1,
+  "purpose": "Traceable product-card imagery added under TB-CONTENT-0915.",
+  "assets": [
+    {
+      "path": "assets/product-images/best-overlanding-air-compressors-viair-300p-30033-86c4bea2.jpg",
+      "source": "https://www.amazon.com/dp/B000X90YUO",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "best-overlanding-air-compressors.html"
+      ],
+      "product": "B000X90YUO",
+      "asin": "B000X90YUO"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-air-compressors-viair-400p-40043-a3e7dc2c.jpg",
+      "source": "https://www.amazon.com/VIAIR-40043-400P-Portable-Compressor/dp/B000X9AXR8",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "best-overlanding-air-compressors.html"
+      ],
+      "product": "B000X9AXR8",
+      "asin": "B000X9AXR8"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-air-compressors-viair-400p-automatic-40045-ea2f5ce4.jpg",
+      "source": "https://www.amazon.com/dp/B000X9B32M",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "best-overlanding-air-compressors.html"
+      ],
+      "product": "B000X9B32M",
+      "asin": "B000X9B32M"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-air-compressors-viair-450p-rv-c224a7dc.jpg",
+      "source": "https://www.amazon.com/dp/B0BN83HNN2",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "best-overlanding-air-compressors.html"
+      ],
+      "product": "B0BN83HNN2",
+      "asin": "B0BN83HNN2"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-air-compressors-viair-400p-ef-40143-6184f1f4.jpg",
+      "source": "https://www.amazon.com/dp/B0DK2MXQ7D",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "best-overlanding-air-compressors.html"
+      ],
+      "product": "B0DK2MXQ7D",
+      "asin": "B0DK2MXQ7D"
+    },
+    {
+      "path": "assets/product-images/best-diesel-vs-gasoline-for-overlanding-toyota-land-cruiser-gasoline-78d0259f.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:2024_Toyota_Land_Cruiser_(United_States)_front_view.jpg",
+      "license": "Creative Commons Attribution 2.0 Generic (CC BY 2.0)",
+      "source_type": "Wikimedia Commons",
+      "articles": [
+        "best-diesel-vs-gasoline-for-overlanding.html"
+      ],
+      "product": "Toyota Land Cruiser",
+      "license_url": "https://creativecommons.org/licenses/by/2.0/"
+    },
+    {
+      "path": "assets/product-images/best-diesel-vs-gasoline-for-overlanding-ford-f-350-diesel-406291ce.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:2022_Ford_F350_Super_Duty_XL_Crew_Cab_4WD_in_White,_rear_left.jpg",
+      "license": "Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)",
+      "source_type": "Wikimedia Commons",
+      "articles": [
+        "best-diesel-vs-gasoline-for-overlanding.html"
+      ],
+      "product": "Ford F-350",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0/"
+    },
+    {
+      "path": "assets/product-images/best-diesel-vs-gasoline-for-overlanding-chevrolet-silverado-gasoline-7fb6ab7c.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:2016_Chevrolet_Silverado_1500_LTZ_Z71_Crew_Cab_in_Black,_front_right.jpg",
+      "license": "Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)",
+      "source_type": "Wikimedia Commons",
+      "articles": [
+        "best-diesel-vs-gasoline-for-overlanding.html"
+      ],
+      "product": "Chevrolet Silverado",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0/"
+    },
+    {
+      "path": "assets/product-images/best-diesel-vs-gasoline-for-overlanding-ram-1500-diesel-2dd06c64.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:2015_Ram_1500_with_Ecodiesel_engine.jpg",
+      "license": "Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)",
+      "source_type": "Wikimedia Commons",
+      "articles": [
+        "best-diesel-vs-gasoline-for-overlanding.html"
+      ],
+      "product": "Ram 1500",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
+    },
+    {
+      "path": "assets/product-images/best-diesel-vs-gasoline-for-overlanding-jeep-wrangler-gasoline-103a882e.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Jeep_Wrangler_Unlimited_JK_Sahara_(2016)_(53506413977).jpg",
+      "license": "Creative Commons Attribution 2.0 Generic (CC BY 2.0)",
+      "source_type": "Wikimedia Commons",
+      "articles": [
+        "best-diesel-vs-gasoline-for-overlanding.html"
+      ],
+      "product": "Jeep Wrangler",
+      "license_url": "https://creativecommons.org/licenses/by/2.0/"
+    },
+    {
+      "path": "assets/product-images/best-skid-plates-for-off-road-trucks-arb-5421110-skid-plate-767bab40.jpg",
+      "source": "https://www.amazon.com/dp/B01BNFWA1W",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "best-skid-plates-for-off-road-trucks.html"
+      ],
+      "product": "B01BNFWA1W",
+      "asin": "B01BNFWA1W"
+    },
+    {
+      "path": "assets/product-images/best-skid-plates-for-off-road-trucks-arb-5423010-tacoma-skid-plate-2f0394e3.jpg",
+      "source": "https://www.amazon.com/dp/B073RSMKBS",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "best-skid-plates-for-off-road-trucks.html"
+      ],
+      "product": "B073RSMKBS",
+      "asin": "B073RSMKBS"
+    },
+    {
+      "path": "assets/product-images/best-skid-plates-for-off-road-trucks-rancho-rs62116-glide-plate-1a506c15.jpg",
+      "source": "https://www.amazon.com/dp/B07G3VVZ5K",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "best-skid-plates-for-off-road-trucks.html"
+      ],
+      "product": "B07G3VVZ5K",
+      "asin": "B07G3VVZ5K"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-camp-chairs-and-tables-helinox-camp-table-ac255630.jpg",
+      "source": "https://www.amazon.com/Helinox-Lightweight-Collapsible-Portable-Outdoor/dp/B0GGRFVB3B",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "best-overlanding-camp-chairs-and-tables.html"
+      ],
+      "product": "B0GGRFVB3B",
+      "asin": "B0GGRFVB3B"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-camp-chairs-and-tables-nemo-stargaze-evo-x-c304558c.jpg",
+      "source": "https://www.amazon.ca/dp/B0DK7QHNV6",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "best-overlanding-camp-chairs-and-tables.html"
+      ],
+      "product": "B0DK7QHNV6",
+      "asin": "B0DK7QHNV6"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-camp-chairs-and-tables-snow-peak-table-6c3c063e.jpg",
+      "source": "https://www.amazon.com/Snow-SLV-171-Aluminium-Lightweight-Backpacking/dp/B018XJYI1G",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "best-overlanding-camp-chairs-and-tables.html"
+      ],
+      "product": "B018XJYI1G",
+      "asin": "B018XJYI1G"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-headlamps-and-lanterns-black-diamond-spot-400-30defaa9.jpg",
+      "source": "https://www.amazon.ca/Black-Diamond-Equipment-Headlamp-Graphite/dp/B09NQK2581",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "best-overlanding-headlamps-and-lanterns.html"
+      ],
+      "product": "B09NQK2581",
+      "asin": "B09NQK2581"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-headlamps-and-lanterns-petzl-actik-core-625-1f5c5794.jpg",
+      "source": "https://www.amazon.com/PETZL-ACTIK-CORE-Headlamp-Rechargeable/dp/B0FHJRVP3T",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "best-overlanding-headlamps-and-lanterns.html"
+      ],
+      "product": "B0FHJRVP3T",
+      "asin": "B0FHJRVP3T"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-headlamps-and-lanterns-nitecore-nu25-360-2d06d23f.jpg",
+      "source": "https://www.amazon.com/dp/B079Z172HS",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "best-overlanding-headlamps-and-lanterns.html"
+      ],
+      "product": "B079Z172HS",
+      "asin": "B079Z172HS"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-solar-power-setup-guide-goal-zero-nomad-100-f7c08837.jpg",
+      "source": "https://www.amazon.com/dp/B016UQNGFS",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "best-overlanding-solar-power-setup-guide.html"
+      ],
+      "product": "B016UQNGFS",
+      "asin": "B016UQNGFS"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-solar-power-setup-guide-jackery-explorer-1000-v2-d2d476a2.jpg",
+      "source": "https://www.amazon.com/dp/B0D7PPG25F",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "best-overlanding-solar-power-setup-guide.html"
+      ],
+      "product": "B0D7PPG25F",
+      "asin": "B0D7PPG25F"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-solar-power-setup-guide-renogy-200w-n-type-solar-panel-bd88efe0.jpg",
+      "source": "https://www.amazon.com/dp/B08CRJYJ22",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "best-overlanding-solar-power-setup-guide.html"
+      ],
+      "product": "B08CRJYJ22",
+      "asin": "B08CRJYJ22"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-solar-power-setup-guide-renogy-smart-50a-dc-dc-mppt-battery-charger-c7344296.png",
+      "source": "https://www.amazon.com/Renogy-DC-Charger-MPPT-Multi-Stage/dp/B093BB5JKF",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "best-overlanding-solar-power-setup-guide.html"
+      ],
+      "product": "Renogy Smart 50A DC-DC MPPT Battery Charger",
+      "asin": "B093BB5JKF"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-solar-power-setup-guide-ef-ecoflow-portable-power-station-delta-2-1024wh-72839aaf.png",
+      "source": "https://www.amazon.com/dp/B0B9XB57XM",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "best-overlanding-solar-power-setup-guide.html"
+      ],
+      "product": "EF ECOFLOW Portable Power Station DELTA 2 1024Wh",
+      "asin": "B0B9XB57XM"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-solar-power-setup-guide-bluetti-ac200l-portable-power-station-2048wh-332c6e56.jpg",
+      "source": "https://www.amazon.com/dp/B0CLGZB3L6",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "best-overlanding-solar-power-setup-guide.html"
+      ],
+      "product": "BLUETTI AC200L Portable Power Station 2048Wh",
+      "asin": "B0CLGZB3L6"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "article": "articles/best-overlanding-air-compressors.html",
+  "updated": "2026-09-15",
+  "specifications": {
+    "B000X90YUO": {
+      "product": "VIAIR 300P 30033",
+      "text": "150 PSI max; 2.30 CFM at 0 PSI; 33% duty cycle at 100 PSI; up to 33-inch tires.",
+      "source": "https://viaircorp.com/products/300p-portable",
+      "source_name": "VIAIR Corp — 300P Portable Compressor product page"
+    },
+    "B000X9AXR8": {
+      "product": "VIAIR 400P 40043",
+      "text": "150 PSI maximum working pressure.",
+      "source": "https://viaircorp.com/products/400p",
+      "source_name": "VIAIR — 400P Portable Compressor - 12V"
+    },
+    "B000X9B32M": {
+      "product": "VIAIR 400P Automatic 40045",
+      "text": "150 PSI max; 2.30 CFM at 0 PSI; 33% duty cycle at 100 PSI.",
+      "source": "https://viaircorp.com/products/400p-auto-portable",
+      "source_name": "VIAIR Corp — 400P-A Portable Compressor"
+    },
+    "B0BN83HNN2": {
+      "product": "VIAIR 450P-RV",
+      "text": "150 PSI max; 1.80 CFM at 0 PSI; 100% duty cycle at 100 PSI; up to 42-inch tires.",
+      "source": "https://viaircorp.com/pages/compressor-comparison-chart",
+      "source_name": "VIAIR — Compressor Comparison Charts"
+    },
+    "B0DK2MXQ7D": {
+      "product": "VIAIR 400P EF 40143",
+      "text": "150 PSI maximum working pressure.",
+      "source": "https://viaircorp.com/products/400p-ef-portable-compressor",
+      "source_name": "VIAIR — 400P EF Portable Compressor"
+    }
+  }
+}
