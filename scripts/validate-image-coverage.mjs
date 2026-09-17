@@ -233,8 +233,12 @@ async function runDir(dir) {
     const r = checkPage(html, page);
     pages += 1; cards += r.cards;
     findings.push(...r.findings);
-    for (const ref of r.refs) {
+    for (let ref of r.refs) {
       if (/^(https?:)?\/\//i.test(ref)) { if (!remote.has(ref)) remote.set(ref, page); continue; }
+      if (ref.startsWith("/.netlify/images")) { // host image CDN: in a build the source file is what must exist
+        const m = ref.match(/[?&]url=([^&]+)/); if (!m) continue;
+        ref = decodeURIComponent(m[1]); if (/^(https?:)?\/\//i.test(ref)) { if (!remote.has(ref)) remote.set(ref, page); continue; }
+      }
       const clean = decodeURIComponent(ref.split(/[?#]/, 1)[0]);
       const target = clean.startsWith("/") ? path.join(root, clean.slice(1)) : path.resolve(path.dirname(file), clean);
       if (!(await exists(target))) { findings.push({ level: "fail", rule: "missing", page, detail: `${ref} not found in publish directory` }); continue; }
