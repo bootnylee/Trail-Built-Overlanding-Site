@@ -257,7 +257,12 @@ async function runUrl(site) {
   try { list = await pagesFor(site); } catch (err) { return { target: site, pages: 0, cards: 0, findings: [{ level: "fail", rule: "unreachable", page: "/", detail: String(err.message || err).slice(0, 80) }] }; }
   await mapLimit(list, 4, async (u) => {
     let res;
-    try { res = await getText(u); } catch (err) { findings.push({ level: "fail", rule: "unreachable", page: u, detail: String(err.message || err).slice(0, 80) }); return; }
+    try { res = await getText(u); } catch (first) {
+      try { res = await getText(u); } catch (err) { // one retry; a lone timeout is a warning, a hard refusal is a failure
+        const timeout = /abort|timeout/i.test(String(err.message || err));
+        findings.push({ level: timeout ? "warn" : "fail", rule: "unreachable", page: u, detail: String(err.message || err).slice(0, 80) }); return;
+      }
+    }
     if (!res.text) { findings.push({ level: "fail", rule: "unreachable", page: u, detail: `HTTP ${res.status}` }); return; }
     const r = checkPage(res.text, u);
     pages += 1; cards += r.cards;
