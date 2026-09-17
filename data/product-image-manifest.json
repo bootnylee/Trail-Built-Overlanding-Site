@@ -386,7 +386,7 @@
       "added": "2026-09-17 TB-IMAGES-0917"
     },
     {
-      "path": "assets/product-images/best-hi-lift-jack-alternatives-hi-lift-jack-hl-425-6888e496.jpg",
+      "path": "assets/product-images/best-hi-lift-jack-alternatives-hi-lift-jack-hl-425-8def34e7.jpg",
       "source": "https://www.amazon.com/dp/B0017T7WGS",
       "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
       "source_type": "Amazon product listing",
@@ -395,7 +395,7 @@
       ],
       "product": "Hi-Lift Jack 42-inch All-Cast Jack HL-425",
       "asin": "B0017T7WGS",
-      "added": "2026-09-17 TB-IMAGES-0917b"
+      "added": "2026-09-17 TB-IMAGES-0917b | re-sourced 2026-09-17 TB-IMAGES-0917d (previous file was UTF-8-mangled, undecodable)"
     },
     {
       "path": "assets/product-images/sleeping-camp-naturnest-sirius-1-hardshell-rooftop-tent-c845a24f.jpg",
@@ -408,6 +408,78 @@
       "product": "B0DNZ1GDX6",
       "asin": "B0DNZ1GDX6",
       "added": "2026-09-17 TB-IMAGES-0917c"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-suspension-upgrades-icon-stage-2-4runner-9e5333c8.jpg",
+      "source": "https://www.amazon.com/dp/B07RJ2GJGB",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "articles/best-overlanding-suspension-upgrades.html"
+      ],
+      "product": "B07RJ2GJGB",
+      "asin": "B07RJ2GJGB",
+      "added": "2026-09-17 TB-IMAGES-0917d"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-suspension-upgrades-icon-stage-6-4runner-7b10ff45.jpg",
+      "source": "https://www.amazon.com/dp/B0FBQHNWGG",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "articles/best-overlanding-suspension-upgrades.html"
+      ],
+      "product": "B0FBQHNWGG",
+      "asin": "B0FBQHNWGG",
+      "added": "2026-09-17 TB-IMAGES-0917d"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-suspension-upgrades-bilstein-b8-5100-4runner-11ad751e.jpg",
+      "source": "https://www.amazon.com/dp/B0GF9XC4HC",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "articles/best-overlanding-suspension-upgrades.html"
+      ],
+      "product": "B0GF9XC4HC",
+      "asin": "B0GF9XC4HC",
+      "added": "2026-09-17 TB-IMAGES-0917d"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-suspension-upgrades-dobinsons-mrr-4runner-3c65d540.jpg",
+      "source": "https://www.amazon.com/dp/B0H3CLZPR7",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "articles/best-overlanding-suspension-upgrades.html"
+      ],
+      "product": "B0H3CLZPR7",
+      "asin": "B0H3CLZPR7",
+      "added": "2026-09-17 TB-IMAGES-0917d"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-suspension-upgrades-fox-2-0-gladiator-c3919061.jpg",
+      "source": "https://www.amazon.com/dp/B08KGXD666",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "articles/best-overlanding-suspension-upgrades.html"
+      ],
+      "product": "B08KGXD666",
+      "asin": "B08KGXD666",
+      "added": "2026-09-17 TB-IMAGES-0917d"
+    },
+    {
+      "path": "assets/product-images/best-overlanding-suspension-upgrades-bilstein-b8-5100-tacoma-80e085b0.jpg",
+      "source": "https://www.amazon.com/dp/B0GQJXQYXJ",
+      "license": "Amazon product-listing image; used under the Amazon Associates/Product Advertising image-display terms, subject to those terms.",
+      "source_type": "Amazon product listing",
+      "articles": [
+        "articles/best-overlanding-suspension-upgrades.html"
+      ],
+      "product": "B0GQJXQYXJ",
+      "asin": "B0GQJXQYXJ",
+      "added": "2026-09-17 TB-IMAGES-0917d"
     }
   ]
 }

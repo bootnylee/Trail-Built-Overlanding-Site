@@ -11,7 +11,11 @@
  * Rules, in order of severity
  *   FAIL card       an affiliate link's card (nearest card-like ancestor) has no <img>/<picture> and no data-image-free
  *   FAIL missing    an <img>/srcset/CSS url() points at a local file that does not exist (directory mode)
- *   FAIL broken     an image URL answers non-2xx or a non-image content type (URL mode; directory mode with --remote block)
+ *   FAIL corrupt    a local image file is empty or its bytes are not an image (the 2026-09-17 case: JPEGs written through a
+ *                   UTF-8 text decode — every high byte became EF BF BD; the file existed, the server said image/jpeg,
+ *                   and no browser could draw it)
+ *   FAIL broken     an image URL answers non-2xx, a non-image content type, or bytes that are not an image (URL mode;
+ *                   directory mode with --remote block)
  *   FAIL page       a page carries affiliate links but no product-looking image at all (--page-level block, the default)
  *   WARN hero       the hero block has no image, no background-image and no data-image-free
  *
@@ -24,7 +28,7 @@
  *   node image-coverage.mjs --sites sites.json --out results.json [--shard 1/4] [--concurrency 6]
  *   Any mode: --json <file> writes the full report; exit code 1 on any FAIL.
  */
-import { access, readdir, readFile, writeFile } from "node:fs/promises";
+import { access, open, readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 // ───────────────────────── options ─────────────────────────
@@ -164,7 +168,14 @@ async function fetchImageStatus(url) {
           if (method === "HEAD") continue; // some CDNs answer HEAD with text/html; let GET decide
           return { ok: false, why: `content-type ${type.split(";")[0]}` };
         }
-        return { ok: true };
+        if (method === "HEAD") continue; // a content-type is not a picture: read the first bytes
+        const reader = r.body && r.body.getReader ? r.body.getReader() : null;
+        if (!reader) return { ok: true };
+        const chunks = []; let got = 0;
+        while (got < 512) { const { done, value } = await reader.read(); if (done) break; chunks.push(value); got += value.length; }
+        try { await reader.cancel(); } catch {}
+        const why = sniff(Buffer.concat(chunks.map((c) => Buffer.from(c))));
+        return why ? { ok: false, why } : { ok: true };
       } catch (err) { if (method === "GET") return { ok: false, why: String(err.message || err).slice(0, 60), unverifiable: true }; }
     }
     return { ok: false, why: "HEAD and GET both refused", unverifiable: true };
@@ -177,6 +188,24 @@ async function mapLimit(items, limit, fn) {
   const out = []; let i = 0;
   await Promise.all(Array.from({ length: Math.min(limit, items.length) }, async () => { while (i < items.length) { const k = i++; out[k] = await fn(items[k], k); } }));
   return out;
+}
+
+/** Image magic bytes. Returns null when the bytes look like an image, else a short reason. */
+function sniff(buf) {
+  if (!buf || buf.length === 0) return "empty file";
+  const b = buf.subarray(0, 16);
+  const ascii = buf.subarray(0, 512).toString("latin1");
+  if (b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff) return null;                     // JPEG
+  if (b[0] === 0x89 && ascii.startsWith("\x89PNG")) return null;                       // PNG
+  if (ascii.startsWith("GIF87a") || ascii.startsWith("GIF89a")) return null;            // GIF
+  if (ascii.startsWith("RIFF") && ascii.slice(8, 12) === "WEBP") return null;          // WEBP
+  if (ascii.slice(4, 8) === "ftyp") return null;                                      // AVIF / HEIF
+  if (ascii.startsWith("BM")) return null;                                            // BMP
+  if (b[0] === 0 && b[1] === 0 && (b[2] === 1 || b[2] === 2) && b[3] === 0) return null; // ICO / CUR
+  if (/^\s*(<\?xml|<!doctype svg|<svg)/i.test(ascii)) return null;                     // SVG
+  if (ascii.startsWith("\ufffd") || (b[0] === 0xef && b[1] === 0xbf && b[2] === 0xbd)) return "UTF-8-mangled binary (EF BF BD)";
+  if (/^\s*<(!doctype|html)/i.test(ascii)) return "HTML, not an image";
+  return "not an image (unknown bytes)";
 }
 
 // ───────────────────────── directory mode ─────────────────────────
@@ -196,6 +225,7 @@ async function runDir(dir) {
   const files = await walk(root);
   const findings = [];
   const remote = new Map();
+  const sniffed = new Map();
   let pages = 0, cards = 0;
   for (const file of files) {
     const html = await readFile(file, "utf8");
@@ -207,7 +237,13 @@ async function runDir(dir) {
       if (/^(https?:)?\/\//i.test(ref)) { if (!remote.has(ref)) remote.set(ref, page); continue; }
       const clean = decodeURIComponent(ref.split(/[?#]/, 1)[0]);
       const target = clean.startsWith("/") ? path.join(root, clean.slice(1)) : path.resolve(path.dirname(file), clean);
-      if (!(await exists(target))) findings.push({ level: "fail", rule: "missing", page, detail: `${ref} not found in publish directory` });
+      if (!(await exists(target))) { findings.push({ level: "fail", rule: "missing", page, detail: `${ref} not found in publish directory` }); continue; }
+      if (!sniffed.has(target)) {
+        let why = null;
+        try { const fh = await open(target, "r"); const buf = Buffer.alloc(512); const { bytesRead } = await fh.read(buf, 0, 512, 0); await fh.close(); why = sniff(buf.subarray(0, bytesRead)); } catch (err) { why = String(err.message || err).slice(0, 60); }
+        sniffed.set(target, why);
+      }
+      if (sniffed.get(target)) findings.push({ level: "fail", rule: "corrupt", page, detail: `${ref} — ${sniffed.get(target)}` });
     }
   }
   if (OPTS.remote !== "off" && remote.size) {
