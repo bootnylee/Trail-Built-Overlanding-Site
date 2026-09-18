@@ -53,7 +53,7 @@ jobs:
               `- **Article:** ${metadata.articleUrl}`,
               `- **Ready-to-paste HTML:** ${htmlUrl}`,
               '',
-              'Create this campaign as a draft in the EmailOctopus dashboard, review it, and send only after approval.',
+              'Create this campaign as a draft in Klaviyo, review it, and send only after approval. This workflow never calls any email API.',
             ].join('\n');
             const label = 'newsletter-ready';
             try {
@@ -72,6 +72,9 @@ jobs:
 
       - name: Open failure issue
         if: ${{ failure() }}
+        env:
+          NEWSLETTER_STALLED: ${{ steps.prepare.outputs.newsletter_stalled }}
+          NEWSLETTER_STALL_SUMMARY: ${{ steps.prepare.outputs.newsletter_stall_summary }}
         uses: actions/github-script@v7
         with:
           script: |
@@ -83,14 +86,20 @@ jobs:
               await github.rest.issues.createLabel({ ...context.repo, name: label, color: 'b60205', description: 'Weekly newsletter preparation failed' });
             }
             const date = new Date().toISOString().slice(0, 10);
-            const title = `NEWSLETTER PREP FAILED: Trail Built ${date}`;
+            const stalled = process.env.NEWSLETTER_STALLED === 'true';
+            const title = stalled
+              ? `CONTENT STALLED: Trail Built has no new content for the newsletter ${date}`
+              : `NEWSLETTER PREP FAILED: Trail Built ${date}`;
             const body = [
-              '## Weekly newsletter preparation failed',
+              stalled ? '## Weekly newsletter blocked: the content corpus has stopped moving' : '## Weekly newsletter preparation failed',
               '',
+              ...(stalled ? [process.env.NEWSLETTER_STALL_SUMMARY, ''] : []),
               `- **Workflow run:** ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
               `- **Commit:** ${context.sha}`,
               '',
-              'Inspect the failed step named `NEWSLETTER_PREP_FAILED` in the workflow log. No email campaign was created or sent by this workflow.',
+              stalled
+                ? 'Fix weekly authoring first; the newsletter cannot be staged until a newer article exists. No email campaign was created or sent by this workflow.'
+                : 'Inspect the failed step named `NEWSLETTER_PREP_FAILED` in the workflow log. No email campaign was created or sent by this workflow.',
             ].join('\n');
             const existing = await github.paginate(github.rest.issues.listForRepo, { ...context.repo, state: 'open', labels: label, per_page: 100 });
             const prior = existing.find((issue) => issue.title === title);

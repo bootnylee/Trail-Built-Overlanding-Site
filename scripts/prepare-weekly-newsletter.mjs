@@ -1,7 +1,13 @@
 #!/usr/bin/env node
 
 /**
- * Stages a ready-to-paste weekly newsletter for human review in EmailOctopus.
+ * Stages a ready-to-paste weekly newsletter for human review. A human creates the
+ * campaign in Klaviyo and sends it; this script never calls any email API.
+ *
+ * NEWSLETTER-0918: SS and P&F went two weeks without a newsletter because their
+ * scan missed a whole record type and the skip was silent. Trail Built scans every
+ * page in articles/ so it has no equivalent blind spot, but it shared the silent
+ * skip; a corpus that has stopped moving now fails loudly here too.
  * This script intentionally makes no network requests and never creates or sends campaigns.
  */
 import { execFile as execFileCallback } from "node:child_process";
@@ -31,6 +37,13 @@ const config = {
     footer: "#121212",
   },
 };
+
+// NEWSLETTER-0918: content ships weekly and the Tuesday run normally sees a
+// 1-day-old article. 8 days (the freshness window below) means one cycle slipped —
+// tolerable and already quiet. More than 14 days means two consecutive cycles
+// produced nothing, which is broken authoring rather than a quiet week, so the
+// run must fail loudly instead of looking identical to "already sent that one".
+const STALL_AFTER_DAYS = 14;
 
 function fail(step, message) {
   throw new Error(`${step}: ${message}`);
@@ -179,7 +192,7 @@ function renderHtml(article) {
 }
 
 async function findNewestArticle() {
-  const articlesDirectory = path.join(root, "articles");
+  const articlesDirectory = path.resolve(root, process.env.NEWSLETTER_ARTICLES_DIR ?? "articles");
   const entries = await fs.readdir(articlesDirectory, { withFileTypes: true });
   const candidates = [];
 
@@ -210,9 +223,20 @@ async function findNewestArticle() {
     });
   }
 
-  if (candidates.length === 0) fail("ARTICLE_DETECTION", "No dated static article pages were found in articles/.");
+  if (candidates.length === 0) fail("ARTICLE_DETECTION", `No dated static article pages were found in ${path.relative(root, articlesDirectory)}/.`);
   candidates.sort((left, right) => right.publishedDate.localeCompare(left.publishedDate) || left.slug.localeCompare(right.slug));
   return candidates[0];
+}
+
+// NEWSLETTER-0918: "the newest stem is one we already sent" and "authoring has
+// produced nothing for two weeks" used to look identical and both exit 0.
+async function reportStall(article, age) {
+  const summary = `${config.siteName}: the newest article is "${article.title}" (${article.source}), published ${article.publishedDate} — ${age} days old against a ${STALL_AFTER_DAYS}-day threshold. Nothing newer exists in the article corpus, so at least two weekly authoring cycles produced nothing. This is an authoring/content-pipeline failure, not a week with nothing new to send; no newsletter was staged.`.replace(/\s+/g, " ");
+  if (process.env.GITHUB_OUTPUT) {
+    await fs.appendFile(process.env.GITHUB_OUTPUT, `newsletter_stalled=true\nnewsletter_stall_summary=${summary}\n`, "utf8");
+  }
+  await writeResult({ status: "failed", reason: "content-stalled", ageDays: age, thresholdDays: STALL_AFTER_DAYS, article });
+  return summary;
 }
 
 async function commitAndPush(htmlPath, metaPath, article) {
@@ -246,6 +270,9 @@ async function main() {
   const htmlPath = path.join(outputDirectory, `${stem}.html`);
   const metaPath = path.join(outputDirectory, `${stem}.meta.json`);
 
+  if (age > STALL_AFTER_DAYS && !testMode()) {
+    fail("CONTENT_STALLED", await reportStall(article, age));
+  }
   if ((age < 0 || age > 8) && !testMode()) {
     console.log(`NO_NEW_ARTICLE: newest article ${article.slug} was published ${article.publishedDate} (${age} days old); no newsletter staged.`);
     await writeResult({ status: "no-op", reason: "stale", article });
@@ -271,7 +298,7 @@ async function main() {
     articleTitle: article.title,
     articleSource: article.source,
     stagedAt: new Date().toISOString(),
-    note: "Create and send this campaign manually in the EmailOctopus dashboard. This workflow never calls the EmailOctopus API.",
+    note: "Create and send this campaign manually in Klaviyo. This workflow never calls any email API.",
   };
 
   await fs.mkdir(outputDirectory, { recursive: true });
